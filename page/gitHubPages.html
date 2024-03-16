@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>gitHubPages</h1>
+        <p id="lastModified"></p>
+        
+        <h2>概要</h2>
+        <p>ユーザーページとプロジェクトページがあるらしい</p>
+        <p>ユーザーページ</p>
+        <p><a href="https://github.com/toriisan001/toriisan001.github.io">https://github.com/toriisan001/toriisan001.github.io</a></p>
+        <p><a href="https://toriisan001.github.io">https://toriisan001.github.io</a></p>
+        <p>プロジェクトページ</p>
+        <p><a href="https://github.com/toriisan001/MineSweeper">https://github.com/toriisan001/MineSweeper</a></p>
+        <p><a href="https://toriisan001.github.io/MineSweeper">https://toriisan001.github.io/MineSweeper</a></p>
+        <br>
+        <p>ユーザーページは1アカウント1つまで、プロジェクトページは複数作ることが出来るらしい</p>
+        
+        <h2>アカウントの作成</h2>
+        <p><a href="https://github.com/">https://github.com</a>でアカウントの作成</p>
+        
+        <h2>リポジトリの作成</h2>
+        <p><a href="https://github.com/new">https://github.com/new</a></p>
+        <br>
+        <p>リポジトリ名「ユーザーネーム + github.io」は固定</p>
+        <p>>toriisan001.github.io</p>
+        <br>
+        <p>なお、ユーザーサイトとプロジェクトサイトの違いはこちらのリポジトリ名の指定だけになる。</p>
+        <p>ユーザーサイトの場合はルールがありましたが、プロジェクトサイトの場合は自由に名前を決めることができる。</p>
+        
+        <h2>更新の仕方</h2>
+        <p>「<>Code」タブでAdd Fileから「Upload files」ファイルをアップロードして「Commit Change」</p>
+        <br>
+        <p>「<>Code」タブ「・・・」Setting下のほうの</p>
+        <p>Select BranghをNoneからmainに修正</p>
+        <p>rootのままSaveを選択</p>
+        <p>※ 反映が遅い場合</p>
+        <p>Environments - github-pagesから最新の履歴の更新idを確認</p>
+        <p>urlの末尾にidを付けてアクセスすると何故か反映された。</p>
+        <p>例：「https://toriisan001.github.io/?dcdcc96」</p>
+        
+        <h2>リポジトリの削除</h2>
+        <p>「<>Code」タブ「・・・」Setting下のほうの「Delete this repository」</p>
+        <p>文字列を書き込んで削除ボタンを押す</p>
+
+        <h2>環境にアクセス</h2>
+        <p>Environments - github-pages を押して「View deployment」を選択</p>
+
+        <h2>ローカルにクローン。コミットプッシュ</h2>
+        <p>「<>Code」タブ、緑の「Code▼」ボタンからHttpsの内容をコピー</p>
+        <p>右クリック、git clone。URLに上記内容をコピーしてOK「toriisan001.github.io」ディレクトリが出来る。中に「.git」ファイルも出来ている。</p>
+        <p>削除したいときはこのディレクトリごと削除すればいいらしい。</p>
+        <p>更新後、右クリック。「Git Commit -> main」メッセージを追加して「Commit」でコミット</p>
+        <p>「toriisan001.github.io」ディレクトリを右クリック。TortosGit→push。OKをクリック</p>
+        <p>ログインした時のメールアドレス。パスワード、ユーザー名。Personal access tokens (classic)を入力するとpushが完了する。以下参照</p>
+        <p><a href="https://qiita.com/setonao/items/28749762c0bc1fbbf502">【Windows】Gitでリモートにアクセスができない時の解決方法（Support for password authentication was removed on August 13, 2021.）</a></p>
+
+        <h2>新しいPCに環境をclone(既存のリポジトリをローカル環境に複製)</h2>
+        <details>
+            <summary>詳細</summary>
+            <p><a href="https://code.visualstudio.com/">VSCodeのダウンロードページ</a></p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/新しいPCに環境をclone/VSCodeのダウンロード.jpg" alt="VSCodeのダウンロード.jpg">
+                <figcaption>VSCodeのダウンロード.jpg</figcaption>
+            </figure>
+            <p><a href="https://gitforwindows.org/">Git_for_Windowsをダウンロード・インストール</a></p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/新しいPCに環境をclone/Git_for_Windowsをダウンロード_インストール.jpg" alt="Git_for_Windowsをダウンロード_インストール.jpg">
+                <figcaption>Git_for_Windowsをダウンロード_インストール.jpg</figcaption>
+            </figure>
+            <p><a href="https://tortoisegit.org/download/">TortoiseGitをダウンロード・インストール</a></p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/新しいPCに環境をclone/TortoiseGitをダウンロード_インストール.jpg" alt="TortoiseGitをダウンロード_インストール.jpg">
+                <figcaption>TortoiseGitをダウンロード_インストール.jpg</figcaption>
+            </figure>
+            <p>Cドライブ直下に作業用ディレクトリ「workspace」を作成。</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/新しいPCに環境をclone/workspaceを作成.jpg" alt="workspaceを作成.jpg">
+                <figcaption>workspaceを作成.jpg</figcaption>
+            </figure>
+            <p>自分のGitHabPagesのGitURLを確認。</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/新しいPCに環境をclone/自分のGitHabPagesのGitURLを確認.jpg" alt="自分のGitHabPagesのGitURLを確認.jpg">
+                <figcaption>自分のGitHabPagesのGitURLを確認.jpg</figcaption>
+            </figure>
+            <p>ディレクトリ「C:\workspace\toriisan001.github.io」で右クリック → 「Clone...」をクリック。確認した「Git URL」を貼り付けて「OK」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/新しいPCに環境をclone/Git_clone.jpg" alt="Git_clone.jpg">
+                <figcaption>Git_clone.jpg</figcaption>
+            </figure>
+            <p>「close」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/新しいPCに環境をclone/Git_clone_close.jpg" alt="Git_clone_close.jpg">
+                <figcaption>Git_clone_close.jpg</figcaption>
+            </figure>
+            <p>Nodejsのインストーラをダウンロード・インストール</p>
+            <p><a href="https://nodejs.org/ja/download">Nodejsのダウンロードページ</a></p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/新しいPCに環境をclone/Nodejsのインストーラをダウンロード_インストール.jpg" alt="Nodejsのインストーラをダウンロード_インストール.jpg">
+                <figcaption>Nodejsのインストーラをダウンロード_インストール.jpg</figcaption>
+            </figure>
+            <p>Cmdを起動して作業用ディレクトリに移動する。「cd C:\workspace\toriisan001.github.io」</p>
+            <p>「npm install -g http-server」 で http-server をインストール</p>
+            <p>「npm install -g reload」 でホットリロードするパッケージをインストール</p>
+            <p>「reload -b」 で1分ごとにホットリロードで立ち上げ</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/新しいPCに環境をclone/立ち上げ.jpg" alt="立ち上げ.jpg">
+                <figcaption>立ち上げ.jpg</figcaption>
+            </figure>
+            <p>ブラウザを起動して「http://localhost:8080/」をurlに入力すればアクセス出来る。</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/新しいPCに環境をclone/アクセス.jpg" alt="アクセス.jpg">
+                <figcaption>アクセス.jpg</figcaption>
+            </figure>
+        </details>
+
+        <h2>修正してコミット(追加・変更したファイルをローカルリポジトリに登録)・プッシュ(ローカル リポジトリ コンテンツをリモート リポジトリにアップロード)</h2>
+        <details>
+            <summary>詳細</summary>
+            <p>Githubにログインする。「https://github.com/toriisan001/toriisan001.github.io」</p>
+            <p>アイコンをクリックしてSettingをクリックする。</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/Githubにログインする.jpg" alt="Githubにログインする.jpg">
+                <figcaption>Githubにログインする.jpg</figcaption>
+            </figure>
+            <p>Developer Settingをクリック</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/Developer_Settingをクリック.jpg" alt="Developer_Settingをクリック.jpg">
+                <figcaption>Developer_Settingをクリック.jpg</figcaption>
+            </figure>
+            <p>「Personal access tokens」 → 「Tokens Classic」をクリック。「Generate new token」「Generate new token(classic)」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/Personal_access_tokens.jpg" alt="Personal_access_tokens.jpg">
+                <figcaption>Personal_access_tokens.jpg</figcaption>
+            </figure>
+            <p>各種項目、必要な権限を入力する。「トークン生成」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/トークン生成_01.jpg" alt="トークン生成_01.jpg">
+                <figcaption>トークン生成_01.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/トークン生成_02.jpg" alt="トークン生成_02.jpg">
+                <figcaption>トークン生成_02.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/トークン生成_03.jpg" alt="トークン生成_03.jpg">
+                <figcaption>トークン生成_03.jpg</figcaption>
+            </figure>
+            <p>出力されたトークンを確認</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/出力されたトークンを確認.jpg" alt="出力されたトークンを確認.jpg">
+                <figcaption>出力されたトークンを確認.jpg</figcaption>
+            </figure>
+            <p>VSCodeを起動してFileタブ → Open Folderで「C:\workspace\toriisan001.github.io」を選択して「フォルダーの選択」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/出力されたトークンを確認.jpg" alt="出力されたトークンを確認.jpg">
+                <figcaption>出力されたトークンを確認.jpg</figcaption>
+            </figure>
+            <p>適当にファイルを修正する。</p>
+            <p>「C\:\workspace\toriisan001.github.io」を右クリック。「Git Commit」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/Git_Commit.jpg" alt="Git_Commit.jpg">
+                <figcaption>Git_Commit.jpg</figcaption>
+            </figure>
+            <p>コミットする対象のファイルのチェックが入っていることを確認して、メッセージを入力。「Commit」をクリックする。</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/Commit.jpg" alt="Commit.jpg">
+                <figcaption>Commit.jpg</figcaption>
+            </figure>
+            <p>コミットが完了した。「close」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/Commit_close.jpg" alt="Commit_close.jpg">
+                <figcaption>Commit_close.jpg</figcaption>
+            </figure>
+            <p>「C\:\workspace\toriisan001.github.io」を右クリック。「TortoisGit → Git Push」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/GitPush.jpg" alt="GitPush.jpg">
+                <figcaption>GitPush.jpg</figcaption>
+            </figure>
+            <p>「OK」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/GitPush_OK.jpg" alt="GitPush_OK.jpg">
+                <figcaption>GitPush_OK.jpg</figcaption>
+            </figure>
+            <p>「tokenタブ」をクリック。トークンを入力して「Sign in」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/Sign_in.jpg" alt="Sign_in.jpg">
+                <figcaption>Sign_in.jpg</figcaption>
+            </figure>
+            <p>pushが完了した。「close」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/gitHubPages/修正してコミット_プッシュ/GitPush_close.jpg" alt="GitPush_close.jpg">
+                <figcaption>GitPush_close.jpg</figcaption>
+            </figure>
+        </details>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

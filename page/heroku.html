@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>Heroku</h1>
+        <p id="lastModified"></p>
+    
+        <h2>Heroku環境作成</h2>
+        <details>
+
+            <h3>Heroku環境作成(20230204時点)</h3>
+            <details>
+                <h3>以下でアカウントを作成</h3>
+                <p><a href="https://signup.heroku.com/login">Heroku| Sign up</a></p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/アカウントを作成.jpg" alt="アカウントを作成.jpg">
+                    <figcaption>アカウントを作成.jpg</figcaption>
+                </figure>
+                <h3>登録したアドレスに以下のメールが届くのでリンクを踏む</h3>
+                <pre>
+        Heroku にご登録いただきありがとうございます。 アカウントを有効にするには、登録から 30 日以内に次のリンクをクリックする必要があります。
+        
+        https://id.heroku.com/account/accept/xxxxxxxxxxxxxxxxx
+        
+        楽しんで、フィードバックをお寄せください。
+        
+        Heroku チーム
+        https://heroku.com
+                </pre>
+                    <h3>パスワードを作る</h3>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/HerokuSetYourPassword.jpg" alt="HerokuSetYourPassword.jpg">
+                    <figcaption>HerokuSetYourPassword.jpg</figcaption>
+                </figure>
+                <pre>
+        =====以下翻訳=====
+        パスワードを作る
+        パスワードを作成し、Heroku アカウントにログインします。
+        新しいパスワードを作成する *
+        新しいパスワード
+        パスワードの確認 *
+        新しいパスワードを確認
+        
+        パスワード要件
+            8 文字以上である必要があります。
+            文字、数字、および記号を含める必要があります。
+            パスワードが一致する必要があります。
+        Heroku エクスペリエンスを最適化するために、新製品のリリース、技術コンテンツ、ヒントなどに関する最新情報を不定期に受け取りたいと考えています。 いつでも退会できます。
+                </pre>
+                <h3>CLICK HERE TO PROCEEDをクリック</h3>
+                <h3>登録したアドレスとパスワードでHerokuにログインする</h3>
+                <p><a href="https://id.heroku.com/login">Log in to your account</a></p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/LogInToYourAccount.jpg" alt="LogInToYourAccount.jpg">
+                    <figcaption>LogInToYourAccount.jpg</figcaption>
+                </figure>
+                <h3>Secure Your AccountでContinueをクリック</h3>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/SecureYourAccount.jpg" alt="SecureYourAccount.jpg">
+                    <figcaption>SecureYourAccount.jpg</figcaption>
+                </figure>
+                <pre>
+        =====以下翻訳=====
+        アカウントを保護する
+        Heroku では、Heroku アカウントの保護を強化するために多要素認証 (MFA) に登録する必要があります。
+        
+        Salesforce Authenticator、Google Authenticator、またはお気に入りのアプリを使用して登録します。
+        
+        アカウント設定にアクセスして、バックアップ検証方法を作成することを忘れないでください。
+        
+        詳細: アカウントを安全に保つ
+                </pre>
+                <h3>「検証方法を登録する」で「Salesforce Authenticator」を選択</h3>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/検証方法を登録する.jpg" alt="検証方法を登録する.jpg">
+                    <figcaption>検証方法を登録する.jpg</figcaption>
+                </figure>
+                <h3>手持ちのスマホ(iOS または Android モバイルデバイス)にAuthenticatorをインストールする等指示に従い、2語の語句を入力して接続をクリック</h3>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/SalesforceAuthenticatorに接続する.jpg" alt="SalesforceAuthenticatorに接続する.jpg">
+                    <figcaption>SalesforceAuthenticatorに接続する.jpg</figcaption>
+                </figure>
+                <h3>スマホ側で接続をクリック(いつからか2段階認証が必須になっている)</h3>
+                <h3>利用規約を読んで受け入れるを選択</h3>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/利用規約.jpg" alt="利用規約.jpg">
+                    <figcaption>利用規約.jpg</figcaption>
+                </figure>
+                <h3>「Create a new app」をクリック</h3>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/CreatANewApp.jpg" alt="CreatANewApp.jpg">
+                    <figcaption>CreatANewApp.jpg</figcaption>
+                </figure>
+                <h3>「Create New App」設定を入力して「Create App」をクリック</h3>
+                <p>App name:アプリ名(例:toriisan-php-001)(使用できる文字は英字小文字( a-z )と数字( 0-9 )とハイフン( - )のみらしい)</p>
+                <p>Choose a region:United Status</p>
+                <p>Add this app to a pipeline:pipelineを設定する場合は追加したらいいのだろうか。私は追加しなかった。(開発、検証、本番など複数の環境を管理する場合はあったほうが便利らしい。ボタン押すだけでデプロイできるなど)</p>
+                <p>You must add a payment method to create an app:2022年11月28日よりHerokuの無料プランが無くなった。ここの「Add credit card」で支払方法を登録する。「Subscribe to Eco」で$5/月で1000時間（約41.6日）使えるEco Dynoプランに登録</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/CreatANewApp_設定.jpg" alt="CreatANewApp_設定.jpg">
+                    <figcaption>CreatANewApp_設定.jpg</figcaption>
+                </figure>
+                <h3>「Open app」をクリックすれば、環境にアクセスできる</h3>
+                <p><a href="https://toriisan-php-001.herokuapp.com/">(例)鳥居涼太のポートフォリオサイト_PHP</a></p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/OpenApp.jpg" alt="OpenApp.jpg">
+                    <figcaption>OpenApp.jpg</figcaption>
+                </figure>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/HerokuWelcomeToYourNewApp!.jpg" alt="HerokuWelcomeToYourNewApp!.jpg">
+                    <figcaption>HerokuWelcomeToYourNewApp!.jpg</figcaption>
+                </figure>
+                <h3>Heroku CLIをインストール</h3>
+                <p><a href="https://devcenter.heroku.com/ja/articles/heroku-cli#install-the-heroku-cli">Heroku CLI</a></p>
+                <p>PCが64ビットだったので64ビットを選択</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/HerokuCLIをインストール.jpg" alt="HerokuCLIをインストール.jpg">
+                    <figcaption>HerokuCLIをインストール.jpg</figcaption>
+                </figure>
+                <p>以下インストール済み。「heroku -v」でバージョンを確認</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/herokuCLIInstall.jpg" alt="herokuCLIInstall.jpg">
+                    <figcaption>herokuCLIInstall.jpg</figcaption>
+                </figure>
+                <h3>「Setting」タブをクリック。「Heroku git URL」を確認する。</h3>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/HerokuGitURL.jpg" alt="HerokuGitURL.jpg">
+                    <figcaption>HerokuGitURL.jpg</figcaption>
+                </figure>
+                <h3>「cd ${作業用ディレクトリ}」コマンドで作業用ディレクトに移動して「git clone ${Heroku git URL}」でクローン。Heroku Login画面に移動が促されるので移動してログインする必要がある。</h3>
+                <p><a href="https://devcenter.heroku.com/ja/articles/heroku-cli#install-the-heroku-cli">Heroku CLI</a></p>
+                <p>以下クローンを実行後</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/clone.jpg" alt="clone.jpg">
+                    <figcaption>clone.jpg</figcaption>
+                </figure>
+                <p>ローカルリポジトリが作成された。ここにソースをおいてコミット。プッシュすることでデプロイが出来る。</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/ローカルリポジトリ.jpg" alt="ローカルリポジトリ.jpg">
+                    <figcaption>ローカルリポジトリ.jpg</figcaption>
+                </figure>
+                <h3>試しにソースをデプロイしてみる</h3>
+                <p>例「C:\xampp8.2\htdocs\toriisan-php-001」ディレクトリに「index.php」を作成。「add」でgitに追加。コミット。プッシュ先「Heroku git URL」へプッシュ。</p>
+        <pre>
+        <code>
+        &lt;!DOCTYPE html&gt;
+        &lt;html lang=&quot;ja&quot;&gt;
+        &lt;head&gt;
+            &lt;meta charset=&quot;UTF-8&quot;&gt;
+            &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+            &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+            &lt;title&gt;Document&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;?php echo &#039;Helo World!&#039; ?&gt;
+        &lt;/body&gt;
+        &lt;/html&gt;
+        </code>
+        </pre>
+                <p>環境へアクセスしてみると、ソースが反映されている。何も入れなくてもPHPが動いている？？？</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/HelloWorld.jpg" alt="HelloWorld.jpg">
+                    <figcaption>HelloWorld.jpg</figcaption>
+                </figure>
+                <p>【補足】Git Credential Managerが出てpush出来ない場合</p>
+                <p><a href="https://plus-idea.net/heroku-app-pushauth-error/">【参考】Herokuにアプリをpushしたときにエラーが出る場合の対処法</a></p>
+                <p>上記は試していないが、解決するらしい。</p>
+                <p>また、cmdで「heroku login」してから「git push」すると、認証が通ったのか、Git Credential Managerが出なくなった。</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Heroku環境作成(20230204時点)/GitCredentialManager.jpg" alt="GitCredentialManager.jpg">
+                    <figcaption>GitCredentialManager.jpg</figcaption>
+                </figure>
+            </details>
+            <h3>Papertrailを使用する(20230311時点)</h3>
+            <details>
+    
+                <p>Herokuで使用できる無料からあるログ機能</p>
+                <p>「Configure Add-ons」をクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Papertrailを使用する(20230311時点)/ConfigureAddonsをクリック.jpg" alt="ConfigureAddonsをクリック.jpg">
+                    <figcaption>ConfigureAddonsをクリック.jpg</figcaption>
+                </figure>
+                <p>「PaperTrail」で検索してクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Papertrailを使用する(20230311時点)/「PaperTrail」で検索してクリック.jpg" alt="「PaperTrail」で検索してクリック.jpg">
+                    <figcaption>「PaperTrail」で検索してクリック.jpg</figcaption>
+                </figure>
+                <p>「Submit Order Form」で検索してクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Papertrailを使用する(20230311時点)/SubmitOrderFormをクリック.jpg" alt="SubmitOrderFormをクリック.jpg">
+                    <figcaption>SubmitOrderFormをクリック.jpg</figcaption>
+                </figure>
+                <p>「Submit Order Form」で検索してクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Papertrailを使用する(20230311時点)/追加されたことを確認.jpg" alt="追加されたことを確認.jpg">
+                    <figcaption>追加されたことを確認.jpg</figcaption>
+                </figure>
+                <p>「Submit Order Form」で検索してクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Papertrailを使用する(20230311時点)/アイコンをクリックしてPapertrailを参照.jpg" alt="アイコンをクリックしてPapertrailを参照.jpg">
+                    <figcaption>アイコンをクリックしてPapertrailを参照.jpg</figcaption>
+                </figure>
+                <p>初回アクセス。同意しますにクリックして「Continue」をクリック。</p>
+        <pre>
+        更新されたソフトウェア サービス契約
+        ソフトウェア サービス契約を更新し、お客様との連携方法をより適切に文書化しました。 続行するには、更新されたバージョンを読んで同意してください:
+        
+        ソフトウェア サービス契約に同意します
+        </pre>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Papertrailを使用する(20230311時点)/初回アクセス.jpg" alt="初回アクセス.jpg">
+                    <figcaption>初回アクセス.jpg</figcaption>
+                </figure>
+                <p>ログが見えている</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Papertrailを使用する(20230311時点)/ログが見えている.jpg" alt="ログが見えている.jpg">
+                    <figcaption>ログが見えている.jpg</figcaption>
+                </figure>
+                <p>ログを埋め込んでみる。stdoutは標準の出力、stderrはエラーの出力先らしい</p>
+                <p><a href="http://nanoappli.com/blog/archives/5212">【参考】[PHP]標準エラー出力、標準出力に文字列を出力する</a></p>
+                <p><a href="https://tooljp.com/bat_qa/67A8B7E5F919DE47492573780059BFF7.html#:~:text=stdout%E3%81%AF%E6%A8%99%E6%BA%96%E3%81%AE%E5%87%BA%E5%8A%9B,%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%AE%E5%87%BA%E5%8A%9B%E5%85%88%E3%81%A7%E3%81%99%E3%80%82">【参考】stdoutとstderrの違いをサンプルで確実に理解する | Windows バッチファイル</a></p>
+    <pre>
+    &lt;?php
+    $stdout= fopen( &#039;php://stdout&#039;, &#039;w&#039; );
+    fwrite( $stdout, &quot;hello world to stdout\n&quot; );
+    
+    $stderr = fopen( &#039;php://stderr&#039;, &#039;w&#039; );
+    fwrite( $stderr, &quot;hello world to stderr\n&quot; );
+    </pre>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Papertrailを使用する(20230311時点)/ログを埋め込んでみる.jpg" alt="ログを埋め込んでみる.jpg">
+                    <figcaption>ログを埋め込んでみる.jpg</figcaption>
+                </figure>
+                <p>埋め込んだログが出力されていることを確認</p>
+                <p><a href="http://nanoappli.com/blog/archives/5212">【参考】[PHP]標準エラー出力、標準出力に文字列を出力する</a></p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/Papertrailを使用する(20230311時点)/埋め込んだログが出力されていることを確認.jpg" alt="埋め込んだログが出力されていることを確認.jpg">
+                    <figcaption>埋め込んだログが出力されていることを確認.jpg</figcaption>
+                </figure>
+            </details>
+    
+            <h3>Application Error</h3>
+            <details>
+                <h4>code=H20 desc="App boot timeout"</h4>
+                <p>ライブラリを追加していたら、手順をミスったのかApplication Error(code=H20 desc="App boot timeout")が出てアプリが立ち上がらなくなった。</p>
+                <p><a href="https://devcenter.heroku.com/ja/articles/error-codes">【参考】Heroku のエラーコード</a></p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/ApplicationError_code=H20desc=AppBootTimeout/ApplicationError.jpg" alt="ApplicationError.jpg">
+                    <figcaption>ApplicationError.jpg</figcaption>
+                </figure>
+                <p>「heroku logs --tail」でログを出力した。</p>
+                <p>「heroku restart」、「heroku ps:scale web=0」、「heroku ps:scale web=1」等で再起動を試した。</p>
+                <p>しかし変わらなかった。その後しばらく放置していると、以下の復帰時のログが出力され、再び起動していた。</p>
+    <pre>
+    <code>
+    =====エラーログ=====
+    2023-04-08T01:19:57.093360+00:00 heroku[web.1]: Restarting
+    2023-04-08T01:19:57.107745+00:00 heroku[web.1]: State changed from up to starting
+    2023-04-08T01:19:57.885193+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+    2023-04-08T01:19:57.933418+00:00 app[web.1]: SIGTERM received, attempting graceful shutdown...
+    2023-04-08T01:19:57.933618+00:00 app[web.1]: Stopping httpd gracefully...
+    2023-04-08T01:19:59.038084+00:00 app[web.1]: Stopping php-fpm gracefully...
+    2023-04-08T01:19:59.067523+00:00 app[web.1]: Shutdown complete.
+    2023-04-08T01:19:59.529926+00:00 heroku[web.1]: Process exited with status 143
+    2023-04-08T01:21:20.214205+00:00 heroku[router]: at=error code=H20 desc="App boot timeout" method=POST path="/page/chatAI.php?action=send" host=toriisan-php-001.herokuapp.com request_id=ec1f1266-af42-4645-95bf-7c7d16d40b13 fwd="106.180.4.74" dyno= connect= service= status=503 bytes= protocol=https
+    2023-04-08T01:22:24.546465+00:00 heroku[web.1]: State changed from starting to down
+    2023-04-08T01:22:24.550119+00:00 heroku[web.1]: State changed from down to starting
+    2023-04-08T01:23:27.208349+00:00 heroku[router]: at=error code=H20 desc="App boot timeout" method=GET path="/page/chatAI.php" host=toriisan-php-001.herokuapp.com request_id=d0bbb631-01b5-4b9b-a75a-e5fc851d0108 fwd="106.180.4.74" dyno= connect= service= status=503 bytes= protocol=https
+    2023-04-08T01:23:32.283560+00:00 heroku[router]: at=error code=H20 desc="App boot timeout" method=GET path="/page/chatAI.php" host=toriisan-php-001.herokuapp.com request_id=68d7d654-af20-40e5-ab33-e54a3c05edd1 fwd="106.180.4.74" dyno= connect= service= status=503 bytes= protocol=https
+    2023-04-08T01:24:24.868244+00:00 heroku[router]: at=error code=H20 desc="App boot timeout" method=GET path="/page/home.html" host=toriisan-php-001.herokuapp.com request_id=41568bfc-4a92-43bd-b6aa-450f70373484 fwd="106.180.4.74" dyno= connect= service= status=503 bytes= protocol=https
+    2023-04-08T01:24:48.076721+00:00 heroku[router]: at=error code=H20 desc="App boot timeout" method=GET path="/page/home.html" host=toriisan-php-001.herokuapp.com request_id=21784e88-6def-42e9-9bc8-65553699c4c1 fwd="106.180.4.74" dyno= connect= service= status=503 bytes= protocol=https
+    2023-04-08T01:25:31.572629+00:00 heroku[router]: at=error code=H20 desc="App boot timeout" method=GET path="/" host=toriisan-php-001.herokuapp.com request_id=3459e9b3-e23e-4760-a345-b1d7d4a94334 fwd="106.180.4.74" dyno= connect= service= status=503 bytes= protocol=https
+    
+    </code>
+    </pre>
+    <pre>
+    <code>
+    =====復帰時のログ=====
+    2023-04-08T01:51:14.030242+00:00 heroku[web.1]: State changed from starting to down
+    2023-04-08T01:51:14.034909+00:00 heroku[web.1]: State changed from down to starting
+    2023-04-08T01:51:56.943209+00:00 heroku[web.1]: Starting process with command `heroku-php-apache2`
+    2023-04-08T01:51:59.748287+00:00 app[web.1]: Detected 536870912 Bytes of RAM
+    2023-04-08T01:51:59.768143+00:00 app[web.1]: PHP memory_limit is 128M Bytes
+    2023-04-08T01:51:59.785737+00:00 app[web.1]: Starting php-fpm with 4 workers...
+    2023-04-08T01:51:59.958200+00:00 app[web.1]: Starting httpd...
+    2023-04-08T01:52:00.187067+00:00 heroku[web.1]: State changed from starting to up
+    </code>
+    </pre>
+    <h4> Error: Missing required flag:</h4>
+    <p><a href="https://kabacho23.hatenablog.com/entry/2021/06/22/%3C_Heroku_%E3%82%A8%E3%83%A9%E3%83%BC%E7%B7%A8_%3E_Error%3A_Missing_required_flag">【参考】[Heroku エラー編]Error: Missing required flag</a></p>
+    <p>アプリのあるディレクトリで「heroku git:remote -a ${アプリ名}」を実行</p>
+    <pre>
+    <code>
+    C:\workspace\toriisan001.github.io>heroku git:remote -a toriisan-php-001
+    »   Warning: heroku update available from 7.68.2 to 8.0.3.
+    set git remote heroku to https://git.heroku.com/toriisan-php-001.git
+    </code>
+    </pre>
+            </details>
+            <h3>PHPのファイルアップロードサイズの上限値を変更する</h3>
+            <p><a href="https://qiita.com/katsukii/items/243d24ad81c787b14d4d">【参考】PHPのファイルアップロードサイズの上限値を変更する</a></p>
+    
+            <h3>SendGrid(20230416時点)</h3>
+            <details>
+                <p><a href="https://qiita.com/tinaba/items/7266a31981ea0b137e07">【参考】PHPでSendGridを使ったメール送信サンプル</a></p>
+                <p><a href="https://sendgrid.kke.co.jp/docs/Tutorials/D_Improve_Deliverability/using_whitelabel.html">【参考】独自ドメインを利用する</a></p>
+                <p>「Resources」タブのAdd-onsでsendgridで検索してクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/ResourcesでSendGridで検索.jpg" alt="ResourcesでSendGridで検索.jpg">
+                    <figcaption>ResourcesでSendGridで検索.jpg</figcaption>
+                </figure>
+                <p>「Resources」タブのAdd-onsでsendgridで検索してクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/StarterFreeでSubmitOrder.jpg" alt="StarterFreeでSubmitOrder.jpg">
+                    <figcaption>StarterFreeでSubmitOrder.jpg</figcaption>
+                </figure>
+                <p>「Resources」タブのAdd-onsでsendgridで検索してクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/追加されたことを確認.jpg" alt="追加されたことを確認.jpg">
+                    <figcaption>追加されたことを確認.jpg</figcaption>
+                </figure>
+                <p>「Settings」タブの「Config Vars」で「SENDGRID_USERNAME」、「SENDGRID_PASSWORD」を確認</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/SENDGRID_USERNAMEとSENDGRID_PASSWORDを確認.jpg" alt="SENDGRID_USERNAMEとSENDGRID_PASSWORDを確認.jpg">
+                    <figcaption>SENDGRID_USERNAMEとSENDGRID_PASSWORDを確認.jpg</figcaption>
+                </figure>
+                <p>SendGridにログイン。ユーザー名、パスワードは「SENDGRID_USERNAME」、「SENDGRID_PASSWORD」を使用。</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/SendGridにログイン.jpg" alt="SendGridにログイン.jpg">
+                    <figcaption>SendGridにログイン.jpg</figcaption>
+                </figure>
+                <p>2要素認証用のメールが飛んでくるとのこと、指定されたメールアドレスの受信トレイを確認。</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/2要素認証.jpg" alt="2要素認証.jpg">
+                    <figcaption>2要素認証.jpg</figcaption>
+                </figure>
+                <p>受信したメールから2要素認証を設定をクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/2要素認証を設定.jpg" alt="2要素認証を設定.jpg">
+                    <figcaption>2要素認証を設定.jpg</figcaption>
+                </figure>
+                <p>「私はロボットではありません」にクリックして「始めましょう」をクリック。</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/おかえり！.jpg" alt="おかえり！.jpg">
+                    <figcaption>おかえり！.jpg</figcaption>
+                </figure>
+                <p>二要素認証選択方法を選択。</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/二要素認証選択方法.jpg" alt="二要素認証選択方法.jpg">
+                    <figcaption>二要素認証選択方法.jpg</figcaption>
+                </figure>
+                <p>二要素認証構成設定。「国コード」と「携帯電話番号」を入力して「次」を選択</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/二要素認証構成設定.jpg" alt="二要素認証構成設定.jpg">
+                    <figcaption>二要素認証構成設定.jpg</figcaption>
+                </figure>
+                <p>モバイル デバイスでauthy.com/downloadにアクセス</p>
+                <p>Authy アプリに電話番号を入力</p>
+                <p>SendGrid token is のコードを確認。</p>
+                <p>ブラウザ側に戻って「認証コード」に入力して保存をクリック。</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/二要素認証確認.jpg" alt="二要素認証確認.jpg">
+                    <figcaption>二要素認証確認.jpg</figcaption>
+                </figure>
+                <p>IDの作成をクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/IDの作成.jpg" alt="IDの作成.jpg">
+                    <figcaption>IDの作成.jpg</figcaption>
+                </figure>
+                <p>新しい送信者を作成</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/新しい送信者を作成.jpg" alt="新しい送信者を作成.jpg">
+                    <figcaption>新しい送信者を作成.jpg</figcaption>
+                </figure>
+                <p>項目を埋めて作成</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/項目を埋めて作成.jpg" alt="項目を埋めて作成.jpg">
+                    <figcaption>項目を埋めて作成.jpg</figcaption>
+                </figure>
+                <p>送信者の作成を更新。Gmailは止めたほうがいいらしいが、Gmailしか持っていないのでGmailを送信者。返信者に設定した。</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/送信者の作成を更新.jpg" alt="送信者の作成を更新.jpg">
+                    <figcaption>送信者の作成を更新.jpg</figcaption>
+                </figure>
+                <p>設定したアドレスにメールが届くので「単一の送信者を確認する」にクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/単一の送信者を確認する.jpg" alt="単一の送信者を確認する.jpg">
+                    <figcaption>単一の送信者を確認する.jpg</figcaption>
+                </figure>
+                <p>送信者の身元が確認されたとのこと。「単一送信者の検証に戻る」をクリック。</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/単一送信者の検証に戻る.jpg" alt="単一送信者の検証に戻る.jpg">
+                    <figcaption>単一送信者の検証に戻る.jpg</figcaption>
+                </figure>
+                <p>サイドメニューの「設定 → APIキー」をクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/APIキーをクリック.jpg" alt="APIキーをクリック.jpg">
+                    <figcaption>APIキーをクリック.jpg</figcaption>
+                </figure>
+                <p>APIキーの作成をクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/APIキーの作成をクリック.jpg" alt="APIキーの作成をクリック.jpg">
+                    <figcaption>APIキーの作成をクリック.jpg</figcaption>
+                </figure>
+                <p>「作成して表示」をクリック。キーが表示されるので確認する。</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/APIキーの作成.jpg" alt="APIキーの作成.jpg">
+                    <figcaption>APIキーの作成.jpg</figcaption>
+                </figure>
+                <p>サイドメニューの「設定 → 送信者認証」でドメイン認証の「始めましょう」をクリック</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/ドメイン認証.jpg" alt="ドメイン認証.jpg">
+                    <figcaption>ドメイン認証.jpg</figcaption>
+                </figure>
+                <p>MessWithDnsで払い出されたドメインを設定して次へを設定(mess with dnsで試す。ここで使い続けるのは危ないのだろうか？無料っぽいけど？？？)</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/MessWithDnsで払い出されたドメインを設定.jpg" alt="MessWithDnsで払い出されたドメインを設定.jpg">
+                    <figcaption>MessWithDnsで払い出されたドメインを設定.jpg</figcaption>
+                </figure>
+                <p>mess with dns 側でCNAMEレコードを追加。「これらのレコードを追加しました」にチェックを入れて「次へ」を選択</p>
+                <p><a href="https://zenn.dev/kikutaro/articles/c8de892954b867">【参考】SendGridのDomain Authenticationをmess with dnsで試す</a></p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/DNSレコードをインストール.jpg" alt="DNSレコードをインストール.jpg">
+                    <figcaption>DNSレコードをインストール.jpg</figcaption>
+                </figure>
+                <p>完了していることを確認。送信者認証に戻るをクリック。</p>
+                <figure>
+                    <img class="beside" src="../img/Heroku/SendGrid_20230416時点/出来た.jpg" alt="出来た.jpg">
+                    <figcaption>出来た.jpg</figcaption>
+                </figure>
+                <p>「composer require sendgrid/sendgrid」を実行。凄く時間がかかったがインストールできた。タイムアウトが出てしまう場合は以下のように「process-timeout」を追記するとタイムアウトを回避出来る。</p>
+    <pre>
+    <code>
+    {
+        "name": "toriisan/toriisan-php-001",
+        "require": {
+            "php": "^8.2",
+            "ext-mbstring": "*",
+            "sendgrid/sendgrid": "*"
+        },
+        "autoload": {
+            "psr-4": {
+                "Toriisan\\ToriisanPhp001\\": "src/"
+            }
+        },
+        "authors": [
+            {
+                "name": "toriisan"
+            }
+        ],
+        "config": {
+            "process-timeout": 0
+        }
+    }    
+    </code>
+    </pre>
+                <p>以下のソースで実行</p>
+    <pre>
+    <code>
+    &lt;?php
+    declare(strict_types=1);
+    
+    require &#039;../vendor/autoload.php&#039;;
+    
+    define(&#039;SENDGRID_MAIL_ADDRESS_USER&#039;, getenv(&#039;SENDGRID_MAIL_ADDRESS_USER&#039;));
+    define(&#039;SENDGRID_MAIL_ADDRESS_ADMINISTRATOR&#039;, getenv(&#039;SENDGRID_MAIL_ADDRESS_ADMINISTRATOR&#039;));
+    define(&#039;SENDGRID_API_KEY&#039;, getenv(&#039;SENDGRID_API_KEY&#039;));
+    
+    use \SendGrid\Mail\Mail;
+    
+    $email = new Mail();
+    $email-&gt;setFrom(SENDGRID_MAIL_ADDRESS_ADMINISTRATOR);
+    $email-&gt;setSubject(&#039;Sending送信テスト_件名&#039;);
+    $email-&gt;addTo(SENDGRID_MAIL_ADDRESS_USER);
+    $email-&gt;addContent(
+        &quot;text/html&quot;, &quot;&lt;strong&gt;Sending送信テスト_本文&lt;/strong&gt;&quot;
+    );
+    $sendgrid = new \SendGrid(SENDGRID_API_KEY);
+    try {
+        $response = $sendgrid-&gt;send($email);
+        printf(&quot;Response status: %d\n\n&quot;, $response-&gt;statusCode());
+    
+        $headers = array_filter($response-&gt;headers());
+        echo &quot;Response Headers\n\n&quot;;
+        foreach ($headers as $header) {
+            echo &#039;- &#039; . $header . &quot;\n&quot;;
+        }
+        print $response-&gt;statusCode() . &quot;\n&quot;;
+        print_r($response-&gt;headers());
+        print $response-&gt;body() . &quot;\n&quot;;
+    } catch (Exception $e) {
+        echo &#039;Caught exception: &#039;. $e-&gt;getMessage() .&quot;\n&quot;;
+    }
+    ?&gt;
+    </code>
+    </pre>
+            <p>メール送信を確認。(ローカルから送信できなかった。herokuからなら送信できた。)</p>
+            <figure>
+                <img class="beside" src="../img/Heroku/SendGrid_20230416時点/メール送信を確認.jpg" alt="メール送信を確認.jpg">
+                <figcaption>メール送信を確認.jpg</figcaption>
+            </figure>
+            <p>HerokuのサポートではSendGridの問い合わせをすると外国人に英語で問い合わせる羽目になった。以下の構造計画研究所というところで見るのが良いらしい。サポートとかもやっているらしい。</p>
+            <p><a href="https://sendgrid.kke.co.jp/about/?psafe_param=1&utm_source=google&utm_medium=cpc&utm_content=text&utm_campaign=dsa&gad=1&gclid=CjwKCAjwh8mlBhB_EiwAsztdBGjx2Q0iSHhCTazKTOXUtU_CRYRn8sqetMUugNeJz2DPXGmd8bxTDxoCLp0QAvD_BwE">【参考】SendGridとは</a></p>
+            </details>
+        </details>
+
+        <h2>Heroku Command Line Interface (CLI) </h2>
+        <details>
+
+            <p>Heroku Command Line Interface (CLI) を使用すると、Heroku アプリをターミナルから直接、作成および管理できます。Heroku CLI は、Heroku を利用する際に必要なツールです。</p>
+    
+            <h3>ログイン</h3>
+        <pre>
+        <code>
+        heroku loign
+        </code>
+        </pre>
+        
+            <h3>bash参照</h3>
+        <pre>
+        <code>
+        heroku run bash -a ${アプリ名}
+        </code>
+        </pre>
+        
+            <h3>REDISインスタンスの情報を確認</h3>
+        <pre>
+        <code>
+        heroku redis:info -a ${アプリ名}
+        </code>
+        </pre>
+        
+            <h3>環境情報を確認</h3>
+        <pre>
+        <code>
+        heroku config -a ${アプリ名}
+        </code>
+        </pre>
+        
+            <h3>postgres</h3>
+            <h4>postgres接続</h4>
+        <pre>
+        <code>
+        heroku pg:psql -app ${アプリ名}
+        </code>
+        </pre>
+            <h4>DBから取得</h4>
+        <pre>
+        <code>
+        \o output.csv // 記録開始
+        \a // エンコードだっけ
+        \f ',' // 区切り文字の設定
+        \i ${ファイル名} // ファイル読み込み。そのままsql書いてもいい
+        \o // ファイル出力
+        </code>
+        </pre>
+            <h4>UTF-8に変換(変換しないとDB取得が出来ないことがあった)a</h4>
+        <pre>
+        <code>
+        =====コマンドプロンプトで使用する文字コードが UTF-8 に変更されました。 =====
+        chcp 65001
+        =====以下も良いらしい???文字化けは出ているが落ちなくはなった。=====
+        set client_encoding TO 'UTF8';
+        </code>
+        </pre>
+        <p><a href="https://esthersoftware.hatenablog.com/entry/utf8_has_no_equivalent_in_encoding_win1252">【参考】コマンドラインのPostgreSQL操作でcharacter with byte sequence XXXが出たときの対応</a></p>
+        
+            <h4>テーブル定義の確認</h4>
+        <pre>
+        <code>
+        \d ${テーブル名}
+        </code>
+        </pre>
+        
+            <h3>スタックの確認</h3>
+        <pre>
+        <code>
+        heroku stack --ap ${アプリ名}
+        </code>
+        </pre>
+    
+        <h3>Herokuでログを出力</h3>
+    <pre>
+    <code>
+    heroku login
+    heroku logs --tail
+    </code>
+    </pre>
+    
+        <h3>起動・停止・再起動</h3>
+    <pre>
+    <code>
+    =====Heroku アプリの再起動=====
+    heroku restart
+    =====Heroku アプリの停止=====
+    heroku ps:scale web=0
+    =====Heroku アプリの起動=====
+    heroku ps:scale web=1
+    </code>
+    </pre>
+        
+            <h3>アドオンを確認</h3>
+        <pre>
+        <code>
+        heroku addons
+        >Owning App        Add-on                       Plan            Price  State
+        >────────────────  ───────────────────────────  ──────────────  ─────  ───────
+        >toriisan-php-001  cleardb-perpendicular-xxxxx  cleardb:ignite  free   created
+        </code>
+        </pre>
+        
+            <h3>アプリのコンフィグを確認</h3>
+        <pre>
+        <code>
+        heroku config --app toriisan-php-001
+        === toriisan-php-001 Config Vars
+        CLEARDB_DATABASE_URL: mysql://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}/${DB_DATABASE}?reconnect=true
+        </code>
+        </pre>
+        </details>
+    
+        <h2>MySQL接続</h2>
+        <details>
+
+            <p>事前にmysqlをインストールしてパスを通しておく必要がある。</p>
+            <h3>ローカル</h3>
+        <pre>
+        <code>
+        =====cod=====
+        mysql -u ${ユーザー名} -D ${DB名} -p
+        Enter password:${パスワード}
+        </code>
+        </pre>
+            <h3>heroku(clearDB)</h3>
+        <pre>
+        <code>
+        mysql -u ${DB_USERNAME} -p -h ${DB_HOST} ${DB_DATABASE}
+        Enter password:${DB_PASSWORD}
+        </code>
+        </pre>
+            <h3>アプリ作成</h3>
+    <pre>
+    <code>
+    //アプリ名の命名を Heroku に任せる
+    heroku create
+    //アプリ名を指定して作成する
+    heroku create ${myappname}
+    </code>
+    </pre>
+            <h3>アプリ削除</h3>
+    <pre>
+    <code>
+    heroku apps:destroy --app ${アプリ名} --confirm ${アプリ名}
+    </code>
+    </pre>
+        </details>
+
+    <h2>PHPでHerokuPostgresを利用する</h2>
+    <details>
+        <p>ClearDBをずっと使用していたが、いつの間にか無料プランが終了していたらしい。</p>
+        <p>Herokuをずっと見ていなかったが、警告が出ていたのかも。特にDBのバックアップ取っていたわけではないので、全て消えてしまった。</p>
+        <p>残念ながら無料プランが無くなってしまったのでHeroku Postgresにしてみることにした。</p>
+        <p>料金は最低のミニプランで月5ドル(740.70 円)くらいらしい</p>
+        <h3>Heroku Postgresを追加</h3>
+        <p>HerokuのResourcesタブのAdd-onsからHeroku Postgresタブを選択する。</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/HerokuPostgresタブを選択.JPG" alt="HerokuPostgresタブを選択.JPG">
+            <figcaption>HerokuPostgresタブを選択.JPG</figcaption>
+        </figure>
+        <p>ミニプランを選択して「Submit Order Form」を選択</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/ミニプランを選択する.JPG" alt="ミニプランを選択する.JPG">
+            <figcaption>ミニプランを選択する.JPG</figcaption>
+        </figure>
+        <h3>A5M2で接続する</h3>
+        <h4>接続先を確認する</h4>
+        <p>Heroku OverviewからHeroku Postgresをクリック</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/HerokuOverviewからHerokuPostgresをクリック.JPG" alt="HerokuOverviewからHerokuPostgresをクリック.JPG">
+            <figcaption>HerokuOverviewからHerokuPostgresをクリック.JPG</figcaption>
+        </figure>
+        <p>SettingsからView Credentialsを選択</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/SettingsからViewCredentialsを選択.JPG" alt="SettingsからViewCredentialsを選択.JPG">
+            <figcaption>SettingsからViewCredentialsを選択.JPG</figcaption>
+        </figure>
+        <p>接続先を確認する</p>
+        <p>Host、Database、User、Port、Passwordが必要になる。</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/接続先を確認する.JPG" alt="接続先を確認する.JPG">
+            <figcaption>接続先を確認する.JPG</figcaption>
+        </figure>
+        <h4>A5M2で接続</h4>
+        <p>A5M2をインストール(データベース開発を支援するために開発されたフリーのSQLクライアント)</p>
+        <p>2.17.1を使用した。最新であればいいと思う。</p>
+        <P>データベースの追加と削除を選択する</P>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/データベースの追加と削除を選択.JPG" alt="データベースの追加と削除を選択.JPG">
+            <figcaption>データベースの追加と削除を選択.JPG</figcaption>
+        </figure>
+        <P>追加をクリック</P>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/追加をクリック.JPG" alt="追加をクリック.JPG">
+            <figcaption>追加をクリック.JPG</figcaption>
+        </figure>
+        <P>PostgresSQL(直接接続)をクリック</P>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/PostgresSQL_直接接続をクリック.JPG" alt="PostgresSQL_直接接続をクリック.JPG">
+            <figcaption>PostgresSQL_直接接続をクリック.JPG</figcaption>
+        </figure>
+        <P>SSL設定を設定する</P>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/SSL設定を設定する.JPG" alt="SSL設定を設定する.JPG">
+            <figcaption>SSL設定を設定する.JPG</figcaption>
+        </figure>
+        <P>基本を設定する</P>
+        <p>確認した接続先を設定</p>
+        <p>テスト接続をして接続出来ていたら「OK」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/基本を設定する.JPG" alt="基本を設定する.JPG">
+            <figcaption>基本を設定する.JPG</figcaption>
+        </figure>
+        <p>接続成功した。OKをクリックで閉じる</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/接続成功.JPG" alt="接続成功.JPG">
+            <figcaption>接続成功.JPG</figcaption>
+        </figure>
+        <h3>適当なデータを追加</h3>
+        <p>新しいドキュメントを作成して適当なデータを登録・参照</p>
+        <p>データベースを選択してSQLを実行</p>
+        <p>ctl + EnterでSQLを実行</p>
+        <p>ctl + QでSQLを整形</p>
+<pre>
+■テーブル作成
+CREATE TABLE memo (
+    id serial PRIMARY KEY,
+    title varchar(100) NOT NULL,
+    text text NOT NULL
+);
+■テーブル参照
+select * from memo;
+</pre>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/新しいドキュメントを作成して適当なデータを登録_参照.JPG" alt="新しいドキュメントを作成して適当なデータを登録_参照.JPG">
+            <figcaption>新しいドキュメントを作成して適当なデータを登録_参照.JPG</figcaption>
+        </figure>
+        <p>追加されたテーブルを選択し、適当にダミーデータを登録</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/適当にダミーデータを登録.JPG" alt="適当にダミーデータを登録.JPG">
+            <figcaption>適当にダミーデータを登録.JPG</figcaption>
+        </figure>
+        <p>適当に値を設定して「開始」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/適当に値を設定して開始をクリック.JPG" alt="適当に値を設定して開始をクリック.JPG">
+            <figcaption>適当に値を設定して開始をクリック.JPG</figcaption>
+        </figure>
+        <p>適当なデータが登録された</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/適当なデータが登録された.JPG" alt="適当なデータが登録された.JPG">
+            <figcaption>適当なデータが登録された.JPG</figcaption>
+        </figure>
+        <h3>PHP側から取得する</h3>
+        <p>接続先を確認する</p>
+        <p>Heroku SettingタブのConfig Varsを選択</p>
+        <p>「DATABASE_URL」を確認する</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/DATABASE_URLを確認する.JPG" alt="DATABASE_URLを確認する.JPG">
+            <figcaption>DATABASE_URLを確認する.JPG</figcaption>
+        </figure>
+        <p>PHP側から取得する</p>
+<pre>
+<code>
+$DATABASE_URL = parse_url(getenv('DATABASE_URL'));
+$user = $DATABASE_URL['user'];
+$pass = $DATABASE_URL['pass'];
+$host = $DATABASE_URL['host'];
+$path = substr($DATABASE_URL['path'], 1);
+
+define('DSN', "pgsql:host={$host};dbname={$path}");
+define('DB_USER', $user);
+define('DB_PASS', $pass);
+
+$pdo = new \PDO(
+    DSN,
+    DB_USER,
+    DB_PASS,
+    [
+        \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION, // エラーが起きた時は例外を投げてねという設定
+        \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ, // オブジェクト形式で結果を取得する設定
+        \PDO::ATTR_EMULATE_PREPARES => false, // 取得したデータの型を SQL で定義した型に合わせて取得したいのでfalseにする
+    ]
+);
+$stmt = $pdo->query("select * from memo");
+$memos = $stmt->fetchAll();
+foreach ($memos as $row) {
+    print($row->id.',');
+    print($row->title);
+    print($row->text);
+    print('<br>');
+}
+</code>
+</pre>
+        <p>PHP側で取得</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/PHPでHerokuPostgresを利用する/PHP側で取得.JPG" alt="PHP側で取得.JPG">
+            <figcaption>PHP側で取得.JPG</figcaption>
+        </figure>
+    </details>
+
+    <h2>git cloneが上手くいかない</h2>
+    <h3>発生したエラー</h3>
+<pre>
+RPC failed; curl 18 transfer closed with outstanding read data remaining
+</pre>
+    <h3>試したこと</h3>
+<pre>
+■以下でとりあえずclone出来た。(git bashで実行)
+herok login
+git config --global http.postBuffer 10M
+git clone https://github.com/※※※※/hogehoge.git --depth 1
+</pre>
+<p><a href="https://web-survivor.com/useful/git-error-curl/">【参考】【github】gitでpullした時に『RPC failed; curl 18 transfer closed with outstanding read data remaining』で怒られた時の対処方</a></p>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

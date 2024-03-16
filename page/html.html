@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+    <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>HTML</h1>
+        <p id="lastModified"></p>
+
+        <h2>「!」を押してエンターキーで以下のひな型を入力（右下の言語モードがhtmlになっていることを確認）</h2>
+    <pre>
+    <code>
+    &lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;en&quot;&gt;
+    &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Document&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        
+    &lt;/body&gt;
+    &lt;/html&gt;
+    
+    ・langはjaに変更する
+    </code>
+    </pre>
+    <p>※以下幅をデバイスの幅を合わせるという意味。</p>
+    <p>&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</p>
+    
+        <h2>ローカル開発環境を作成</h2>
+        <h3>http-serverインストール</h3>
+        <p><a href="https://nodejs.org/ja/download/">https://nodejs.org/ja/download/</a>からNodejsのインストーラをダウンロード。インストールする</p>
+        <p>「cd C:\xampp\htdocs\MyPortfolio\server」 で サーバーをインストールするディレクトリに移動</p>
+        <p>「npm install -g http-server」 で http-server をインストール</p>
+        <p>「http-server --version」 で バージョンチェック</p>
+        <p>「npx http-server -o」 で サーバー立ち上げ</p>
+        <p>ブラウザからURL「http://127.0.0.1:8080/」 でアクセス</p>
+        <h3>1分ごとにホットリロードする場合</h3>
+        <p>「npm install -g reload」 でパッケージをインストール</p>
+        <p>「cd C:\xampp\htdocs\MyPortfolio\server」 で サーバーをインストールするディレクトリに移動</p>
+        <p>「reload -b」 で1分ごとにホットリロードで 立ち上げ</p>
+        <p><a href="https://qiita.com/jesuissuyaa/items/90798223541c2d152a13">【参考】1分でホットリロードするローカルサーバーを立てる</a></p>
+        <p>ブラウザからURL「http://127.0.0.1:8080/」 でアクセス</p>
+        <p>ポートを変えたい場合、「-p ${任意のポート}」を追記するといいらしい</p>
+        <p><a href="https://qiita.com/standard-software/items/1afe7b64c4c644fdd9e4">【参考】node.js http-serverコマンドでwebサーバーを起動する</a></p>
+
+        <h2>ファビコンの設定</h2>
+    <pre>
+    <code>
+    &lt;link rel=&quot;icon&quot; href=&quot;img/favicon.png&quot;&gt;
+    </code>
+    </pre>
+    
+        <h2>画像の貼り付け</h2>
+    <pre>
+    <code>
+    &lt;link rel=&quot;icon&quot; href=&quot;../img/tottori.jpg&quot;&gt;
+    &lt;img
+    src=&quot;../img/tottori.jpg&quot;
+    alt=&quot;鳥居涼太のアイコン&quot;
+    width=&quot;120&quot;
+    height=&quot;120&quot;
+    class=&quot;icon&quot;&gt;
+    </code>
+    </pre>
+    
+            <h2>スタイルシートの読み込み</h2>
+    <pre>
+    <code>
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot;&gt;
+    ・ctlを押しながらクリックでファイル作成
+    ・headerタグ内に設定
+    </code>
+    </pre>
+    
+        <h2>divにスタイルを付けたいのでclassを付ける</h2>
+    <pre>
+    <code>
+    &lt;div class=&quot;container&quot;&gt;
+    </code>
+    </pre>
+    
+            <h2>一覧を配置</h2>
+    <pre>
+    <code>
+    &lt;ul&gt;
+    &lt;li&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    </code>
+    </pre>
+    
+        <h2>リンクを設定</h2>
+    <pre>
+    <code>
+    &lt;p&gt;&lt;a href=&quot;https://tech-unlimited.com/escape.html&quot; target=&quot;_blank&quot;&gt;HTML特殊文字変換ツール&lt;/a&gt;&lt;/p&gt;
+    </code>
+    </pre>
+    
+    <h2>コピーライター（著作権表記をかく）</h2>
+    <p>(c)の横の年について作成した年を入れておくらしい</p>
+    <p>All Rights Reserved.と書いておくらしい。</p>
+    <p>書かないでと言っている人もいるらしい。</p>
+    <p><a href="https://copyright-topics.jp/topics/all-rights-reserved-unnecessary/">【参考】そろそろ著作権表示でAll rights reservedを書かないようにするという提案</a></p>
+    <pre>
+    <code>
+    &lt;footer&gt;
+    &lt;small&gt;(c)2022 toriisan001.github.io All Rights Reserved.&lt;/small&gt;
+    &lt;/footer&gt;
+    </code>
+    </pre>
+    
+    <h2>リダイレクト</h2>
+    <pre>
+    <code>
+    &lt;!DOCTYPE html&gt;
+    &lt;html lang=&quot;ja&quot;&gt;
+    &lt;head&gt;
+    &lt;title&gt;転送&lt;/title&gt;
+    &lt;meta http-equiv=&quot;refresh&quot; content=&quot;0;URL=page/homePage.html&quot;&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    &lt;br&gt;
+    &lt;/body&gt;
+    &lt;/html&gt;
+    </code>
+    </pre>
+    
+        <h2>Emmetについて</h2>
+        <p>エディタによってはタグ等でショートカットが使えるらしい</p>
+        <p><a href="https://zenn.dev/miz_dev/articles/6cac5f2e32398d">【参考】Emmetとは？これだけ知っておけばOK！</a></p>
+    
+        <h2>aタグのhrefについて</h2>
+        <p>ダミーにするときは#パウンド記号を入れておく。入れても特に変わりなし。ダミーってことを示すため？</p>
+    <pre>
+    <code>
+    &lt;a&gt;href=&quot;#&quot;&gt;&lt;/a&gt;
+    </code>
+    </pre>
+    
+        <h2>文字列内で改行</h2>
+    <pre>
+    <code>
+    &lt;p&gt;毎日を&lt;br&gt;楽しく&lt;/p&gt;
+    </code>
+    </pre>
+    
+        <h2>ラジオボタン</h2>
+    <pre>
+    <code>
+    &lt;p&gt;
+    &lt;input type=&quot;radio&quot; id=&quot;local&quot; name=&quot;storageType&quot; value=&quot;1&quot; checked=&quot;checked&quot;&gt;&lt;label for=&quot;local&quot;&gt;localStorage&lt;/label&gt;
+    &lt;input type=&quot;radio&quot; id=&quot;session&quot;name=&quot;storageType&quot; value=&quot;2&quot;&gt;&lt;label for=&quot;session&quot;&gt;sessionStorage&lt;/label&gt;
+    &lt;/p&gt;
+    </code>
+    </pre>
+    
+        <h2>詳細折りたたみ要素</h2>
+    <details>
+    <summary>Details</summary>
+    Something small enough to escape casual notice.
+    </details>
+    <pre>
+    <code>
+    &lt;details&gt;
+    &lt;summary&gt;Details&lt;/summary&gt;
+    Something small enough to escape casual notice.
+    &lt;/details&gt;
+    </code>
+    </pre>
+        <p><a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/details">mdn_web_docs_詳細折りたたみ要素</a></p>
+    
+        <h2>コンテンツを編集</h2>
+    <blockquote contenteditable="true">
+    <p>このコンテンツを編集して、独自の見積もりを追加してください</p>
+    </blockquote>
+    <cite contenteditable="true">-- ここに自分の名前を書いてください</cite>
+    <pre>
+    <code>
+    &lt;blockquote contenteditable=&quot;true&quot;&gt;
+    &lt;p&gt;このコンテンツを編集して、独自の見積もりを追加してください&lt;/p&gt;
+    &lt;/blockquote&gt;
+    &lt;cite contenteditable=&quot;true&quot;&gt;-- ここに自分の名前を書いてください&lt;/cite&gt;
+    </code>
+    </pre>
+        <p><a href="https://developer.mozilla.org/ja/docs/Web/HTML/Global_attributes/contenteditable">mdn_web_docs_contenteditable</a></p>
+    
+        <h2>入力データを保持テキスト（datalist）</h2>
+        <p>何故かinputのnameがqではないとautocompleteが効かなかった。理由はわからなかった。</p>
+            <form>
+                <fieldset>
+                    <label for="q">一覧からブラウザーを選択して下さい:</label>
+                    <input type="search" name="q" autocomplete="on" list="myBrowserList">
+                    <datalist id="myBrowserList">
+                        <option value="Chrome">
+                        <option value="Firefox">
+                        <option value="Internet Explorer">
+                        <option value="Opera">
+                        <option value="Safari">
+                        <option value="Microsoft Edge">
+                    </datalist>
+                    <input type="submit" value="送信">
+                </fieldset>
+            </form>
+    <pre>
+    <code>
+    &lt;form&gt;
+    &lt;fieldset&gt;
+    &lt;label for=&quot;q&quot;&gt;一覧からブラウザーを選択して下さい:&lt;/label&gt;
+    &lt;input type=&quot;search&quot; name=&quot;q&quot; autocomplete=&quot;on&quot; list=&quot;myBrowserList&quot;&gt;
+    &lt;datalist id=&quot;myBrowserList&quot;&gt;
+    &lt;option value=&quot;Chrome&quot;&gt;
+    &lt;option value=&quot;Firefox&quot;&gt;
+    &lt;option value=&quot;Internet Explorer&quot;&gt;
+    &lt;option value=&quot;Opera&quot;&gt;
+    &lt;option value=&quot;Safari&quot;&gt;
+    &lt;option value=&quot;Microsoft Edge&quot;&gt;
+    &lt;/datalist&gt;
+    &lt;input type=&quot;submit&quot; value=&quot;送信&quot;&gt;
+    &lt;/fieldset&gt;
+    &lt;/form&gt;
+    </code>
+    </pre>
+        <p><a href="https://developer.mozilla.org/ja/docs/Web/HTML/Element/datalist">mdn_web_docs_datalist</a></p>
+    
+        <h2>horizontal rule（水平方向の罫線）水平の横線を引くためのタグ</h2>
+    <pre>
+    <code>
+    &lt;hr&gt;
+    </code>
+    </pre>
+    
+        <h2>プルダウンメニュー</h2>
+        <p><a href="https://www.tagindex.com/html/form/select.html">プルダウンメニューを表す</a></p>
+    <pre>
+    <code>
+    &lt;select name=&quot;example&quot;&gt;
+    &lt;option&gt;選択肢のサンプル1&lt;/option&gt;
+    &lt;option&gt;選択肢のサンプル2&lt;/option&gt;
+    &lt;option&gt;選択肢のサンプル3&lt;/option&gt;
+    &lt;/select&gt;
+    </code>
+    </pre>
+
+        <h2>空白文字を入れる</h2>
+        <p><a href="https://web-camp.io/magazine/archives/78354">【HTML】スペースを入れる2通りの方法（サンプルコード付き）</a></p>
+<pre>
+<code>
+&lt;p&gt;&lt;span class=&quot;tooltip1&quot;&gt;&lt;span&gt;🛈&amp;nbsp&amp;nbsp&lt;/span&gt;&lt;span class=&quot;description1&quot;&gt;youtubeIdについて、「https://youtu.be/」を空文字に置き換えます。&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;required&quot;&gt;youtubeId&lt;/span&gt; : &lt;input name=&quot;pYoutubeId&quot; type=&quot;text&quot;&gt;&lt;/p&gt;
+</code>
+</pre>
+
+        <h2>入力保管をOFFにする</h2>
+<pre>
+<code>
+&lt;input name=&quot;pCategory&quot; list=&quot;pCategory&quot; autocomplete=&quot;off&quot;&gt;
+</code>
+</pre>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>Fetch</h1>
+        <p id="lastModified"></p>
+      
+        <hr />
+        <details>
+          <summary>参考サイト</summary>
+          <p>
+            <a href="https://www.codit.work/notes/ld2h3c2k1coufqauzydl/"
+              >JavaScriptのfetch API&GETDOM Parserで外部HTMLを解析する（参考）</a
+            >
+          </p>
+          <p>
+            <a href="https://www.webdesignleaves.com/pr/jquery/fetch-api-basic.html"
+              >Fetch API fetch() の使い方（参考）</a
+            >
+          </p>
+        </details>
+        <hr />
+        <details>
+          <summary>リクエストの確認(Chome)</summary>
+          <figure>
+            <p>F12キー(開発用コンソール)を開く</p>
+            <p>ネットワークタブを選択</p>
+            <p>Fetch/XHRタブを選択</p>
+            <p>Fetchでリクエストを実行</p>
+            <p>タイムライン?から該当のリクエストを選択</p>
+            <p>名前から該当の名前を選択</p>
+            <img class="beside" src="../img/screenShot/fetchのリクエスト内容を確認(Chome).jpg" alt="fetchのリクエスト内容を確認(Chome).jpg">
+            <figcaption>fetchのリクエスト内容を確認(Chome).jpg</figcaption>
+          </figure>
+          <p>
+            <a href="https://www.tsukimi.net/chrome-developer-tools_post.html"
+              >ChromeデべロッパーツールでPOSTされたパラメータの中身を確認する（参考）</a
+            >
+          </p>
+        </details>
+        <hr />
+      
+        <h2>fetch(GET)</h2>
+        <p>対策されているサイト(Youtubeとか)は「TypeError: Failed to fetch」となる。CORS (Cross-Origin Resource Sharing)で対策されているらしい。</p>
+        <p>DOM(Document Object Model)の操作とかも出来るらしい。</p>
+        <hr />
+        <details>
+          <summary>ソース</summary>
+          <pre>
+              <code>
+      const geturl = document.getElementById("geturl");
+      const getexec = document.getElementById("getexec");
+      const getclear = document.getElementById("getclear");
+      const getdom = document.getElementById("getdom");
+      // GETDOM取得
+      async function getFetch($geturl) {
+          try {
+          const result = await fetch($geturl, {
+              method: "GET",
+          })
+              .then(function (response) {
+              return response.text();
+              })
+              .then(function (data) {
+              getdom.textContent = data;
+              });
+          } catch (error) {
+          console.log(error);
+          getdom.textContent = error.toString();
+          }
+      }
+      getexec.addEventListener("click", () => {
+          getFetch(geturl.value);
+      });
+      getclear.addEventListener("click", () => {
+          getdom.textContent = "";
+          geturl.value = "";
+      });
+              </code>
+          </pre>
+        </details>
+        <hr />
+        <p>
+          URL：<input
+            type="text"
+            id="geturl"
+            value="https://toriisan001.github.io/page/home.html"
+          />
+        </p>
+        <button type="button" id="getexec">実行</button>
+        <button type="button" id="getclear">クリア</button>
+        <pre>
+          <code id="getdom">
+          </code>
+      </pre>
+      
+      <h2>fetch(POST)</h2>
+      <p>何故か動かない。？？？</p>
+      <p>
+        URL：<input
+          type="text"
+          id="postUrl"
+          value="https://www.muryou-tools.com/test/posttestutf8.php"
+        />
+      </p>
+      <button type="button" id="postExec">実行</button>
+      <button type="button" id="postClear">クリア</button>
+      <pre>
+        <code id="postDom">
+        </code>
+      </pre>
+      
+      </main>
+      <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+    <script>
+    "use strict";
+    {
+        const geturl = document.getElementById("geturl");
+        const getexec = document.getElementById("getexec");
+        const getclear = document.getElementById("getclear");
+        const getdom = document.getElementById("getdom");
+        // GETリクエスト
+        async function getFetch(geturl) {
+        setlog('getFetch start');
+        try {
+            const result = await fetch(geturl, {
+            method: "GET",
+            })
+            .then(function (response) {
+                return response.text();
+            })
+            .then(function (data) {
+                getdom.textContent = data;
+            });
+        } catch (error) {
+            console.log(error);
+            getdom.textContent = error.toString();
+        }
+        }
+        getexec.addEventListener("click", () => {
+        getFetch(geturl.value);
+        });
+        getclear.addEventListener("click", () => {
+        getdom.textContent = "";
+        geturl.value = "";
+        });
+        const postUrl = document.getElementById("postUrl");
+        const postExec = document.getElementById("postExec");
+        const postClear = document.getElementById("postClear");
+        const postDom = document.getElementById("postDom");
+        // POSTリクエスト
+        async function postFetch(postUrl) {
+        setlog('postFetch start');
+        console.log(postUrl);
+        try {
+            const result = await fetch(postUrl, {
+            method: "POST",
+            })
+            .then(function (response) {
+                setlog(response);
+                // return response.text();
+            })
+            .then(function (data) {
+                setlog(data);
+                // getdom.textContent = data;
+            });
+        } catch (error) {
+            setlog(error);
+            postDom.textContent = error.toString();
+        }
+        }
+        postExec.addEventListener("click", () => {
+        postFetch(postUrl.value);
+        });
+        postClear.addEventListener("click", () => {
+        postDom.textContent = "";
+        postUrl.value = "";
+        });
+    }
+    </script>
+</body>
+</html>

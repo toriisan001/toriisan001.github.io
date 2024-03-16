@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>HOME</h1>
+        <p id="lastModified"></p>
+
+        <h2>更新内容</h2>
+        <div style="height: 300px;overflow-x: scroll;">
+          <table>
+              <thead>
+                <tr>
+                  <th>日付</th>
+                  <th>内容</th>
+                  <th>リンク</th>
+                  <th>状態</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2024/03/09</td>
+                  <td>Laravel開発環境構築_20240309</td>
+                  <td><a href="php.html">PHP</td>
+                </tr>
+                <tr>
+                  <td>2024/02/18</td>
+                  <td>ローカル開発環境構築_20240217</td>
+                  <td><a href="php.html">PHP</td>
+                  <td>追記完了(20240302)</td>
+                </tr>
+                <tr>
+                  <td>2024/02/24</td>
+                  <td>EC2にwinSCP(ファイル転送を行うSSHクライアント)で接続</td>
+                  <td><a href="aws.html">AWS</td>
+                </tr>
+                <tr>
+                  <td>2024/02/23</td>
+                  <td>EC2にputty(リモートログオンクライアント)で接続</td>
+                  <td><a href="aws.html">AWS</td>
+                </tr>
+                <tr>
+                  <td>2024/02/11</td>
+                  <td>ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_コンフリクト_rebase_resolve</td>
+                  <td><a href="GitBucket.html">GitBucket</td>
+                </tr>
+                <tr>
+                  <td>2024/02/11</td>
+                  <td>ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_rebase</td>
+                  <td><a href="GitBucket.html">GitBucket</td>
+                </tr>
+                <tr>
+                  <td>2024/02/11</td>
+                  <td>マージしたときに変更が競合した場合_resolve</td>
+                  <td><a href="GitBucket.html">GitBucket</td>
+                </tr>
+                <tr>
+                  <td>2024/02/03</td>
+                  <td>別のリモートリポジトリの変更を取り込む_Merge</td>
+                  <td><a href="GitBucket.html">GitBucket</td>
+                </tr>
+                <tr>
+                  <td>2024/02/03</td>
+                  <td>リモートリポジトリへのpushを切り戻す_強制push</td>
+                  <td><a href="GitBucket.html">GitBucket</td>
+                </tr>
+                <tr>
+                  <td>2024/02/03</td>
+                  <td>変更を打ち消すコミット_revert_commit</td>
+                  <td><a href="GitBucket.html">GitBucket</td>
+                </tr>
+                <tr>
+                  <td>2024/01/27</td>
+                  <td>コミット後にコミットの履歴ごとコミットを取り消す_Reset</td>
+                  <td><a href="GitBucket.html">GitBucket</td>
+                </tr>
+                <tr>
+                  <td>2024/01/27</td>
+                  <td>コミット前にファイルの修正を元に戻す_Revert</td>
+                  <td><a href="GitBucket.html">GitBucket</td>
+                </tr>
+                <tr>
+                  <td>2024/01/27</td>
+                  <td>メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ</td>
+                  <td><a href="GitBucket.html">GitBucket</td>
+                </tr>
+                <tr>
+                  <td>2024/01/21</td>
+                  <td>PHPでHerokuPostgresを利用する</td>
+                  <td><a href="heroku.html">Heroku</td>
+                </tr>
+                <tr>
+                  <td>2024/01/14</td>
+                  <td>コミット後とプッシュ後の状態を確認</td>
+                  <td><a href="GitBucket.html">GitBucket</td>
+                </tr>
+                <tr>
+                  <td>2024/01/14</td>
+                  <td>リポジトリの作成からクローンからmainブランチにファイルのプッシュ</td>
+                  <td><a href="GitBucket.html">GitBucket</td>
+                </tr>
+                <tr>
+                  <td>2023/12/23</td>
+                  <td>ユーザーの作成</td>
+                  <td><a href="GitBucket.html">GitBucket</td>
+                </tr>
+                <tr>
+                  <td>2023/12/23</td>
+                  <td>AmazonLinux3でGitBucket環境構築_20231223</td>
+                  <td><a href="GitBucket.html">GitBucket</td>
+                </tr>
+                <tr>
+                  <td>2023/12/16</td>
+                  <td>AmazonLinux2でSVN_環境構築_20231216</td>
+                  <td><a href="SVN.html">SVN</td>
+                </tr>
+                <tr>
+                  <td>2023/12/09</td>
+                  <td>EC2でMinecraftサーバーを構築_統合版_20231209</td>
+                  <td><a href="Minecraft.html">Minecraft</td>
+                </tr>
+                <tr>
+                  <td>2023/11/25</td>
+                  <td>AWS_EC2でGitサーバーを構築_http接続_20231125</td>
+                  <td><a href="Git.html">Git</td>
+                </tr>
+                <tr>
+                  <td>2023/11/19</td>
+                  <td>AWS_EC2でGitサーバーを構築_SSH接続_20231119</td>
+                  <td><a href="Git.html">Git</td>
+                </tr>
+                <tr>
+                  <td>2023/11/12</td>
+                  <td>エキスポート_インポート</td>
+                  <td><a href="Redmine.html">Redmine</td>
+                </tr>
+                <tr>
+                  <td>2023/11/12</td>
+                  <td>DockerでRedmine環境を構築する_AWS_メール送信を使用する_20231111</td>
+                  <td><a href="Redmine.html">Redmine</td>
+                </tr>
+                <tr>
+                  <td>2023/10/29</td>
+                  <td style="text-decoration:line-through">AWS+Redmine追加</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>2023/10/29</td>
+                  <td>Heroku+Redmine_DockerでRedmine環境を構築する_AWS_20231028</td>
+                  <td><a href="Redmine.html">Redmine</td>
+                </tr>
+                <tr>
+                  <td>2023/10/09</td>
+                  <td>2要素認証_20231009</td>
+                  <td><a href="aws.html">aws</td>
+                </tr>
+                <tr>
+                  <td>2023/09/30</td>
+                  <td>環境構築_20230930</td>
+                  <td><a href="aws.html">aws</td>
+                </tr>
+                <tr>
+                  <td>2023/05/04</td>
+                  <td>修正してコミット追記</td>
+                  <td><a href="gitHubPages.html">gitHubPages</td>
+                </tr>
+                <tr>
+                  <td>2023/05/04</td>
+                  <td>新しいPCに環境をclone追記</td>
+                  <td><a href="gitHubPages.html">gitHubPages</td>
+                </tr>
+                <tr>
+                  <td>2023/04/23</td>
+                  <td>Heroku_SendGrid(20230416時点)追記</td>
+                  <td><a href="heroku.html">Heroku</td>
+                </tr>
+                <tr>
+                  <td>2023/03/11</td>
+                  <td>Papertrailを使用する(20230311時点)追記</td>
+                  <td><a href="heroku.html">Heroku</td>
+                </tr>
+                <tr>
+                  <td>2022/09/18</td>
+                  <td>日々の学習内容の備忘録として作成</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+
+          <h2>資格</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>日付</th>
+                <th>名称</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2023/07/14</td>
+                <td>基本情報処理試験合格</td>
+              </tr>
+              <tr>
+                <td>2014/03/14</td>
+                <td>ITパスポート合格</td>
+              </tr>
+              <tr>
+                <td>2014/08/17</td>
+                <td>MOS Office Wordスペシャリスト合格</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>ライセンス/サービス(使用したソフトウェアのみ記載)</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>ライセンス/サービス</th>
+                <th>バージョン</th>
+                <th>リンク(ライセンス/利用規約)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>jquery</td>
+                <td>3.6.1</td>
+                <td><a href="https://github.com/jquery/jquery/blob/main/LICENSE.txt">MIT License</td>
+              </tr>
+              <tr>
+                <td>abcjs</td>
+                <td>5.6.5</td>
+                <td><a href="https://github.com/paulrosen/abcjs/blob/main/LICENSE.md">不明、不明なライセンスが見つかりました</td>
+              </tr>
+              <tr>
+                <td>Dexie</td>
+                <td>3.6.1</td>
+                <td><a href="https://github.com/dexie/Dexie.js/blob/master/LICENSE">Apache License 2.0</td>
+              </tr>
+              <tr>
+                <td>git</td>
+                <td></td>
+                <td><a href="https://github.com/git/git/blob/master/COPYING">GNU GENERAL PUBLIC LICENSE Version 2</td>
+              </tr>
+              <tr>
+                <td>php</td>
+                <td></td>
+                <td><a href="https://github.com/php/php-src/blob/master/LICENSE">The PHP License, version 3.01</td>
+              </tr>
+              <tr>
+                <td>svn</td>
+                <td></td>
+                <td><a href="https://tortoisesvn.net/docs/release/TortoiseSVN_ja/tsvn-preface-source.html">GNU General Public License (GPL) </td>
+              </tr>
+              <tr>
+                <td>Redmine</td>
+                <td></td>
+                <td><a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html">GNU General Public License</td>
+              </tr>
+              <tr>
+                <td>salesforce/Heroku</td>
+                <td></td>
+                <td><a href="https://www.salesforce.com/company/legal/sfdc-website-terms-of-service/">salesforce 利用規約</td>
+              </tr>
+              <tr>
+                <td>SendGrid</td>
+                <td></td>
+                <td><a href="https://sendgrid.kke.co.jp/terms/">SendGrid 利用規約</td>
+              </tr>
+              <tr>
+                <td>Minecraft</td>
+                <td></td>
+                <td><a href="https://www.minecraft.net/ja-jp/terms/r3">MINECRAFT 利用規約および エンド ユーザー使用許諾契約書</td>
+              </tr>
+              <tr>
+                <td>OpenAI</td>
+                <td></td>
+                <td><a href="https://openai.com/policies/terms-of-use">OpenAI 利用規約</td>
+              </tr>
+              <tr>
+                <td>Gitbucket</td>
+                <td></td>
+                <td><a href="https://github.com/gitbucket/gitbucket?tab=Apache-2.0-1-ov-file#readme">Gitbucket Apache-2.0 license</td>
+              </tr>
+              <tr>
+                <td>putty</td>
+                <td></td>
+                <td><a href="https://github.com/github/putty">不明、不明なライセンスが見つかりました</td>
+              </tr>
+              <tr>
+                <td>winscp</td>
+                <td></td>
+                <td><a href="https://github.com/winscp/winscp?tab=License-1-ov-file#readme">GNU 一般公衆利用許諾</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2>免責事項</h2>
+          <p>当サイトによって発生したいかなる損害や問題に対して当方は一切の責任を負いません</p>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

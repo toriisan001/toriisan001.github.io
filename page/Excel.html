@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>Excel</h1>
+        <p id="lastModified"></p>
+    
+        <h2>【EXCEL】ブックを共有して複数の人と共同で同時に編集する方法(レガシー）</h2>
+        <p><a href="https://mugendennou.net/excel/excel-tips/excelcommonlegacy/">【参考】【EXCEL】ブックを共有して複数の人と共同で同時に編集する方法(レガシー）</a></p>
+
+        <h2>変更履歴が多すぎて重くなった場合</h2>
+        <p>「校閲タブ」の「承認」、「全ての変更を反映」で全ての変更履歴が承認されて軽くなるらしい</p>
+
+        <h2>「＆」で文字列を結合</h2>
+        <p>SQL文の作成によく使う</p>
+        <p><a href="https://www.google.com/search?q=excel+%26&rlz=1C1CHBD_jaJP795JP795&oq=excel&aqs=chrome.0.69i59j69i57j0i271l2j69i60l2.1199j0j4&sourceid=chrome&ie=UTF-8">【参考】「＆」で文字列を結合！</a></p>
+
+        <h2>Excel フィルター機能なら文字列、数値データの整理や抽出も簡単!</h2>
+        <p><a href="https://www.microsoft.com/ja-jp/biz/smb/column-excel-filter.aspx">【参考】Excel フィルター機能なら文字列、数値データの整理や抽出も簡単!</a></p>
+
+        <h2>【Excel】ピボットテーブルって何に使うの？エクセルで大量のデータを効率よく集計・分析するテク</h2>
+        <p>大量のデータの集計に良く使う</p>
+        <p><a href="https://forest.watch.impress.co.jp/docs/serial/exceltips/1076187.html">【参考】【Excel】ピボットテーブルって何に使うの？エクセルで大量のデータを効率よく集計・分析するテク</a></p>
+
+        <h2>Excelで重複したデータを簡単に確認する方法</h2>
+        <p><a href="https://www.pc-koubou.jp/magazine/51946">【参考】Excelで重複したデータを簡単に確認する方法</a></p>
+
+        <h2>Excelでデータの値を切り上げたり、切り捨てたり</h2>
+        <p><a href="https://www.nec-nexs.com/bizsupli/useful/excel/22.html">【参考】「Excelの便利機能活用術」CEILING関数とFLOOR関数で値の切り上げ／切り捨てを行う</a></p>
+
+        <h2>エラーを表示させない？？？</h2>
+        <p><a href="https://azby.fmworld.net/usage/excel-function/039/">【参考】セルにエラーを表示させないようにするには？IFERROR関数でエラーを文字に置き換える</a></p>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

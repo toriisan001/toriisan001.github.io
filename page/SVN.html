@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+    <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>SVN</h1>
+        <p id="lastModified"></p>
+
+        <h2>AmazonLinux2でSVN_環境構築_20231216</h2>
+        <p>Git:ソースコードとか向き？</p>
+        <p>SVN:文書とか向き？</p>
+        <details>
+            <h3>EC2インスタンスを作成(Amazon Linux 2 AMI (HVM) - Kernel 5.10, SSD Volume Type)</h3>
+            <p>Amazon Linux 3で環境を作成したかったがうまくいかなかったので2にした。</p>
+            <p>ボリュームのタイプ:8GiB gp3、インスタンスタイプ:t2.nanoでよさそう？</p>
+            <h3>セキュリティグループの設定で、SSH（TCP 22）、HTTP トラフィック（TCP 80）を許可。</h3>
+            <h3>EC2インスタンスにSSHで接続</h3>
+            <h3>必要なパッケージのインストール</h3>
+            <p>[サーバー]「sudo yum update -y」でパッケージの最新化</p>
+            <p>[サーバー]「sudo yum -y install httpd subversion mod_dav_svn」でApache HTTP Server（httpd）とSubversionの一部であるmod_dav_svnモジュールをインストール</p>
+            <h3>Apache HTTP Serverの起動</h3>
+            <p>[サーバー]「sudo service httpd start」でweb サーバーを起動</p>
+            <p>[サーバー]「sudo chkconfig httpd on」でサーバを再起動した時に自動的に httpd も起動</p>
+            <h3>SVNリポジトリの作成</h3>
+            <p>[サーバー]「sudo mkdir /svn」でディレクトリを作成</p>
+            <p>[サーバー]「sudo svnadmin create /svn/myrepo」でSubversion（SVN）リポジトリを作成</p>
+            <p>[サーバー]「sudo chown -R apache:apache /svn/myrepo」で/svn/myrepoディレクトリとその中の全てのファイルおよびサブディレクトリに対して、所有者をapacheユーザーおよびapacheグループに変更</p>
+            <h3>Apacheの設定</h3>
+            <p>[サーバー]「sudo vi /etc/httpd/conf.d/subversion.conf」で新しいファイルを作成し、以下の内容で保存</p>
+<pre>
+&lt;Location /svn&gt;
+   DAV svn
+   SVNParentPath /svn
+   AuthType Basic
+   AuthName "SVN Repository"
+   AuthUserFile /etc/svn-auth-users
+   Require valid-user
+ &lt;/Location&gt;
+</pre>
+<details>
+<pre>
+Apache HTTP Serverの設定ファイル（通常は httpd.conf またはそれに類するもの）内で見られる、
+Subversionリポジトリへのアクセスを管理するための設定ブロックです。
+以下は各ディレクティブの説明です
+
+1.&lt;Location /svn&gt;
+このディレクティブは、指定された場所（/svn）にアクセスされると、
+その下の設定が適用されることを指定しています。
+/svnは通常、Subversionリポジトリへのアクセスを提供するためのURLパスとして指定されます。
+例えば、http://example.com/svnのような形です。
+
+2.DAV svn:
+DAVはApacheのモジュールで、
+WebDAV（Web-based Distributed Authoring and Versioning）を有効にします。
+svnはSubversion用のWebDAVモジュールを指定しています。
+これにより、ApacheがSubversionリポジトリをWebDAV経由で提供できるようになります。
+
+3.SVNParentPath /svn:
+このディレクティブは、Subversionリポジトリが格納されているディレクトリのパスを指定します。
+この例では、/svnディレクトリ以下に複数のSubversionリポジトリが存在すると仮定しています。
+
+4.AuthType Basic:
+このディレクティブは、基本的な認証（Basic Authentication）を有効にします。
+これにより、ユーザーはユーザー名とパスワードで認証する必要があります。
+
+5.AuthName "SVN Repository":
+認証が必要な場合、ブラウザに表示されるダイアログの認証領域の名前を指定します。
+ここでは "SVN Repository" という名前が表示されます。
+
+6.AuthUserFile /etc/svn-auth-users:
+認証情報（ユーザー名とパスワードのハッシュ）が保存されているファイルのパスを指定します。
+先に説明したsudo htpasswdコマンドで作成されたファイル /etc/svn-auth-users がここで指定されています。
+
+7.Require valid-user:
+このディレクティブは、有効なユーザーであることを要求します。
+誰でもいいわけではなく、認証が通った有効なユーザーである必要があります。
+
+この設定全体は、
+ApacheがWebDAVを使用してSubversionリポジトリにアクセスできるようにし、
+同時に基本的な認証を要求してアクセスを制御しています。
+ユーザーは/svnへのアクセス時にユーザー名とパスワードを入力する必要があり、
+それが/etc/svn-auth-usersに保存された認証情報と一致すれば、
+アクセスが許可されます。
+</pre>
+</details>
+            <h3>SVN認証ユーザーの作成</h3>
+            <p>[サーバー]「sudo htpasswd -cm /etc/svn-auth-users ${your_username}」でApacheのベーシック認証を使用して、Subversionリポジトリへのアクセスを制御するためのユーザー名とパスワードの組み合わせを設定</p>
+            <h3>Apacheの再起動</h3>
+            <p>[サーバー]「sudo service httpd restart」でApacheの再起動</p>
+            <h3>ブラウザでアクセス</h3> 
+            <p>「http://${パブリック IPv4 DNS or ElasticIPアドレス}/svn/myrepo」でブラウザからアクセス。ベーシック認証に先ほど作成したパスワード。ユーザーを入力。</p>
+            <figure>
+                <img class="beside" src="../img/SVN/AmazonLinux2でSVN_環境構築_20231216/ベーシック認証.JPG" alt="ベーシック認証.JPG">
+                <figcaption>ベーシック認証.JPG</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/SVN/AmazonLinux2でSVN_環境構築_20231216/ブラウザでアクセス.JPG" alt="ブラウザでアクセス.JPG">
+                <figcaption>ブラウザでアクセス.JPG</figcaption>
+            </figure>
+            <h3>TortoiseSVNで取得</h3>
+            <p>[ローカル]TortoiseSVNをインストール</p>
+            <p><a href="https://tortoisesvn.net/downloads.html">【参考】TortoiseSVN Downloads</a></p>
+            <figure>
+                <img class="beside" src="../img/SVN/AmazonLinux2でSVN_環境構築_20231216/TortoiseSVNをインストール1.JPG" alt="TortoiseSVNをインストール1.JPG">
+                <figcaption>TortoiseSVNをインストール1.JPG</figcaption>
+            </figure>
+            <p>[ローカル]「C:\workspace\SVN」で右クリック。「SVN Checkout...」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/SVN/AmazonLinux2でSVN_環境構築_20231216/TortoiseSVNをインストール2.JPG" alt="TortoiseSVNをインストール2.JPG">
+                <figcaption>TortoiseSVNをインストール2.JPG</figcaption>
+            </figure>
+            <p>[ローカル]URLに「http://${パブリック IPv4 DNS or ElasticIPアドレス}/svn/myrepo」を入力して「OK」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/SVN/AmazonLinux2でSVN_環境構築_20231216/TortoiseSVNをインストール3.JPG" alt="TortoiseSVNをインストール3.JPG">
+                <figcaption>TortoiseSVNをインストール3.JPG</figcaption>
+            </figure>
+            <p>[ローカル]ユーザー名、パスワードを入力してOKをクリック。</p>
+            <figure>
+                <img class="beside" src="../img/SVN/AmazonLinux2でSVN_環境構築_20231216/TortoiseSVNをインストール4.JPG" alt="TortoiseSVNをインストール4.JPG">
+                <figcaption>TortoiseSVNをインストール4.JPG</figcaption>
+            </figure>
+            <p>[ローカル]OKをクリック。</p>
+            <figure>
+                <img class="beside" src="../img/SVN/AmazonLinux2でSVN_環境構築_20231216/TortoiseSVNをインストール5.JPG" alt="TortoiseSVNをインストール5.JPG">
+                <figcaption>TortoiseSVNをインストール5.JPG</figcaption>
+            </figure>
+            <p>[ローカル]チェックアウトが完了した。</p>
+            <figure>
+                <img class="beside" src="../img/SVN/AmazonLinux2でSVN_環境構築_20231216/TortoiseSVNをインストール6.JPG" alt="TortoiseSVNをインストール6.JPG">
+                <figcaption>TortoiseSVNをインストール6.JPG</figcaption>
+            </figure>
+        </details>
+
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

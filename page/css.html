@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>CSS</h1>
+        <p id="lastModified"></p>
+
+        <h2>とりあえず書いとくらしい</h2>
+<pre>
+<code>
+body {
+    margin: 0;
+    font-family: Verdana, sans-serif
+}
+</code>
+</pre>
+        <p><a href="https://www.koikikukan.com/archives/2012/08/13-023456.php">いまさら聞けないCSS font-familyのまとめ</a></p>
+
+        <h2>cssは長くなりがちなのでコメントを書いておくと便利</h2>
+<pre>
+<code>
+    /* common */
+    /* header */
+    /* main */
+    /* footer */
+    /* side */
+    /* animation */
+</code>
+</pre>
+
+        <h2>タグの中のタグを指定</h2>
+<pre>
+<code>
+header .container {
+}
+</code>
+</pre>
+        <h3>タグに続くタグに指定という方法もあるらしい</h3>
+<pre>
+<code>
+高さを調整
+p {
+    margin: 0;
+    line-height: 1.6;
+}
+pタグに続くpタグにマージンを設定
+p + p {
+    margin-top: 16px;
+}
+</code>
+</pre>
+        <h3>子要素を指定「◯ > ◯」</h3>
+<pre>
+<code>
+main .applicationBox {
+display: flex;
+flex-wrap:wrap;
+border: 1px solid #999;
+justify-content: space-around;
+margin-bottom: 20px;
+}
+
+main .applicationBox > figure {
+margin: 10px;
+text-align: center;
+}
+</code>
+</pre>
+        <h3>inputのtype属性で指定</h3>
+<pre>
+<code>
+input[type="text"] ,input[type="email"] {
+    width:70%;
+}
+</code>
+</pre>
+        <p><a href="https://itsakura.com/css-multi-selector">CSS 複数のセレクタを指定する/絞り込むサンプル【参考】</a></p>
+        <p><a href="https://saruwakakun.com/html-css/reference/selector">CSSのセレクタとは？覚えておきたい25種類と書き方【参考】</a></p>
+        <p><a href="http://www.htmq.com/tutorial/20_6.shtml">input要素のスタイルを属性値で指定し分ける【参考】</a></p>
+
+        <h2>バックグラウンド色を変更</h2>
+<pre>
+<code>
+background: #efefef;
+</code>
+</pre>
+
+        <h2>パディング・マージン関係</h2>
+        <h3>使用例）bodyタグ全体のマージンを0にする</h3>
+<pre>
+<code>
+/* common */
+body {
+    margin: 0;
+}
+</code>
+</pre>
+        <h3>使用例）画像下の余白を消す</h3>
+<pre>
+<code>
+img {
+    vertical-align: bottom;
+}
+</code>
+</pre>
+        <h3>使用例）左側に余白を入れて右寄せにする</h3>
+<pre>
+<code>
+header {
+    display: flex;
+    padding: 0 16px;
+}
+.sp-menu {
+    margin-left: auto;
+}
+</code>
+</pre>
+        <h3>使用例）左右にマージンを設定して画面中央に配置</h3>
+<pre>
+<code>
+margin: 0 auto;
+</code>
+</pre>
+        <h3>使用例）左右を開けつつ中央配置</h3>
+<pre>
+<code>
+width: calc(100% - 100px);
+margin: 0 auto;
+</code>
+</pre>
+<p><a href="https://developer.mozilla.org/ja/docs/Web/CSS/calc">【参考】calc()</a></p>
+        <h3>使用例）間にスペースを開けて真ん中にスペースを設定して上下中央で配置。</h3>
+<pre>
+<code>
+display: flex;
+justify-content: space-between;
+align-items:center;
+</code>
+</pre>
+<p><a href="https://developer.mozilla.org/ja/docs/Web/CSS/justify-content">【参考】justify-content</a></p>
+
+        <h2>幅を指定</h2>
+<pre>
+<code>
+width: 400px;
+</code>
+</pre>
+
+        <h2>枠線を設定</h2>
+<pre>
+<code>
+■ボーダーを使う
+border: solid 1px #333;
+■アウトラインを使う
+outline: 2px solid red;
+</code>
+</pre>
+        <p>※ outlineとborderの違い</p>
+        <p>border・・・他の要素も動いてしまう。</p>
+        <p>outline・・・輪郭が出てくるだけで、他の要素に影響しない。outlineは上下左右で同じ指定しか指定できない。</p>
+
+        <h2>横並びに表示</h2>
+<pre>
+<code>
+1.divの中にdivを入れる
+&lt;div class=&quot;container&quot;&gt;
+    &lt;div&gt;
+        &lt;h1&gt;文字列１&lt;/h1&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;h1&gt;文字列２&lt;/h1&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+2.「display: flex;」を指定する
+.container {
+display: flex;
+}
+
+※ul要素にflexを付けることもできる
+</code>
+</pre>
+
+        <h2>文字の太さを指定</h2>
+<pre>
+<code>
+font-weight:normal;
+</code>
+</pre>
+
+        <h2>文字のサイズを変更</h2>
+<pre>
+<code>
+font-size: 24px;
+</code>
+</pre>
+
+        <h2>リストのスタイルをなくす</h2>
+<pre>
+<code>
+header ul {
+    list-style: none;
+}
+</code>
+</pre>
+        <p>list-style-type: none;と書いている箇所もあった。list-style-typeが良いらしいが？？？</p>
+        <p><a href="https://note.com/yukianemone07/n/nfa8be1ce168d">listのstyle指定がイマイチよくわかってなかった件</a></p>
+
+        <h2>要素に続く要素に対して属性を指定</h2>
+<pre>
+<code>
+header ul li + li {
+    margin-left: 8px;
+}
+</code>
+</pre>
+
+        <h2>親要素に対して中央ぞろえ</h2>
+<pre>
+<code>
+align-items: center;
+text-align: center;
+※どう違うのかはよくわからん
+
+※displayプロパティがblockの要素に関しては中のテキストが中央ぞろえになるだけで
+それ自体が親要素に対して中央ぞろえにはならない。
+そんなときはmarginを両サイドに割り当てて中央ぞろえにする
+margin: 64px auto 0;
+
+以下の場合はdivに入れて「text-align: left;」すると左に寄った。
+&lt;div style=&quot;text-align: left;&quot;&gt;
+&lt;select id=&quot;strageSelect&quot; name=&quot;strageSelect&quot; style=&quot;font-size: 20px&quot;&gt;
+    &lt;option value=&quot;0&quot;&gt;0:localStorage&lt;/option&gt;
+    &lt;option value=&quot;1&quot;&gt;1:SessionStorage&lt;/option&gt;
+&lt;/select&gt;
+&lt;/div&gt;
+</code>
+</pre>
+        <p><a href="https://www-creators.com/archives/4672#:~:text=%E5%90%8C%E3%81%98%E3%82%88%E3%81%86%E3%81%AB%E3%80%81%E3%80%8Ctext%2D,%E6%96%87%E5%AD%97%E3%81%AF%E5%B7%A6%E5%AF%84%E3%81%9B%E3%81%95%E3%82%8C%E3%81%BE%E3%81%99%EF%BC%81">HTML：文字を右寄せ・左寄せ・中央寄せする方法</a></p>
+
+        <h2>要素を丸くする</h2>
+<pre>
+<code>
+&lt;img
+src=&quot;../img/tottori.jpg&quot;
+alt=&quot;鳥居涼太のアイコン&quot;
+width=&quot;120&quot;
+height=&quot;120&quot;
+class=&quot;icon&quot;&gt;
+header .icon {
+border-radius: 50%;
+}
+※画像、ボーダーラインなどに使用できる
+</code>
+</pre>
+
+        <h2>余白</h2>
+<pre>
+<code>
+margin: 0 auto;
+padding: 0 auto;
+それから margin の場合、 margin の相殺が起きると面倒なので、どちらでもいいときは padding を選ぶ人も多い
+</code>
+</pre>
+
+        <h2>boxの高さ（文字の行間を調節。文字列について、上下中央ぞろえにしたい場合にも使える）</h2>
+<pre>
+<code>
+line-height: 1.8;
+</code>
+</pre>
+
+        <h2>aタグの下線を消して、そこで設定されている文字色をそのまま継承する</h2>
+<pre>
+<code>
+a {
+    text-decoration: none;
+    color:inherit
+}
+</code>
+</pre>
+
+        <h2>行や列に隙間を入れる（display flexで横並びにした項目の間を開ける）</h2>
+<pre>
+<code>
+.voices .container {
+    display: flex;
+    gap:16px;
+}
+</code>
+</pre>
+
+        <h2>メディアクエリ。画面の長さに応じてcssを変える</h2>
+<pre>
+<code>
+@media (min-width: 600px) {
+    .container {
+        display: flex;
+    }
+}
+</code>
+</pre>
+<p><a href="https://developer.mozilla.org/ja/docs/Web/CSS/@media">【参考】@media</a></p>
+
+        <h2>最大サイズを指定</h2>
+<pre>
+<code>
+max-width: 800px;
+</code>
+</pre>
+
+        <h2>縦方向にflexboxを設定して間を開ける。</h2>
+<pre>
+<code>
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+</code>
+</pre>
+
+        <h2>transformで画面外に移動させたコンテンツを非表示に（左右のスクロールバーが出てしまうのを防ぐらしい）</h2>
+<pre>
+<code>
+overflow: hidden;
+</code>
+</pre>
+
+        <h2>小数点の省略</h2>
+<pre>
+<code>
+transition-delay: .3s;
+
+background-color: rgba(255, 255, 255, .95);
+</code>
+</pre>
+
+        <h2>transitionのタイミングをずらす</h2>
+<pre>
+<code>
+===HTML===
+&lt;section class=&quot;animate delay&quot;&gt;
+
+===CSS===
+.abunate.delay {
+    transition-delay: .3s;
+}
+</code>
+</pre>
+
+        <h2>半透明な白</h2>
+        <p>rgbaを使用する</p>
+<pre>
+<code>
+background-color: rgba(255, 255, 255, .95);
+</code>
+</pre>
+
+        <h2>影を付ける</h2>
+        <p>rgbaを使用する</p>
+<pre>
+<code>
+<!-- BOXに影を付ける -->
+box-shadow: 0 0 4px rgba(0, 0, 0, .3);
+<!-- 文字等に影を付ける -->
+filter: drop-shadow(10px 10px 10px rgba(0,0,0,0.6));
+</code>
+</pre>
+
+        <h2>z軸のindex指定（アニメーション等で描画されるときにどちらを上にするかを指定するなど）</h2>
+        <p>指定した値が大きいほど上に配置される。何も書かなければ0とみなされる</p>
+<pre>
+<code>
+z-index: 1;
+</code>
+</pre>
+
+        <h2>ポインターイベントを無効化</h2>
+<pre>
+<code>
+style="pointer-events: none;"
+※有効にしたい場合はautoを指定する
+pointer-events: auto;
+</code>
+</pre>
+        <p><a href="https://kouhekikyozou.com/css_hover_cancel">CSS「:hover」を無効化するには？シーン別の対応策まとめ</a></p>
+
+        <h2>クリックできることが分かりやすいようにカーソルポインターに変更</h2>
+<pre>
+<code>
+#open, #close {
+    cursor: pointer;
+}
+</code>
+</pre>
+
+        <h2>全画面に固定配置</h2>
+<pre>
+<code>
+position: fixed;
+top: 0;
+bottom: 0;
+right: 0;
+left: 0;
+</code>
+</pre>
+<p><a href="https://developer.mozilla.org/ja/docs/Web/CSS/position">position</a></p>
+
+        <h2>要素の表示・非表示</h2>
+        <h3>(例)displayを使用する</h3>
+<pre>
+<code>
+=====非表示=====
+display:none;
+=====表示=====
+display: block;
+</code>
+</pre>
+        <h3>(例)opacityを使用する</h3>
+<pre>
+<code>
+=====非表示=====
+opacity: 0;
+=====表示=====
+opacity: 1;
+</code>
+</pre>
+
+        <h2>移動させる(transform)</h2>
+<pre>
+<code>
+■座標で指定
+transform: translate(0, -500px);
+■X軸で指定
+transform: translateX(16px);
+■Y軸で指定
+transform: translateY(16px);
+※逆にoffにしたい場合は以下を使用
+transform: none;
+※transitionをゆっくり動かす場合は以下を設定(以下の例ではopacityとtransformを0.3秒で変化させている)
+transition: opacity .3s, transform .3s;
+</code>
+</pre>
+<p><a href="https://developer.mozilla.org/ja/docs/Web/CSS/transform">transform</a></p>
+
+        <h2>はみ出した部分をどう扱うか</h2>
+        <h3>「overflow: visible;」</h3>
+        <p>領域をはみ出して表示する</p>
+        <h3>「overflow: hidden;」</h3>
+        <p>はみ出た部分を表示しない</p>
+        <h3>「overflow: scroll;」</h3>
+        <p>	スクロールで表示する</p>
+        <h3>「overflow: auto;」</h3>
+        <p>自動</p>
+        <p><a href="https://developer.mozilla.org/ja/docs/Web/CSS/overflow">overflow</a></p>
+        <p><a href="https://cra.jp/blog/skill/1503_skill_overflow/">いろいろと便利なoverflow:hidden;についてのあれこれ</a></p>
+
+        <h2>スマホ用サイトで左右にぶれないようにする</h2>
+        <p><a href="https://tamoc.com/deviated-smartphone-screen/">【CSS】スマホで見ると微妙に左右にズレる現象 → １行で速攻解決します。</a></p>
+
+        <h2>justify-contentで要素を等間隔に</h2>
+        <p><a href="https://csshtml.work/flex-justify-content/#justify-contentspace-between">【CSS】flexで子要素の間隔を調整する方法。【参考】</a></p>
+
+        <h2>【Font】IPAフォントを使用する。</h2>
+<pre>
+<code>
+/*IPAexゴシック(Ver.004.01)*/
+@font-face {
+    font-family: ipaexg;
+    src: url('../font/ipaexg.ttf');
+}
+/*IPAex明朝(Ver.004.01)*/
+@font-face {
+    font-family: ipaexm;
+    src: url('../font/ipaexm.ttf');
+}
+main {
+    font-family: 'ipaexg';
+}
+main {
+    font-family: 'ipaexm';
+}
+</code>
+</pre>
+
+        <h2>フォントサイズを継承する</h2>
+    <pre>
+    <code>
+font-size: inherit;
+    </code>
+    </pre>
+
+    <h2>テキストにインデントを付ける</h2>
+    <pre>
+    <code>
+text-indent: 1em;
+    </code>
+    </pre>
+
+    <h2>必須マークを付ける(:afterでcssで文字を付けられるらしい)</h2>
+<pre>
+<code>
+=====HTML=====
+&lt;p&gt;&lt;span class=&quot;required&quot;&gt;youtubeId&lt;/span&gt; : &lt;input name=&quot;pYoutubeId&quot; type=&quot;text&quot;&gt;&lt;/p&gt;
+=====CSS=====
+.required:after {
+    color: #E00;
+    content: " *";
+}
+</code>
+</pre>
+
+    <h2>ツールチップ</h2>
+    <p><a href="https://sunliblog.com/2022/04/09/tooltip/">スマホ対応のツールチップ（Tooltip）をHTML・CSSで表示する方法【参考】</a></p>
+    <p><a href="https://qiita.com/junya/items/3ff380878f26ca447f85">タッチデバイスでCSSの:activeや:hoverを機能させる。【参考】</a></p>
+
+    <h2>CSSで文字を丸で囲む方法</h2>
+    <p><a href="https://yuruyuru-biyori.com/572/">CSSで文字を丸で囲む方法【参考】</a></p>
+
+    <h2>画像の四隅(角)を丸くするCSS </h2>
+    <p><a href="https://www.nishishi.com/css/image-corner-round.html">画像の四隅(角)を丸くするCSS 【参考】</a></p>
+
+    <h2>aタグのwidthが効かない場合について</h2>
+    <p>a 要素の display プロパティの値がデフォルトで inline だかららしい</p>
+    <p>display プロパティの値を inline-block; とするとよいらしい</p>
+<pre>
+<code>
+.menu li a {
+    display: inline-block;
+    width: 100px;
+}
+</code>
+</pre>
+
+    <h2>aタグの下線を消したい</h2>
+    <p>「text-decoration: none;」を設定</p>
+<pre>
+<code>
+.menu li a {
+    display: inline-block;
+    width: 100px;
+    text-align: center;
+    padding: 8px 0;
+    color: #333;
+    text-decoration: none;
+}
+</code>
+</pre>
+
+<h2>要素の最小値を指定</h2>
+<p>「min-height: 150px;」を設定</p>
+<pre>
+<code>
+.content.active {
+    background-color: #333;
+    color: #fff;
+    min-height: 150px;
+    display: block;
+}
+</code>
+</pre>
+
+<h2>例)activeクラスが付いていない要素にホバーしたとき</h2>
+<p>「.menu li a:not(.active):hover」のようにして指定可能</p>
+<pre>
+<code>
+.menu li a.active {
+    background-color: #333;
+    color: #fff;
+}
+
+.menu li a:not(.active):hover {
+    opacity: 0.5;
+    transition: opacity 0.4s;
+}
+</code>
+</pre>
+
+<h2>範囲選択出来ないようにする</h2>
+<pre>
+<code>
+user-select: none;
+</code>
+</pre>
+
+<h2>要素の直前に要素を追加</h2>
+<pre>
+<code>
+dt::before {
+    content: '・ ';
+}    
+</code>
+</pre>
+
+<h2>要素の直後に要素を追加</h2>
+<pre>
+<code>
+dt::After {
+    content: ' ・';
+}
+</code>
+</pre>
+
+    <h2>input要素がチェックされた次のspanに対して適用</h2>
+<pre>
+<code>
+input[type="checkbox"]:checked + span {
+
+}
+</code>
+</pre>
+
+    <h2>パディングとマージン</h2>
+    <h3>margin</h3>
+    <p>大きさそのままで項目の間に隙間を開ける？</p>
+    <p>以下(margin: 10px;)を指定</p>
+    <div style="background-color: rgb(0, 255, 255);border: 1px solid rgb(0, 0, 0); width: 100px; margin: 10px;">項目</div>
+    <div style="background-color: rgb(0, 255, 255);border: 1px solid rgb(0, 0, 0); width: 100px; margin: 10px;">項目</div>
+    <div style="background-color: rgb(0, 255, 255);border: 1px solid rgb(0, 0, 0); width: 100px; margin: 10px;">項目</div>
+    <h3>padding</h3>
+    <p>項目を広げる？</p>
+    <p>以下(padding: 10px;)を指定</p>
+    <div style="background-color: rgb(0, 255, 255);border: 1px solid rgb(0, 0, 0); width: 100px; padding: 10px;">項目</div>
+    <div style="background-color: rgb(0, 255, 255);border: 1px solid rgb(0, 0, 0); width: 100px; padding: 10px;">項目</div>
+    <div style="background-color: rgb(0, 255, 255);border: 1px solid rgb(0, 0, 0); width: 100px; padding: 10px;">項目</div>
+    <p>※F12(右クリック->検証) -> Elements タブの右側のStylesからマージン、パディングの値を確認可能。一時的に書き換えてみることも可能</p>
+    <figure>
+        <img class="beside" src="../img/screenShot/スタイル変更画面(Chome).jpg" alt="スタイル変更画面(Chome).jpg">
+        <figcaption>スタイル変更画面(Chome).jpg</figcaption>
+    </figure>
+    <p>margin・paddingについて、引数の数によって指定個所が変わる。</p>
+    <p><a href="https://developer.mozilla.org/ja/docs/Web/CSS/padding">mdn web docs padding【参考】</a></p>
+    <p><a href="https://developer.mozilla.org/ja/docs/Web/CSS/margin">mdn web docs margin【参考】</a></p>
+
+    <h2>div要素を薄くしてクリックできないようにする</h2>
+<pre>
+<code>
+andMore.addEventListener('click', e => {
+    andMore.style.pointerEvents = "none";
+    andMore.style.opacity = 0.5;
+});
+</code>
+</pre>
+
+<h2>取り消し線</h2>
+<pre>
+<code>
+&lt;p style=&quot;text-decoration:line-through&quot;&gt;インスタンス開始:毎時7:00&lt;/p&gt;
+</code>
+</pre>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

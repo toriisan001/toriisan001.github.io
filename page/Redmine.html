@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>Redmine</h1>
+        <p id="lastModified"></p>
+
+        <h2>DockerでRedmine環境を構築する_LOCAL_20230924</h2>
+        <details>
+
+            <p><a href="https://www.youtube.com/watch?v=kCKWeQ7Lqkk">【参考】【超簡単！】DockerでRedmineを構築する方法を解説</a></p>
+            <h3>Docker Desktopをインストール</h3>
+            <p>以下より「Docker Desktop Installer.exe」をダウンロードしてクリック</p>
+            <p><a href="https://www.docker.com/products/docker-desktop/">docker-desktopダウンロード</a></p>
+            <h3>DockerDesktopを起動</h3>
+            <p>DockerDesktopを起動すると以下のような文言が出てきた。個人は無料とのこと。同意をクリック</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_LOCAL_20230924/DockerDesktopを起動.jpg" alt="DockerDesktopを起動.jpg">
+                <figcaption>DockerDesktopを起動.jpg</figcaption>
+            </figure>
+        <pre>
+            Docker サブスクリプション サービス契約
+            [同意する] を選択すると、サブスクリプション サービス契約、Docker データ処理契約、およびデータ プライバシー ポリシーに同意したことになります。    
+            注: Docker Desktop は、中小企業 (従業員 250 人未満かつ年間売上高 1,000 万ドル未満)、個人使用、教育、および非営利のオープン ソース プロジェクトには無料です。 それ以外の場合は、プロ向けの有料サブスクリプションが必要です。 政府機関にも有料サブスクリプションが必要です。 詳細については、FAQ をお読みください。
+        </pre>
+            <p>起動すると今週のtipsが表示されるが閉じておく</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_LOCAL_20230924/今週のtips.jpg" alt="今週のtips.jpg">
+                <figcaption>今週のtips.jpg</figcaption>
+            </figure>
+            <p>今後はコマンドラインから操作するのでDockerDesktopを閉じておく</p>
+            <p>Dockerが起動しているかどうかは、タスクバーのクジラのアイコンで確認できる。「Docker Desktop is running」と出ていれば起動している。</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_LOCAL_20230924/Dockerが起動しているか.jpg" alt="Dockerが起動しているか.jpg">
+                <figcaption>Dockerが起動しているか.jpg</figcaption>
+            </figure>
+            <h3>「docker-compose.yml」を作成して以下を貼り付け。最後の行は日本語入力するための文字コードらしい。</h3>
+<pre>
+<code>
+version: '3.1'
+
+services:
+
+    redmine:
+    image: redmine
+    restart: always
+    ports:
+        - 8080:3000
+    environment:
+        REDMINE_DB_MYSQL: db
+        REDMINE_DB_PASSWORD: example
+        REDMINE_SECRET_KEY_BASE: supersecretkey
+
+    db:
+    image: mysql:5.7
+    restart: always
+    environment:
+        MYSQL_ROOT_PASSWORD: example
+        MYSQL_DATABASE: redmine
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+</code>
+</pre>
+            <p><a href="https://hub.docker.com/_/redmine/">【参考】docker_hub_redmine</a></p>
+            <h3>vscodeのターミナルで「docker-compose up」を実行</h3>
+            <p>コンテナが追加されていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_LOCAL_20230924/コンテナに追加.jpg" alt="コンテナに追加.jpg">
+                <figcaption>コンテナに追加.jpg</figcaption>
+            </figure>
+            <h3>ブラウザで「http://localhost:8080/login」にアクセスする。</h3>
+            <p>初期状態では(ログインID:admin, パスワード:admin)でログイン。</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_LOCAL_20230924/ログイン.jpg" alt="ログイン.jpg">
+                <figcaption>ログイン.jpg</figcaption>
+            </figure>
+            <h3>新しいパスワードを入力</h3>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_LOCAL_20230924/新しいパスワード.jpg" alt="新しいパスワード.jpg">
+                <figcaption>新しいパスワード.jpg</figcaption>
+            </figure>
+            <h3>左上のボタンからプロジェクトへ移動</h3>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_LOCAL_20230924/プロジェクトへ移動.jpg" alt="プロジェクトへ移動.jpg">
+                <figcaption>プロジェクトへ移動.jpg</figcaption>
+            </figure>
+            <h3>その他</h3>
+            <p>vscodeで「ctl + c」を押せば停止</p>
+            <p>「docker-compose down」で環境を削除</p>
+    
+            <h2>チケットの作成</h2>
+            <p><a href="https://www.youtube.com/watch?v=yTSzu_mnf9k">【参考】【初心者必見】DockerでRedmineの初期設定を簡単に行う方法を解説！</a></p>
+            <h3>新しいプロジェクトをクリック</h3>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいプロジェクトをクリック.jpg" alt="新しいプロジェクトをクリック.jpg">
+                <figcaption>新しいプロジェクトをクリック.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいプロジェクトが出来ている.jpg" alt="新しいプロジェクトが出来ている.jpg">
+                <figcaption>新しいプロジェクトが出来ている.jpg</figcaption>
+            </figure>
+            <h3>名称、識別子を入力して作成をクリック</h3>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/作成.jpg" alt="作成.jpg">
+                <figcaption>作成.jpg</figcaption>
+            </figure>
+            <h3>プロジェクトを見てみると作成したプロジェクトが追加されている。</h3>
+            <p>チケットを作成するにはその前に「チケットのステータス」、「トラッカー(チケットの種類)」、「ロール」、「ワークフロー」、「優先度」を追加する必要がある。</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいプロジェクトが出来ている.jpg" alt="新しいプロジェクトが出来ている.jpg">
+                <figcaption>新しいプロジェクトが出来ている.jpg</figcaption>
+            </figure>
+            <h3>「管理」⇒「チケットのステータス」をクリックして適当にステータスを追加する。</h3>
+            <p>ステータスとは、チケットの状態を示すものらしい。</p>
+            <p>ペンディングは保留を意味するらしい。</p>
+            <p>終了したチケットにチェックを入れておけば、それが終了したもの。それ以外が終了していないものとして区別できるらしい。</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/チケットのステータスの追加_1.jpg" alt="チケットのステータスの追加_1.jpg">
+                <figcaption>チケットのステータスの追加_1.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/チケットのステータスの追加_2.jpg" alt="チケットのステータスの追加_2.jpg">
+                <figcaption>チケットのステータスの追加_2.jpg</figcaption>
+            </figure>
+            <h3>「管理」⇒「トラッカー」をクリックしてトラッカー(チケットの種別)を追加する。</h3>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいトラッカーの追加_1.jpg" alt="新しいトラッカーの追加_1.jpg">
+                <figcaption>新しいトラッカーの追加_1.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいトラッカーの追加_2.jpg" alt="新しいトラッカーの追加_2.jpg">
+                <figcaption>新しいトラッカーの追加_2.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいトラッカーの追加_3.jpg" alt="新しいトラッカーの追加_3.jpg">
+                <figcaption>新しいトラッカーの追加_3.jpg</figcaption>
+            </figure>
+            <h3>「管理」⇒「ロールと権限」をクリックしてロール(権限)を追加する。</h3>
+            <p>適切なロールを設定する</p>
+            <p>全てにチェックを入れるをクリックすると全ての権限にチェックを入れられる。</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいロールの追加_1.jpg" alt="新しいロールの追加_1.jpg">
+                <figcaption>新しいロールの追加_1.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいロールの追加_2.jpg" alt="新しいロールの追加_2.jpg">
+                <figcaption>新しいロールの追加_2.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいロールの追加_3.jpg" alt="新しいロールの追加_3.jpg">
+                <figcaption>新しいロールの追加_3.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいロールの追加_4.jpg" alt="新しいロールの追加_4.jpg">
+                <figcaption>新しいロールの追加_4.jpg</figcaption>
+            </figure>
+            <h3>「管理」⇒「ワークフロー」をクリックしてワークフロー(仕事（業務）の流れ)を追加する。</h3>
+            <p>ステータスから遷移できるステータスを設定</p>
+            <p>ロール、トラッカーを指定して編集ボタンを押せば遷移できるステータスを設定できる。</p>
+            <p>設定出来たら保存を押しておく。</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/ワークフローの追加_1.jpg" alt="ワークフローの追加_1.jpg">
+                <figcaption>ワークフローの追加_1.jpg</figcaption>
+            </figure>
+            <h3>「管理」⇒「選択肢の値」をクリックして「チケットの優先度」を追加する。</h3>
+            <p>デフォルトにしたいものに「デフォルト値」にチェックを入れる。</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/チケットの優先度の追加_1.jpg" alt="チケットの優先度の追加_1.jpg">
+                <figcaption>チケットの優先度の追加_1.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/チケットの優先度の追加_2.jpg" alt="チケットの優先度の追加_2.jpg">
+                <figcaption>チケットの優先度の追加_2.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/チケットの優先度の追加_3.jpg" alt="チケットの優先度の追加_3.jpg">
+                <figcaption>チケットの優先度の追加_3.jpg</figcaption>
+            </figure>
+            <h3>新しいチケットの作成</h3>
+            <p>「プロジェクト」⇒「新しいプロジェクト」⇒「設定タブ」⇒「チケットトラッキング」を確認</p>
+            <p>このプロジェクトで使用するトラッカー(チケットの種別)にチェックを入れて保存する。</p>
+            <p>その後、新しいチケットを作成する。</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいチケットの作成_1.jpg" alt="新しいチケットの作成_1.jpg">
+                <figcaption>新しいチケットの作成_1.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいチケットの作成_2.jpg" alt="新しいチケットの作成_2.jpg">
+                <figcaption>新しいチケットの作成_2.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいチケットの作成_3.jpg" alt="新しいチケットの作成_3.jpg">
+                <figcaption>新しいチケットの作成_3.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいチケットの作成_4.jpg" alt="新しいチケットの作成_4.jpg">
+                <figcaption>新しいチケットの作成_4.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Redmine/チケットの作成/新しいチケットの作成_5.jpg" alt="新しいチケットの作成_5.jpg">
+                <figcaption>新しいチケットの作成_5.jpg</figcaption>
+            </figure>
+        </details>
+
+        <h2>DockerでRedmine環境を構築する_AWS_20231028</h2>
+        <details>
+            <p><a href="https://www.geekfeed.co.jp/geekblog/docker-redmine">【参考】Dockerを使ってEC2にredmineを構築する(前編)</a></p>
+            <h3>セキュリティーグループで8080番ポートを開ける。</h3>
+            <p>「カスタムTCP」、ポート範囲「8080」ソース「0.0.0.0/0」を追加</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_AWS_20231028/8080番ポートを開ける.jpg" alt="8080番ポートを開ける.jpg">
+                <figcaption>8080番ポートを開ける.jpg</figcaption>
+            </figure>
+            <h3>EC2インスタンスを作成(Amazon Linux 2023 AMI)。EC2にssh接続。</h3>
+            <p>ボリュームのタイプ:マグネティック(標準)、インスタンスタイプ:t2.nanoでよさそう？</p>
+            <h3>「sudo yum update -y」でパッケージの最新化</h3>
+            <h3>「sudo yum install -y docker」でdockerのインストール</h3>
+            <h3>「sudo systemctl start docker」でdockerの起動</h3>
+            <h3>「sudo systemctl enable docker」でdockerの自動起動</h3>
+            <h3>「sudo systemctl status docker」でdockerの起動確認</h3>
+            <p>「Ctrl + C キー」でコンソールに戻る。</p>
+            <h3>「sudo usermod -a -G docker ec2-user」で今ログインしているユーザ（今回はec2-user）をdockerグループに追加</h3>
+            <p>「cat /etc/group」で所属しているアカウントのリストを確認。dockerに「ec2-user」が追加されている</p>
+            <p>sudo コマンド無しでDockerのコマンドを使うことができるようになるらしい。</p>
+<pre>
+docker:x:992:ec2-user
+</pre>
+            <h3>「sudo yum install -y python3 python3-pip」でPythonとpipをインストール</h3>
+            <h3>「sudo sudo yum remove python3-requests」でRPMパッケージを削除</h3>
+            <p>削除するか聞かれるので「y」と入力</p>
+            <p><a href="https://docs.slingnode.com/slingnode.ethereum/known-issues">【参考】python-requests installed using RPM</a></p>
+            <h3>「sudo pip3 install docker-compose」でpipを使ってDocker Composeをインストール</h3>
+            <h3>「docker-compose --version」でDocker Composeがインストール出来ているかの確認</h3>
+<pre>
+$ docker-compose --version
+docker-compose version 1.29.2, build unknown    
+</pre>
+            <h3>「mkdir -p /home/ec2-user/redmine」でdocker-compose.ymlを配置する任意のディレクトリを作成</h3>
+            <h3>「cd /home/ec2-user/redmine」で移動</h3>
+            <h3>「vim docker-compose.yml」でdocker-compose.ymlを作成。以下を追記。</h3>
+            <p>「8080:3000」について、アプリケーションがDockerコンテナ内でポート3000で動作し、ホストのポート8080とコンテナのポート3000をマッピング（関連付け）することを指定しています。</p>
+<pre>
+<code>
+version: '3.1'
+services:
+  redmine:
+    image: redmine
+    restart: always
+    ports:
+      - 8080:3000
+    environment:
+      REDMINE_DB_MYSQL: db
+      REDMINE_DB_PASSWORD: example
+      REDMINE_SECRET_KEY_BASE: supersecretkey
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: redmine
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+</code>
+</pre>
+            <h3>「sudo docker-compose up -d」で起動</h3>
+            <h3>「sudo docker-compose ps」で起動しているかどうか確認</h3>
+<pre>
+Name                     Command               State                    Ports
+-----------------------------------------------------------------------------------------------------
+redmine_db_1        docker-entrypoint.sh mysql ...   Up      3306/tcp, 33060/tcp
+redmine_redmine_1   /docker-entrypoint.sh rail ...   Up      0.0.0.0:8080->3000/tcp,:::8080->3000/tcp
+</pre>
+            <h3>ブラウザで「http://${プライベート IPv4 アドレス}:8080」または「http://${パブリック IPv4 DNS}:8080」にアクセス</h3>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_AWS_20231028/Redmineログイン.jpg" alt="Redmineログイン.jpg">
+                <figcaption>Redmineログイン.jpg</figcaption>
+            </figure>
+
+        </details>
+
+        <h2>DockerでRedmine環境を構築する_AWS_メール送信を使用する_20231111</h2>
+        <details>
+            <p><a href="https://qiita.com/masa5555/items/fbc7bc94b1d7a317a372">【参考】AWS上にRedmineを構築してSESで通知メールを送信（上げ直し）</a></p>
+            <p><a href="http://learnbyonestep.blog.fc2.com/blog-entry-196.html">【参考】AzureにRedmine環境を作成10</a></p>
+            <h3>Amazon Simple Email Serviceを参照</h3>
+            <h3>SMTP認証情報の作成をクリック</h3>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_AWS_メール送信を使用する_20231111/SMTP認証情報の作成をクリック.jpg" alt="SMTP認証情報の作成をクリック.jpg">
+                <figcaption>SMTP認証情報の作成をクリック.jpg</figcaption>
+            </figure>
+            <h3>ユーザーの作成をクリック</h3>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_AWS_メール送信を使用する_20231111/ユーザーの作成をクリック.jpg" alt="ユーザーの作成をクリック.jpg">
+                <figcaption>ユーザーの作成をクリック.jpg</figcaption>
+            </figure>
+            <h3>SMTP認証情報を取得</h3>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_AWS_メール送信を使用する_20231111/SMTP_認証情報を取得.jpg" alt="SMTP_認証情報を取得.jpg">
+                <figcaption>SMTP_認証情報を取得.jpg</figcaption>
+            </figure>
+            <h3>SMTPエンドポイントを確認</h3>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_AWS_メール送信を使用する_20231111/SMTPエンドポイントを確認.jpg" alt="SMTPエンドポイントを確認.jpg">
+                <figcaption>SMTPエンドポイントを確認.jpg</figcaption>
+            </figure>
+            <h3>Redmineのコンテナ名称を確認</h3>
+            <p>「docker container ls」でRedmineのコンテナ名称を確認。redmine_redmine_1ということがわかる。</p>
+<pre>
+CONTAINER ID   IMAGE       COMMAND                  CREATED       STATUS       PORTS                                       NAMES
+*****   redmine     "/docker-entrypoint.…"   13 days ago   Up 13 days   0.0.0.0:8080->3000/tcp, :::8080->3000/tcp   redmine_redmine_1
+*****   mysql:5.7   "docker-entrypoint.s…"   13 days ago   Up 13 days   3306/tcp, 33060/tcp                         redmine_db_1                
+</pre>
+            <h3>RedmineのDockerコンテナにログイン</h3>
+            <p>EC2にSSH接続した後、「docker exec -it ${コンテナ名称} /bin/bash」でログイン。</p>
+            <h3>RedmineのDockerコンテナのドメインを確認</h3>
+            <p>「cat /etc/hosts」を実行。localhostだった。</p>
+<pre>
+root@*****:/usr/src/redmine# cat /etc/hosts
+127.0.0.1       localhost
+</pre>
+            <h3>「/usr/src/redmine/config」に移動する</h3>
+            <p>「cd config」で移動</p>
+            <h3>「vi」をインストールする</h3>
+            <p>「apt-get update」でパッケージ更新</p>
+            <p>「apt-get install vim」でvimインストール。同意を求められるので「Yを入力」。</p>
+            <h3>configuration.ymlファイルを作成</h3>
+            <p>「cp configuration.yml.example configuration.yml」でconfiguration.ymlファイルを作成</p>
+            <h3>configuration.ymlファイルを編集</h3>
+            <p>「vi configuration.yml」で編集</p>
+            <p>「production:」の下に以下を追記。""も必要らしい。</p>
+            <p>「RedmineのDockerコンテナのドメイン」について、aaaとかにしてもメール送信出来ていた。何でもいい？</p>
+<pre>
+production:
+    email_delivery:
+    delivery_method: :smtp
+    smtp_settings:
+
+        address: "SMTPエンドポイント"
+        port: 587
+        domain: "RedmineのDockerコンテナのドメイン"
+        authentication: :login
+        user_name: "SMTP認証情報のSMTPユーザー名"
+        password: "SMTP認証情報のパスワード"
+</pre>
+            <h3>configuration.ymlファイルを編集</h3>
+            <p>「sudo docker restart ${コンテナ名称}」でコンテナを再起動</p>
+            <h3>送信元メールアドレスを検証する</h3>
+            <p>検証しないと送信できないらしい。</p>
+            <p><a href="https://zenn.dev/tochisuke/articles/520f9315efc9ef">【参考】【AWS SES】特定のユーザに送れない問題（554 Message rejected）</a></p>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_AWS_メール送信を使用する_20231111/送信元メールアドレスを検証.jpg" alt="送信元メールアドレスを検証.jpg">
+                <figcaption>送信元メールアドレスを検証.jpg</figcaption>
+            </figure>
+            <h3>送信テスト</h3>
+            <p>管理者権限を持ったユーザーで「管理⇒設定⇒メール通知」の送信元メールアドレスに検証済みのアドレスを設定して保存。テストメールを送信をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_AWS_メール送信を使用する_20231111/送信テスト.jpg" alt="送信テスト.jpg">
+                <figcaption>送信テスト.jpg</figcaption>
+            </figure>
+            <h3>テストメールの受信</h3>
+            <figure>
+                <img class="beside" src="../img/Redmine/DockerでRedmine環境を構築する_AWS_メール送信を使用する_20231111/テストメールの受信.jpg" alt="テストメールの受信.jpg">
+                <figcaption>テストメールの受信.jpg</figcaption>
+            </figure>
+        </details>
+
+        <h2>エキスポート_インポート</h2>
+        <details>
+            <h3>管理者権限でログイン</h3>
+            <h3>ユーザーをエキスポート</h3>
+            <p>「管理⇒ユーザー」を開いて「他の形式にエクスポート」でCSVを選択</p>
+            <p>エンコーディング は「utf-8」を選択。使い勝手が良いらしい。</p>
+            <p>「users.csv」が出力されるので保管する。</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/ユーザーをエキスポート.jpg" alt="ユーザーをエキスポート.jpg">
+                <figcaption>ユーザーをエキスポート.jpg</figcaption>
+            </figure>
+            <h3>プロジェクト一覧をエキスポート</h3>
+            <p>「プロジェクト」の「他の形式にエクスポート」でAtomを右クリックで保存。「projects.txt」を保管</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/プロジェクト一覧をエキスポート.jpg" alt="プロジェクト一覧をエキスポート.jpg">
+                <figcaption>プロジェクト一覧をエキスポート.jpg</figcaption>
+            </figure>
+            <h3>プロジェクト単位でチケットをエキスポート</h3>
+            <p>右上のドロップダウンでプロジェクトを選択</p>
+            <p>チケットタブを開いて「他の形式にエクスポート」でCSVを選択</p>
+            <p>エンコーディング は「utf-8」を選択。使い勝手が良いらしい。</p>
+            <p>「issues.csv」が出力されるので保管する。</p>
+            <p>複数プロジェクトがある場合はそれぞれ取得しておく</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/プロジェクト単位でチケットをエキスポート.jpg" alt="プロジェクト単位でチケットをエキスポート.jpg">
+                <figcaption>プロジェクト単位でチケットをエキスポート.jpg</figcaption>
+            </figure>
+            <h3>ユーザーをインポート</h3>
+            <p>重複した取り込みが出来ないので「users.csv」から手動で重複した物を除去</p>
+            <p>「管理⇒ユーザー」を開いて「...」をクリックして「インポート」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/ユーザーをインポート1.jpg" alt="ユーザーをインポート1.jpg">
+                <figcaption>ユーザーをインポート1.jpg</figcaption>
+            </figure>
+            <p>「ファイルを選択」で「users.csv」を選択して「次」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/ユーザーをインポート2.jpg" alt="ユーザーをインポート2.jpg">
+                <figcaption>ユーザーをインポート2.jpg</figcaption>
+            </figure>
+            <p>「次」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/ユーザーをインポート3.jpg" alt="ユーザーをインポート3.jpg">
+                <figcaption>ユーザーをインポート3.jpg</figcaption>
+            </figure>
+            <p>「インポート」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/ユーザーをインポート4.jpg" alt="ユーザーをインポート4.jpg">
+                <figcaption>ユーザーをインポート4.jpg</figcaption>
+            </figure>
+            <p>インポートが完了</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/ユーザーをインポート5.jpg" alt="ユーザーをインポート5.jpg">
+                <figcaption>ユーザーをインポート5.jpg</figcaption>
+            </figure>
+            <h3>プロジェクト一覧を手動で登録</h3>
+            <p>「projects.txt」を参考にしながらプロジェクトを登録。手動でしか登録出来ないのかも</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/プロジェクト一覧を手動で登録.jpg" alt="プロジェクト一覧を手動で登録.jpg">
+                <figcaption>プロジェクト一覧を手動で登録.jpg</figcaption>
+            </figure>
+            <p>プロジェクト作成後</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/プロジェクト作成後.jpg" alt="プロジェクト作成後.jpg">
+                <figcaption>プロジェクト作成後.jpg</figcaption>
+            </figure>
+            <h3>プロジェクト単位でチケットをインポート</h3>
+            <p>事前に「チケットのステータス」「トラッカー」「ロールと権限」「ワークフロー」「選択肢の値」「チケットトラッキング」あたりの設定をしておく。</p>
+            <p>チケットタブを選択して「...」をクリックして「インポート」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/プロジェクト単位でチケットをインポート.jpg" alt="プロジェクト単位でチケットをインポート.jpg">
+                <figcaption>プロジェクト単位でチケットをインポート.jpg</figcaption>
+            </figure>
+            <p>「issues.csv」を選択して「次」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/プロジェクト単位でチケットをインポート2.jpg" alt="プロジェクト単位でチケットをインポート2.jpg">
+                <figcaption>プロジェクト単位でチケットをインポート2.jpg</figcaption>
+            </figure>
+            <p>日付の形式を「YYYY/MM/DD」にする。</p>
+            <p>「次」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/プロジェクト単位でチケットをインポート3.jpg" alt="プロジェクト単位でチケットをインポート3.jpg">
+                <figcaption>プロジェクト単位でチケットをインポート3.jpg</figcaption>
+            </figure>
+            <p>インポート先のプロジェクトを選択して「インポート」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/プロジェクト単位でチケットをインポート4.jpg" alt="プロジェクト単位でチケットをインポート4.jpg">
+                <figcaption>プロジェクト単位でチケットをインポート4.jpg</figcaption>
+            </figure>
+            <p>インポート完了</p>
+            <figure>
+                <img class="beside" src="../img/Redmine/エキスポート_インポート/プロジェクト単位でチケットをインポート5.jpg" alt="プロジェクト単位でチケットをインポート5.jpg">
+                <figcaption>プロジェクト単位でチケットをインポート5.jpg</figcaption>
+            </figure>
+        </details>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>Windows</h1>
+        <p id="lastModified"></p>
+    
+        <h2>hostsの変更</h2>
+        <p>hosts（ホスツ）ファイルとは、OSのシステムファイルの1つで、IPアドレスとそれに対応するホスト名（ドメイン名）の対応を記述したテキストファイルです。 このファイル内に、新サーバのIPアドレスと対応するドメイン名を合わせて記載することで、DNS情報を参照せずにドメイン名で新サーバにアクセスできるようになります。</p>
+        <p>「C:\Windows\System32\drivers\etc\hosts」を修正</p>
+        <p>テキストを管理者権限で開いてそこにhostsファイル開いて修正</p>
+<pre>
+<code>
+=====例=====
+127.0.0.1	torii
+</code>
+</pre>
+    <p>「http://torii:8089/toriisan-php-001/page/home.html」←でブラウザで入力すると「http://127.0.0.1:8089/toriisan-php-001/page/home.html」と解釈してくれるようになる。</p>
+
+    <h2>hostnameの変更</h2>
+    <p>「ネットワーク上で」コンピュータを識別するために付ける名前</p>
+    <p>Windowsボタンを右クリック→システム(Y)→このPCの名前を変更から変更可能</p>
+
+    <h2>エクスプローラーから別PCのドライブにアクセス</h2>
+    <p><a href="https://bags-lab.com/2021/01/07/explorer-drive-acceess/">【参考】【Windows】エクスプローラーから別PCのドライブにアクセスする方法【tips】</a></p>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

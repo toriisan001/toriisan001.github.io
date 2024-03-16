@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>INFO</h1>
+        <p id="lastModified"></p>
+    
+        <h2>現在情報（毎秒更新）</h2>
+        <p>西暦：<span id="current_date"></span></p>
+        <p>和暦：<span id="japanese_calender"></span></p>
+        <p>時刻：<span id="current_time"></span></p>
+        <p>曜日：<span id="day_of_week"></span></p>
+        <p>うるう年判定：<span id="leap_year"></span></p>
+        <p>十二支：<span id="zodiac"></span></p>
+        <p>定時法_十二支：<span id="japanese_animal_time"></span></p>
+        <p>季節：<span id="season"></span></p>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+    <script>
+        {
+            'use strict';
+            
+            // うるう年判定関数
+            function isLeapYear(year) {
+                return new Date(year, 2, 0).getDate() === 29;
+            }
+    
+            // 1秒ごとに実行
+            setInterval(() => {
+    
+                // 西暦
+                date = new Date();
+                year = date.getFullYear();
+                month = date.getMonth() + 1;
+                day = date.getDate();
+                document.getElementById("current_date").innerHTML = year + "/" + month + "/" + day;
+    
+                // 和暦
+                const options = { era: 'long' };
+                const japaneseCalender = new Intl.DateTimeFormat('ja-JP-u-ca-japanese', options).format(date);
+                document.getElementById("japanese_calender").innerHTML = japaneseCalender;
+    
+                // 時刻
+                var hour = date.getHours();
+                var minute = date.getMinutes();
+                var second = zeroPadding(date.getSeconds(), 2);
+                document.getElementById("current_time").innerHTML = hour + ":" + minute + ":" + second;
+    
+                // うるう年判定
+                document.getElementById("leap_year").innerHTML = isLeapYear(year);
+    
+                // 曜日
+                var dayOfWeek = date.getDay();
+                var dayOfWeekStr = ["日", "月", "火", "水", "木", "金", "土"][dayOfWeek];
+                document.getElementById("day_of_week").innerHTML = dayOfWeekStr + "曜日";
+    
+                // 干支
+                const zodiacData = [
+                    "申(さる)",
+                    "酉(とり)",
+                    "戌(いぬ)",
+                    "亥(い)",
+                    "子(ね)",
+                    "丑(うし)",
+                    "寅(とら)",
+                    "卯(う)",
+                    "辰(たつ)",
+                    "巳(み)",
+                    "午(うま)",
+                    "未(ひつじ)"
+                ];
+                document.getElementById("zodiac").innerHTML = zodiacData[parseInt(year) % 12];
+
+                // 定時法_十二支
+                var japaneseAnimalTime = {
+                    00: "子〈ね〉",
+                    01: "子〈ね〉",
+                    02: "丑〈うし〉",
+                    03: "丑〈うし〉",
+                    04: "寅〈とら〉",
+                    05: "寅〈とら〉",
+                    06: "卯〈う〉",
+                    07: "卯〈う〉",
+                    08: "辰〈たつ〉",
+                    09: "辰〈たつ〉",
+                    10: "巳〈み〉",
+                    11: "巳〈み〉",
+                    12: "午〈うま〉",
+                    13: "午〈うま〉",
+                    14: "未〈ひつじ〉",
+                    15: "未〈ひつじ〉",
+                    16: "申〈さる〉",
+                    17: "申〈さる〉",
+                    18: "酉〈とり〉",
+                    19: "酉〈とり〉",
+                    20: "戌〈いぬ〉",
+                    21: "戌〈いぬ〉",
+                    22: "亥〈い〉",
+                    23: "亥〈い〉",
+                };
+                document.getElementById("japanese_animal_time").innerHTML = japaneseAnimalTime[hour] + 'の刻';
+    
+                // 季節
+                var season = {
+                    01: "冬",
+                    02: "冬",
+                    03: "春",
+                    04: "春",
+                    05: "春",
+                    06: "夏",
+                    07: "夏",
+                    08: "夏",
+                    09: "秋",
+                    10: "秋",
+                    11: "秋",
+                    12: "冬",
+                };
+                document.getElementById("season").innerHTML = season[month];
+    
+            }, 1000);
+
+        };
+    </script>
+</body>
+</html>

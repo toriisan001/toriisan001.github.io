@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.dd-box {
+    list-style: none;
+    padding: 10px;
+}
+.dd-box li {
+    user-select: none;
+    background: #fff;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, .2);
+    cursor: grab;
+    max-width: 500px;
+    padding: 10px;
+    transition: box-shadow .3s;
+}
+.dd-box li.onGrab {
+    cursor: grabbing;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, .15);
+    position: absolute;
+    z-index: 1;
+}
+.dd-box li:not(:last-child) {
+    margin-bottom: 10px;
+}
+.hidden {
+    visibility: hidden;
+}

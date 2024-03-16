@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.JPG">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+    <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>Minecraft</h1>
+        <p id="lastModified"></p>
+
+        <h2>EC2でMinecraftサーバーを構築_統合版_20231209</h2>
+        <details>
+            <p><a href="https://matsu.teraren.com/blog/2023/02/06/post-14986/">【参考】Minecraft Server(統合版)をUbuntu上で起動する</a></p>
+            <p><a href="https://e-q.work/2023/07/09/minecraft-server%E7%B5%B1%E5%90%88%E7%89%88%E3%82%92aws%E4%B8%8A%E3%81%A7%E5%AE%89%E4%BE%A1%E3%81%AB%E7%AB%8B%E3%81%A6%E3%82%8B/">【参考】minecraft-server統合版をaws上で安価に立てる</a></p> 
+            <p><a href="https://qiita.com/koji4104/items/58088f5af5300234aaca">【参考】AWS EC2の月額料金の一覧表を作ってみた</a></p>
+            <p><a href="https://supilog.supisupi.com/blog/7w9btr97kaj8/">【参考】【minecraft】統合版マルチサーバー構築のおまけ【手順】</a></p>
+            <p>MinecraftにはJava版と統合版がある。元々Java版だったが、後々統合版が出てきた。Java版はPCのみ。統合版はPC、スマホ、ゲーム機同じサーバー上で遊べる。個人的に統合版のほうが良い気がする。UIも洗練されている。最初からあったこともあり、modがJava版のほうが充実しているとも言われていた。Java版と統合版は互換性がないらしい。</p>
+            <h3>インスタンス立ち上げ</h3>
+            <p>インスタンス名に「Minecraft_Server」を設定</p>
+            <p>Amazon マシンイメージ (AMI)に「Ubuntu」を設定</p>
+            <p>アーキテクチャに「64ビット(x86)」を設定</p>
+            <p>インスタンスタイプに「t3.nano」を設定。t3.nanoでも起動は出来ていた。負荷が増えたら上げたほうが良いのかな</p>
+            <p>ストレージには「8GiB」「gp3」を設定</p>
+            <p>Elastic IP アドレスを割り当てておく</p>
+            <h3>セキュリティグループの変更</h3>
+            <p>インバウンドルールについて「カスタムUDP」ポート「19132」を解放</p>
+            <h3>インスタンスにssh接続～サーバー起動</h3>
+            <p>[サーバー]「sudo apt -y update」でパッケージの最新化</p>
+            <p>[サーバー]「sudo apt install -y unzip」でunzipをインストール</p>
+            <p>[サーバー]「sudo apt install -y screen」でscreenをインストール</p>
+            <p>[サーバー]「mkdir minecraft」でminecraftディレクトリを作成</p>
+            <p>[サーバー]「cd minecraft」でminecraftディレクトリへ移動</p>
+            <p>[サーバー]「wget https://minecraft.azureedge.net/bin-linux/bedrock-server-1.20.50.03.zip」でubuntu版マイクラサーバー(最新版のリンクは「https://www.minecraft.net/ja-jp/download/server/bedrock」から確認)</p>
+            <p>[サーバー]「unzip bedrock-server-1.20.50.03.zip」で解凍</p>
+            <p>[サーバー]「LD_LIBRARY_PATH=. ./bedrock_server」でサーバー起動</p>
+            <p>[サーバー]「vi start_server.sh」で起動スクリプトを作成</p>
+            <p>[サーバー]「chmod +x start_server.sh」で実行権限を付与。(手動で起動したい場合は「./start_server.sh」で起動できる。)</p>
+<pre>
+<code>
+#!/bin/bash
+cd /home/ubuntu/minecraft && LD_LIBRARY_PATH=/home/ubuntu/minecraft /home/ubuntu/minecraft/bedrock_server | tee  /home/ubuntu/minecraft/applogs/minecraft_server_$(date +%Y%m%d_%H%M%S).log
+</code>
+</pre>
+            <p>[サーバー]「sudo vi /etc/systemd/system/minecraft.service」でサービスの作成</p>
+<pre>
+<code>
+[Unit]
+Description=Minecraft Bedrock Server
+
+[Service]
+Type=forking
+User=ubuntu
+KillMode=none
+Restart=on-failure
+ExecStart=/usr/bin/screen -dmS minecraft /bin/bash -c "/home/ubuntu/minecraft/start_server.sh"
+ExecStop=/usr/bin/screen -S minecraft -X stuff '^Ustop\r'
+
+[Install]
+WantedBy=multi-user.target
+</code>
+</pre>
+        <p>[サーバー]「sudo systemctl start minecraft.service」でminecraft サービス起動</p>
+        <p>[サーバー]「sudo systemctl status minecraft.service」でminecraft サービスが起動していることを確認</p>
+<pre>
+ubuntu@**********:~$ sudo systemctl start minecraft.service
+ubuntu@**********:~$ sudo systemctl status minecraft.service
+● minecraft.service - Minecraft Bedrock Server
+        Loaded: loaded (/etc/systemd/system/minecraft.service; disabled; vendor preset: enabled)
+        Active: active (running) since Sat 2023-12-09 05:06:58 UTC; 11min ago
+    Process: 2241 ExecStart=/usr/bin/screen -dmS minecraft /bin/bash -c /home/ubuntu/minecraft/start_server.sh (code=exited, status=0/SUCCESS)
+    Main PID: 2242 (screen)
+        Tasks: 19 (limit: 1091)
+        Memory: 128.7M
+        CPU: 17.792s
+        CGroup: /system.slice/minecraft.service
+                ├─2242 /usr/bin/SCREEN -dmS minecraft /bin/bash -c /home/ubuntu/minecraft/start_server.sh
+                ├─2243 /bin/bash /home/ubuntu/minecraft/start_server.sh
+                ├─2244 /home/ubuntu/minecraft/bedrock_server
+                └─2245 tee /home/ubuntu/minecraft/applogs/minecraft_server_20231209_050658.log
+
+Dec 09 05:06:58 ********** systemd[1]: Starting Minecraft Bedrock Server...
+Dec 09 05:06:58 ********** systemd[1]: Started Minecraft Bedrock Server.
+</pre>
+        <p>[サーバー]「screen -ls」でminecraft サービスが起動していることを確認</p>
+<pre>
+ubuntu@**********:~$ screen -ls
+There is a screen on:
+        2242.minecraft  (12/09/23 05:06:58)     (Detached)
+1 Socket in /run/screen/S-ubuntu.
+</pre>
+        <p>[サーバー]「sudo systemctl enable --now minecraft.service」でLinuxシステム上でMinecraftサーバーを自動起動および有効化</p>
+        <h3>その他設定</h3>
+        <p>[サーバー]「vi ~/minecraft/server.properties」でプロパティを編集</p>
+<pre>
+■default-player-permission-level
+「visitor」戦う・採掘する・建築する不可
+「member」戦う・採掘する・建築する可能
+「operator」はワールドの管理者。ワールドの設定変更や他のプレイヤーの権限変更などワールドに対する全ての権限を持つ
+
+■player-idle-timeout
+「30」と設定すると30分以上放置したプレイヤーをサーバーから追い出す。
+「0」と設定した場合、放置プレイヤーは追い出されません。
+
+■view-distance
+「view-distance」は、プレイヤーから見えるワールドの描画距離を指定する設定項目。
+プレイヤーを軸に、どれくらいまでワールドを表示するかを設定できます。
+
+■level-name
+ワールドデータのフォルダ名
+別ファイルにてワールドが作成され稼働
+以前のworldに記述を戻せば以前のワールドが稼働するので、ワールドの切り換えも可能
+
+■difficulty
+ゲーム難易度。設定できる値は、”peaceful”, “easy”, “normal”, “hard”
+</pre>
+        <p>[サーバー]「sudo systemctl restart minecraft.service」でサービスを再起動して編集を有効化</p>
+        <h3>Minecraftサーバーにアクセス</h3>
+        <p>Minecraft_統合版を起動。プレイをクリック。</p>
+        <figure>
+            <img class="beside" src="../img/Minecraft/EC2でMinecraftサーバーを構築_統合版_20231209/Minecraft_統合版を起動.JPG" alt="Minecraft_統合版を起動.JPG">
+            <figcaption>Minecraft_統合版を起動.JPG</figcaption>
+        </figure>
+        <p>サーバー追加をクリック。</p>
+        <figure>
+            <img class="beside" src="../img/Minecraft/EC2でMinecraftサーバーを構築_統合版_20231209/サーバー追加をクリック.JPG" alt="サーバー追加をクリック.JPG">
+            <figcaption>サーバー追加をクリック.JPG</figcaption>
+        </figure>
+        <p>サーバー名(適当な名前)。サーバーアドレス(Elastic IP アドレス)。ポートを指定して保存をクリック。</p>
+        <figure>
+            <img class="beside" src="../img/Minecraft/EC2でMinecraftサーバーを構築_統合版_20231209/外部サーバーを追加.JPG" alt="外部サーバーを追加.JPG">
+            <figcaption>外部サーバーを追加.JPG</figcaption>
+        </figure>
+        <p>サーバーに接続</p>
+        <figure>
+            <img class="beside" src="../img/Minecraft/EC2でMinecraftサーバーを構築_統合版_20231209/サーバーに接続.JPG" alt="サーバーに接続.JPG">
+            <figcaption>サーバーに接続.JPG</figcaption>
+        </figure>
+        <p>Minecraftサーバーにアクセスできたことを確認</p>
+        <figure>
+            <img class="beside" src="../img/Minecraft/EC2でMinecraftサーバーを構築_統合版_20231209/Minecraftサーバーにアクセスできたことを確認.JPG" alt="Minecraftサーバーにアクセスできたことを確認.JPG">
+            <figcaption>Minecraftサーバーにアクセスできたことを確認.JPG</figcaption>
+        </figure>
+        <h3>特定のユーザーに管理者権限の付与</h3>
+        <p>[サーバー]「sudo systemctl stop minecraft」でMinecraftのサービスを停止</p>
+        <p>[サーバー]「cd /usr/local/games/minecraft/」でMinecraftのディレクトリに移動</p>
+        <p>[サーバー]「./bedrock_server」で手動起動</p>
+        <p>Minecraftを起動してサーバーにログイン</p>
+        <p>手動実行のためログが出ている状態になっている。自分のxuidを確認</p>
+<pre>
+[2023-12-09 06:08:03:130 INFO] Player connected: tottori1, xuid: *************
+[2023-12-09 06:08:08:237 INFO] Player Spawned: tottori1 xuid: *************, pfid: *************
+</pre>
+<p>「vi permissions.json」でpermissions.jsonに追記</p>
+<pre>
+[
+    {
+       "permission" : "operator",
+       "xuid" : "${先ほど確認したxuid}"
+    }
+]
+</pre>
+        <p>[サーバー]「sudo systemctl restart minecraft.service」でサービスを再起動して編集を有効化</p>
+        <h3>管理者コマンド</h3>
+        <p>「t」キーを押すとチャットが出てくる</p>
+        <p><a href="https://kobalabo.com/664/">【参考】【Minecraft】統合版 自分で立てたサーバーで座標を表示する方法</a></p>
+<pre>
+■座標を表示
+「/gamerule showcoordinates true」
+</pre>
+        </details>
+
+</pre>
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

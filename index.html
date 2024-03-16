@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html lang="js">
-    <head>
-        <meta charset="utf-8">
-        <title>鳥居翔太のポートフォリオサイト</title>
-        <link rel="stylesheet" href="css/styles.css">
-    </head>
-    <body>
-        <h1>鳥居翔太</h1>
-        <p>WEBプログラマーです</p>
-    </body>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+</head>
+<body>
+    画面遷移中...<br>
+    1秒後に自動で移動します。<br>
+    以下手動で移動する場合のリンク<br>
+    <p><a href="https://toriisan001.github.io/page/home.html">鳥居涼太のポートフォリオサイト_home画面(https://toriisan001.github.io/page/home.html)</a></p>
+    <script src="./js/config.js"></script>
+    <script>
+        setTimeout(() => {
+            // 変数storageにlocalStorageを格納
+            const storage = localStorage;
+            const config = getConfig();
+            const lastAccessHref = storage.getItem(config.SYSTEM_KEY.LAST_HREF);
+            // 遷移を実行
+            window.location.href = (lastAccessHref === null) ? config.PAGE.HOME : lastAccessHref;
+        }, 1000);
+    </script>
+</body>
 </html>

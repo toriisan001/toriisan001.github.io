@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+    <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>Batch</h1>
+        <p id="lastModified"></p>
+    
+        <h2>@echo off</h2>
+        <p>「@echo off」は冗長なコマンドの画面出力を消すためのものらしい</p>
+        <p>「@echo off」で消せるのはコマンドの実行表示だけらしい（実行結果のみが表示される）</p>
+        <p>これがなぜ便利かといいますと、batファイルで複雑な処理や長い処理をするときなど出力結果だけが見えていいかららしい</p>
+    
+<pre>
+=====「@echo off」無し=====
+C:\Users\*****\Desktop>echo これは「echo」コマンドで出力されたメッセージです
+これは「echo」コマンドで出力されたメッセージです
+
+C:\Users\*****\Desktop>pause
+続行するには何かキーを押してください . . .
+
+=====「@echo off」有り=====
+これは「echo」コマンドで出力されたメッセージです
+続行するには何かキーを押してください . . .
+</pre>
+    
+            <h2>cmdを最小化した状態で起動</h2>
+            <p><a href="https://forgetmenots.doorblog.jp/archives/52556936.html">バッチファイルを最小化して実行する【参考】</a></p>
+    
+            <h2>出力した内容をファイルに出力</h2>
+<pre>
+<code>
+C:\Users\*****>cd C:\Users\*****\Desktop\cmd
+C:\Users\*****\Desktop\cmd>echo 'hogehoge' > test.txt
+C:\Users\*****\Desktop\cmd>
+※追記がしたい場合は「>>」を使用すると追記できる
+</code>
+</pre>
+    
+            <h2>ファイル内を検索</h2>
+<pre>
+<code>
+C:\Users\\*****\\Desktop\cmd>find "fsd" test.txt
+---------- TEST.TXT
+gfsdgjnodpgnodfagf
+fsd
+fsd
+fsd
+</code>
+</pre>
+    
+            <h2>ループ処理</h2>
+<pre>
+<code>
+for /l %%i in (1, 1, 30) do {
+// 処理を記載
+}
+</code>
+</pre>
+    
+        <h2>cmdコンソール内で内容を展開</h2>
+<pre>
+<code>
+type test.csv
+</code>
+</pre>
+        <p>※linuxはtypeではなくcatを使用するらしい</p>
+    
+        <h2>【bat】外部ファイルの変数と値を読み込んで使用する</h2>
+        <p><a href="https://qiita.com/mik_claire/items/ec7ecc9a005f440fd7f0">【bat】外部ファイルの変数と値を読み込んで使用する</a></p>
+    
+        <h2>フォルダ配下の全ファイル内の文字列検索を行うコマンド</h2>
+        <p><a href="https://miffy252lion.hatenablog.com/entry/2021/02/18/140014">Windowsコマンドプロンプトでフォルダ配下の全ファイル内の文字列検索を行うコマンド</a></p>
+
+<h2>cmdコンソール内で内容を展開</h2>
+<p>substrのような切り出し</p>
+<p><a href="http://usskim.web.fc2.com/src-c/winbatch_string.html">文字列操作（部分文字列）</a></p>
+
+<h2>for文</h2>
+<p><a href="https://www.keicode.com/windows/for-command.php">意外と知られていないけど、知っていると便利な FOR コマンド</a></p>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

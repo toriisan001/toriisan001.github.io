@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>IndexDb(ver0.11)</h1>
+        <p id="lastModified"></p>
+    
+        <hr>
+        <details>
+            <h2>使い方参考サイト</h2>
+            <p><a href="https://qiita.com/yamayamasan/items/a4297e724b86f4a00fd2">Dexie.jsでIndexedDBを使ってみる【参考】</a></p>
+            <p><a href="https://www.codit.work/notes/25ykyi18blgmi8fkfi66/">データベースの操作【参考】</a></p>
+            <p><a href="https://noxi515.hateblo.jp/entry/2018/04/01/233950">noxi雑記【参考】</a></p>
+            <p>
+                <a
+                    href="https://launchcart.jp/blog/%E3%80%90react%E3%80%91dexie-js%E3%81%A7indexeddb%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%BE%E3%81%97%E3%81%9F/">
+                    【React】Dexie.jsでIndexedDBを使ってみました
+                </a>
+            </p>
+            <p>
+                <a href="https://codesandbox.io/s/react-dexie-js-mui-j4k3n3">
+                    【React】Dexie.jsでIndexedDBを使ってみました。- Dexie.jsを使って作ってみたDEMO【参考】</a>
+            </p>
+            <p>
+                <a href="https://b-risk.jp/blog/2020/07/indexeddb_and_dexie/">
+                    【スマホアプリ開発】ハイブリッドアプリ開発が楽になる jsのみのデータベース【indexedDB + Dexie.js】（動作例付き）【参考】</a>
+            </p>
+        </details>
+        <hr>
+    
+        <div id="table"></div>
+    
+        <div style="padding-top: 5px;">
+            <input type="button" value="新規・更新" onClick="set()">
+            <input type="button" value="全クリア" onClick="if (confirm('全レコード削除してよいですか？')) cle(); return false;">
+        </div>
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/dexie.min.js"></script>
+    <script>
+        {
+            'use strict';
+            const config = getConfig();
+    
+            var db = new Dexie(config.INDEX_DB.TEST.DB_NAME);
+    
+            // データベースにテーブルを設定 ・初期化
+            db.version(Number(config.INDEX_DB.TEST.DB_VERSION)).stores({ notes: "++id, title, body, updated_at" });
+    
+            db.open().then(function (db) {
+                // 接続に成功したとき
+                setlog("DB connection successful.");
+            }).catch(function (err) {
+                // エラーが起きたとき
+                setlog("DB connection failed. : " + err);
+            });
+    
+            show_result();
+    
+            // データを保存する
+            function set() {
+                const id = document.getElementById('id');
+                const title = document.getElementById('title');
+                const body = document.getElementById('body');
+                const updatedAt = document.getElementById('updated_at');
+                var params = {};
+                if (id.textContent !== '') {
+                    params.id = parseInt(id.textContent);
+                }
+                params.title = title.value;
+                params.body = body.value;
+                params.updated_at = dateFomatYYYYMMDDhhmmss(new Date(updatedAt.textContent), '/', ':');
+                db.notes.put(params);
+                show_result();
+            }
+    
+            // データを全てクリアする
+            function cle() {
+                db.notes.clear();
+                show_result();
+            }
+    
+            // 対象キーのデータをクリアする
+            function keyCle(id) {
+                db.notes.delete(id);
+                show_result();
+            }
+    
+            // キー情報を取得
+            function keyCopy(pId) {
+                const id = document.getElementById('id');
+                const title = document.getElementById('title');
+                const body = document.getElementById('body');
+                const updatedAt = document.getElementById('updated_at');
+                db.notes.where({ id: pId })
+                    .toArray()
+                    .then(function (notes) {
+                        id.textContent = notes[0].id;
+                        title.value = notes[0].title;
+                        body.value = notes[0].body;
+                        updatedAt.textContent = dateFomatYYYYMMDDhhmmss(new Date(notes[0].updated_at), '/', ':');
+                    });
+            }
+    
+            // データの取得
+            function show_result() {
+                // 実行タイミング(100ミリ秒)で実行
+                setTimeout(function () {
+                    db.notes
+                        .toArray()
+                        .then(function (notes) {
+                            var notes_html = '';
+                            notes_html += '<table>';
+                            notes_html += '<tr><th>ID</th><th>タイトル</th><th>本文</th><th>登録日時</th></tr>';
+                            $.each(notes, function (index, note) {
+                                const updatedAt = dateFomatYYYYMMDDhhmmss(new Date(note.updated_at), '/', ':');
+                                const message = 'ID(' + note.id + ')を削除してよいですか？';
+                                notes_html += `<tr><td style="border-bottom: 1px solid black;" onClick="keyCopy(${note.id})">${note.id}</td><td style="border-bottom: 1px solid black;">${note.title}</td><td style="border-bottom: 1px solid black;">${note.body}</td><td style="border-bottom: 1px solid black;">${updatedAt}</td><td onClick="if (confirm('${message}')) keyCle(${note.id}); return false;">×</td></tr>`;
+                            });
+                            const updatedAt = dateFomatYYYYMMDDhhmmss(new Date(), '/', ':');
+                            notes_html += `<tr><td id="id"></td><td><input type="text" id="title" style="width:80px"></td><td><input type="text" id="body" style="width:80px"></td><td id="updated_at">${updatedAt}</td></tr>`;
+                            notes_html += '</table>';
+                            $('#table').html(notes_html);
+                        });
+                }, 100);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>API</h1>
+        <p id="lastModified"></p>
+
+        <h2>APIの種類</h2>
+        <h3>Google YouTube Data API</h3>
+        <p>Google が提供する YouTube の API。 検索だけでなく、アップロードやメタデータの更新などができる。 </p>
+        <h2>郵便番号検索API</h2>
+        <p>郵便番号検索APIは、日本郵便が公開している郵便番号データを検索する機能をRESTで提供しています。</p>
+        <h2>天気予報API</h2>
+
+        <h2>Google YouTube Data API</h2>
+        <h3>環境(20230305時点)</h3>
+        <details>
+
+            <p><a href="https://qiita.com/koki_develop/items/4cd7de3898dae2c33f20">【参考】YouTube Data API v3 を使って YouTube 動画を検索する</a></p>
+            <p>Google API Consoleにログイン。(グーグルアカウントを事前に作成しておく)</p>
+            <p><a href="https://console.developers.google.com/apis">【参考】Google API Console</a></p>
+            <p>プロジェクトの作成をクリック</p>
+            <figure>
+                <img class="beside" src="../img/API/GoogleYouTubeDataAPI/環境20230305時点/プロジェクトの作成をクリック.jpg" alt="プロジェクトの作成をクリック.jpg">
+                <figcaption>プロジェクトの作成をクリック.jpg</figcaption>
+            </figure>
+            <p>プロジェクト名を記入し、作成をクリック</p>
+            <figure>
+                <img class="beside" src="../img/API/GoogleYouTubeDataAPI/環境20230305時点/プロジェクトの作成をクリック.jpg" alt="プロジェクトの作成をクリック.jpg">
+                <figcaption>プロジェクトの作成をクリック.jpg</figcaption>
+            </figure>
+            <p>APIとサービスの有効化をクリック</p>
+            <figure>
+                <img class="beside" src="../img/API/GoogleYouTubeDataAPI/環境20230305時点/APIとサービスの有効化をクリック.jpg" alt="APIとサービスの有効化をクリック.jpg">
+                <figcaption>プロジェクトの作成をクリック.jpg</figcaption>
+            </figure>
+            <p>APIライブラリで「YouTube Data API」を検索してクリック</p>
+            <figure>
+                <img class="beside" src="../img/API/GoogleYouTubeDataAPI/環境20230305時点/YouTubeDataAPI検索.jpg" alt="YouTubeDataAPI検索.jpg">
+                <figcaption>YouTubeDataAPI検索.jpg</figcaption>
+            </figure>
+            <p>認証情報タブで「認証情報を作成」をクリック、プルダウンから「APIキー」を選択</p>
+            <figure>
+                <img class="beside" src="../img/API/GoogleYouTubeDataAPI/環境20230305時点/YouTubeDataAPI検索.jpg" alt="YouTubeDataAPI検索.jpg">
+                <figcaption>YouTubeDataAPI検索.jpg</figcaption>
+            </figure>
+            <p>APIキーを確認。閉じるをクリック。</p>
+            <figure>
+                <img class="beside" src="../img/API/GoogleYouTubeDataAPI/環境20230305時点/API キー確認.jpg" alt="API キー確認.jpg">
+                <figcaption>API キー確認.jpg</figcaption>
+            </figure>
+            <p>作成完了。「鍵を確認します」を押すと再度確認可能。</p>
+            <figure>
+                <img class="beside" src="../img/API/GoogleYouTubeDataAPI/環境20230305時点/API キー確認.jpg" alt="API キー確認.jpg">
+                <figcaption>API キー確認.jpg</figcaption>
+            </figure>
+            <p>「APIキーを編集」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/API/GoogleYouTubeDataAPI/環境20230305時点/APIキーを編集.jpg" alt="APIキーを編集.jpg">
+                <figcaption>APIキーを編集.jpg</figcaption>
+            </figure>
+            <p>「名前」を「for youtube data api v3」に変更。キーの制限を「YouTube Data API v3」に設定。保存をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/API/GoogleYouTubeDataAPI/環境20230305時点/APIキー設定変更.jpg" alt="APIキー設定変更.jpg">
+                <figcaption>APIキー設定変更.jpg</figcaption>
+            </figure>
+        </details>
+
+    <h2>ChatGPT_API</h2>
+    <h3>環境(20230331時点)</h3>
+    <p>以下でログインして有料アカウントを選択</p>
+    <p><a href="https://platform.openai.com/account/billing/overview">Billing overview - OpenAI API</a></p>
+    <figure>
+        <img class="beside" src="../img/API/ChatGPT_API/環境_20230331時点/有料アカウントを選択.jpg" alt="有料アカウントを選択.jpg">
+        <figcaption>有料アカウントを選択.jpg</figcaption>
+    </figure>
+    <p>お支払いの設定を選択</p>
+    <figure>
+        <img class="beside" src="../img/API/ChatGPT_API/環境_20230331時点/お支払いの設定を選択.jpg" alt="お支払いの設定を選択.jpg">
+        <figcaption>お支払いの設定を選択.jpg</figcaption>
+    </figure>
+    <p>クレジットカード情報等を入力。「お支払い方法」をクリック</p>
+    <figure>
+        <img class="beside" src="../img/API/ChatGPT_API/環境_20230331時点/クレジットカード情報等を入力.jpg" alt="クレジットカード情報等を入力.jpg">
+        <figcaption>クレジットカード情報等を入力.jpg</figcaption>
+    </figure>
+    <p>「使用制限」をクリック</p>
+    <p><a href="https://zenn.dev/umi_mori/books/chatbot-chatgpt/viewer/how_to_save_openai_api_prices">【参考】OpenAIのAPI料金の節約方法</a></p>
+    <figure>
+        <img class="beside" src="../img/API/ChatGPT_API/環境_20230331時点/使用制限をクリック.jpg" alt="使用制限をクリック.jpg">
+        <figcaption>使用制限をクリック.jpg</figcaption>
+    </figure>
+    <p>使用制限を設定して保存を選択。</p>
+    <figure>
+        <img class="beside" src="../img/API/ChatGPT_API/環境_20230331時点/使用制限を設定.jpg" alt="使用制限を設定.jpg">
+        <figcaption>使用制限を設定.jpg</figcaption>
+    </figure>
+    <p>「APIキー」をクリック</p>
+    <figure>
+        <img class="beside" src="../img/API/ChatGPT_API/環境_20230331時点/APIキーをクリック.jpg" alt="APIキーをクリック.jpg">
+        <figcaption>APIキーをクリック.jpg</figcaption>
+    </figure>
+    <p>「新しい秘密鍵」をクリック。生成したAPIキーを保管しておく。</p>
+    <figure>
+        <img class="beside" src="../img/API/ChatGPT_API/環境_20230331時点/新しい秘密鍵をクリック.jpg" alt="新しい秘密鍵をクリック.jpg">
+        <figcaption>新しい秘密鍵をクリック.jpg</figcaption>
+    </figure>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

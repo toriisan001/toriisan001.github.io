@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>PHP</h1>
+        <p id="lastModified"></p>
+
+        <h2>ローカル開発環境構築_20240217</h2>
+        <details>
+            <h3>Postgresの環境作成</h3>
+            <p>postgresをダウンロードする。(PostgreSQL Version:16.2,Windows x86-64にした。今の最新だったから。)</p>
+            <p>ダウンロードした「postgresql-16.2-1-windows-x64.exe」をクリック</p>
+            <p><a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">Download PostgreSQL</a></p>
+            <p>Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Setup1.JPG" alt="Setup1.JPG">
+                <figcaption>Setup1.JPG</figcaption>
+            </figure>
+            <p>Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Setup2.JPG" alt="Setup2.JPG">
+                <figcaption>Setup2.JPG</figcaption>
+            </figure>
+            <p>Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Setup3.JPG" alt="Setup3.JPG">
+                <figcaption>Setup3.JPG</figcaption>
+            </figure>
+            <p>Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Setup4.JPG" alt="Setup4.JPG">
+                <figcaption>Setup4.JPG</figcaption>
+            </figure>
+            <p>パスワードを入力して「postgresでも良い」Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Setup5.JPG" alt="Setup5.JPG">
+                <figcaption>Setup5.JPG</figcaption>
+            </figure>
+            <p>ポートは「5432」になっている。Nextをクリック。</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Setup6.JPG" alt="Setup6.JPG">
+                <figcaption>Setup6.JPG</figcaption>
+            </figure>
+            <p>「Select the local to be used by the new database cluster」「新しいデータベース クラスターで使用するローカルを選択します」と書かれている。</p>
+            <p>Japaneseを選択してNextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Setup7.JPG" alt="Setup7.JPG">
+                <figcaption>Setup7.JPG</figcaption>
+            </figure>
+            <p>Nextをクリック</p>
+<pre>
+Installation Directory: C:\Program Files\PostgreSQL\16
+Server Installation Directory: C:\Program Files\PostgreSQL\16
+Data Directory: C:\Program Files\PostgreSQL\16\data
+Database Port: 5432
+Database Superuser: postgres
+Operating System Account: NT AUTHORITY\NetworkService
+Database Service: postgresql-x64-16
+Command Line Tools Installation Directory: C:\Program Files\PostgreSQL\16
+pgAdmin4 Installation Directory: C:\Program Files\PostgreSQL\16\pgAdmin 4
+Stack Builder Installation Directory: C:\Program Files\PostgreSQL\16
+Installation Log: C:\Users\*****\AppData\Local\Temp\install-postgresql.log
+</pre>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Setup8.JPG" alt="Setup8.JPG">
+                <figcaption>Setup8.JPG</figcaption>
+            </figure>
+            <p>Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Setup9.JPG" alt="Setup9.JPG">
+                <figcaption>Setup9.JPG</figcaption>
+            </figure>
+            <p>Finishをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Setup10.JPG" alt="Setup10.JPG">
+                <figcaption>Setup10.JPG</figcaption>
+            </figure>
+            <p>キャンセルをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Setup11.JPG" alt="Setup11.JPG">
+                <figcaption>Setup11.JPG</figcaption>
+            </figure>
+            <p>はいをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Setup12.JPG" alt="Setup12.JPG">
+                <figcaption>Setup12.JPG</figcaption>
+            </figure>
+            <h3>PostgresにA5M2で接続</h3>
+            <p>A5M2を起動して「データベースの追加と削除」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/データベースの追加と削除をクリック.JPG" alt="データベースの追加と削除をクリック.JPG">
+                <figcaption>データベースの追加と削除をクリック.JPG</figcaption>
+            </figure>
+            <p>「追加」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/追加をクリック.JPG" alt="追加をクリック.JPG">
+                <figcaption>追加をクリック.JPG</figcaption>
+            </figure>
+            <p>「PostgresSQL」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/PostgresSQLをクリック.JPG" alt="PostgresSQLをクリック.JPG">
+                <figcaption>PostgresSQLをクリック.JPG</figcaption>
+            </figure>
+            <p>サーバー名「localhost」、データベース名「postgres」、ポート番号「5432」、ユーザーID「postgres」、パスワード「先ほど設定したパスワード」を入力して「テスト接続」をクリック。接続出来たら「OK」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/PostgresSQLに接続.JPG" alt="PostgresSQLに接続.JPG">
+                <figcaption>PostgresSQLに接続.JPG</figcaption>
+            </figure>
+            <p>テーブルの作成、データ追加、参照できることを確認</p>
+<pre>
+■テーブル作成
+CREATE TABLE memo (
+    id serial PRIMARY KEY,
+    title varchar(100) NOT NULL,
+    text text NOT NULL
+);
+■テストデータ追加
+INSERT INTO public.memo(title, text) VALUES ('タイトル1', 'テキスト1');
+INSERT INTO public.memo(title, text) VALUES ('タイトル2', 'テキスト2');
+INSERT INTO public.memo(title, text) VALUES ('タイトル3', 'テキスト3');
+■テーブル参照
+select * from memo;
+</pre>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/テーブルの作成_データ追加_参照.JPG" alt="テーブルの作成_データ追加_参照.JPG">
+                <figcaption>テーブルの作成_データ追加_参照.JPG</figcaption>
+            </figure>
+            <h3>XAMPの環境作成</h3>
+            <p>XAMPをダウンロードする。(8.2.12にした。今の最新だったから。)</p>
+            <p>ダウンロードした「xampp-windows-x64-8.2.12-0-VS16-installer.exe」をクリック</p>
+            <p><a href="https://www.apachefriends.org/jp/download.html">XAMP ダウンロード</a></p>
+            <p>OKをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/XAMP構築_1.JPG" alt="XAMP構築_1.JPG">
+                <figcaption>XAMP構築_1.JPG</figcaption>
+            </figure>
+            <p>Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/XAMP構築_2.JPG" alt="XAMP構築_2.JPG">
+                <figcaption>XAMP構築_2.JPG</figcaption>
+            </figure>
+            <p>Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/XAMP構築_3.JPG" alt="XAMP構築_3.JPG">
+                <figcaption>XAMP構築_3.JPG</figcaption>
+            </figure>
+            <p>インストール先を指定して(デフォルトは「C:\xampp」)、Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/XAMP構築_4.JPG" alt="XAMP構築_4.JPG">
+                <figcaption>XAMP構築_4.JPG</figcaption>
+            </figure>
+            <p>Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/XAMP構築_5.JPG" alt="XAMP構築_5.JPG">
+                <figcaption>XAMP構築_5.JPG</figcaption>
+            </figure>
+            <p>Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/XAMP構築_6.JPG" alt="XAMP構築_6.JPG">
+                <figcaption>XAMP構築_6.JPG</figcaption>
+            </figure>
+            <p>Finishをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/XAMP構築_7.JPG" alt="XAMP構築_7.JPG">
+                <figcaption>XAMP構築_7.JPG</figcaption>
+            </figure>
+            <p>システム環境変数でパスを通す</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/システム環境変数でパスを通す.JPG" alt="システム環境変数でパスを通す.JPG">
+                <figcaption>システム環境変数でパスを通す.JPG</figcaption>
+            </figure>
+            <p>「cmd」で「php -v」を実行してバージョンを確認。phpのパスが通ったことが分かる。</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/パスが通ったかどうか確認.JPG" alt="パスが通ったかどうか確認.JPG">
+                <figcaption>パスが通ったかどうか確認.JPG</figcaption>
+            </figure>
+            <p>「httpd.conf」を編集</p>
+<pre>
+httpd.conf
+■DocumentRoot
+・デフォルトはdashboardへ向いているので作業用ディレクトリへ向ける。(例:C:/xampp/htdocs/toriisan-php-001)
+〇修正前
+DocumentRoot &quot;C:/xampp/htdocs&quot;
+&lt;Directory &quot;C:/xampp/htdocs&quot;&gt;
+〇修正後
+DocumentRoot &quot;C:/xampp/htdocs/toriisan-php-001&quot;
+&lt;Directory &quot;C:/xampp/htdocs/toriisan-php-001&quot;&gt;
+</pre>
+            <p>作業用ディレクトリを作成(例:C:\xampp\htdocs\toriisan-php-001)</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/作業用ディレクトリを作成.JPG" alt="作業用ディレクトリを作成.JPG">
+                <figcaption>作業用ディレクトリを作成.JPG</figcaption>
+            </figure>
+            <p>「C:\xampp\htdocs\toriisan-php-001\index.php」を作成。以下を記述。</p>
+<pre>
+<code>
+&lt;?php
+print &#039;Hello Word&#039;;
+?&gt;
+</code>
+</pre>
+            <p>「C:\xampp\xampp-control.exe」を起動。「Start」をクリックしてApacheを起動。</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Apacheを起動.JPG" alt="Apacheを起動.JPG">
+                <figcaption>Apacheを起動.JPG</figcaption>
+            </figure>
+            <p>ブラウザで「http://127.0.0.1」または「http://localhost」でアクセス出来る。</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/ローカル開発環境にアクセス.JPG" alt="ローカル開発環境にアクセス.JPG">
+                <figcaption>ローカル開発環境にアクセス.JPG</figcaption>
+            </figure>
+            <h3>ログを出力する</h3>
+            <p>「Composer-Setup.exe」をダウンロード</p>
+            <p><a href="https://getcomposer.org/download/">composer download</a></p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Composer-Setupをダウンロード.JPG" alt="Composer-Setupをダウンロード.JPG">
+                <figcaption>Composer-Setupをダウンロード.JPG</figcaption>
+            </figure>
+            <p>Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Composer_Setup_1.JPG" alt="Composer_Setup_1.JPG">
+                <figcaption>Composer_Setup_1.JPG</figcaption>
+            </figure>
+            <p>「C:\xampp\php\php.exe」が指定されている。Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Composer_Setup_2.JPG" alt="Composer_Setup_2.JPG">
+                <figcaption>Composer_Setup_2.JPG</figcaption>
+            </figure>
+            <p>プロキシーは特に使用していないので設定しない。Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Composer_Setup_3.JPG" alt="Composer_Setup_3.JPG">
+                <figcaption>Composer_Setup_3.JPG</figcaption>
+            </figure>
+            <p>Installをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Composer_Setup_4.JPG" alt="Composer_Setup_4.JPG">
+                <figcaption>Composer_Setup_4.JPG</figcaption>
+            </figure>
+            <p>Nextをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Composer_Setup_5.JPG" alt="Composer_Setup_5.JPG">
+                <figcaption>Composer_Setup_5.JPG</figcaption>
+            </figure>
+            <p>finishをクリック</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Composer_Setup_6.JPG" alt="Composer_Setup_6.JPG">
+                <figcaption>Composer_Setup_6.JPG</figcaption>
+            </figure>
+            <p>cmdを立ち上げて作業ディレクトリ「例:C:\xampp\htdocs\toriisan-php-001」へ移動</p>
+            <p>「cd C:\xampp\htdocs\toriisan-php-001」で移動</p>
+            <p>「composer init」でcomposer.json(ライブラリの設定ファイル)を作成</p>
+            <p>色々と聞かれるが適当に答える</p>
+<pre>
+This command will guide you through creating your composer.json config.
+このコマンドは、composer.json 構成の作成をガイドします。
+
+Package name (<vendor>/<name>) [*****/toriisan-php-001]:
+パッケージ名 (<ベンダー>/<名前>)
+
+Description []:
+説明 []：
+
+Author [toriisan <***********@gmail.com>, n to skip]:
+著者 [toriisan <***********@gmail.com>、n は飛ばします]:
+
+Minimum Stability []:
+最小安定性 []:
+
+Package Type (e.g. library, project, metapackage, composer-plugin) []:
+パッケージタイプ (ライブラリ、プロジェクト、メタパッケージ、コンポーザープラグインなど) []:
+
+License []:
+ライセンス []:
+
+Define your dependencies.
+Would you like to define your dependencies (require) interactively [yes]?
+依存関係を定義します。
+依存関係 (require) を対話的に定義しますか? [はい]?
+
+Would you like to define your dev dependencies (require-dev) interactively [yes]?
+開発の依存関係 (require-dev) を対話的に定義しますか? [はい]?
+
+Add PSR-4 autoload mapping? Maps namespace "Toriisan\ToriisanPhp001" to the entered relative path. [src/, n to skip]:
+PSR-4 自動ロード マッピングを追加しますか? 名前空間「Toriisan\ToriisanPhp001」を入力された相対パスにマッピングします。 [src/,スキップするn]:
+
+Do you confirm generation [yes]?
+世代を確認しますか[はい]？
+</pre>
+            <p>「composer.json」「vendor」「src」が作成される。</p>
+            <p>さらに「composer install」で「composer.lock」が作成される。</p>
+            <p>「composer.json」はライブラリの設定ファイル。「vendor」「src」はライブラリのソースが入る？「composer.lock」もライブラリの設定ファイルらしい。</p>
+            <p>gitやherokuにpushする場合は、「composer.json」「composer.lock」のみをpushするのが良いらしい。</p>
+<pre>
+■ composer.json
+{
+    "name": "*****/toriisan-php-001",
+    "autoload": {
+        "psr-4": {
+            "*****\\ToriisanPhp001\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "toriisan",
+            "email": "**********@gmail.com"
+        }
+    ],
+    "require": {}
+}
+</pre>
+            <p>「composer require monolog/monolog」でmonologをインストールする。monologはログ出力用のライブラリ。</p>
+            <p>requireに「monolog/monolog」が追加された。</p>
+<pre>
+■ composer.json
+{
+    "name": "toriisan/toriisan-php-001",
+    "autoload": {
+        "psr-4": {
+            "Toriisan\\ToriisanPhp001\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "toriisan"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^3.5"
+    }
+}    
+</pre>
+            <p>「C:\xampp\htdocs\toriisan-php-001\index.php」についてエラーログを出力するよう書き換える。</p>
+<pre>
+<code>
+&lt;?php
+
+require 'vendor/autoload.php';
+
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Formatter\LineFormatter;
+
+// ログのインスタンスを作成
+$log = new Logger('my_logger');
+
+// 出力先のハンドラを設定します。ここでは、ファイルにログを出力するStreamHandlerを使用します。
+$streamHandler = new StreamHandler('C:\xampp\php\logs\my_logger.log');
+// フォーマッターを設定
+$formatter = new LineFormatter(null, null, false, true);
+$streamHandler->setFormatter($formatter);
+$log->pushHandler($streamHandler);
+
+// 適当にログを出力
+$log->info('info log message');
+$log->error('error log message');
+$log->warning('warning log message');
+$log->alert('alert log message');
+</code>
+</pre>
+            <p>「C:\xampp\php\logs」ディレクトリを作成</p>
+            <p>ブラウザで「http://127.0.0.1」または「http://localhost」を再アクセス。</p>
+            <p>「C:\xampp\php\logs\my_logger.log」が作成された。</p>
+            <p>info・・・情報を出力</p>
+            <p>error・・・処理の失敗。リカバリが必要となる問題など？</p>
+            <p>worning・・・ユーザーの間違った操作などを警告？</p>
+            <p>alert・・・重大な問題。即時対応が必要となる？</p>            
+<pre>
+■ my_logger.log
+[2024-03-02T10:00:29.544514+01:00] my_logger.INFO: info log message  
+[2024-03-02T10:00:29.545026+01:00] my_logger.ERROR: error log message  
+[2024-03-02T10:00:29.545067+01:00] my_logger.WARNING: warning log message  
+[2024-03-02T10:00:29.545097+01:00] my_logger.ALERT: alert log message
+</pre>
+            <h3>ステップ実行をする</h3>
+            <p>ブラウザで「https://xdebug.org/wizard」にアクセス(Xdebugの設定を簡単に行うためのオンラインツール)</p>
+            <p>cmdで「php -i | clip」を実行してphpinfoをクリップボードに保存</p>
+            <p>「https://xdebug.org/wizard」の入力欄にphpinfoを張り付けて「Analyse my phpinfo() output」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/Analyse_my_phpinfo_outputをクリック.JPG" alt="Analyse_my_phpinfo_outputをクリック.JPG">
+                <figcaption>Analyse_my_phpinfo_outputをクリック.JPG</figcaption>
+            </figure>
+            <p>「php_xdebug-3.3.1-8.2-vs16-x86_64.dll」をクリックしてダウンロード。</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/php_xdebugをダウンロード.JPG" alt="php_xdebugをダウンロード.JPG">
+                <figcaption>php_xdebugをダウンロード.JPG</figcaption>
+            </figure>
+            <p>ダウンロードしたファイルを「C:\xampp\php\ext」に移動</p>
+            <p>「C:\xampp\php\php.ini」を編集して一番下に追記</p>
+            <p>「Could not connect to debugging client.」がログに出てきたが、「xdebug.log_level=0」を追加すると出なくなった。</p>
+<pre>
+[xdebug]
+zend_extension = C:\xampp\php\ext\php_xdebug-3.3.1-8.2-vs16-x86_64.dll
+xdebug.client_port=9005
+xdebug.mode=debug
+xdebug.start_with_request=Yes
+xdebug.log_level=0
+</pre>
+            <p>vscodeにPHP Debugをインストール</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/PHP_Debugのインストール.JPG" alt="PHP_Debugのインストール.JPG">
+                <figcaption>PHP_Debugのインストール.JPG</figcaption>
+            </figure>
+            <p>「ctl + shift + D」キーを押す。</p>
+            <p>「launch.json」ファイルを作成します。をクリックする。</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/launch.jsonファイルを作成.JPG" alt="launch.jsonファイルを作成.JPG">
+                <figcaption>launch.jsonファイルを作成.JPG</figcaption>
+            </figure>
+            <p>「C:\xampp\htdocs\toriisan-php-001\.vscode\launch.json」が作成された。</p>
+            <p>色々作成されるが、使用するのは「Listen for Xdebug」のみなので、「Listen for Xdebug」以外は削除した。</p>
+<pre>
+■ launch.json
+■修正前
+{
+    // IntelliSense を使用して利用可能な属性を学べます。
+    // 既存の属性の説明をホバーして表示します。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for Xdebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9003
+        },
+        {
+            "name": "Launch currently open script",
+            "type": "php",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${fileDirname}",
+            "port": 0,
+            "runtimeArgs": [
+                "-dxdebug.start_with_request=yes"
+            ],
+            "env": {
+                "XDEBUG_MODE": "debug,develop",
+                "XDEBUG_CONFIG": "client_port=${port}"
+            }
+        },
+        {
+            "name": "Launch Built-in web server",
+            "type": "php",
+            "request": "launch",
+            "runtimeArgs": [
+                "-dxdebug.mode=debug",
+                "-dxdebug.start_with_request=yes",
+                "-S",
+                "localhost:0"
+            ],
+            "program": "",
+            "cwd": "${workspaceRoot}",
+            "port": 9003,
+            "serverReadyAction": {
+                "pattern": "Development Server \\(http://localhost:([0-9]+)\\) started",
+                "uriFormat": "http://localhost:%s",
+                "action": "openExternally"
+            }
+        }
+    ]
+}
+■修正後
+{
+    "configurations": [
+    {
+        "name": "Listen for Xdebug",
+        "type": "php",
+        "request": "launch",
+        "port": 9005
+    }
+    ]
+}
+</pre>
+            <p>「C:\xampp\php\php.ini」のポートと「Listen for Xdebug」のポートについて合わせる必要があるらしい。また、私の環境では9000にしたら動かず、9005なら動いた。別のアプリと競合していたのかもしれない。</p>
+            <p>画面左上のデバッグの開始ボタンをクリックしてソース上適当な位置にブレークポイントを置く。</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/ブレークポイントを設定.JPG" alt="ブレークポイントを設定.JPG">
+                <figcaption>ブレークポイントを設定.JPG</figcaption>
+            </figure>
+            <p>ブレークポイントで停止したことを確認</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/ブレークポイントをで停止.JPG" alt="ブレークポイントをで停止.JPG">
+                <figcaption>ブレークポイントをで停止.JPG</figcaption>
+            </figure>
+            <h3>ローカルのPostgresに接続</h3>
+            <p>「C:\xampp\php\php.ini」を編集</p>
+<pre>
+■修正前
+;extension=pdo_pgsql
+■修正後
+extension=pdo_pgsql
+</pre>
+            <p>「C:\xampp\apache\conf\httpd.conf」を編集</p>
+            <p>「SetEnv DATABASE_URL postgres://${ユーザーID}:${パスワード}@${サーバー名}:${ポート番号}/${データベース名}」</p>
+<pre>
+■以下環境変数を追加。場所はどこでもいい。最終行でもいい。私の環境では以下のようになった。
+SetEnv DATABASE_URL postgres://postgres:postgres@localhost:5432/postgres
+</pre>
+            <p>「C:\xampp\htdocs\toriisan-php-001\index.php」をDBを出力するように編集。</p>
+<pre>
+<code>
+&lt;?php
+$DATABASE_URL = parse_url(getenv('DATABASE_URL'));
+$user = $DATABASE_URL['user'];
+$pass = $DATABASE_URL['pass'];
+$host = $DATABASE_URL['host'];
+$path = substr($DATABASE_URL['path'], 1);
+
+define('DSN', "pgsql:host={$host};dbname={$path}");
+define('DB_USER', $user);
+define('DB_PASS', $pass);
+
+$pdo = new \PDO(
+    DSN,
+    DB_USER,
+    DB_PASS,
+    [
+        \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+        \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ,
+        \PDO::ATTR_EMULATE_PREPARES => false,
+    ]
+);
+$stmt = $pdo->query("select * from memo");
+$memos = $stmt->fetchAll();
+foreach ($memos as $row) {
+    print($row->id.',');
+    print($row->title);
+    print($row->text);
+    print('&lt;br&gt;');
+}
+?>
+</code>
+</pre>
+            <p>ブラウザで「http://127.0.0.1」または「http://localhost」でアクセス。ローカルのDBの内容が出力された。</p>
+            <figure>
+                <img class="beside" src="../img/PHP/ローカル開発環境構築_20240217/ローカルのDBの内容を出力.JPG" alt="ローカルのDBの内容を出力.JPG">
+                <figcaption>ローカルのDBの内容を出力.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>Laravel開発環境構築_20240309</h2>
+        <details>
+            <h3>Laravelを立ち上げる</h3>
+            <p>ZIPアーカイブの操作が出来るように修正</p>
+            <p>「C:\xampp\php\php.ini」を編集</p>
+<pre>
+■修正前
+;extension=zip
+■修正後
+extension=zip
+</pre>
+            <p>cmdを起動</p>
+            <p>「cd C:\xampp\htdocs」で移動</p>
+            <p>「composer global require laravel/installer」でLaravel Installerをインストール</p>
+            <p>「laravel new example-app」で新しいLaravelプロジェクトを作成</p>
+<pre>
+Would you like to install a starter kit? [No starter kit]:
+[none     ] No starter kit
+[breeze   ] Laravel Breeze
+[jetstream] 
+スターターキットをインストールしますか? [スターターキットなし]:
+【なし】スターターキットなし
+[ブリーズ] ララベルブリーズ
+[ジェットストリーム] Laravel ジェットストリーム
+※Laravel Breezeは一般的な認証機能（ユーザー登録、ログイン、パスワードリセットなど）が出来るらしい。
+※Laravel Jetstreamは高度な認証機能やユーザーアカウント管理のためのkitらしい
+⇒Laravelを使ってみたいだけなのでnoneを選択した。
+
+Which testing framework do you prefer? [Pest]:
+[0] Pest
+[1] PHPUnit
+どのテスト フレームワークが好みですか? [害虫]：
+   [0]害虫
+   [1]PHPUユニット
+⇒PHPUユニットを選択した。
+
+Would you like to initialize a Git repository? (yes/no) [no]:
+Git リポジトリを初期化しますか? (はい/いいえ) [いいえ]:
+⇒はいを選択した。
+
+Which database will your application use? [MySQL]:
+アプリケーションはどのデータベースを使用しますか? [MySQL]:
+⇒PostgreSQLを選択した。
+</pre>
+            <p>「example-app」が作成された。</p>
+            <p>「C:\xampp\htdocs\example-app\.env」を編集</p>
+<pre>
+■修正前
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=example_app
+DB_USERNAME=root
+DB_PASSWORD=
+
+■修正後
+DB_CONNECTION=pgsql
+DB_HOST=localhost
+DB_PORT=5432
+DB_DATABASE=postgres
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+</pre>
+            <p>「php artisan migrate」でマイグレーションを実行。(DBと定義の同期等を行う)</p>
+            <p>「php artisan serve」でサーバーを起動</p>
+            <p>ブラウザで「http://localhost:8000/」へアクセス</p>
+            <p>LaravelのWelcomeページが表示される。</p>
+            <figure>
+                <img class="beside" src="../img/PHP/Laravel開発環境構築_20240309/LaravelのWelcomeページ.JPG" alt="LaravelのWelcomeページ.JPG">
+                <figcaption>LaravelのWelcomeページ.JPG</figcaption>
+            </figure>
+            <p>「ctl + c」で切断</p>
+            <h3>xampでLaravelを立ち上げる</h3>
+            <p>「httpd.conf」を編集してLaravelのpublicへ向ける。</p>
+<pre>
+httpd.conf
+■DocumentRoot
+〇修正前
+DocumentRoot &quot;C:/xampp/htdocs&quot;
+&lt;Directory &quot;C:/xampp/htdocs&quot;&gt;
+〇修正後
+DocumentRoot &quot;C:/xampp/htdocs/example-app/public&quot;
+&lt;Directory &quot;C:/xampp/htdocs/example-app/public&quot;&gt;
+</pre>
+            <p>xampのapacheを再起動</p>
+            <p>ブラウザで「http://127.0.0.1」または「http://localhost」でアクセス。xamppでLaravelが立ち上がった。</p>
+            <h3>画面を追加する</h3>
+            <p>「php artisan make:model Memos」で「C:\xampp\htdocs\example-app\app\Models\User.php」にモデルファイルが作成される。(手動で追加してもよい)</p>
+<pre>
+■ C:\xampp\htdocs\example-app\app\Models\User.php
+&lt;?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Memos extends Model
+{
+    use HasFactory;
+}
+</pre>
+            <p>「php artisan make:migration create_memos_table --create=memos」でカラムを追加するためのマイグレーションを作成する。</p>
+            <p>マイグレーションファイルを修正する。</p>
+<pre>
+■ C:\xampp\htdocs\example-app\database\migrations\2024_03_09_130138_create_memos_table.php
+■ 修正前
+/**
+* Run the migrations.
+*/
+public function up(): void
+{
+   Schema::create('memos', function (Blueprint $table) {
+       $table->id();
+       $table->timestamps();
+   });
+}
+
+■ 修正後
+/**
+* Run the migrations.
+*/
+public function up(): void
+{
+   Schema::create('memos', function (Blueprint $table) {
+       $table->bigIncrements('id'); // 自動増分のID（プライマリーキー）
+       $table->string('title');
+       $table->text('memo');
+       $table->timestamps(); // created_atとupdated_atカラム
+   });
+}
+</pre>
+            <p>「php artisan migrate」でマイグレーションを実行</p>
+            <p>修正したマイグレーションファイルとDBが同期される</p>
+            <p>適当なデータを追加する</p>
+<pre>
+INSERT INTO public.memos(title, memo, created_at) VALUES ('タイトル1', 'メモ1', now());
+INSERT INTO public.memos(title, memo, created_at) VALUES ('タイトル2', 'メモ2', now());
+INSERT INTO public.memos(title, memo, created_at) VALUES ('タイトル3', 'メモ3', now());
+</pre>
+            <figure>
+                <img class="beside" src="../img/PHP/Laravel開発環境構築_20240309/適当なデータを追加.JPG" alt="適当なデータを追加.JPG">
+                <figcaption>適当なデータを追加.JPG</figcaption>
+            </figure>
+            <p>「php artisan make:controller MemoController」で「C:\xampp\htdocs\example-app\app\Http\Controllers\MemoController.php」にコントローラファイルが作成される。(手動で追加してもよい)</p>
+<pre>
+■ C:\xampp\htdocs\example-app\app\Http\Controllers\MemoController.php
+■ 修正前
+&lt;?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class MemoController extends Controller
+{
+    public function index()
+    {
+    }
+}
+
+■ 修正後
+&lt;?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Memos;
+use Illuminate\Http\Request;
+
+class MemoController extends Controller
+{
+    public function index()
+    {
+        $memos = Memos::all();
+        return view('memos.index', ['memos' => $memos]);
+    }
+}
+</pre>
+            <p>「C:\xampp\htdocs\example-app\routes\web.php」を修正</p>
+<pre>
+■ C:\xampp\htdocs\example-app\routes\web.php
+■ 修正前
+&lt;?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+■ 修正後
+&lt;?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MemoController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::get('/memos', [MemoController::class, 'index']);
+</pre>
+            <p>「C:\xampp\htdocs\example-app\resources\views\memos\index.blade.php」を作成</p>
+<pre>
+■ C:\xampp\htdocs\example-app\resources\views\memos\index.blade.php
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Memos&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Memos&lt;/h1&gt;
+    &lt;ul&gt;
+        @foreach ($memos as $memo)
+            &lt;li&gt;id:{{ $memo-&gt;id }}, title:{{ $memo-&gt;title }}, memo:{{ $memo-&gt;memo }}, created_at:{{ $memo-&gt;created_at }}, updated_at:{{ $memo-&gt;updated_at }}&lt;/li&gt;
+        @endforeach
+    &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+            <p>ブラウザで「http://127.0.0.1/memos」または「http://localhost/memos」でアクセス。DBの内容が表示された。</p>
+            <figure>
+                <img class="beside" src="../img/PHP/Laravel開発環境構築_20240309/DBの内容が表示.JPG" alt="DBの内容が表示.JPG">
+                <figcaption>DBの内容が表示.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>CURL実行時にファイルを添付</h2>
+        <p><a href="https://www.php.net/manual/ja/class.curlfile.php">CURLFile クラス【参考】</a></p>
+    
+        <h2>fputcsvでShiftJisで出力</h2>
+        <p><a href="https://meteoricstream.com/blog/archives/186">【PHP】続：fputcsv関数の改行コード【参考】</a></p>
+    
+        <h2>文字エンコーディングの文字列を、別の文字エンコーディングに変換</h2>
+        <p><a href="https://www.php.net/manual/ja/function.mb-convert-encoding.php">PHP.net mb_convert_encoding【参考】</a></p>
+        
+        <h2>アクセスできないプロパティにアクセスした場合に起動するメソッドを定義する事ができます。</h2>
+        <p><a href="https://www.php.net/manual/ja/language.oop5.magic.php">マジックメソッド【参考】</a></p>
+    
+        <h2>URL エンコードされたクエリ文字列を生成する(PHP http_build_query)</h2>
+        <p><a href="https://www.php.net/manual/ja/function.http-build-query.php">URL エンコードされたクエリ文字列を生成する【参考】</a></p>
+    
+        <h2>LaravelのBlade(view)について</h2>
+        <p><a href="https://codelikes.com/laravel-blade/">【入門】LaravelのBlade(view)についてまとめ【参考】</a></p>
+    
+        <h2>preg_match</h2>
+        <p>pattern で指定した正規表現により subject を検索します。</p>
+        <p><a href="https://tips.recatnap.info/laboratory/detail/regular_expression_php">PHPでの正規表現【参考】</a></p>
+        <p><a href="https://qiita.com/ka_to/items/450cac6ab34c64e6a0e1">全角かどうか、半角カナかどうかチェック【参考】</a></p>
+        <h3>全角のみの繰り返しである</h3>
+        <p>/^[^ -~｡-ﾟ]+$/u</p>
+        <h3>半角のみの繰り返しである</h3>
+        <p>/^[ -~｡-ﾟ]+$/u</p>
+        <h3>空白を含まない文字列であること</h3>
+        <p>/^\S+$/u</p>
+    
+        <h2>exit</h2>
+        <p>メッセージを出力し、現在のスクリプトを終了する</p>
+        <p>exit(0)が正常終了。exit(255)が異常終了らしい。</p>
+        <p><a href="https://www.php.net/manual/ja/function.exit.php">PHP Documentation exit【参考】</a></p>
+        <p>必要ないのでは？と言っている人も居るらしい。</p>
+        <p><a href="https://ja.stackoverflow.com/questions/4995/php%E3%81%A7exit%E3%81%99%E3%82%8B%E5%BF%85%E8%A6%81%E3%81%AF%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99%E3%81%8B#:~:text=exit%E3%81%AF%E5%BF%85%E8%A6%81%E3%81%82%E3%82%8A%E3%81%BE%E3%81%9B%E3%82%93%E3%80%82,%E3%81%99%E3%82%8B%E3%81%A0%E3%81%91%E3%81%A7OK%E3%81%A7%E3%81%99%E3%80%82">phpでexitする必要はありますか？【参考】</a></p>
+    
+        <h2>BoxAPIを使ってPHPでファイルをアップロード</h2>
+        <p><a href="https://zenn.dev/3104/articles/bd7afd4856a7e2">BoxAPIを使ってPHPでファイルをアップロード【参考】</a></p>
+    
+        <h2>PHPDocコメントについて</h2>
+        <p>書かないとメンバ変数が見当たらない警告が出ることあるらしい</p>
+        <p><a href="https://qiita.com/kouki_o9/items/49d34d347bde730f4a30">PHPDocコメント　まとめ【参考】</a></p>
+    
+        <h2>PHPのイテレータとは</h2>
+        <p>「◯◯を繰り返す」という意味らしい？？？</p>
+        <p>ジェネレータというものもあるらしい？？？</p>
+    
+        <h2>BoxAPIを使ってPHPでファイルをアップロード</h2>
+        <p><a href="https://zenn.dev/3104/articles/bd7afd4856a7e2">BoxAPIを使ってPHPでファイルをアップロード【参考】</a></p>
+
+        <h2>ヒアドキュメント</h2>
+        <p><a href="https://www.sejuku.net/blog/49173">【参考】【PHP入門】複数行で書ける！ヒアドキュメントの使い方(<<<)</a></p>
+        <p>変数に複数行に渡って文字列を代入する際に便利な仕組みらしい</p>
+        <p>変数を埋め込んだり出来るらしい</p>
+        <p>文字列内でコメントは書けないらしい。</p>
+        <p>使い方次第ではバグのもとにもなる？</p>
+
+        <h2>html埋め込み・省略形</h2>
+        <p><a href="https://tamoc.com/php-tag-ellipsis/">【参考】【PHP】PHP開始表現の省略方法。楽チンで便利すぎる…何故今まで知らなかったんだと後悔。</a></p>
+
+        <h2>PHPで型を意識し安全なプログラムを書く</h2>
+        <p><a href="https://qiita.com/minato-naka/items/cc9da5fc1bc8cc4240a8">【参考】PHPで型を意識し安全なプログラムを書く</a></p>
+<pre>
+<code>
+// UTC → JST
+function comvertUtcJst(string $str, string $format): string {
+    $datetime = new DateTime($str);
+    $datetime->setTimeZone(new DateTimeZone('Asia/Tokyo'));
+    return $datetime->format($format);
+}
+</code>
+</pre>
+
+        <h2>DateTime format</h2>
+        <p>format('Y-m-d H:i:s') // 2013-10-17 19:00:00</p>
+
+        <h2>PHP上でmb_xxx関数を使用するとエラーが出る</h2>
+        <p><a href="https://qiita.com/taro-hida/items/f677abe2bc3b689002b3">【参考】PHP環境でmb_xxx関数を使うと、Fatal error: Call to undefined function …のエラーが表示される</a></p>
+        <p>cmdで「composer init」「composer require」などで「php」「ext-mbstring」を追加。「php」を追加しないと良くアプリが落ちた。</p>
+<pre>
+<code>
+=====composer.json=====
+{
+    "name": "toriisan/toriisan-php-001",
+    "require": {
+        "php": "^8.2",
+        "ext-mbstring": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Toriisan\\ToriisanPhp001\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "toriisan"
+        }
+    ]
+}
+=====composer.lock=====
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "***********************",
+    "packages": [],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": "^8.2",
+        "ext-mbstring": "*"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}
+</code>
+</pre>
+    <p>cmdで「composer update」を実行</p>
+    <p>「composer.json」と「composer.lock」をadd & commit & pushする。</p>
+
+    <h2>パスワードのハッシュ化とパスワードの認証をする方法</h2>
+    <p><a href="https://qiita.com/wakahara3/items/792943c1e0ed7a87e1ef">【参考】【PHP】パスワードのハッシュ化とパスワードの認証をする方法(PASSWORD_BCRYPT)</a></p>
+<pre>
+<code>
+=====ハッシュ値作成=====
+password_hash('samplePass', PASSWORD_BCRYPT)
+=====パスワードチェック=====
+if (empty(MANAGEMENT_KEY) || !password_verify('samplePass', MANAGEMENT_KEY)) {
+    setMessageBox('error', "管理キーが不正です。");
+    break;
+}
+</code>
+</pre>
+
+    <h2>特殊文字をHTMLエンティティに変換</h2>
+<pre>
+<code>
+// 特殊文字をHTMLエンティティに変換
+htmlspecialchars($str, ENT_QUOTES, 'UTF-8')
+</code>
+</pre>
+
+    <h2>推測されにくい文字列を作成</h2>
+<pre>
+<code>
+bin2hex(random_bytes(32));
+</code>
+</pre>
+
+    <h2>SQLを実行</h2>
+<pre>
+<code>
+try {
+    $pdo = new PDO(
+        DSN,
+        DB_USER,
+        DB_PASS,
+        [
+        PDO::ATTR_ERRMODE => PDO:: ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
+        PDO::ATTR_EMULATE_PREPARES => false,
+        ]
+    );
+    return $pdo;
+} catch(PDOException $e) {
+echo $e->getMessage();
+exit;
+}
+// プレイスホルダーを使用。実行のみ
+$stmt = $pdo->prepare("UPDATE test SET is_done = NOT is_done WHERE id = :id");
+$stmt->bindValue('id', $id, PDO::PARAM_INT);
+$stmt->execute();
+// プレイスホルダーを使用。値をfetchで取得
+$stmt = $this->pdo->prepare("SELECT * FROM test WHERE id = :id");
+$stmt->bindValue('id', $id, \PDO::PARAM_INT);
+$stmt->execute();
+$todo = $stmt->fetch();
+// プレイスホルダーを使用しない
+$stmt = $pdo->query("SELECT * FROM test ORDER BY id DESC");
+$todos = $stmt->fetchAll();
+</code>
+</pre>
+
+<h2>名前空間を設定</h2>
+<p>開発の規模が大きくなってきたときにクラス名が衝突しないようにするためのものらしい。</p>
+<pre>
+<code>
+namespace MyAppName;
+</code>
+</pre>
+
+<h2>直前にinsertされたdbのidを取得</h2>
+<pre>
+<code>
+$this->pdo->lastInsertId();
+</code>
+</pre>
+
+<h2>json形式で値を返却</h2>
+<pre>
+<code>
+=====JavaScript=====
+// fetchは非同期処理である。
+fetch('?action=test', {
+    method: 'POST',
+    body: new URLSearchParams({
+    }),
+})
+.then(response => response.json())
+.then(json => {
+    console.log(json.id);
+    addTodo(json.id, title);
+});
+=====PHP=====
+$id = $this->add();
+header('Content-Type: application/json');
+echo json_encode(['id' => $id]);
+</code>
+</pre>
+
+<h2>404で返却。header命令</h2>
+<pre>
+<code>
+=====JavaScript=====
+=====PHP=====
+header('HTTP', true, 404); // HTTP status code
+exit;
+</code>
+</pre>
+<p><a href="https://it-kyujin.jp/article/detail/1052/">【参考】PHPのheader関数とは？</a></p>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

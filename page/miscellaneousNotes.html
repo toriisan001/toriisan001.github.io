@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>MiscellaneousNotes</h1>
+        <p id="lastModified"></p>
+    
+        <h2>命名規則</h2>
+        <h3>キャメルケース（英: camel case）</h3>
+        <p>「hogeData」や「HogeData」のように単語の先頭を大文字にしてつなげる表記方法</p>
+        <p>プログラミングでの関数や変数</p>
+        <p>関数名は先頭小文字。例:createBlogCategory()</p>
+        <p>変数名(引数名)は先頭小文字。例:companyId (先頭の単語だけ小文字にするのがローワーキャメルケースと呼ぶ)</p>
+        <p>class名は先頭大文字。例:BlogCategory (先頭の単語が大文字をパスカルケースまたはアッパーキャメルケースと呼ぶ)</p>
+        <h3>スネークケース（英: snake case）</h3>
+        <p>「hoge_data」のように単語間をアンダースコアでつなげる表記方法</p>
+        <p>DBなどで扱う値</p>
+        <p>定数はすべて大文字。例:BLOG_CATEGORY</p>
+        <h3>ケバブケース（英: kebab-case）</h3>
+        <p>HTMLのclass名などで使われる</p>
+
+        <h2>WEB Storage</h2>
+        <h3>クッキー</h3>
+        <p>別ウィンドウでのデータ共有有り</p>
+        <p>指定期限まで有効</p>
+        <p>データ量の上限4KB</p>
+        <h3>sessionStorage</h3>
+        <p>別ウィンドウでのデータ共有無し</p>
+        <p>ウィンドウやタブを閉じるまで有効</p>
+        <p>データ量の上限1オリジン当たり5MB</p>
+        <h3>localStorage</h3>
+        <p>別ウィンドウでのデータ共有有り</p>
+        <p>データの有効期限永続</p>
+        <p>データ量の上限1オリジン当たり5MB</p>
+        <p><a href="http://www.htmq.com/webstorage/">Web Storage－HTML5のAPI - HTMLクイックリファレンス【参考】</a></p>
+    
+        <h2>文字コード</h2>
+        <p><a href="https://aprico-media.com/posts/5636">UTF-8のBOM付き/BOM無しとは？確認方法も紹介！【参考】</a></p>
+
+        <h3>UTF-8【ユーティーエフはち、ユーティーエフエイト】</h3>
+        <p>Excelで日本語で開くと文字化けする</p>
+        <p>文字によって割り振られたバイト数が違い、日本語の場合３バイト</p>
+        <h3>Shift JIS【シフトJIS / SJIS】</h3>    
+        <p>Excelで日本語で開いても文字化けしない</p>
+        <p>一文字２バイト</p>
+    
+        <h2>&lt;a&gt;タグと&lt;button&gt;タグどちらを使うべきか</h2>
+        <h3>&lt;a&gt;タグ</h3>
+        <p>汎用ボタンに使用</p>
+        <h3>&lt;button&gt;タグ</h3>
+        <p>フォームの送信ボタン等に使用</p>
+        <p>typeにsubmit、reset、 buttonなどを指定すればいろいろ使えるらしい</p>
+        <h3>&lt;input type=&rdquo;button&rdquo;&gt;</h3>
+        <p>使用しない</p>
+        <p>開始タグと閉じタグがないため使い勝手が悪いらしい。</p>
+        <p><a href="https://www.ameamelog.com/html-a-button/">HTMLのaとbuttonどっちを使うべき？ボタンの正しいマークアップ【参考】</a></p>
+        
+        <h2>改行コード</h2>
+        <p>どちらが使われているかはサクラエディタ等で開いて、改行箇所の矢印の向きを見れば判断できるらしい。カーソルを当てると右下に表示もされる。</p>
+        <p>稼働するシステムに合わせたほうが良いらしい(例:Linuxで稼働するシステムならLFを使用。CR+LFでも動いていたが)</p>
+        <h3>LF(Line Feed)</h3>
+        <p>linuxでよく使われるらしい</p>
+        <p>\n</p>
+        <h3>CR+LF(Carriage Return + Line Feed)</h3>
+        <p>Windowsでよく使われるらしい</p>
+        <p>\r\n</p>
+        <p><a href="https://cprogram.net/line-feed-code/">改行コードの種類の「CR」「LF」「CRLF」の意味と違い【参考】</a></p>
+    
+        <h2>エスケープシーケンス (escape sequence) </h2>
+        <p>特殊文字の無効化</p>
+        <p>言語によって異なる</p>
+    
+        <h2> ベーシック認証（Basic認証）</h2>
+        <p>ページやファイルにアクセス制限をかけることができる認証方法の1つ</p>
+        <p><a href="https://www.itra.co.jp/webmedia/basic_authentication.html">ベーシック認証（Basic認証）とは？設定方法と注意点・エラーになる原因を解説【参考】</a></p>
+    
+        <h2>positionについて</h2>
+        <h3>static</h3>
+        <p>positionを指定していない時と同じ、普通に配置</p>
+        <h3>relative</h3>
+        <p>相対配置になる値</p>
+        <p>本来配置される場所を起点として配置</p>
+        <h3>fixed</h3>
+        <p>画面の絶対配置になる値</p>
+        <p>ページではなく画面に表示されている領域を起点とする</p>
+        <h3>absolute</h3>
+        <p>何も指定していなければページ全体が起点となる(fixedと同じ？)</p>
+        <p>absoluteを指定する要素の親要素にrelativeかfixedをつけることで、親要素を起点に配置することができる(relativeと同じ？)</p>
+        <p><a href="https://www.sejuku.net/blog/53016">CSSのposition:absolute;とは？要素を思いのままに配置する方法</a></p>
+        <p>※それぞれ位置の指定は以下で行う</p>
+        <p>top	要素が起点の上からどれだけ離れているかを示します</p>
+        <p>bottom	要素が起点の下からどれだけ離れているかを示します</p>
+        <p>left	要素が起点の左からどれだけ離れているかを示します</p>
+        <p>right	要素が起点の右からどれだけ離れているかを示します</p>
+    
+        <h2>ショートカットキー(VS Code)</h2>
+            <h3>ctl + p</h3>
+                <p>ファイルを名前で検索</p>
+            <h3>shift + alt + f</h3>
+                <p>整形</p>
+                <p>PHP Intelephense導入が必要(PHPの場合。他言語の場合は、他の整形用アドオンがあるのかな)</p>
+                <p> JavaScript, TypeScript, CSSの場合はPrettierを使用するとよいらしい</p>
+                <p><a href="https://loumo.jp/archives/21951">VSCode でコードの整形を楽にする拡張機能 Prettier</a></p>
+            <h3>alt + 矢印キー上下</h3>
+                <p>行を移動</p>
+            <h3>alt + 矢印キー左右</h3>
+                <p>タブを移動</p>
+            <h3>shift + alt + 矢印キー上下</h3>
+                <p>行を複製</p>
+            <h3>F12キー</h3>
+                <p>定義元へ移動</p>
+            <h3>ctl + shift + alt</h3>
+                <p>矩形選択</p>
+            <h3>ctl + space</h3>
+                <p>補完機能</p>
+            <h3>ctl + G 押した後に数値を入力</h3>
+                <p>行数移動</p>
+            <h3>マルチカーソル</h3>
+                <p><a href="https://note.com/amr1/n/n33540ff93163">【VScode】複数の文字列のうち1つでも含む行を抜き出す方法</a></p>
+
+        <h2>HTTPメソッド(ブラウザ)</h2>
+        <p>ブラウザの制約上、実際に使用されるのは、GET、POSTの2種類らしい。</p>
+        <h3>GET</h3>
+        <p>データベースの書き換えが必要なく、データを取得するだけの場合に使用。</p>
+        <p>クエリパラメータでデータを受け渡す。(URL?パラメータ名1=値1&パラメータ名2=値2&)</p>
+        <h3>POST</h3>
+        <p>メッセージボディでデータを受け渡す。URLにパラメータがつかない。</p>
+        <p>データを変更したい時に使用。パスワードのような秘匿情報をURLに表示したくない場合。データ容量が多い場合に使用</p>
+        <p>GETだとブラウザのURLに間違って書いてしまったらそのまま実行されてしまう恐れがある。POSTの場合は、GETと違ってformを書いてあげる必要がある。誤実行を考えるとより安全と言える。</p>
+
+        <h2>HTTPメソッド(API)</h2>
+        <p>REST(REpresentational State Transfer) API「シンプルなWebシステムの設計思想」があるらしい</p>
+        <p>GET 、 POST 、 PUT 、 PATCH 、 DELETE が用意されているらしい。</p>
+        <p>同じURL(URLにリソースを書く)でHTTPメソッドだけを変えて、リソースに対する操作を行う</p>
+        <h3>GET</h3>
+        <p>取得</p>
+        <h3>POST</h3>
+        <p>リソースの作成</p>
+        <h3>PUT</h3>
+        <p>データが存在しているかどうかわからないときに使用します。データが存在しているときは更新をし、データが存在しない場合は新規作成を行う</p>
+        <h3>PATCH</h3>
+        <p>データがすでに存在しているものに対して更新をかける処理</p>
+        <h3>DELETE</h3>
+        <p>削除</p>
+        <p><a href="https://progzakki.sanachan.com/develop-software/design/rest-for-beginner/">REST（Representational State Transfer）とは？【基礎知識】</a></p>
+        <p><a href="https://omathin.com/http-method/">HTTPメソッド9種類 | PATCHとPUTの違いも解説</a></p>
+    
+        <h2>HTMLヘッダについて</h2>
+        <p>読み込むリソースについての情報や、そのリソースをリクエストしているクライアントに関する詳細な情報を持ちます</p>
+        <p>APIで呼び出す時にヘッダに認証やファイルの情報を持たせている？？？</p>
+        <h3>User-Agent</h3>
+        <p>サーバーやネットワークピアがアプリケーション、オペレーティングシステム、ベンダーや、リクエストしているユーザーエージェントのバージョン等を識別できるようにする特性文字列</p>
+        <p><a href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/User-Agent">MDN WEb User-Agent</a></p>
+        <h3>Authorization</h3> 
+        <p>サーバーでユーザーエージェントを認証するための資格情報を持ちます。</p>
+        <p>トークンとか？？？</p>
+        <h3>Content-Type</h3>
+        <p>リソースのメディア種別を示します。</p>
+        <h3>Content-Disposition</h3>
+        <p>転送したリソースをインラインで表示すべきか (ヘッダーが存在しない場合の既定の動作)、またはダウンロードとして扱い、「名前を付けて保存」ウィンドウを表示すべきかを示します。</p>
+        <p><a href="https://developer.mozilla.org/ja/docs/Web/HTTP/Headers">MDN WEb docs HTTP ヘッダー</a></p>
+    
+        <h2>Content-Type(MIME type (MIMEタイプ))</h2>
+        <p>「ファイルの分類/ファイルの種類」らしい</p>
+        <p>本体（ボディ）として送信するデータの種類や形式を相手方に伝達するためのものらしい</p>
+        <p><a href="https://developer.mozilla.org/ja/docs/Web/HTTP/Basics_of_HTTP/MIME_types">MIME タイプ (IANA メディアタイプ)</a></p>
+        <p><a href="https://tech.stmn.co.jp/entry/2021/03/15/183722">HTTPヘッダーのContent-Typeを自在に扱う</a></p>
+        <h3>application/json</h3>
+        <p>JSONファイル</p>
+        <h3>text/plain</h3>
+        <p>テキストファイル</p>
+        <h3>multipart/form-data</h3>
+        <p>電子メールの添付ファイルやHTTP通信でファイルの種別を表すのに用いられる</p>
+        <h3>application/x-www-form-urlencoded</h3>
+        <p>Content-Typeってヘッダーに入れるリクエスト本文の型の一つです。キー・バリュー型の情報を&で区切って送る</p>
+        <p><a href="https://zenn.dev/optimisuke/articles/4559e57b4dd89e">application/x-www-form-urlencoded完全に理解した</a></p>
+        <h3>application/octet-stream</h3>
+        <p>csvのダウンロード？？？</p>
+        <h3>application/force-download</h3>
+        <p>ファイル形式に関係なくダウンロードを開始させられるらしい？？？</p>
+        <p><a href="https://shkn.hatenablog.com/entry/2019/03/22/235503">ファイルを強制ダウンロードさせるヘッダについて調べた</a></p>
+    
+        <h2>HTMLタグについて</h2>
+        <h3>&lt;!DOCTYPE html&gt;</h3>
+        <p>タグではない</p>
+        <p>HTML 文書ファイルの先頭に記述し、その HTML ファイルで使用している HTML のバージョンを宣言している</p>
+        <h3>htmlタグ</h3>
+        <p>ドキュメントがHTML文書であることを示すタグ</p>
+        <p>lang属性で言語を指定している</p>
+        <h3>headタグ</h3>
+        <p>metaタグ・titleタグ・linkタグを持つ</p>
+        <h3>metaタグ</h3>
+        <p>Webサイトの情報を記載する</p>
+        <h3>titleタグ</h3>
+        <p>タイトルを設定できる。ブラウザのタブに表示される</p>
+        <h3>linkタグ</h3>
+        <p>rel属性にiconを設定してファビコン(ブラウザのタブの画像)が設定可能</p>
+        <p>rel属性にstylesheetを指定してcssを読み込み可能</p>
+        <h3>bodyタグ</h3>
+        <p>文章や画像など、実際にブラウザの画面上に表示される内容を指定するタグ</p>
+        <p>文書や画像、リンク等を指定できる様々なタグを持つ</p>
+        <h3>headerタグ</h3>
+        <p>文書やセクションのヘッダーを表す</p>
+        <h3>sectionタグ</h3>
+        <p>文書やアプリケーションの一部分となる、意味や機能のひとまとまりのこと</p>
+        <p>その範囲の内容に明確なテーマがあればsectionを用い、特にテーマなどがなく汎用的に範囲指定する場合divを用いるという判断が良いらしい</p>
+        <h3>mainタグ</h3>
+        <p>Internet Explorer(IE)だけは使うことができないらしい</p>
+        <p>mainタグにはナビゲーションやフッター情報などを除いたWebサイトのメインとなるコンテンツを記載するらしい</p>
+        <p>mainタグは各ページで一度しか使うことができないらしい</p>
+        <p>ただ記事を分けたいだけなら汎用的なdiv要素を使った方が良いらしい</p>
+        <h3>h1～h6タグ</h3>
+        <p>hというのはHeading（見出し）の意味</p>
+        <p>h2からh6は何回使っても問題ない。h1は最上位の大見出しとなるので原則1ページ1回の使用が推奨らしい。使ってもエラーにはならないが</p>
+        <h3>divタグ</h3>
+        <p>各コンテンツをひとまとめする（グループ化する）際に使う汎用的なタグ</p>
+        <p>便利だが使いすぎるとブラウザの技術が各要素を特定するのに時間がかかるので、Webページの読み込みの速度が遅くなるらしい</p>
+        <h3>spanタグ</h3>
+        <p>囲んだ要素だけデザインを変更する時に使う</p>
+        <p>改行しない。「display: block; 」を適用すると改行するようになるらしい</p>
+        <h3>pタグ</h3>
+        <p>「P」とは「Paragraph」の略</p>
+        <p>pタグで囲まれたテキスト1つの段落であることを示す</p>
+        <p>長すぎる場合は、brタグを使って改行すると良いらしい</p>
+        <h3>preタグ(preformatted text（整形済みテキスト）)</h3>
+        <p>整形済みであることを示す。改行などもそのまま表示される。</p>
+        <h3>codeタグ</h3>
+        <p>コードであることを示す</p>
+        <p>複数行にわたる場合は、preタグも合わせて使用する。</p>
+        <p><a href="https://ksonoda.com/code-tag-html/">【ソースコードを載せるためのHTMLタグ】codeタグで綺麗なコードを表示しよう</a></p>
+        <h3>imgタグ</h3>
+        <p>文書内に画像を表示するためのタグ</p>
+        <h3>OL(ordered list)タグ</h3>
+        <p>順序のある番号付きのリストを表示する際に使用するタグ「1,2,3・・・」と番号を振る</p>
+        <h3>UL(unordered list)タグ</h3>
+        <p>順序がない箇条書きのリストを表示する際に使用するタグ「・,・,・,・・・」と点を振る」</p>
+        <h3>LI(list item)タグ</h3>
+        <p>リストの項目を表示するために使用するタグ。OLタグ、ULタグの子要素に配置して使用する</p>
+        <h3>a(anchor（アンカー）)タグ</h3>
+        <p>リンクの出発点や到達点を指定するタグ。href属性でリンク先を指定</p>
+        <p><a href="https://html-coding.co.jp/annex/dictionary/html/a/">クロノドライブのHTML辞典&lt;a&gt;</a></p>
+        <h3>imgタグ</h3>
+        <p>文書内に画像を表示するためのタグ</p>
+        <h3>brタグ</h3>
+        <p>「&lt;br&gt;」というように終わりにスラッシュ無しで書くのが良いらしい。pタグの文章の中で改行するために使用</p>
+        <h3>fooderタグ</h3>
+        <p>フッター・文書ページの下部に表示されるもの</p>
+        <p>会社名やメニュー、コピーライト表記など</p>
+        <p>他のサイトへのリンクを置くことで、他のページへの案内を行うこともあるらしい</p>
+        <p><a href="https://zero-plus.io/media/html-tags-and-usage/">【参考】HTMLのよく使うタグ一覧！この15個さえ押さえればOK！</a></p>
+        <p><a href="https://qiita.com/mzmz__02/items/2dfa94a397e2b88e953f">【参考】HTMLでdivを乱用するのは良くない</a></p>
+        <h3>DLタグ</h3>
+        <p>「DL」とは「definition list（定義）」の略で、定義リストを表すタグ</p>
+        <p>何か(dt)に対してその内容(dd)がセットになっているリスト を意味する</p>
+        <h3>DTタグ</h3>
+        <p>「DT」とは「definition team」の略で、定義語を表すタグ</p>
+        <p>DLタグの子要素に使用する。</p>
+        <h3>DDタグ</h3>
+        <p>「DD」とは「definition description」の略で、定義の説明を表すタグ</p>
+        <p>DLタグの子要素に使用する。</p>
+        <p><a href="https://step-learn.com/article/html-css/051-ul-ol-dl.html">【参考】HTML: リスト要素（ul, ol, dl）の違いについて</a></p>
+
+        <h2>開発の上で気を付けること</h2>
+        <h3>仕様書等</h3>
+        <p>常に仕様書が間違っていない状態にする。同じ情報を複数個所に書かない。また同じ資料を複数個所に置かない。修正するときに複数個所修正する必要が出てくるのを防ぐため</p>
+        <h3>SQL</h3>
+        <p>複数のDBを更新し、整合性を保つ必要がある場合は、トランザクションを使用する。</p>
+        <p>SQLの実行回数は少ないほうが良い。SQLの実行時間が一番長いから。where条件でBulk Update(一括更新)するのが良い。IN句を使用する場合は件数の制限があるらしいので注意</p>
+        <p><a href="https://qiita.com/tondemonai7/items/93bf71714f7f828c0164">【参考】SQLのIN句で指定できる値の上限について</a></p>
+        <p>SQLを実行するときはバインド変数を使用する。高速で実行できるのと、シングルコーテーションの入れ忘れを防ぐかららしい。</p>
+        <p>
+            <a href="https://e-words.jp/w/%E3%83%90%E3%82%A4%E3%83%B3%E3%83%89%E5%A4%89%E6%95%B0.html#:~:text=%E3%83%90%E3%82%A4%E3%83%B3%E3%83%89%E5%A4%89%E6%95%B0%E3%81%A8%E3%81%AF%E3%80%81%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0,%E5%AE%9F%E8%A1%8C%E3%81%99%E3%82%8B%E3%81%93%E3%81%A8%E3%81%8C%E3%81%A7%E3%81%8D%E3%82%8B%E3%80%82">
+                【参考】バインド変数【bind variables】ユーザー定義変数
+            </a>
+        </p>
+        <p>データの件数を求める場合は、「SELECT COUNT(*) FROM テーブル名」ではなく、「SELECT COUNT(1) FROM テーブル名」を使用する。その方が早いらしい。</p>
+        <p>joinが増えれば増えるほどSQLの実行時間が長くなるらしい。joinを減らす手段の一つとして、事前にテーブルを取得してオブジェクトにid、値で持ちまわってidで取り出すのも良いらしい。</p>
+        <h3>WEB・API・Batch共通</h3>
+        <p>実行後、後で見たときに調査しやすいように適切にログを残す。</p>
+        <p>簡潔に、可読性・保守性の高い状態にしたい。</p>
+        <p>数字の比較について、文字型での比較と数値型での比較で結果が異なる場合があるので注意。（例　11と2の比較。文字型での比較の場合は2が大きい。左から見て1桁目で比較するためらしい。数値変換して比較することで回避できる。)</p>
+        <p>なかなか値が決まらない項目について、とりあえず"不明"という値を入れておく。そのままテストをして納品してもよい。決まった後差し替えて、その項目のみ動作確認すれば良い。</p>
+        <p>設計者と作成者が別の場合で、設計書に軽微間違い等があった場合、仕様が正しいことを確認した上で作成者が設計書を更新する。</p>
+        <p>会社名等をなるべく変数名等に使用しないほうが望ましい。社名が変わったりするため。</p>
+        <p>仕様の要望が複雑な場合、必要な処理を箇条書きにするか、フローチャートに起こすと良い。</p>
+        <h3>WEB</h3>
+        <p>更新処理後、F5キーでリロードしたときに再実行されないかを確認する。更新処理後、GETでリダイレクトするようにすることで回避する方法があるらしい。PRGパターン</p>
+        <p><a href="https://qiita.com/furi/items/a32c106e9d7c4418fc9d">【参考】Post/Redirect/Get (PRG) パターン</a></p>
+        <p>保存ボタン等をダブルクリックで2重送信されないかを確認する。loadingされるボタンを使用するか、ボタン押し時に非活性にし、再読み込みで活性化させることで回避可能</p>
+        <p>裏で別の処理に更新されている可能性を考慮する。レコードの最終更新日時が、画面の表示時点の時刻よりも後の場合は画面を再表示してから画面操作するように促す。</p>
+        <h3>Batch</h3>
+        <p>処理実行管理を残す。(処理開始時間・処理終了時間・実行結果・処理対象件数・処理成功件数・処理失敗件数・メッセージ・使用したcsvファイル(個人情報が含まれる場合はやめたほうがいい？？？))</p>
+        <h3>帳票</h3>
+        <p>データの取得・加工は可能な限りサーバー側で行う。帳票側は表示のみ、やるとしてもフォーマットの加工くらいにしたい。帳票側で色々処理すると可読性が低いし複雑な処理が出来ないので身動きが取れなくなる。</p>
+        <h3>外部システムとの連携(CURL・FTP送信)</h3>
+        <p>FTPとか特に送信に失敗することが多いらしい。200OKが帰るまで3回ほどリトライしたほうが良いらしい。</p>
+        <h3>テスト</h3>
+        <p>チェック項目を箇条書き且つ最小限でよい。必要だと思ったり、求められたらエビデンスが有ってもよい？？？</p>
+        <p>機能の作者とテストする人は同じで良い。その方が早い上により精度の高いテストパターンを洗い出せる。</p>
+        <p>同じテストを何度も行う場合は、APIの場合はスクリプトを作っておいて、ボタンを押すと何度でもテスト出来る状態にしておくと便利。</p>
+        <p>テスト項目消化中にエラーを発見した場合、修正後、最初からテストしなおす必要はなく、修正箇所と残りのテスト項目を消化するのみでも良い。</p>
+    
+        <h2>定数を持つ意味</h2>
+        <p>マジックナンバー「意味や意図が開発者本人にしか分からない値」をなくすため</p>
+    
+        <h2> HTTP のレスポンスステータスコード</h2>
+        <h3>500(Internal Server Error)</h3>
+        <p>サーバー側で処理方法がわからない事態が発生したことを示します。</p>
+        <h3>404(Not Found)</h3>
+        <p>サーバーがリクエストされたリソースを発見できないことを示します。</p>
+        <h3>403(Forbidden)</h3>
+        <p>認証されていないなどの理由でクライアントにコンテンツのアクセス権がなく、サーバーが適切なレスポンスの返信を拒否していることを示します。</p>
+        <h3>400(Bad Request)</h3>
+        <p>「クライアントから送信されたリクエストに、何らかの原因で処理が完了できなかったこと」を示すエラー</p>
+        <h3>200(OK)</h3>
+        <p>リクエストが成功したことを示します。</p>
+        <h3>202(Accepted)</h3>
+        <p>リクエストは受理されたが、まだ実行されていないことを示します。 HTTP ではリクエストを処理した結果を示す非同期なレスポンスを後から送信する方法がないためです。</p>
+        <p>機器からリクエストを受け付け、Queueにリクエストを格納し、機器にレスポンスを返す時に202を返却していた。非同期の処理となるため。</p>
+        <p><a href="https://developer.mozilla.org/ja/docs/Web/HTTP/Status">【参考】mdn web docs - HTTP レスポンスステータスコード</a></p>
+    
+        <h2>フォントファミリー</h2>
+        <p>左に記述されているフォントほど表示の優先度が高い</p>
+        <p>(例)font-family: "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", "Meiryo", "verdana", sans-serif;</p>
+        <h3>verdanaとsans-serif</h3>
+        <p>Windows（vista以降）に入っているフォント</p>
+        <p>css）font-family: "メイリオ", "Meiryo";</p>
+        <h3>メイリオ</h3>
+        <p>sans-serifは「ゴシック体」を表す。</p>
+        <p>該当するフォントがどれも入っていなかった場合に、そのデバイスでのゴシック体に指定されているフォントで表示するという意味。</p>
+        <p>css）font-family: Verdana, sans-serif;</p>
+        <h3>ヒラギノ</h3>
+        <p>ヒラギノ角ゴ Pro W3</p>
+        <p>mac iphoneで使用されるフォントらしい</p>
+        <p>css）font-family: 'ヒラギノ角ゴ ProN';</p>
+        <p><a href="https://qiita.com/7note/items/c181429fd1f9fcdb460a">【参考】【初心者でもわかる】font-familyの正しいつけ方・ツールも紹介（2020年 秋版）</a></p>
+        <h3>Noto Sans Japanese</h3>
+        <p>Googleが提供している日本語フォントらしい</p>
+        <p>試験的に提供しているものらしい</p>
+        <p>&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/earlyaccess/notosansjapanese.css&quot; /&gt;</p>
+        <p>css）font-family: 'Noto Sans Japanese';</p>
+        <h3>IPAフォント</h3>
+        <p>商用利用可能らしい</p>
+        <p><a href="https://sitebk.com/summary/ipa-font/">【参考】商用利用可能なIPAフォント10選まとめ</a></p>
+        <p><a href="https://www.softel.co.jp/blogs/tech/archives/3676">【参考】【css】Webフォント、ローカルフォントの指定方法</a></p>
+    
+        <h2>DDL,DML,DCLについて</h2>
+        <p>各環境に実行するSQLを書いているファイルの拡張子らしい</p>
+        <p>間違えたらどうなるかは良く知らない。</p>
+        <h3>DDL(Data Definition Language)</h3>
+        <p>テーブルを作ったり削除したり変更したり権限。</p>
+        <p>create,drop,truncate table,alter tableなど</p>
+        <h3>DML(Data Manipulation Language)</h3>
+        <p>テーブル操作関連。</p>
+        <p>select,insert,update,deleteなど</p>
+        <h3>DCL(Data Control Language)</h3>
+        <p>トランザクション制御系。</p>
+        <p>begin,commit,rollbackなど</p>
+    
+        <h2>VS Code - Extentions(拡張機能)</h2>
+        <h3>Japanese Language Pack for Visual Studio Code</h3>
+        <p>VS Code日本語化</p>
+        <h3>Prettier - Code formatter</h3>
+        <p>ソースコードのフォーマッター</p>
+        <p>「Shift + alt + f」で整形</p>
+        <h3>REST Client</h3>
+        <p>API実行をVS Code上で試せる</p>
+        <p><a href="https://zenn.dev/protoout/articles/26-vscode-rest-client">【参考】Visual Studio Codeで手軽にAPIを試せる REST Client 拡張の紹介</a></p>
+        <h3>PHP IntelliSense</h3>
+        <p>PHPで「ctl + space」で保管とかが効くらしい。</p>
+        <h3>PHP Debug</h3>
+        <p>PHPでデバッグするときに使うらしい</p>
+        <h3>PHP Intelephense</h3>
+        <p>PHPで「Shift + alt + f」で整形するときに使うらしい。Prettierではダメなのだろうか。</p>
+        <h3>Git Graph</h3>
+        <p>Visual Studio Code上で、Gitのコミットの履歴を確認したり、ブランチの操作をしたりすることができます。</p>
+        <p><a href="https://www.jcsc.co.jp/tech_blog/archives/51">【参考】VSCodeからGitの操作</a></p>
+        <h3>GitLens</h3>
+        <p>VSCode内でGitの各種操作をしやすくするための拡張機能。リポジトリの状態、ブランチ管理を視覚的に行える。</p>
+        <p>スタッシュの操作も出来るらしい？</p>
+        <p><a href="https://www.jcsc.co.jp/tech_blog/archives/51">【参考】VSCodeからGitの操作</a></p>
+    
+        <h2>GITについて</h2>
+        <h3>gitコマンド</h3>
+        <h4>git add</h4>
+        <p>ステージエリアにファイルを追加する</p>
+        <h4>git commit</h4>
+        <p>ステージエリアに上げているファイルをコミット。</p>
+        <h4>git push</h4>
+        <p>ローカルリポジトリの内容をリモートリポジトリに反映</p>
+        <h4>git revert</h4>
+        <p>取り消したいコミットを打ち消すようなコミットを新しく作成</p>
+        <h4>git reset</h4>
+        <p>誤ってコミットした内容を取り消すことができます。</p>
+        <p>履歴を残さずに取り消すことが出来るらしい？</p>
+        <h4>git stash</h4>
+        <p>現在の変更を退避</p>
+        <h4>git checkout</h4>
+        <p>ブランチの切り替え機能以外に変更の取り消しが走るらしい？switchを使うほうが良いらしい？</p>
+        <h4>git switch</h4>
+        <p>指定されたブランチに切り替えます。</p>
+        <h4>git clone</h4>
+        <p>既存のリポジトリをローカル環境に複製するコマンド</p>
+        <h4>git fetch</h4>
+        <p>リモートリポジトリを更新</p>
+        <h4>git pull</h4>
+        <p>リモートリポジトリとローカルリポジトリを更新</p>
+        <h4>git rebase</h4>
+        <p>ベースを再取り込み</p>
+        <h4>git merge</h4>
+        <p>別のブランチの変更を取り込む</p>
+        <p><a href="https://qiita.com/wann/items/688bc17460a457104d7d">【参考】【初心者向け】git fetch、git merge、git pullの違いについて</a></p>
+        <p><a href="https://zenn.dev/yumiyoshi/scraps/37723d020d4541">【参考】【git】git rebaseでなくgit mergeにするべきか</a></p>
+        <p><a href="https://snowsystem.net/git/git-command/git-switch/">【参考】gitコマンド checkoutとswitchの違い　～これからはswitchを使おう～</a></p>
+
+        <h2>ソフトウェア</h2>
+        <h3>Google Chrome</h3>
+        <p>Googleが開発したクロスプラットフォームのウェブブラウザ</p>
+        <h3>Outlook</h3>
+        <p>何百万人ものユーザーのあらゆるメール、予定表、ファイルを 1 か所にまとめることができる便利なアプリらしい</p>
+        <h3>Microsoft Teams</h3>
+        <p>チャットをベースに様々な機能が利用できるツールらしい</p>
+        <h3>Microsoft Excel</h3>
+        <p>強力な Excel スプレッドシート アプリを使用して、ファイルの作成、表示、編集、他のユーザーとのファイル共有を迅速かつ簡単に行うことができるらしい</p>
+        <h3>Microsoft Word</h3>
+        <p>ファイルを他のユーザーとすばやく簡単に作成、編集、表示、共有できます。また、メールに添付された Office ドキュメントを表示および編集することもできるらしい</p>
+        <h3>7-Zip</h3>
+        <p>書庫ファイルを圧縮・解凍するためのツール</p>
+        <h3>サクラエディタ</h3>
+        <p>テキストエディタ</p>
+        <h3>VS Code</h3>
+        <p>コードエディタ</p>
+        <h3>Snipping Tool</h3>
+        <p>画面の任意のオブジェクトのスクリーンショット (切り取り) をキャプチャし、画像に注釈を付ける、保存するツールらしい</p>
+        <h3>A5M2</h3>
+        <p>SQLクライアント</p>
+        <h3>Medis</h3>
+        <p>RedisのGUIクライアント</p>
+        <h3>Everything</h3>
+        <p>高速なファイル検索ソフト</p>
+        <h3>WinMerge</h3>
+        <p>ファイルやフォルダの比較ができてマージもできるらしい</p>
+        <p><a href="https://hep.eiz.jp/winmerge/">【参考】Winmergeの使い方。ファイルの比較ができるフリーソフト</a></p>
+        <h3>Git for windows</h3>
+        <p>GitのCUIクライアントソフトウェア</p>
+        <p>ソースコードの管理に使っている</p>
+        <h3>TortoiseGit</h3>
+        <p>GitのGUIクライアントツール</p>
+        <h3>TortoiseSVN</h3>
+        <p>バージョン管理システム</p>
+        <p>仕様書の管理に使っているらしい</p>
+        <h3>xamp</h3>
+        <p>ウェブアプリケーションの実行に必要なフリーソフトウェアをパッケージとしてまとめたもの</p>
+        <p>PHPのローカル環境として使っている</p>
+        <h3>JMeter</h3>
+        <p>Apacheソフトウェア財団が開発しているオープンソースの負荷検証ツール</p>
+        <p>「jmater -n -t ${スクリプトファイル} -l jtl ${ファイル出力先} ${jtlファイル出力先} -e -o ${レポート出力先}」でレポートを出力出来る。</p>
+        <h3>putty</h3>
+        <p>Simon TathamがMIT Licenceで開発・公開しているリモートログオンクライアントらしい</p>
+        <p>SSH(セキュアシェル)で通信するソフトウェア</p>
+        <p>AWS - EC2インスタンスに接続する際に使用</p>
+        <h3>WinSCP</h3>
+        <p>オープンソースで開発されているFTP/SFTP/SCPクライアントソフトらしい</p>
+        <p>特定のコンピュータ間でファイル転送する</p>
+        <h3>redis-cli</h3>
+        <p>ローカル環境でredisを使用する</p>
+        <h3>postgres</h3>
+        <p>ローカル環境でpostgresを使用する</p>
+        <p><a href="https://www.postgresql.jp/download">【参考】日本PostgreSQLユーザ会 - オープンソースDBMSの国内普及を応援します</a></p>
+        <h3>adobe acrobat</h3>
+        <p>アドビが開発する、Portable Document Format ファイルを作成・編集・加工・管理するためのソフトウェア</p>
+        <h3>FortiClient VPN</h3>
+        <p>FortiGateでIPsecVPN、SSL-VPN接続をする際にクライアントとして使う無償ソフト</p>
+        <h3>H2 database</h3>
+        <p>JavaVM上で動作する軽量RDBMSでオープンソース</p>
+        <h3>Java</h3>
+        <p>汎用プログラミング言語とソフトウェアプラットフォームの双方を指している総称ブランド</p>
+        <h3>JavaSE(Java Standard Edition)</h3>
+        <p>多くのJavaプラットフォームプログラムで利用されるJava APIの集合体である。Java仮想マシン、APIなどから構成される。</p>
+        <h3>Node.js</h3>
+        <p>V8 JavaScriptエンジン上に構築されたJavaScript実行環境の1つ</p>
+        <h3>Skype</h3>
+        <p>マイクロソフトが提供するクロスプラットフォーム対応のコミュニケーションツール</p>
+        <h3>Notes</h3>
+        <p>HCL Notes と HCL Domino は、以前は IBM (現在は HCL Technologies) が販売している共同クライアント/サーバー ソフトウェア プラットフォームのクライアントとサーバー</p>
+        <h3>OpenVPN</h3>
+        <p>サーバ間に暗号化されたトンネルを作成するためのオープンソースのVirtual Private Networkソフトウェア</p>
+        <h3>ESETインターネットセキュリティ</h3>
+        <p>スロバキアの企業「ESET（イーセット）」社が提供するセキュリティソフト</p>
+        <h3>XnView</h3>
+        <p>「png → jpg」への一括変換に使用</p>
+    
+        <h2>Heroku</h2>
+        <h3>add-on</h3>
+        <h4>Heroku Scheduler</h4>
+        <p>定時バッチの実行</p>
+        <h4>Heroku Redis</h4>
+        <p>キーバリューで値を持つ。postgresより高速らしい</p>
+        <h4>SendGrid</h4>
+        <p>メール送信</p>
+        <h4>Papertrail</h4>
+        <p>ログ閲覧</p>
+        <h4>Heroku Postgres</h4>
+        <p>Postgres</p>
+        <h4>New Relic</h4>
+        <p>負荷監視ツールらしい</p>
+        <h4>proximo</h4>
+        <p>Private Spacesにせずipを固定化出来るらしい</p>
+        <h4>Heroku Connect</h4>
+        <p>Salesforce 環境と Heroku Postgres のデータを簡単に同期できるらしい</p>
+        <p>同期数が増えれば増えるほど料金が増えるらしい。</p>
+        <h3>用語</h3>
+        <h4>Private Spaces</h4>
+        <p>大企業での利用にも耐えうる安全なネットワークトポロジが実現出来るらしい</p>
+        <h4>Heroku Pipeline</h4>
+        <p>開発環境と本番環境の変更内容を維持するための機能</p>
+        <h4>スタック</h4>
+        <p>Heroku スタックはビルドおよびデプロイ環境のこと???</p>
+    
+        <h2>AWS</h2>
+        <p><a href="https://aws-rough.cc/ec2/">【参考】ざっくりAWS</a></p>
+        <h3>Amazon S3(Amazon Simple Storage Service)</h3>
+        <p>ストレージサービス</p>
+        <h3>Amazon API Gateway</h3>
+        <p>リクエストを受け付けて後続の処理を呼び出している。API作成。呼び出しが有れば、Lamdaを呼び出したり出来る</p>
+        <h3>AWS Lambda</h3>
+        <p>サーバーレスで呼び出しがあったタイミングだけ動作するため、EC2より安く済むらしい。</p>
+        <p>あらゆる機能からのトリガーで呼び出すことが出来るらしい。(S3・API Gateway・Simple Queue Service・DynnoDB・Alexa Skills Kitなど)</p>
+        <p>Node Jsで記述する。(Pythonとかでも動くらしい)</p>
+        <p>Node Jsの場合、レスポンスを指定するため、Expressを使用しているらしい</p>
+        <h3>SQS(Amazon Simple Queue Service)</h3>
+        <p>LamdaからSQSにリクエストを貯めて、キューからLamdaを1件ずつ実行するような動きが出来るらしい。</p>
+        <h3>Amazon DynamoDB</h3>
+        <p>key-value。NoSQL データベースらしい。</p>
+        <h3>IAM(Identity and Access Management)</h3>
+        <p>AWS のサービスやリソースにアクセスできるユーザーやグループを指定し、きめ細かいアクセス許可を一元管理</p>
+        <h3>AWS CodeCommit</h3>
+        <p>ソースコードを管理</p>
+        <p>Githubとの違いは、CodeCommitの方がセキュリティが高いこと。らしい</p>
+        <p><a href="https://qiita.com/shizen-shin/items/83c5dd9bac89cda986f3">【参考】【AWS】CodeComｍitとは？Githubとの違いとメリットについて。</a></p>
+        <h3>Amazon CloudWatch</h3>
+        <p>Amazon CloudWatch は、リアルタイムのログ、メトリクス、イベントデータを収集して自動化されたダッシュボードに視覚化し、インフラストラクチャとアプリケーションのメンテナンスを合理化します。</p>
+        <h3>AWS WAF</h3>
+        <p>AWS WAFとは、AWSが提供しているWAFを指し、Webアプリケーションの脆弱性を突いた攻撃をブロックするには有効的なセキュリティサービスです。</p>
+        <p>特定の国からのアクセスをブロック。特定のユーザーエージェントのアクセスを許可等指定できるらしい。</p>
+        <h3>Alexa Skills Kit</h3>
+        <p>Alexa搭載機器から発話を読み取り、Lamdaを呼び出すらしい</p>
+        <p>Amazon Developer Consoleでスキルを作成してLamdaを呼び出す。コマンドを機器にレスポンスして機器が操作を実行する仕組みらしい。(EndpointにLamdaを指定)</p>
+        <p>
+            <a href="https://www.amazon.com/ap/signin?openid.pape.max_auth_age=3600&openid.return_to=https%3A%2F%2Fdeveloper.amazon.com%2Fsettings%2Fconsole%2Fhome&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=mas_dev_portal&openid.mode=checkid_setup&language=ja_JP&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&pageId=amzn_developer_portal&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0&language=ja_JP">
+            【参考】Amazon Developer Console
+            </a>
+        </p>
+        <h3>Amazon Pinpoint</h3>
+        <p>Amazon Pinpointとは何か簡単に説明すると、 ユーザーの動向を分析し、そのユーザーをセグメントに分け、対象のユーザーに向けて個別通知が可能らしい</p>
+        <p>iOS、Androidに対して通知が送れるらしい。</p>
+        <h3>Amazon Athena</h3>
+        <p>標準的なSQLを使ってAmazon S3の直接データを直接分析出来るらしい</p>
+    
+        <h2>Salesforce</h2>
+        <h3>カスタムオブジェクト（オブジェクトリレーション）の作成</h3>
+        <p>会員・機器等のオブジェクトを作成できる</p>
+        <p>異なるオブジェクト間の関連性を表すデータの紐付けることが出来るらしい</p>
+        <h3>レポート機能</h3>
+        <p>蓄積したデータを指定した条件で絞り込み、リストの形で表示する機能のことです。情報分析に用いられ、合計や平均値、最大値などを計算したり出来るらしい</p>
+        <p>レポート結果をメールで送信も出来るらしい</p>
+        <h3>サイトの作成</h3>
+        <p>Salesforceへのファイルのアップロード専用のサイトとかも作れるらしい</p>
+        <h3>SalesforceBatchの実行</h3>
+        <p>Apex(エーペックス)言語(セールスフォース社の提供するSalesforce専用のプログラミング言語)で非同期の一括処理が出来るらしい</p>
+        <p>定時バッチとして実行できるらしい</p>
+        <p>メールの送信も出来るらしい</p>
+
+        <h2>契約別</h2>
+        <h3>準委任契約</h3>
+        <p>勤務時間の送付が必要らしい。</p>
+        <h3>請負契約</h3>
+        <p>検収通知書、納品書が必要らしい。</p>
+    
+        <h2>変数について</h2>
+        <h3>static変数(static variable)</h3>
+        <p>クラスごとに持つ変数</p>
+        <h3>インスタンス変数 (instance variable)</h3>
+        <p>クラスをインスタンス化した際、インスタンスごとに持つ変数。</p>
+        <h3>final変数</h3>
+        <p>変更できない変数</p>
+    
+        <h2>メソッドについて</h2>
+        <h3>staticメソッド(static method)</h3>
+        <p>インスタンス化せずに使用できる</p>
+        <h3>インスタンスメソッド(instance method)</h3>
+        <p>インスタンス化して使用する。</p>
+    
+        <h2>アクセス修飾子</h2>
+        <h3>public</h3>
+        <p>どこからでもアクセス可能とする修飾子</p>
+        <h3>protected</h3>
+        <p>クラスを継承したサブクラス内部からアクセスすることを可能</p>
+        <h3>デフォルト（何も付けない）</h3>
+        <p>同じパッケージ内のすべてのクラスからアクセスすることが可能</p>
+        <p>private</p>
+        <p>クラス内部からのみ、アクセスが可能</p>
+    
+        <h2>覚えておく用語・事柄</h2>
+        <h3>CLUD(クラッド)</h3>
+        <p>データ管理のための4つの基本機能</p>
+        <p>Create(追加)、Read(表示)、Update(更新)、Delete(削除)の頭文字を取っている。</p>
+        <h3>リバースプロキシ</h3>
+        <h3>PHP-BuildPack</h3>
+        <p>PHPの環境構築を自動でやってくれるらしい。Apache(httpd)、やComposerなど</p>
+        <h3>Gmailをたくさん作る方法があるらしい(エイリアス機能)</h3>
+        <h3>約款(約款)</h3>
+        <p>大量の同種取引を迅速・効率的に行う等のために作成された定型的な内容の取引条項</p>
+        <h3>トークンベースの認証</h3>
+        <p>トークンをチェックすることによって同一性を確認するプロセス</p>
+        <h4>JWT（JSON Web Token）</h4>
+        <p>JSON オブジェクトとしてフォーマットされた認証情報を安全に送信するために使用されます。</p>
+        <h4>Drupal</h4>
+        <p>世界的な大企業、政府機関、大学、NGO など大規模なサイトを中心に幅広く利用されている、プログラム言語 PHP で記述されたオープンソースの CMS（コンテンツ管理システム）</p>
+        <h3>linkshare</h3>
+        <p>リンクシェアのアフィリエイトネットワークでは多数のトップ企業が参加し、アフィリエイトプログラムを利用して、様々な商品、サービスを提供しています。</p>
+        <h3>ソーシャルログイン</h3>
+        <p>ユーザーが既に所有しているLINE・Facebook・TwitterといったSNSやGoogle・Yahoo! JAPANといったWebサービスのアカウントを用いて、Webサイト・Webサービスにログインすることができる機能</p>
+        <h3>PowerToy</h3>
+        <p>Microsoft謹製、Windowsの作業効率をアップさせる「PowerToys」というソフトらしい</p>
+        <h3>Tablacus Explorer</h3>
+        <p>画面分割できるタブ型ファイラーらしい</p>
+        <h3>ディシジョンテーブル(decision table)</h3>
+        <p>想定されるすべての条件と、それに対して実行すべき動作を整理した表のこと</p>
+        <h3>キャリッジリターン</h3>
+        <p>文字コード体系において、カーソルを文頭へ戻すことを表す制御文字</p>
+        <h3>PL/SQL</h3>
+        <p>オラクル社が開発した手続き型言語で、非手続き型言語のSQLを拡張したもの</p>
+        <h3>不要タプル</h3>
+        <p>postgresにおける削除しても良い領域？</p>
+        <p><a href="https://qiita.com/neustrashimy/items/b3d64b749582b32ad0ff">【参考】PostgreSQLのvacuumについて調べたメモ</a></p>
+        <h3>VACUUM ANALYZE</h3>
+        <p>ANALYZEとは、データベース内のテーブルの内容に関する統計情報を更新するコマンドです。</p>
+
+        <h2>画像形式</h2>
+        <h3>JPEG（Joint Photographic Experts Group）(ジェイペグ)(拡張子は「.jpg（. jpeg）」)</h3>
+        <p>静止画像データのファイル形式の一種</p>
+        <p>フルカラー（約1,677万色）の画像を扱える</p>
+        <p>写真などのデータを保存するのに向いている</p>
+        <p>画質を保ったまま高圧縮ができる</p>
+        <p>上書き保存で画質が劣化する</p>
+        <p>圧縮前のデータに復元できない</p>
+        <h3>PNG（Portable Network Graphics）(読み方は「ピング」もしくは「ピン」)(拡張子は「.png」)</h3>
+        <p>圧縮前のデータに復元できる</p>
+        <p>透過処理ができる</p>
+        <p>比較的新しい画像ファイル形式</p>
+        <p>容量が大きくなる傾向にある。Web上で扱うときは、ページ速度に影響がでることもあるので注意</p>
+        <h3>GIF（Graphics Interchange Format）読み方は「ジフ」(拡張子は「.gif」)</h3>
+        <p>圧縮前のデータに復元できる</p>
+        <p>データ容量が小さい</p>
+        <p>透過処理ができる</p>
+        <p>アニメーションを作ることができる</p>
+        <h3>TIFF(Tagged Image File Format)(ファイル拡張子は.tiffまたは.tif)</h3>
+        <p>メリット:画像データを圧縮せずに保存することで画像が劣化しない</p>
+        <p>メリット:JPEGよりもきれいに印刷できるという点で、印刷物などに広く使われている</p>
+        <p>デメリット:無圧縮のためファイルサイズが他の拡張子と比べて格段に大きい</p>
+        <p>写真家に支持されている</p>
+        <h3>BMP（ビットマップ/ビーエムピー）(Microsoft Windows Bitmap Imageの略)( 拡張子「.bmp」)</h3>
+        <p>メリット:画像を圧縮せずに保存できる。</p>
+        <p>メリット:解像度の高い画像が必要な場合に使える。</p>
+        <p>デメリット:ファイルサイズが大きいこと</p>
+        <p>デメリット:Webでは扱えないこと</p>
+
+        <h2>Bearer(ベアラー)認証について</h2>
+        <p>Authorizationヘッダを用いた認証の一つらしい</p>
+        <p>AuthorizationヘッダにAuthorization: Bearer ${token} のようにして指定するらしい</p>
+        <p>パスワード・id等で認証トークンを取得して他の機能にアクセス出来るようにする。Bearerというのはとりあえず付けとけばいいのかな。</p>
+        <p><a href="https://qiita.com/h_tyokinuhata/items/ab8e0337085997be04b1">【参考】Bearer認証について</a></p>
+        <p><a href="https://hogetech.info/network/web/authentication">【参考】【入門】認証方式とサーバーの設定をわかりやすく解説</a></p>
+
+        <h2>Postgres DB Lockについて</h2>
+        <h3>AccessShareLock</h3>
+        <h3>RowExclusiveLock</h3>
+        <h3>ShareLock</h3>
+        <h3>ExclusiveLock</h3>
+        <p><a href="https://www.postgresql.jp/document/7.2/user/locking-tables.html">PostgreSQL 7.2.3 ユーザガイド</a></p>
+
+        <h2>料金について</h2>
+        <h3>HerokuでPHPとMYSQLを使用する</h3>
+        <p>大体760円/月だった</p>
+        <h3>aws ec2(t2.nano)</h3>
+        <p>大体600円/月だった</p>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

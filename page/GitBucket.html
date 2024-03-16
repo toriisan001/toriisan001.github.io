@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+    <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>GitBucket</h1>
+        <p id="lastModified"></p>
+
+        <h2>用語</h2>
+        <p>refs・・・リポジトリ内で参照（references）を管理するためのディレクトリ。最上位のディレクトリ？</p>
+        <p>refs/heads・・・ローカルブランチへの参照を格納するためのもの</p>
+        <p>HEAD・・・現状の最新のリモートブランチを示すらしい</p>
+        <p>main・・・リポジトリー作成時のデフォルトブランチ名らしい</p>
+        <p>master・・・昔のリポジトリー作成時のデフォルトブランチ名らしい</p>
+        <p>origin・・・リモートリポジトリのアクセス先に対してGitがデフォルトでつける名前らしい</p>
+        <p>リモートブランチ・・・GitBucket上にあるブランチ。</p>
+        <p>ローカルブランチ・・・リモートブランチをcloneしてローカルに作成するブランチ</p>
+        <p>pull・・・リモートブランチとローカルリポジトリを更新</p>
+        <p>fetch・・・リモートブランチのみ更新</p>
+        <p>push・・・リモートリポジトリをローカルリポジトリの内容で更新</p>
+        <p>ブランチ・・・履歴の記録</p>
+        <p>リポジトリ・・・履歴を記録する場所</p>
+        <p>pull request・・・自分が作成した変更を取り込んでもらうための提案。</p>
+
+        <h2>AmazonLinux3でGitBucket環境構築_20231223</h2>
+        <p>GitBucket（ギットバケット）は、Javaで開発されたGitリポジトリをホスティングするためのウェブベースのGitプラットフォーム</p>
+        <p>たけぞうさんという方が開発されているGitHubのクローンアプリらしい</p>        
+        <p>GitHubと同様の機能を提供することを目指しているらしい。</p>
+        <p>Gitリポジトリ管理を容易にすることを目的としているらしい。</p>
+        <p>オープンソースで提供</p>
+        <details>
+            <p><a href="https://nnsnodnb.hatenablog.jp/entry/2015/04/04/025626">【参考】『入る学科間違えた高専生』の日記 - AWS EC2にGitBucketを導入してみる</a></p>
+            <p><a href="https://takezoe.hatenablog.com/entry/2023/04/29/044433">【参考】たけぞう瀕死ブログ</a></p>
+            <h3>EC2インスタンスを作成(Amazon Linux 2023 AMI)。EC2にssh接続。</h3>
+            <p>ボリュームのタイプ:8GiB gp3、インスタンスタイプ:t2.nanoでよさそう？</p>
+            <h3>セキュリティグループの設定でHTTPプロトコルの代替ポート（TCP 8080）を許可。</h3>
+            <h3>EC2インスタンスにSSHで接続</h3>
+            <h3>必要なパッケージのインストール</h3>
+            <p>[サーバー]「sudo yum -y update」でパッケージの最新化</p>
+            <p>[サーバー]「sudo yum -y install httpd」でApache HTTP Server（httpd）をインストール</p>
+            <p>[サーバー]「sudo service httpd start」でweb サーバーを起動</p>
+            <p>[サーバー]「sudo chkconfig httpd on」でサーバを再起動した時に自動的に httpd も起動</p>
+            <p>[サーバー]「sudo yum install java -y」でJavaをインストール</p>
+            <p>[サーバー]「java -version」でJavaのバージョンを確認</p>
+<pre>
+[ec2-user@ip-********* ~]$ java -version
+openjdk version "21.0.1" 2023-10-17 LTS
+OpenJDK Runtime Environment Corretto-21.0.1.12.1 (build 21.0.1+12-LTS)
+OpenJDK 64-Bit Server VM Corretto-21.0.1.12.1 (build 21.0.1+12-LTS, mixed mode, sharing)
+</pre>
+            <p>[ローカル] GitBucketの最新版を確認</p>
+            <p><a href="https://github.com/gitbucket/gitbucket/releases">GitBucket - releases</a></p>
+            <p>[サーバー]「sudo wget https://github.com/gitbucket/gitbucket/releases/download/4.40.0/gitbucket.war」でGitBucketの最新版をDL</p>
+            <h3>GitBucketを起動</h3>
+            <p>[サーバー]「java -jar gitbucket.war &」でGitBucketの起動</p>
+            <p>末尾に「&」を付けるとバックグラウンドで動くらしい。ログが見たいときは外せばいい</p>
+            <p>「ls -a」でディレクトリ内の全てのファイルとディレクトリを表示。初回起動時に「.gitbucket」ディレクトリが作成されている。このディレクトリを削除すればデータを削除できる。</p>
+<pre>
+[ec2-user@************** ~]$ ls -a
+.  ..  .bash_logout  .bash_profile  .bashrc  .gitbucket  .ssh  gitbucket.war
+</pre>
+            <p>ポートが指定できるらしい。「例:java -jar gitbucket.war --port=8888」</p>
+            <h3>サービスの作成_自動起動</h3>
+            <p>[サーバー]「sudo vi /etc/systemd/system/gitbucket.service」でサービスの作成</p>
+<pre>
+[Unit]
+Description=GitBucket
+
+[Service]
+ExecStart=/usr/bin/java -jar /home/ec2-user/gitbucket.war &
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=gitbucket
+
+[Install]
+WantedBy=multi-user.target
+</pre>
+            <p>[サーバー]「sudo systemctl start gitbucket.service」でGitBucket サービス起動</p>
+            <p>[サーバー]「sudo systemctl status gitbucket.service」でGitBucket サービスが起動していることを確認。「active (running)」が出ていたら起動できている。「ctl + c」2回で確認画面を閉じる。</p>
+            <p>[サーバー]「sudo systemctl enable --now gitbucket.service」でLinuxシステム上でGitBucketサーバーを自動起動および有効化</p>
+            <h3>ブラウザからアクセス</h3>
+            <p>[ローカル] ブラウザで「http://${パブリック IPv4 DNS or ElasticIPアドレス}:8080/」でログイン。初回アクセス時は、ユーザー名:root、パスワード:rootでログイン出来る。rootパスワードは変更しておいたほうが良いらしい。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/AmazonLinux3でGitBucket環境構築_20231223/ブラウザからアクセス.JPG" alt="ブラウザからアクセス.JPG">
+                <figcaption>ブラウザからアクセス.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>ユーザーの作成</h2>
+        <details>
+            <h3>管理者権限のあるユーザでログイン</h3>
+            <h3>ユーザーの作成</h3>
+            <p>システム管理をクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ユーザーの作成/システム管理をクリック.JPG" alt="システム管理をクリック.JPG">
+                <figcaption>システム管理をクリック.JPG</figcaption>
+            </figure>
+            <p>新しいユーザーをクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ユーザーの作成/新しいユーザーをクリック.JPG" alt="新しいユーザーをクリック.JPG">
+                <figcaption>新しいユーザーをクリック.JPG</figcaption>
+            </figure>
+            <p>ユーザーを作成</p>
+            <p>メールアドレスについて特に指定したくなかったので適当に「user@localhost」のように入れておいた。</p>
+<details>
+    <summary>ユーザータイプについて</summary>
+<pre>
+1.ユーザー（User）:
+・ユーザーは通常のGitBucketユーザーアカウントで、
+リポジトリのクローンやプル、プッシュなどの一般的なGit操作を行うことができます。
+・通常のリポジトリへのアクセス権限を持ち、そのリポジトリに対する一般的な操作を行うことができます。
+・ユーザーは一般的にプロジェクトや組織の管理には関与しません。
+
+2.管理者（Administrator）:
+・管理者はGitBucketの管理者権限を持つユーザーです。
+・管理者はシステム全体に対する設定変更やユーザーの管理、
+プロジェクトやリポジトリの作成・削除、ユーザーグループの作成・管理など、
+GitBucket全体の管理機能にアクセスできます。
+・通常、GitBucketの初期設定や重要な変更は管理者が行います。
+
+要するに、ユーザーは通常のGit操作を行う一般のユーザーアカウントであり、
+管理者はGitBucket全体を管理し、
+様々な設定や操作を行う特権を持ったユーザーアカウントです。
+管理者権限を持つユーザーは、システムの設定やセキュリティの向上、
+ユーザー管理など、広範な機能にアクセスできます。
+</pre>
+</details>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ユーザーの作成/ユーザーを作成.JPG" alt="ユーザーを作成.JPG">
+                <figcaption>ユーザーを作成.JPG</figcaption>
+            </figure>
+            <p>ユーザーの作成が完了</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ユーザーの作成/ユーザーの作成が完了.JPG" alt="ユーザーの作成が完了.JPG">
+                <figcaption>ユーザーの作成が完了.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>リポジトリの作成からクローンからmainブランチにファイルのプッシュ</h2>
+        <details>
+            <h3>管理者権限でログイン</h3>
+            <h3>リポジトリを作成</h3>
+            <p>「new_repository」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/「new_repository」をクリック.JPG" alt="「new_repository」をクリック.JPG">
+                <figcaption>「new_repository」をクリック.JPG</figcaption>
+            </figure>
+            <p>新しいリポジトリを作成する</p>
+            <p>空のコミットでこのリポジトリを初期化します : 新規で作成するとき？</p>
+            <p>既存の git リポジトリをコピーする既にある : gitリポジトリを使用する場合？</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/新しいリポジトリを作成する.JPG" alt="新しいリポジトリを作成する.JPG">
+                <figcaption>新しいリポジトリを作成する.JPG</figcaption>
+            </figure>
+            <h3>ローカルにクローン</h3>
+            <p>mainブランチのGit_Urlをコピー</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/mainブランチのGit_Urlをコピー.JPG" alt="mainブランチのGit_Urlをコピー.JPG">
+                <figcaption>mainブランチのGit_Urlをコピー.JPG</figcaption>
+            </figure>
+            <p>適当なディレクトリで右クリックして「Git clone...」</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/クローン1.JPG" alt="クローン1.JPG">
+                <figcaption>クローン1.JPG</figcaption>
+            </figure>
+            <p>URLを張り付けてOK</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/クローン2.JPG" alt="クローン2.JPG">
+                <figcaption>クローン2.JPG</figcaption>
+            </figure>
+            <p>closeをクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/クローン3.JPG" alt="クローン3.JPG">
+                <figcaption>クローン3.JPG</figcaption>
+            </figure>
+            <p>リポジトリがクローンされた。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/クローン4.JPG" alt="クローン4.JPG">
+                <figcaption>クローン4.JPG</figcaption>
+            </figure>
+            <h3>ファイルのコミット、プッシュ</h3>
+            <p>適当なファイルを作成</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/適当なファイルを作成.JPG" alt="適当なファイルを作成.JPG">
+                <figcaption>適当なファイルを作成.JPG</figcaption>
+            </figure>
+            <p>作成したファイルを右クリック→「tortoiseGit」→「add...」でステージングエリアに追加</p>
+            <p>ステージングエリア・・・gitレポジトリにコミットするファイルを置いておくためのエリア</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/適当なファイルをadd1.JPG" alt="適当なファイルをadd1.JPG">
+                <figcaption>適当なファイルをadd1.JPG</figcaption>
+            </figure>
+            <p>OKをクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/適当なファイルをadd2.JPG" alt="適当なファイルをadd2.JPG">
+                <figcaption>適当なファイルをadd2.JPG</figcaption>
+            </figure>
+            <p>作成したファイルを右クリック → 「Git Commit → "main"」</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/適当なファイルをCommit1.JPG" alt="適当なファイルをCommit1.JPG">
+                <figcaption>適当なファイルをCommit1.JPG</figcaption>
+            </figure>
+            <p>ファイルを右クリックして「Compare with base」をクリックすれば修正前後の比較を見ることが出来る。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/適当なファイルをCommit2.JPG" alt="適当なファイルをCommit2.JPG">
+                <figcaption>適当なファイルをCommit2.JPG</figcaption>
+            </figure>
+            <p>Messageを追加。コミットするファイルにチェックが入っていることを確認してCommitをクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/適当なファイルをCommit3.JPG" alt="適当なファイルをCommit3.JPG">
+                <figcaption>適当なファイルをCommit3.JPG</figcaption>
+            </figure>
+            <p>「close」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/適当なファイルをCommit4.JPG" alt="適当なファイルをCommit4.JPG">
+                <figcaption>適当なファイルをCommit4.JPG</figcaption>
+            </figure>
+            <p>「.git」があるディレクトリを右クリック → 「Git Commit → Push...」</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/適当なファイルをPush1.JPG" alt="適当なファイルをPush1.JPG">
+                <figcaption>適当なファイルをPush1.JPG</figcaption>
+            </figure>
+            <p>リモートリポジトリ先が「origin」になっているが、「Manage」をクリックするとpush先を確認等出来る。</p>
+            <p>originについてはリポジトリ作成時にGitがデフォルトでつける名前らしい</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/適当なファイルをPush2.JPG" alt="適当なファイルをPush2.JPG">
+                <figcaption>適当なファイルをPush2.JPG</figcaption>
+            </figure>
+            <p>ローカルリポジトリ「main」からリモートリポジトリ「main」へと指定されている。</p>
+            <p>「OK」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/適当なファイルをPush3.JPG" alt="適当なファイルをPush3.JPG">
+                <figcaption>適当なファイルをPush3.JPG</figcaption>
+            </figure>
+            <p>pushするユーザー、パスワードを入力して「continue」をクリック</p>
+            <p>ユーザー権限ではpush出来なかった。管理者権限のあるユーザーでpushした。</p>
+            <p>設定次第ではユーザー権限でもpush出来る？</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/適当なファイルをPush4.JPG" alt="適当なファイルをPush4.JPG">
+                <figcaption>適当なファイルをPush4.JPG</figcaption>
+            </figure>
+            <p>「close」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/適当なファイルをPush5.JPG" alt="適当なファイルをPush5.JPG">
+                <figcaption>適当なファイルをPush5.JPG</figcaption>
+            </figure>
+            <p>「.git」があるディレクトリを右クリック → 「Git Commit → "main"... → Show log」見ると</p>
+            <p>mainブランチにファイルの追加がされていることが確認できる。OKでこの画面を閉じる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/ShowLogを見る.JPG" alt="ShowLogを見る.JPG">
+                <figcaption>ShowLogを見る.JPG</figcaption>
+            </figure>
+            <p>GitBucketのニュースフィードに変更内容が書かれている。</p>
+            <p>このニュースフィードは、参照権限がある変更内容が表示されるらしい。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/NewsFeedを見る.JPG" alt="NewsFeedを見る.JPG">
+                <figcaption>NewsFeedを見る.JPG</figcaption>
+            </figure>
+            <p>メインブランチに追加したファイルが追加されている</p>
+            <p>追加したファイルをクリックするとファイルの詳細を閲覧できる</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/メインブランチに追加したファイルが追加されている.JPG" alt="メインブランチに追加したファイルが追加されている.JPG">
+                <figcaption>メインブランチに追加したファイルが追加されている.JPG</figcaption>
+            </figure>
+            <p>ファイルの詳細を閲覧</p>
+            <p>Raw・・・生のデータをそのまま閲覧できる</p>
+            <p>Blame・・・行ごとのコミット者を確認できる</p>
+            <p>History・・・ファイルのコミット履歴を閲覧できる</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リポジトリの作成からクローンからmainブランチにファイルのプッシュ/ファイルの詳細を閲覧.JPG" alt="ファイルの詳細を閲覧.JPG">
+                <figcaption>ファイルの詳細を閲覧.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>コミット後とプッシュ後の状態を確認</h2>
+        <details>
+            <h3>commit後の状態を確認</h3>
+            <p>以下commit後</p>
+            <p>mainブランチをcloneして適当に3回コミット。Show Logを見てみる</p>
+            <p>下記を見ると「h2タイトル_追記」「h2タイトル_hogehoge_追記」「hogehoge2追記」の変更がmainのローカルブランチに追加されていることが確認できる。</p>
+            <p>「!マーク」がついているのが変更。「＋マーク」が付いているものが追加らしい</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後とプッシュ後の状態を確認/適当に3回ほどコミット_ShowLog.JPG" alt="適当に3回ほどコミット_ShowLog.JPG">
+                <figcaption>適当に3回ほどコミット_ShowLog.JPG</figcaption>
+            </figure>
+            <p>cthキーを押しながらクリックで2項目を選択し、「右クリック → Compare revision」で2項目間で変更されたファイルを取得できる</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後とプッシュ後の状態を確認/2点間のCompare_revision.JPG" alt="2点間のCompare_revision.JPG">
+                <figcaption>2点間のCompare_revision.JPG</figcaption>
+            </figure>
+            <p>「Compare revisions」で差分の表示。「Exports selection to...」でファイルをエクスポート出来る。</p>
+            <p>「Copy paths to clipboard」でパスのコピー</p>
+            <p>「Copy all infomation to clipboard」でファイルの情報をコピー</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後とプッシュ後の状態を確認/差分の表示等.JPG" alt="差分の表示等.JPG">
+                <figcaption>差分の表示等.JPG</figcaption>
+            </figure>
+            <p>Log画面でブランチ名をクリックすると「Browse referense」画面を表示できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後とプッシュ後の状態を確認/Log画面でブランチ名をクリック.JPG" alt="Log画面でブランチ名をクリック.JPG">
+                <figcaption>Log画面でブランチ名をクリック.JPG</figcaption>
+            </figure>
+            <p>「refs」をクリックすると全て表示</p>
+            <p>headsがローカルリポジトリ</p>
+            <p>remotesがリモートリポジトリ</p>
+            <p>「HEAD」が作業中のリモートリポジトリを示すらしい。</p>
+            <p>3件の変更をローカルリポジトリにコミットしているので、「heads/main」が変更されていることが確認できる。</p>
+            <p>「remotes/origin/main」はまだ変更されていないことが確認できる。これはまだpushしていないため、リモートリポジトリに反映されていないから</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後とプッシュ後の状態を確認/Browse_referense画面.JPG" alt="Browse_referense画面.JPG">
+                <figcaption>Browse_referense画面.JPG</figcaption>
+            </figure>
+            <p>GitBucketを見ても、まだ変更が反映されていない</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後とプッシュ後の状態を確認/push前のGitBucket.JPG" alt="push前のGitBucket.JPG">
+                <figcaption>push前のGitBucket.JPG</figcaption>
+            </figure>
+            <h3>push後の状態を確認</h3>
+            <p>以下push後</p>
+            <p>mainのローカルブランチのLogは特に変わりがない</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後とプッシュ後の状態を確認/push後のメインのローカルブランチ.JPG" alt="push後のメインのローカルブランチ.JPG">
+                <figcaption>push後のメインのローカルブランチ.JPG</figcaption>
+            </figure>
+            <p>Browse_referencesを確認すると、変更内容がremoteブランチに反映されている</p>
+            <p>「remote/origin/main」をクリックするとリモートリポジトリのLogを確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後とプッシュ後の状態を確認/push後のBrowse_references.JPG" alt="push後のBrowse_references.JPG">
+                <figcaption>push後のBrowse_references.JPG</figcaption>
+            </figure>
+            <p>左上を見ると「remote/origin/main」となっている。メインのリモートブランチのログであることが確認できる。</p>
+            <p>ローカルリポジトリの変更内容がリモートリポジトリに反映されていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後とプッシュ後の状態を確認/push後のメインのリモートブランチ.JPG" alt="push後のメインのリモートブランチ.JPG">
+                <figcaption>push後のメインのリモートブランチ.JPG</figcaption>
+            </figure>
+            <p>GitBucketを見ると、変更が反映されていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後とプッシュ後の状態を確認/push後のGitBucket.JPG" alt="push後のGitBucket.JPG">
+                <figcaption>push後のGitBucket.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ</h2>
+        <details>
+            <h3>メインブランチからサブブランチを作成</h3>
+            <p>メインブランチの検索タブから適当なブランチ名を入力。「Create branch」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/メインブランチからサブブランチを作成.JPG" alt="メインブランチからサブブランチを作成.JPG">
+                <figcaption>メインブランチからサブブランチを作成.JPG</figcaption>
+            </figure>
+            <p>Branchesタブを見ると「sub_0001」ブランチが出来ていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/sub_0001ブランチが出来ている.JPG" alt="sub_0001ブランチが出来ている.JPG">
+                <figcaption>sub_0001ブランチが出来ている.JPG</figcaption>
+            </figure>
+            <p>「Browse references」を見てみるとまだmainブランチしかない。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/まだmainブランチしかない.JPG" alt="まだmainブランチしかない.JPG">
+                <figcaption>まだmainブランチしかない.JPG</figcaption>
+            </figure>
+            <p>fetch(pullでも可)でmainのリモートリポジトリを更新</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/mainのリモートリポジトリを更新.JPG" alt="mainのリモートリポジトリを更新.JPG">
+                <figcaption>mainのリモートリポジトリを更新.JPG</figcaption>
+            </figure>
+            <p>「close」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/mainのリモートリポジトリをfetch完了.JPG" alt="mainのリモートリポジトリをfetch完了.JPG">
+                <figcaption>mainのリモートリポジトリをfetch完了.JPG</figcaption>
+            </figure>
+            <p>再度「Browse references」を見てみると「sub_0001」のリモートブランチがあることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/sub_0001のリモートブランチがある.JPG" alt="sub_0001のリモートブランチがある.JPG">
+                <figcaption>sub_0001のリモートブランチがある.JPG</figcaption>
+            </figure>
+            <h3>サブブランチに切り変え_修正してサブブランチにpush</h3>
+            <p>「Git Commit ->"main"...」となっていることから、現在のブランチが「main」ブランチであることが分かる。</p>
+            <p>「Switch/Checkout...」をクリックする。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Switch_Checkout.JPG" alt="Switch_Checkout.JPG">
+                <figcaption>Switch_Checkout.JPG</figcaption>
+            </figure>
+            <p>作成したリモートブランチ「sub_0001」ブランチを指定して「OK」をクリックする。</p>
+            <p>作成するローカルブランチの名前を指定できるみたいだがそのまま「sub_0001」にしておく。</p>
+            <p>ローカルブランチ作成済み且つローカルブランチを上書きしたい場合は「Override branch if exists」にチェックを付けておくと良いらしい。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Switch_Checkout_OK.JPG" alt="Switch_Checkout_OK.JPG">
+                <figcaption>Switch_Checkout_OK.JPG</figcaption>
+            </figure>
+            <p>closeをクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Switch_Checkout_closeをクリック.JPG" alt="Switch_Checkout_closeをクリック.JPG">
+                <figcaption>Switch_Checkout_closeをクリック.JPG</figcaption>
+            </figure>
+            <p>sub_0001ブランチに切り替わっていることを確認</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/sub_0001ブランチに切り替わっていることを確認.JPG" alt="sub_0001ブランチに切り替わっていることを確認.JPG">
+                <figcaption>sub_0001ブランチに切り替わっていることを確認.JPG</figcaption>
+            </figure>
+            <p>適当に修正してcommit、pushする</p>
+            <p>以下適当にcommit、pushした後のsub_001のローカルブランチのShow Log</p>
+            <p>「h2タイトル_サブブランチでの追記」の変更が入っていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/sub_001のローカルブランチのShowLog.JPG" alt="sub_001のローカルブランチのShowLog.JPG">
+                <figcaption>sub_001のローカルブランチのShowLog.JPG</figcaption>
+            </figure>
+            <p>以下適当にcommit、pushした後のBrowse references</p>
+            <p>heads(ローカルブランチのsub_0001)とremotes(リモートブランチのsub_0001)にサブブランチの変更が入っていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/サブブランチでの追記_BrowseReferences.JPG" alt="サブブランチでの追記_BrowseReferences.JPG">
+                <figcaption>サブブランチでの追記_BrowseReferences.JPG</figcaption>
+            </figure>
+            <h3>メインブランチへ向けてプルリクエストを作成</h3>
+            <p>heads(ローカルブランチのsub_0001)とremotes(リモートブランチのsub_0001)にサブブランチの変更が入っていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/sub_0001ブランチに切り替わっていることを確認.JPG" alt="sub_0001ブランチに切り替わっていることを確認.JPG">
+                <figcaption>sub_0001ブランチに切り替わっていることを確認.JPG</figcaption>
+            </figure>
+            <p>Git Bucket側を見てみるとsub_0001ブランチに「1 commits ahead, 0 commits behind main」と書かれている。mainブランチと比較して1つのcommitが進行しているということ。behind mainが0なのでmainブランチから追加のコミットがないことを示す。</p>
+            <p>「New pull request」をクリックする。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/New_pull_request.JPG" alt="New_pull_request.JPG">
+                <figcaption>New_pull_request.JPG</figcaption>
+            </figure>
+            <p>baseをmainブランチ、compareをsub_001を指定する。</p>
+            <p>タイトルとメモを追記する。</p>
+            <p>「Create pull request」をクリックする。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Create_pull_request.JPG" alt="Create_pull_request.JPG">
+                <figcaption>Create_pull_request.JPG</figcaption>
+            </figure>
+            <p>pull requestが作成された。</p>
+            <p>画面上側にあるPull requestタブが自分が作成したPull request、画面左側にあるPull requestタブが自分と自分以外が作成したプルリクエストの一覧が参照出来るらしい。</p>
+            <p>Commitsタブでcommitの履歴。Files Changedタブでプルリクエストで変更されたファイルを参照できる。プルリクエストの修正内容に問題がないことを確認する。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Pull_request画面.JPG" alt="Pull_request画面.JPG">
+                <figcaption>Pull_request画面.JPG</figcaption>
+            </figure>
+            <p>Pull requestタブを見てみると、「h2タイトル_サブブランチでの追記_タイトル_001」のプルリクエストが「Open」になっていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Pull_requestタブ.JPG" alt="Pull_requestタブ.JPG">
+                <figcaption>Pull_requestタブ.JPG</figcaption>
+            </figure>
+            <h3>サブブランチをメインブランチにマージ</h3>
+            <p>Pull request画面で「Merge pull request」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Merge_pull_request.JPG" alt="Merge_pull_request.JPG">
+                <figcaption>Merge_pull_request.JPG</figcaption>
+            </figure>
+            <p>コメントを書いて「Confirm merge」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Confirm_merge.JPG" alt="Confirm_merge.JPG">
+                <figcaption>Confirm_merge.JPG</figcaption>
+            </figure>
+            <p>マージが完了した。</p>
+            <p>ブランチは消してしまっても問題ないらしい。画面下の「Delete branch」かBranchの一覧からでも削除しても削除しなくてもよい。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Merge_OK.JPG" alt="Merge_OK.JPG">
+                <figcaption>Merge_OK.JPG</figcaption>
+            </figure>
+            <p>Pull requestタブを見てみると、「h2タイトル_サブブランチでの追記_タイトル_001」のプルリクエストが「Close」になっていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Pull_requestタブ_close.JPG" alt="Pull_requestタブ_close.JPG">
+                <figcaption>Pull_requestタブ_close.JPG</figcaption>
+            </figure>
+            <p>Branchsタブを見てみると、ステータスが「Merged」になっている。</p>
+            <p>ゴミ箱ボタンからブランチの削除ができる。</p>
+            <p>「0 commits ahead, 1 commits behind main」となっている。"main"ブランチと比較して、"main"ブランチよりも1つのコミットが遅れていることを示しているらしい。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Branchsタブ_Merged.JPG" alt="Branchsタブ_Merged.JPG">
+                <figcaption>Branchsタブ_Merged.JPG</figcaption>
+            </figure>
+            <p>mainブランチを見てみると、「sub_0001」ブランチでの変更が反映されていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Merge後のmainブランチ.JPG" alt="Merge後のmainブランチ.JPG">
+                <figcaption>Merge後のmainブランチ.JPG</figcaption>
+            </figure>
+            <p>マージ直後の「sub_0001」ブランチの「Browse references」を見てみる。</p>
+            <p>Merge直後のBrowse_references。まだmainに変更が入っていない。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Merge直後のBrowse_references.JPG" alt="Merge直後のBrowse_references.JPG">
+                <figcaption>Merge直後のBrowse_references.JPG</figcaption>
+            </figure>
+            <p>fetch(pullでも可)で「sub_0001」のリモートリポジトリを更新</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Merge直後_Fetchする.JPG" alt="Merge直後_Fetchする.JPG">
+                <figcaption>Merge直後_Fetchする.JPG</figcaption>
+            </figure>
+            <p>更新が完了した。closeをクリック。</p>
+            <p>取り込み後もGitBucketの「sub_0001」ブランチについて「0 commits ahead, 1 commits behind main」のままだった。？？？</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/Merge直後_Fetchする_close.JPG" alt="Merge直後_Fetchする_close.JPG">
+                <figcaption>Merge直後_Fetchする_close.JPG</figcaption>
+            </figure>
+            <p>リモートリポジトリ「main」が更新されている。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/マージをFetch後のBrowse_references.JPG" alt="マージをFetch後のBrowse_references.JPG">
+                <figcaption>マージをFetch後のBrowse_references.JPG</figcaption>
+            </figure>
+            <p>リモートリポジトリ「main」のShow Logsを見てみる</p>
+            <p>「サブブランチ(sub_0001)の更新ログ」と「サブブランチ(sub_0001)のマージログ」が作成されている。</p>
+            <p>Graph列を見てみると分岐して取り込んでいるのが視覚的に描かれている。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/マージをFetch後のmain_Show_Logs_サブブランチ_sub_0001の更新ログ.JPG" alt="マージをFetch後のmain_Show_Logs_サブブランチ_sub_0001の更新ログ.JPG">
+                <figcaption>マージをFetch後のmain_Show_Logs_サブブランチ_sub_0001の更新ログ.JPG</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/GitBucket/メインブランチからサブブランチを作成_サブブランチを修正後にメインブランチにマージ/マージをFetch後のmain_Show_Logs_サブブランチ_sub_0001のマージログ.JPG" alt="マージをFetch後のmain_Show_Logs_サブブランチ_sub_0001のマージログ.JPG">
+                <figcaption>マージをFetch後のmain_Show_Logs_サブブランチ_sub_0001のマージログ.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>コミット前にファイルの修正を元に戻す_Revert</h2>
+        <details>
+            <h3>コミット前にファイルの修正を元に戻す</h3>
+            <p>「sub_0002」ブランチを作成作成、switch/checkoutで「sub_0002」ブランチに切り替えた状態</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット前にファイルの修正を元に戻す/サブブランチ_sub_0002に切り替えた状態.JPG" alt="サブブランチ_sub_0002に切り替えた状態.JPG">
+                <figcaption>サブブランチ_sub_0002に切り替えた状態.JPG</figcaption>
+            </figure>
+            <p>適当にファイルを修正する。「index.html」を修正。「hogehoge4.html」を追加している。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット前にファイルの修正を元に戻す/適当にファイルを修正する.JPG" alt="適当にファイルを修正する.JPG">
+                <figcaption>適当にファイルを修正する.JPG</figcaption>
+            </figure>
+            <p>「Revert...」をクリックする。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット前にファイルの修正を元に戻す/Revertをクリック.JPG" alt="Revertをクリック.JPG">
+                <figcaption>Revertをクリック.JPG</figcaption>
+            </figure>
+            <p>コミット前の変更を取り消すファイルにチェックを入れて「OK」をクリックする。</p>
+            <p>ファイルを右クリックして「Compare with base」をクリックすれば修正前後を比較できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット前にファイルの修正を元に戻す/Revert_実行.JPG" alt="Revert_実行.JPG">
+                <figcaption>Revert_実行.JPG</figcaption>
+            </figure>
+            <p>「OK」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット前にファイルの修正を元に戻す/Revert_OK.JPG" alt="Revert_OK.JPG">
+                <figcaption>Revert_OK.JPG</figcaption>
+            </figure>
+            <p>「hogehoge4.html」のaddが取り消されて追跡対象外になっている。</p>
+            <p>「index.html」の変更が取り消されていることを確認</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット前にファイルの修正を元に戻す/変更が取り消されている.JPG" alt="変更が取り消されている.JPG">
+                <figcaption>変更が取り消されている.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>コミット後にコミットの履歴ごとコミットを取り消す_Reset</h2>
+        <details>
+            <h3>コミット後にコミットの履歴ごとコミットを取り消す</h3>
+            <p>ローカルブランチ「sub_0002」に切り替え後、変更をコミットまでした状態のShow Logs</p>
+            <p>ローカルブランチ「sub_0002」に「sub_0002_サブブランチでの追加」が追加されている。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後にコミットの履歴ごとコミットを取り消す_Reset/commit後のShowLogs.JPG" alt="commit後のShowLogs.JPG">
+                <figcaption>commit後のShowLogs.JPG</figcaption>
+            </figure>
+            <p>「Browse references」を見てみると、ローカルブランチ「sub_0002」にのみ「sub_0002_サブブランチでの追加」が追加されている。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後にコミットの履歴ごとコミットを取り消す_Reset/commit後のBrowseReferences.JPG" alt="commit後のBrowseReferences.JPG">
+                <figcaption>commit後のBrowseReferences.JPG</figcaption>
+            </figure>
+            <p>「Show Logs」で切り戻したい位置のコミットログに対して「Reset "sub_0002" to this...」をクリック</p>
+            <p>赤く「sub_0001」となっているのが現在の位置だと示しているらしい。その前のログを選択するらしい。</p>
+            <p>例えば3件のコミットを切り戻したい場合、3件前の履歴を選べばいいらしい。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後にコミットの履歴ごとコミットを取り消す_Reset/Resetをクリック.JPG" alt="Resetをクリック.JPG">
+                <figcaption>Resetをクリック.JPG</figcaption>
+            </figure>
+            <p>リセット対象について選択。BranchとTagとCommitを選択できる。今回はCommitを取り消したいので「Commit」を選択</p>
+            <p>Reset Typeについて</p>
+            <p>Soft・・・コミット履歴を取り消し、addと修正内容はそのまま</p>
+            <p>Mixed・・・コミット履歴を取り消し、addは取り消し。修正はそのまま</p>
+            <p>Hard・・・コミット履歴を取り消し、addも修正も取り消し</p>
+            <p>今回は全てを取り消したいのでHardを選択する</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後にコミットの履歴ごとコミットを取り消す_Reset/Reset_OK.JPG" alt="Reset_OK.JPG">
+                <figcaption>Reset_OK.JPG</figcaption>
+            </figure>
+            <p>「close」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後にコミットの履歴ごとコミットを取り消す_Reset/Reset_close.JPG" alt="Reset_close.JPG">
+                <figcaption>Reset_close.JPG</figcaption>
+            </figure>
+            <p>取り消し後のShow Logsを見てみると、コミットログ「sub_0002_サブブランチでの追加」が消えていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後にコミットの履歴ごとコミットを取り消す_Reset/取り消し後のShowLogs.JPG" alt="取り消し後のShowLogs.JPG">
+                <figcaption>取り消し後のShowLogs.JPG</figcaption>
+            </figure>
+            <p>「Browse references」を見てみると、コミットログ「sub_0002_サブブランチでの追加」が消えていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/コミット後にコミットの履歴ごとコミットを取り消す_Reset/取り消し後のBrowseReferences.JPG" alt="取り消し後のBrowseReferences.JPG">
+                <figcaption>取り消し後のBrowseReferences.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>変更を打ち消すコミット_revert_commit</h2>
+        <details>
+            <h3>変更を打ち消すコミット_revert_commit</h3>
+            <p>mainブランチから作成した「sub_0002」ブランチで3件コミットする。以下適当に3件コミット後のShoLogs</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/変更を打ち消すコミット_revert_commit/適当に3件コミット後のShoLogs.JPG" alt="適当に3件コミット後のShoLogs.JPG">
+                <figcaption>適当に3件コミット後のShoLogs.JPG</figcaption>
+            </figure>
+            <p>打消しコミット(履歴を削除するのではなく、変更を無かったことにする修正を加えるコミット)をしたい変更履歴を選択する。</p>
+            <p>複数件打ち消したい場合は「ctl」を押しながら複数件選択して、右クリック⇒「Revert Changes by these commmit」を選択する。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/変更を打ち消すコミット_revert_commit/Revert_Changes_by_these_commmit.JPG" alt="Revert_Changes_by_these_commmit.JPG">
+                <figcaption>Revert_Changes_by_these_commmit.JPG</figcaption>
+            </figure>
+            <p>「はい」を選択する。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/変更を打ち消すコミット_revert_commit/はい.JPG" alt="はい.JPG">
+                <figcaption>はい.JPG</figcaption>
+            </figure>
+            <p>「Revision(s) reverted. All changes are integate into your working three now」(リビジョン(対)を元に戻します。 すべての変更は現在作業中の 3 つに統合されています)と書かれている。そのままコミットしたい場合は「Commit」コミットはしない場合は「はい」を選択する。</p>
+            <p>今回はOKを選択する。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/変更を打ち消すコミット_revert_commit/OK.JPG" alt="OK.JPG">
+                <figcaption>OK.JPG</figcaption>
+            </figure>
+            <p>この状態でコミットしようとすると、自動的にメッセージが設定されている</p>
+            <p>変更内容を見てみると、選択した変更を打ち消す変更が加えられている。</p>
+            <p>この状態で「Commit」をクリック</p>
+<pre>
+Revert "sub_0002ブランチでの追記_3"
+This reverts commit ****************************************.
+Revert "sub_0002ブランチでの追記_2"
+This reverts commit ****************************************.
+Revert "sub_0002ブランチでの追記_1"
+This reverts commit ****************************************.
+</pre>
+            <figure>
+                <img class="beside" src="../img/GitBucket/変更を打ち消すコミット_revert_commit/打消し変更をコミット.JPG" alt="打消し変更をコミット.JPG">
+                <figcaption>打消し変更をコミット.JPG</figcaption>
+            </figure>
+            <p>再度「ShowLog」を見てみると打消しコミットが追加されている。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/変更を打ち消すコミット_revert_commit/打消しコミット履歴.JPG" alt="打消しコミット履歴.JPG">
+                <figcaption>打消しコミット履歴.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>リモートリポジトリへのpushを切り戻す_強制push</h2>
+        <details>
+            <h3>変更を打ち消すコミット_revert_commit</h3>
+            <p>mainブランチから作成した「sub_0002」ブランチで3件コミット、プッシュする。</p>
+            <p>以下適当に3件コミット、プッシュ後のShoLogs。3件のコミットが入っている。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リモートリポジトリへのpushを切り戻す_強制push/適当に3件コミット_プッシュ後のShoLogs.JPG" alt="適当に3件コミット_プッシュ後のShoLogs.JPG">
+                <figcaption>適当に3件コミット_プッシュ後のShoLogs.JPG</figcaption>
+            </figure>
+            <p>「Browse references」を見てみると、ローカル・リモートの「sub_0002」ブランチに変更が入っていることが分かる。</p>
+            <p>このpushした内容を切り戻したい。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リモートリポジトリへのpushを切り戻す_強制push/適当に3件コミット_プッシュ後のBrowse_references.JPG" alt="適当に3件コミット_プッシュ後のBrowse_references.JPG">
+                <figcaption>適当に3件コミット_プッシュ後のBrowse_references.JPG</figcaption>
+            </figure>
+            <p>ローカルブランチ「sub_0002」でコミット前の履歴を選択して「Reset」を選択して切り戻す。</p>
+            <p>以下切り戻し後のローカルブランチ「sub_0002」のShowLog</p>
+            <p>3件のコミットが無くなっている。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リモートリポジトリへのpushを切り戻す_強制push/切り戻し後のローカルブランチ_sub_0002のShoLogs.JPG" alt="切り戻し後のローカルブランチ_sub_0002のShoLogs.JPG">
+                <figcaption>切り戻し後のローカルブランチ_sub_0002のShoLogs.JPG</figcaption>
+            </figure>
+            <p>リモートリポジトリの状態より戻した状態でpushしようとすると以下のようなエラーが出てくる。</p>
+<pre>
+■英文
+git.exe push --progress "origin" sub_0002:sub_0002
+To http://*******************************************************:8080/git/root/test.git
+! [rejected]        sub_0002 -> sub_0002 (non-fast-forward)
+error: failed to push some refs to 'http://*******************************************************:8080/git/root/test.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+git did not exit cleanly (exit code 1) (1891 ms @ 2024/02/03 17:50:59)
+
+■翻訳
+git.exe Push --progress "origin" sub_0002:sub_0002
+http://********************************************* へ **********:8080/git/root/test.git
+！ [拒否] sub_0002 -> sub_0002 (非早送り)
+エラー: 一部の参照を 'http://************************************* にプッシュできませんでした ******************:8080/git/root/test.git'
+ヒント: 現在のブランチの先端が遅れているため、更新は拒否されました
+ヒント: リモートの対応物。 リモートの変更を統合します (例:
+ヒント: 'git pull ...') 再度プッシュする前に。
+ヒント: 詳細については、「git Push --help」の「早送りに関する注意」を参照してください。
+git が正常に終了しませんでした (終了コード 1) (1891 ミリ秒 @ 2024/02/03 17:50:59)
+</pre>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リモートリポジトリへのpushを切り戻す_強制push/切り戻し後のpush時のエラー.JPG" alt="切り戻し後のpush時のエラー.JPG">
+                <figcaption>切り戻し後のpush時のエラー.JPG</figcaption>
+            </figure>
+            <p>「Known_changes(既知の変更点)」を選択してpushを選択する。何故か「unknown changes(未知の変化)」でもpush出来るらしい。</p>
+            <p>「OK」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リモートリポジトリへのpushを切り戻す_強制push/Known_changesを選択してpushを選択.JPG" alt="Known_changesを選択してpushを選択.JPG">
+                <figcaption>Known_changesを選択してpushを選択.JPG</figcaption>
+            </figure>
+            <p>push(forced update(強制アップデート))が完了した。「close」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リモートリポジトリへのpushを切り戻す_強制push/強制push.JPG" alt="強制push.JPG">
+                <figcaption>強制push.JPG</figcaption>
+            </figure>
+            <p>Browse_referencesを確認すると、ローカル・リモートブランチ「sub_0002」の変更が切り戻っている。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/リモートリポジトリへのpushを切り戻す_強制push/強制push後のBrowse_references.JPG" alt="強制push後のBrowse_references.JPG">
+                <figcaption>強制push後のBrowse_references.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>別のリモートリポジトリの変更を取り込む_Merge</h2>
+        <details>
+            <h3>別のリモートリポジトリの変更を取り込む_Merge</h3>
+            <p>mainブランチから「sub_0002」「sub_0003」のリモートブランチとローカルブランチを作成する</p>
+            <p>ローカルブランチ「sub_0002」に適当に3件修正を入れてリモートブランチ「sub_0002」へコミット_プッシュを行う。</p>
+            <p>以下mainブランチから「sub_0002」「sub_0003」ブランチを作成した後、「sub_0002」に適当に3件修正を入れてコミット_プッシュした後のsub_0002のShowLogs</p>
+            <p>ローカルブランチ「sub_0002」に3件の修正が入っている。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/別のリモートリポジトリの変更を取り込む_Merge/mainブランチから_sub_0002_sub_0003ブランチを作成した後_sub_0002に適当に3件修正を入れてコミット_プッシュした後のローカルブランチ_sub_0002のShowLogs.JPG" alt="mainブランチから_sub_0002_sub_0003ブランチを作成した後_sub_0002に適当に3件修正を入れてコミット_プッシュした後のローカルブランチ_sub_0002のShowLogs.JPG">
+                <figcaption>mainブランチから_sub_0002_sub_0003ブランチを作成した後_sub_0002に適当に3件修正を入れてコミット_プッシュした後のローカルブランチ_sub_0002のShowLogs.JPG</figcaption>
+            </figure>
+            <p>「Browse references」を確認すると、ローカルリポジトリ、リモートリポジトリ「sub_0002」「sub_0003」が作成されて、ローカルリポジトリとリモートリポジトリ「sub_0002」に変更内容が反映されていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/別のリモートリポジトリの変更を取り込む_Merge/mainブランチから_sub_0002_sub_0003ブランチを作成した後_sub_0002に適当に3件修正を入れてコミット_プッシュした後のBrowse_references.JPG" alt="mainブランチから_sub_0002_sub_0003ブランチを作成した後_sub_0002に適当に3件修正を入れてコミット_プッシュした後のBrowse_references.JPG">
+                <figcaption>mainブランチから_sub_0002_sub_0003ブランチを作成した後_sub_0002に適当に3件修正を入れてコミット_プッシュした後のBrowse_references.JPG</figcaption>
+            </figure>
+            <p>「sub_0003」に「switch/checkout」後、「TortoiseGit⇒Merge...」をクリック</p>
+            <p>「Git Commit->"sub_0003"」になっているので、ローカルブランチ「sub_0003」を向いていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/別のリモートリポジトリの変更を取り込む_Merge/sub_0003にswitch_checkout_Merge.JPG" alt="sub_0003にswitch_checkout_Merge.JPG">
+                <figcaption>sub_0003にswitch_checkout_Merge.JPG</figcaption>
+            </figure>
+            <p>リモートブランチ「sub_0002」を選択して「OK」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/別のリモートリポジトリの変更を取り込む_Merge/リモートブランチ_sub_0002を選択してOK.JPG" alt="リモートブランチ_sub_0002を選択してOK.JPG">
+                <figcaption>リモートブランチ_sub_0002を選択してOK.JPG</figcaption>
+            </figure>
+            <p>マージが完了した。「Close」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/別のリモートリポジトリの変更を取り込む_Merge/マージが完了.JPG" alt="マージが完了.JPG">
+                <figcaption>マージが完了.JPG</figcaption>
+            </figure>
+            <p>マージ後のShowLogを見てみる。</p>
+            <p>ローカルブランチ「sub_0003」にリモートブランチ「sub_0002」の内容が取り込まれている。</p>
+            <p>赤で「sub_0003」と書かれているが、これは現在のブランチを示すらしい。</p>
+            <p>緑で「sub_0002」と書かれているが、これは他のリモートブランチを示すらしい。</p>
+            <p>黄で「origin/sub_0002」と書かれているが、これは他のローカルブランチを示すらしい。</p>
+            <p>Graph列の黒色は現在のブランチを示すらしい</p>
+            <p>Graph列の黒以外がその他のブランチを示すらしい</p>
+            <p>※マージした内容も「Reset」を使用することで、切り戻すことが出来る。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/別のリモートリポジトリの変更を取り込む_Merge/マージ後のローカルブランチ_sub_0003_ShowLog.JPG" alt="マージ後のローカルブランチ_sub_0003_ShowLog.JPG">
+                <figcaption>マージ後のローカルブランチ_sub_0003_ShowLog.JPG</figcaption>
+            </figure>
+            <p>「Browse references」を確認すると、ローカルブランチ「sub_0003」にリモートブランチ「sub_0002」の変更が反映されていることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/別のリモートリポジトリの変更を取り込む_Merge/マージ後のBrowse_references.JPG" alt="マージ後のBrowse_references.JPG">
+                <figcaption>マージ後のBrowse_references.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>マージしたときに変更が競合した場合_resolve</h2>
+        <details>
+            <h3>マージしたときに変更が競合した場合_resolve</h3>
+            <p>mainブランチから「sub_0002」「sub_0003」のリモートブランチとローカルブランチを作成する</p>
+            <p>mainブランチで作成した箇所についてローカル・リモートの「sub_0002」「sub_0003」ブランチで修正・プッシュ。このように、共通の場所に違う修正を入れてマージしようとしたときにコンフリクト(競合)が発生する。</p>
+            <p>あるべき状態に修正してresolve(解決)させる必要がある。</p>
+            <p>例として以下のように修正してそれぞれのブランチでコミットしてプッシュ。タイトルについて「sub_0002」「sub_0003」それぞれで別の修正したため、競合が発生する。</p>
+<pre>
+■ sub_0002
+〇修正前
+&lt;title&gt;Document&lt;/title&gt;
+〇修正後
+&lt;title&gt;sub_0002で修正&lt;/title&gt;
+&lt;h2&gt;sub_0002で修正_1&lt;/h2&gt;
+&lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+&lt;h2&gt;sub_0002で修正_2&lt;/h2&gt;
+&lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+&lt;h2&gt;sub_0002で修正_3&lt;/h2&gt;
+&lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+
+■ sub_0003
+〇修正前
+&lt;title&gt;Document&lt;/title&gt;
+〇修正後
+&lt;title&gt;sub_0003で修正&lt;/title&gt;
+&lt;h2&gt;sub_0003で修正_1&lt;/h2&gt;
+&lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+&lt;h2&gt;sub_0003で修正_2&lt;/h2&gt;
+&lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+&lt;h2&gt;sub_0003で修正_3&lt;/h2&gt;
+&lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+</pre>
+            <p>この状態でローカルブランチ「sub_0003」でリモートブランチ「sub_0002」をマージしようとすると以下のような文言が出てくる。</p>
+            <p>OKをクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/マージしたときに変更が競合した場合_resolve/競合が起きた.JPG" alt="競合が起きた.JPG">
+                <figcaption>競合が起きた.JPG</figcaption>
+            </figure>
+            <p>ソースを見てみると、以下のようになっている。タイトルと本文で競合が発生していることが確認できる。HEAD(ローカル)とremotes/origin/sub_0002(リモートブランチ)</p>
+<pre>
+<code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+    &lt;title&gt;sub_0003で修正&lt;/title&gt;
+=======
+    &lt;title&gt;sub_0002で修正&lt;/title&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; remotes/origin/sub_0002
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;h1タイトル&lt;/h1&gt;
+    &lt;h2&gt;h2タイトル&lt;/h2&gt;
+    &lt;p&gt;本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文&lt;/p&gt;
+    &lt;h2&gt;h2タイトル&lt;/h2&gt;
+    &lt;p&gt;本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文&lt;/p&gt;
+    &lt;h2&gt;h2タイトル&lt;/h2&gt;
+    &lt;p&gt;本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_サブブランチでの追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_サブブランチでの追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+    &lt;h2&gt;sub_0003で修正_1&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;sub_0003で修正_2&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;sub_0003で修正_3&lt;/h2&gt;
+=======
+    &lt;h2&gt;sub_0002で修正_1&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;sub_0002で修正_2&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;sub_0002で修正_3&lt;/h2&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; remotes/origin/sub_0002
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
+<p>以下のように修正した。「sub_0003」と「sub_0002」の修正を反映した修正になっている。</p>
+<pre>
+<code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;sub_0002とsub_0003で修正&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;h1タイトル&lt;/h1&gt;
+    &lt;h2&gt;h2タイトル&lt;/h2&gt;
+    &lt;p&gt;本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文&lt;/p&gt;
+    &lt;h2&gt;h2タイトル&lt;/h2&gt;
+    &lt;p&gt;本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文&lt;/p&gt;
+    &lt;h2&gt;h2タイトル&lt;/h2&gt;
+    &lt;p&gt;本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_サブブランチでの追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_サブブランチでの追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;sub_0002で修正_1&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;sub_0002で修正_2&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;sub_0002で修正_3&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;sub_0003で修正_1&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;sub_0003で修正_2&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;sub_0003で修正_3&lt;/h2&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
+            <p>ローカルブランチ「sub_0002」で「Resolve...」をクリックする。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/マージしたときに変更が競合した場合_resolve/Resolveをクリック.JPG" alt="Resolveをクリック.JPG">
+                <figcaption>Resolveをクリック.JPG</figcaption>
+            </figure>
+            <p>解決済みのファイルが選択されていることを確認して「OK」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/マージしたときに変更が競合した場合_resolve/解決済み.JPG" alt="解決済み.JPG">
+                <figcaption>解決済み.JPG</figcaption>
+            </figure>
+            <p>「OK」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/マージしたときに変更が競合した場合_resolve/解決済み_OK.JPG" alt="解決済み_OK.JPG">
+                <figcaption>解決済み_OK.JPG</figcaption>
+            </figure>
+            <p>この状態でコミットしようとすると、コンフリクトを解決したメッセージが自動的に設定される。何かメッセージを追記してもしなくてもよい。コミットする。</p>
+            <P>「Commit」をクリックする。</P>
+<pre>
+■ 以下原文
+    Merge remote-tracking branch 'remotes/origin/sub_0002' into sub_0003
+
+# Conflicts:
+#	index.html
+
+■ 以下翻訳
+リモート追跡ブランチ「remotes/origin/sub_0002」を sub_0003 にマージします
+
+# 競合:
+#インデックス.html
+</pre>
+            <figure>
+                <img class="beside" src="../img/GitBucket/マージしたときに変更が競合した場合_resolve/Commit.JPG" alt="Commit.JPG">
+                <figcaption>Commit.JPG</figcaption>
+            </figure>
+            <p>以下のメッセージが表示される。「Ignore」(無視する)をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/マージしたときに変更が競合した場合_resolve/Ignore.JPG" alt="Ignore.JPG">
+                <figcaption>Ignore.JPG</figcaption>
+            </figure>
+            <p>「Close」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/マージしたときに変更が競合した場合_resolve/Close.JPG" alt="Close.JPG">
+                <figcaption>Close.JPG</figcaption>
+            </figure>
+            <p>ローカルブランチ「sub_0003」のShowLogを見てみると、ローカルブランチ「sub_0003」の修正ログの後にリモートブランチ「sub_0002」の修正ログがあって、その後にマージ・コンフリクト解消ログがあることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/マージしたときに変更が競合した場合_resolve/解決後のsub_0003ログ.JPG" alt="解決後のsub_0003ログ.JPG">
+                <figcaption>解決後のsub_0003ログ.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_rebase</h2>
+        <p>マージで取り込んでもよい。履歴の位置が変わるらしい。</p>
+        <p>マージは自分の修正の後にマージの履歴が出来るが、リベースではマージの履歴の後に自分の履歴が出来ることになる。</p>
+        <details>
+            <h3>ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_rebase</h3>
+            <p>mainブランチから「sub_0002」のリモートブランチとローカルブランチを作成する</p>
+            <p>ローカルブランチ「sub_0002」に適当に3件修正を入れてリモートブランチ「sub_0002」へコミット_プッシュを行う。</p>
+            <p>sub_0002ブランチを切った後、以下のような修正を加えてコミット・プッシュする。</p>
+<pre>
+<code>
+■ mainブランチ
+〇修正前
+&lt;title&gt;Document&lt;/title&gt;
+〇修正後
+&lt;title&gt;mainブランチでの修正&lt;/title&gt;
+
+■ sub_0002ブランチ
+〇以下を追記
+&lt;h2&gt;sub_0002での修正_1&lt;/h2&gt;
+&lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+&lt;h2&gt;sub_0002での修正_2&lt;/h2&gt;
+&lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+&lt;h2&gt;sub_0002での修正_3&lt;/h2&gt;
+&lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+</code>
+</pre>
+            <p>ローカルブランチ「sub_0002」で「Rebase...」をクリックする。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_rebase/Rebaseをクリック.JPG" alt="Rebaseをクリック.JPG">
+                <figcaption>Rebaseをクリック.JPG</figcaption>
+            </figure>
+            <p>「Branch」にサブブランチ「sub_0002」を指定。Upstream(上流の)にベースのブランチ「remotes/origin/main」を指定。「Start Rebase」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_rebase/Rebaseの設定.JPG" alt="Rebaseの設定.JPG">
+                <figcaption>Rebaseの設定.JPG</figcaption>
+            </figure>
+            <p>リベースが実行された。「Done」をクリック。</p>
+<pre>
+git.exe checkout -f *********************--
+Start Rebase
+
+Pick 1: *********************
+sub_0002での修正_1
+Auto-merging index.html
+[detached HEAD 2199058] sub_0002での修正_1
+    Date: Mon Feb 12 16:21:57 2024 +0900
+    1 file changed, 2 insertions(+)
+
+Pick 2: *********************
+sub_0002での修正_2
+Auto-merging index.html
+[detached HEAD d4b2beb] sub_0002での修正_2
+    Date: Mon Feb 12 16:22:06 2024 +0900
+    1 file changed, 2 insertions(+)
+
+Pick 3: *********************
+sub_0002での修正_3
+Auto-merging index.html
+[detached HEAD 00230ef] sub_0002での修正_3
+    Date: Mon Feb 12 16:22:16 2024 +0900
+    1 file changed, 2 insertions(+)
+
+git.exe checkout -f -B sub_0002 ********************* --
+git.exe reset --hard ********************* --    
+</pre>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_rebase/Rebaseの完了.JPG" alt="Rebaseの完了.JPG">
+                <figcaption>Rebaseの完了.JPG</figcaption>
+            </figure>
+            <p>ローカルブランチ「sub_0002」のShow Logを見ると、mainブランチの修正内容が取り込まれたことが確認できる。</p>
+            <p>マージした場合は自分の修正の後に取り込んだ修正が入るが、リベースの場合は自分の修正の前に取り込んだ修正が入る。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_rebase/sub_0002のShowLog.JPG" alt="sub_0002のShowLog.JPG">
+                <figcaption>sub_0002のShowLog.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_コンフリクト_rebase_resolve</h2>
+        <details>
+            <h3>ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_コンフリクト_rebase</h3>
+            <p>mainブランチから「sub_0002」のリモートブランチとローカルブランチを作成する</p>
+            <p>ローカルブランチ「sub_0002」に適当に3件修正を入れてリモートブランチ「sub_0002」へコミット_プッシュを行う。</p>
+            <p>sub_0002ブランチを切った後、以下のような修正を加えてコミット・プッシュする。</p>
+            <p>コンフリクトさせるためにタイトルをそれぞれ修正している。</p>
+<pre>
+<code>
+■ mainブランチ
+〇修正前
+&lt;title&gt;Document&lt;/title&gt;
+〇修正後
+&lt;title&gt;mainブランチでの修正&lt;/title&gt;
+
+■ sub_0002ブランチ
+〇修正前
+&lt;title&gt;Document&lt;/title&gt;
+〇修正後
+&lt;title&gt;sub_0002ブランチでの修正&lt;/title&gt;
+〇以下を追記
+&lt;h2&gt;sub_0002での修正_1&lt;/h2&gt;
+&lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+&lt;h2&gt;sub_0002での修正_2&lt;/h2&gt;
+&lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+&lt;h2&gt;sub_0002での修正_3&lt;/h2&gt;
+&lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+</code>
+</pre>
+            <p>ローカルブランチ「sub_0002」で「Rebase...」をクリックする。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_コンフリクト_rebase_resolve/Rebaseをクリック.JPG" alt="Rebaseをクリック.JPG">
+                <figcaption>Rebaseをクリック.JPG</figcaption>
+            </figure>
+            <p>「Branch」にサブブランチ「sub_0002」を指定。Upstream(上流の)にベースのブランチ「remotes/origin/main」を指定。「Start Rebase」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_コンフリクト_rebase_resolve/Rebaseの設定.JPG" alt="Rebaseの設定.JPG">
+                <figcaption>Rebaseの設定.JPG</figcaption>
+            </figure>
+            <p>コンフリクトが発生した。</p>
+            <p>1件目の修正に対してコンフリクトが発生していることが確認できる。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_コンフリクト_rebase_resolve/コンフリクトが発生.JPG" alt="コンフリクトが発生.JPG">
+                <figcaption>コンフリクトが発生.JPG</figcaption>
+            </figure>
+            <p>ソースを見てみると、コンフリクトが発生している箇所が示されているのであるべき内容に修正する。</p>
+<pre>
+<code>
+■ 修正前
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+    &lt;title&gt;mainブランチでの修正&lt;/title&gt;
+=======
+    &lt;title&gt;sub_0002ブランチでの修正&lt;/title&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; d802839 (sub_0002ブランチでの修正_1)
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;h1タイトル&lt;/h1&gt;
+    &lt;h2&gt;h2タイトル&lt;/h2&gt;
+    &lt;p&gt;本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文&lt;/p&gt;
+    &lt;h2&gt;h2タイトル&lt;/h2&gt;
+    &lt;p&gt;本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文&lt;/p&gt;
+    &lt;h2&gt;h2タイトル&lt;/h2&gt;
+    &lt;p&gt;本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_サブブランチでの追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_サブブランチでの追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;sub_0002ブランチでの修正_1&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+■ 修正後
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;mainブランチとsub_0002ブランチでの修正&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;h1タイトル&lt;/h1&gt;
+    &lt;h2&gt;h2タイトル&lt;/h2&gt;
+    &lt;p&gt;本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文&lt;/p&gt;
+    &lt;h2&gt;h2タイトル&lt;/h2&gt;
+    &lt;p&gt;本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文&lt;/p&gt;
+    &lt;h2&gt;h2タイトル&lt;/h2&gt;
+    &lt;p&gt;本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文本文&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_サブブランチでの追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;h2タイトル_サブブランチでの追記&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+    &lt;h2&gt;sub_0002ブランチでの修正_1&lt;/h2&gt;
+    &lt;p&gt;追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記追記&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
+            <p>修正が完了した後、ファイルを右クリック⇒「Resolved」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_コンフリクト_rebase_resolve/Resolvedをクリック.JPG" alt="Resolvedをクリック.JPG">
+                <figcaption>Resolvedをクリック.JPG</figcaption>
+            </figure>
+            <p>「はい」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_コンフリクト_rebase_resolve/はい.JPG" alt="はい.JPG">
+                <figcaption>はい.JPG</figcaption>
+            </figure>
+            <p>「Commit」をクリック。</p>
+            <p>複数件のコミットにコンフリクトが発生していた場合、ここでさらにコンフリクトが発生する。コンフリクトが発生した全てのコミットに対してコンフリクトを修正する必要がある。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_コンフリクト_rebase_resolve/Commit.JPG" alt="Commit.JPG">
+                <figcaption>Commit.JPG</figcaption>
+            </figure>
+            <p>「Done」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_コンフリクト_rebase_resolve/Done.JPG" alt="Done.JPG">
+                <figcaption>Done.JPG</figcaption>
+            </figure>
+            <p>コンフリクト解消のログは出来なかった。「sub_0002」の「ShowLog」を見てみると1件目の修正に加えられていた。</p>
+            <figure>
+                <img class="beside" src="../img/GitBucket/ブランチ作成後、ブランチ作成元に修正があった時にブランチを再構築する_コンフリクト_rebase_resolve/sub_0002_ShowLog.JPG" alt="sub_0002_ShowLog.JPG">
+                <figcaption>sub_0002_ShowLog.JPG</figcaption>
+            </figure>
+        </details>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

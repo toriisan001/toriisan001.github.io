@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+    <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>AWS</h1>
+        <p id="lastModified"></p>
+
+        <h2>2要素認証_20231009</h2>
+        <details>
+
+            <h3>MFAデバイスの割り当て</h3>
+            <p>「ユーザー名」⇒「セキュリティ認証設定」⇒「MFAデバイスの割り当て」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/AWS/2要素認証_20231009/MFAデバイスの割り当て.jpg" alt="MFAデバイスの割り当て.jpg">
+                <figcaption>MFAデバイスの割り当て.jpg</figcaption>
+            </figure>
+            <h3>MFAデバイスの選択</h3>
+            <p>デバイス名を入力。認証アプリを選択して「次へ」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/AWS/2要素認証_20231009/MFAデバイスの選択.jpg" alt="MFAデバイスの選択.jpg">
+                <figcaption>MFAデバイスの選択.jpg</figcaption>
+            </figure>
+            <h3>デバイスの設定</h3>
+            <p>画面に従い認証アプリをインストールしてQRを読み取り「MFA デバイスから 2 つの連続したコードを入力」してMFA を追加をクリック</p>
+            <figure>
+                <img class="beside" src="../img/AWS/2要素認証_20231009/MFAの追加.jpg" alt="MFAの追加.jpg">
+                <figcaption>MFAの追加.jpg</figcaption>
+            </figure>
+        </details>
+
+        <h2>環境構築_20230930</h2>
+        <details>
+
+            <h3>AWSのアカウントを作成</h3>
+            <p><a href="https://aws.amazon.com/jp/console/">【参考】AWS マネジメントコンソール</a></p>
+            <h3>リージョンを選択</h3>
+            <p>東京が近くて早いらしい</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/リージョンを選択.jpg" alt="リージョンを選択.jpg">
+                <figcaption>リージョンを選択.jpg</figcaption>
+            </figure>
+            <h3>EC2を選択</h3>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/EC2を選択.jpg" alt="EC2を選択.jpg">
+                <figcaption>EC2を選択.jpg</figcaption>
+            </figure>
+            <h3>インスタンスを起動を選択</h3>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/インスタンスを起動を選択.jpg" alt="インスタンスを起動を選択.jpg">
+                <figcaption>インスタンスを起動を選択.jpg</figcaption>
+            </figure>
+            <h3>インスタンスを起動</h3>
+            <h4>名前を設定</h4>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/インスタンスを起動_1.jpg" alt="インスタンスを起動_1.jpg">
+                <figcaption>インスタンスを起動_1.jpg</figcaption>
+            </figure>
+            <h4>OSのイメージを設定</h4>
+            <p>Amazon Linuxが便利らしい。Amazon用の機能が入っているため。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/インスタンスを起動_2.jpg" alt="インスタンスを起動_2.jpg">
+                <figcaption>インスタンスを起動_2.jpg</figcaption>
+            </figure>
+            <h4>インスタンスタイプを設定</h4>
+            <p>後で変えられるため、とりあえず一番小さくしておく。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/インスタンスを起動_3.jpg" alt="インスタンスを起動_3.jpg">
+                <figcaption>インスタンスを起動_3.jpg</figcaption>
+            </figure>
+            <h4>新しいキーペアの作成をクリック</h4>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/インスタンスを起動_4.jpg" alt="インスタンスを起動_4.jpg">
+                <figcaption>インスタンスを起動_4.jpg</figcaption>
+            </figure>
+            <h4>新しいキーペアの作成をクリック</h4>
+            <p>良く分からないがとりあえずキーペア名をユーザーの名前にしてRSA、.pemを指定して「キーペアを作成」をクリック。キーがダウンロードされた。</p>
+            <p>「C:\workspace\AWS」に保存した。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/インスタンスを起動_5.jpg" alt="インスタンスを起動_5.jpg">
+                <figcaption>インスタンスを起動_5.jpg</figcaption>
+            </figure>
+            <h4>インターネット設定を行う</h4>
+            <p>SSH,HTTPS,HTTPからのアクセスを許可する。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/インスタンスを起動_6.jpg" alt="インスタンスを起動_6.jpg">
+                <figcaption>インスタンスを起動_6.jpg</figcaption>
+            </figure>
+            <h4>ストレージを設定</h4>
+            <p>最小構成が8Gのstandardらしいのでその設定にした。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/インスタンスを起動_7.jpg" alt="インスタンスを起動_7.jpg">
+                <figcaption>インスタンスを起動_7.jpg</figcaption>
+            </figure>
+            <h4>高度な設定</h4>
+            <p>とりあえず置いておく</p>
+            <h4>概要</h4>
+            <p>インスタンス数1で「インスタンスを起動」を選択</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/インスタンスを起動_7.jpg" alt="インスタンスを起動_8.jpg">
+                <figcaption>インスタンスを起動_8.jpg</figcaption>
+            </figure>
+            <h3>全てのインスタンスを表示をクリック</h3>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/全てのインスタンスを表示.jpg" alt="全てのインスタンスを表示.jpg">
+                <figcaption>全てのインスタンスを表示.jpg</figcaption>
+            </figure>
+            <h3>起動していることを確認</h3>
+            <p>ステータスチェックもOK</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/起動していることを確認.jpg" alt="起動していることを確認.jpg">
+                <figcaption>起動していることを確認.jpg</figcaption>
+            </figure>
+            <h3>インスタンスの起動と停止</h3>
+            <p>インスタンスの状態のプルダウンから再起動と停止が選択できる</p>
+            <p>インスタンスの終了はインスタンス自体が削除されるので注意</p>
+            <p>終了にしたとき、インスタンスの状態が「終了済み」になる。ほおっておけば消えるらしい。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/起動していることを確認.jpg" alt="起動していることを確認.jpg">
+                <figcaption>起動していることを確認.jpg</figcaption>
+            </figure>
+            <h3>セキュリティグループを確認</h3>
+            <p>インスタンスを選択してセキュリティタブ⇒セキュリティグループから遷移</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/セキュリティグループを確認_1.jpg" alt="セキュリティグループを確認_1.jpg">
+                <figcaption>セキュリティグループを確認_1.jpg</figcaption>
+            </figure>
+            <h3>インバウントルールを確認</h3>
+            <p>インバウンドルール:EC2 インスタンスなどのリソースへの受信ネットワーク トラフィックを制御する一連のセキュリティ ルール</p>
+            <p>SSH、HTTPS、HTTPが許可されている。</p>
+            <p>「0.0.0.0/0」についてはどのipアドレスからでもアクセス出来るという意味</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/セキュリティグループを確認_2.jpg" alt="セキュリティグループを確認_2.jpg">
+                <figcaption>セキュリティグループを確認_2.jpg</figcaption>
+            </figure>
+            <h3>アウトバウントルールを確認</h3>
+            <p>アウトバウンドルール:インスタンスからの送信トラフィックをコントロールします</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/セキュリティグループを確認_3.jpg" alt="セキュリティグループを確認_3.jpg">
+                <figcaption>セキュリティグループを確認_3.jpg</figcaption>
+            </figure>
+            <h3>SSH接続のコマンドを確認</h3>
+            <p>インスタンスを選択して「接続」を押す。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/ssh接続_1.jpg" alt="ssh接続_1.jpg">
+                <figcaption>ssh接続_1.jpg</figcaption>
+            </figure>
+            <h3>接続コマンドを確認</h3>
+            <p>SSHクライアントタブの接続コマンドを確認</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/ssh接続_2.jpg" alt="ssh接続_2.jpg">
+                <figcaption>ssh接続_2.jpg</figcaption>
+            </figure>
+            <h3>キーペアのパーミッションを変更・ssh接続</h3>
+            <p>git bashを立ち上げて「cd C:\workspace\AWS」で移動</p>
+            <p>「chmod 400 ${キーペア}」を指定してパーミッションを変更</p>
+            <p>パーミッション:ファイルごとに定義された、読み出し・書込みなどのアクセスに対する許可情報</p>
+            <p>上記の接続コマンドでssh接続を行う。初回接続の場合は、接続してよいか聞かれるので「yes」と入力する。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/ssh接続_3.jpg" alt="ssh接続_3.jpg">
+                <figcaption>ssh接続_3.jpg</figcaption>
+            </figure>
+            <p><a href="https://atmarkit.itmedia.co.jp/flinux/rensai/linuxtips/077chmod.html">【参考】ファイルやディレクトリのパーミッションを変更するには</a></p>
+            <p>以下のようなエラーが出た場合は「ssh-keygen -R ${パブリック IPv4 DNS}」を実行すると良いらしい。</p>
+<pre>
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ECDSA key sent by the remote host is
+</pre>
+            <p><a href="https://t-salad.com/ssh-error/">【参考】SSH接続しようとしたら、めっちゃ怖い警告出た時の対応</a></p>
+            <h3>システムのアップデート</h3>
+            <p>「sudo yum update」でシステムをアップデートする。</p>
+            <h3>httpdをインストール</h3>
+            <p>「sudo yum -y install httpd」</p>
+            <p><a href="https://repost.aws/questions/QUlwc51WiaRpaFa9NwLBmi5g/unable-to-find-a-match-mysql-on-ec2-connect">【参考】一致するものが見つかりません: ec2-connect 上の mysql</a></p>
+            <h3>WEBサーバーを起動</h3>
+            <p>「sudo service httpd start」でweb サーバーを起動</p>
+            <p>「sudo chkconfig httpd on」でサーバを再起動した時に自動的に httpd も起動</p>
+            <p>「sudo vi /var/www/html/index.html」でwebページを作成</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/webページを作成.jpg" alt="webページを作成.jpg">
+                <figcaption>webページを作成.jpg</figcaption>
+            </figure>
+            <h3>WEBサーバーにブラウザからアクセス</h3>
+            <p>インスタンスIDをクリック</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/インスタンスIDをクリック.jpg" alt="インスタンスIDをクリック.jpg">
+                <figcaption>インスタンスIDをクリック.jpg</figcaption>
+            </figure>
+            <p>パブリックIPv4DNSを確認</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/パブリックIPv4DNSを確認.jpg" alt="パブリックIPv4DNSを確認.jpg">
+                <figcaption>パブリックIPv4DNSを確認.jpg</figcaption>
+            </figure>
+            <p>ブラウザに貼り付けで作成したWebページへアクセス出来る。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/ブラウザに貼り付けで作成したWebページへアクセス.jpg" alt="ブラウザに貼り付けで作成したWebページへアクセス.jpg">
+                <figcaption>ブラウザに貼り付けで作成したWebページへアクセス.jpg</figcaption>
+            </figure>
+            <h3>IPアドレスの割り当て</h3>
+            <p>パブリックIPv4DNSは再起動でアドレスが変わることがあるため、IPアドレスの割り当てが必要となる。</p>
+            <p>ElasticIPをクリック</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/ElasticIPをクリック.jpg" alt="ElasticIPをクリック.jpg">
+                <figcaption>ElasticIPをクリック.jpg</figcaption>
+            </figure>
+            <p>「Elastic IP アドレスを割り当てる」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/ElasticIPアドレスを割り当てる.jpg" alt="ElasticIPアドレスを割り当てる.jpg">
+                <figcaption>ElasticIPアドレスを割り当てる.jpg</figcaption>
+            </figure>
+            <p>デフォルトで割り当てをクリック</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/割り当てをクリック.jpg" alt="割り当てをクリック.jpg">
+                <figcaption>割り当てをクリック.jpg</figcaption>
+            </figure>
+            <p>「作成されたElasticIPを選択」⇒「アクション」⇒「ElasticIPアドレスの関連付け」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/ElasticIPアドレスの関連付け.jpg" alt="ElasticIPアドレスの関連付け.jpg">
+                <figcaption>ElasticIPアドレスの関連付け.jpg</figcaption>
+            </figure>
+            <p>インスタンスを選択して「関連付ける」をクリック。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/関連付ける.jpg" alt="関連付ける.jpg">
+                <figcaption>関連付ける.jpg</figcaption>
+            </figure>
+            <p>割り当てられた IPv4 アドレスをブラウザに貼り付けてWebページにアクセス出来ることを確認</p>
+            <p>インスタンスを停止した場合は、課金対象になってしまうためElasticIPアドレスの解放をしておいたほうがいいらしい</p>
+            <figure>
+                <img class="beside" src="../img/AWS/環境構築_20230930/IPv4アドレスでアクセス.jpg" alt="IPv4アドレスでアクセス.jpg">
+                <figcaption>IPv4アドレスでアクセス.jpg</figcaption>
+            </figure>
+        </details>
+
+        <h2>EventBridgeスケジューラを使ってEC2の定期起動_停止</h2>
+        <p><a href="https://dev.classmethod.jp/articles/ec2-schedule-using-eventbridge-scheduler/">【参考】EventBridgeスケジューラを使ってEC2の定期起動/停止を行う方法</a></p>
+        <p><a href="http://scrap.php.xdomain.jp/create_tool/cron_setting_tool/">【参考】cron設定ツール</a></p>
+
+        <h2>EC2にputty(リモートログオンクライアント)で接続</h2>
+        <details>
+            <p>Amazon Linux 2023で接続できなくて困っていたが、最新版にしたら解決した。(Release 0.80-ranvis2)</p>
+            <p><a href="https://piko2.net/blog/?p=365">【参考】Amazon Linux 2023プレビュー版がputtyで接続できない</a></p>
+            <h3>事前準備</h3>
+            <p>インバウンドルールのポート22を開けておく。</p>
+            <p>RSAの秘密鍵を作成する。(例:toriisan.pem)</p>
+            <p>EC2インスタンスを立ち上げる。</p>
+            <h3>ppkファイルを作成する</h3>
+            <p>PuTTYgenを立ち上げる。</p>
+            <p>既存の秘密鍵の読み込みをクリック。事前に作成した秘密鍵を選択</p>
+            <p>鍵のパスフレーズを入力して秘密鍵を保存をクリック。(例:toriisan.ppk)</p>
+            <p>パスフレーズ無しでも作成できるらしい。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/EC2にputty(リモートログオンクライアント)で接続/秘密鍵を保存.JPG" alt="秘密鍵を保存.JPG">
+                <figcaption>秘密鍵を保存.JPG</figcaption>
+            </figure>
+            <h3>puttyで接続する</h3>
+            <p>puttyを立ち上げる。</p>
+            <p>セッションタブを編集</p>
+            <p>ホスト名に「パブリック IPv4 DNS」あるいは「Elastic IP」を設定する。ホスト名にユーザー名を入れておくと入力する手間が省けて便利(例:ec2-user@******************.ap-northeast-1.compute.amazonaws.com)。ユーザー名についてAmazon linuxは「ec2-user」Ubuntuの場合は「ubuntu」らしい。EC2インスタンスの接続先に書いてある。</p>
+            <p>ポートに「22」を設定</p>
+            <p>接続タイプはSSH</p>
+            <p>設定を保存したい場合は適当な名前を設定して保存をクリック</p>
+            <figure>
+                <img class="beside" src="../img/AWS/EC2にputty(リモートログオンクライアント)で接続/セッションタブを編集.JPG" alt="セッションタブを編集.JPG">
+                <figcaption>セッションタブを編集.JPG</figcaption>
+            </figure>
+            <p>接続タブ⇒SSH⇒認証⇒クレデンシャルを編集</p>
+            <p>秘密鍵を設定する。(例:C:\workspace\AWS\toriisan.ppk)</p>
+            <p>「開く」をクリックする。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/EC2にputty(リモートログオンクライアント)で接続/クレデンシャルを編集.JPG" alt="クレデンシャルを編集.JPG">
+                <figcaption>クレデンシャルを編集.JPG</figcaption>
+            </figure>
+            <p>セキュリティ警告が出るので「受け入れる」をクリック</p>
+            <figure>
+                <img class="beside" src="../img/AWS/EC2にputty(リモートログオンクライアント)で接続/セキュリティ警告.JPG" alt="セキュリティ警告.JPG">
+                <figcaption>セキュリティ警告.JPG</figcaption>
+            </figure>
+            <p>秘密鍵作成時のパスフレーズを入力する。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/EC2にputty(リモートログオンクライアント)で接続/秘密鍵作成時のパスフレーズを入力.JPG" alt="秘密鍵作成時のパスフレーズを入力.JPG">
+                <figcaption>秘密鍵作成時のパスフレーズを入力.JPG</figcaption>
+            </figure>
+            <p>接続成功</p>
+            <figure>
+                <img class="beside" src="../img/AWS/EC2にputty(リモートログオンクライアント)で接続/接続成功.JPG" alt="接続成功.JPG">
+                <figcaption>接続成功.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>EC2にwinSCP(ファイル転送を行うSSHクライアント)で接続</h2>
+        <details>
+            <p>ファイル転送に便利</p>
+            <p>Amazon Linux 2023で接続できなくて困っていたが、最新版にしたら解決した。(6.3.2)</p>
+            <p><a href="https://piko2.net/blog/?p=365">【参考】Amazon Linux 2023プレビュー版がputtyで接続できない</a></p>
+            <h3>事前準備</h3>
+            <p>インバウンドルールのポート22を開けておく。</p>
+            <p>RSAの秘密鍵を作成する。(例:toriisan.pem)</p>
+            <p>EC2インスタンスを立ち上げる。</p>
+            <h3>ppkファイルを作成する</h3>
+            <p>PuTTYgenを立ち上げる。</p>
+            <p>既存の秘密鍵の読み込みをクリック。事前に作成した秘密鍵を選択</p>
+            <p>鍵のパスフレーズを入力して秘密鍵を保存をクリック。(例:toriisan.ppk)</p>
+            <p>パスフレーズ無しでも作成できるらしい。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/EC2にwinSCP(ファイル転送を行うSSHクライアント)で接続/秘密鍵を保存.JPG" alt="秘密鍵を保存.JPG">
+                <figcaption>秘密鍵を保存.JPG</figcaption>
+            </figure>
+            <h3>winSCPで接続する</h3>
+            <p>winSCPを立ち上げる</p>
+            <p>転送プロトコルにSFTPを設定</p>
+            <p>ホスト名に「パブリック IPv4 DNS」あるいは「Elastic IP」を設定する。</p>
+            <p>ユーザー名には「ec2-user」を設定する。Amazon linuxは「ec2-user」Ubuntuの場合は「ubuntu」らしい。EC2インスタンスの接続先に書いてある。</p>
+            <p>保存を押すと設定を保存できる。</p>
+            <p>設定をクリックする。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/EC2にwinSCP(ファイル転送を行うSSHクライアント)で接続/winSCP設定.JPG" alt="winSCP設定.JPG">
+                <figcaption>winSCP設定.JPG</figcaption>
+            </figure>
+            <p>SSH⇒認証で秘密鍵を設定する。(例:C:\workspace\AWS\toriisan.ppk)</p>
+            <p>OKをクリック。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/EC2にwinSCP(ファイル転送を行うSSHクライアント)で接続/秘密鍵の設定.JPG" alt="秘密鍵の設定.JPG">
+                <figcaption>秘密鍵の設定.JPG</figcaption>
+            </figure>
+            <p>ログインをクリック</p>
+            <figure>
+                <img class="beside" src="../img/AWS/EC2にwinSCP(ファイル転送を行うSSHクライアント)で接続/ログインをクリック.JPG" alt="ログインをクリック.JPG">
+                <figcaption>ログインをクリック.JPG</figcaption>
+            </figure>
+            <p>承認をクリック</p>
+            <figure>
+                <img class="beside" src="../img/AWS/EC2にwinSCP(ファイル転送を行うSSHクライアント)で接続/承認をクリック.JPG" alt="承認をクリック.JPG">
+                <figcaption>承認をクリック.JPG</figcaption>
+            </figure>
+            <p>パスフレーズを入力してOKをクリック</p>
+            <figure>
+                <img class="beside" src="../img/AWS/EC2にwinSCP(ファイル転送を行うSSHクライアント)で接続/パスフレーズを入力してOK.JPG" alt="パスフレーズを入力してOK.JPG">
+                <figcaption>パスフレーズを入力してOK.JPG</figcaption>
+            </figure>
+            <p>ログイン成功。左側がローカル。右側がEC2。ファイルをドラッグで持って行けたり便利。</p>
+            <figure>
+                <img class="beside" src="../img/AWS/EC2にwinSCP(ファイル転送を行うSSHクライアント)で接続/ログイン成功.JPG" alt="ログイン成功.JPG">
+                <figcaption>ログイン成功.JPG</figcaption>
+            </figure>
+        </details>
+
+        <h2>AWS_CLI</h2>
+        <h3>バージョンチェック</h3>
+<pre>
+<code>
+aws --version
+</code>
+</pre>
+
+        <h3>AWSCLIコンフィグ</h3>
+<pre>
+<code>
+aws configure
+</code>
+</pre>
+
+        <h3>S3</h3>
+<pre>
+<code>
+// 全ファイル確認
+aws s3 ls ${s3バケットURL} --recursive
+// ファイル検索
+aws s3 ls ${s3バケットURL} --recursive | findstr ${検索キー}
+// ファイル検索と書き出し
+aws s3 ls ${s3バケットURL} --recursive | findstr ${検索キー} > hogehoge.csv
+// ファイル削除
+rm ${ファイル名}
+// ファイルのダウンロード
+aws s3 cp ${s3バケットURL} . --recursive
+</code>
+</pre>
+
+        <h3>DynamoDB</h3>
+        <p><a href="https://qiita.com/inouet/items/d785841f3a925aa0f21d">DynamoDB AWS CLI</a></p>
+        <p><a href="https://www.wakuwakubank.com/posts/675-aws-cli-dynamodb/">AWS CLIでDynamoDB操作(挿入, 取得, 更新, 削除)</a></p>
+<pre>
+<code>
+// ヘルプ
+aws dynamodb help
+
+// テーブル参照
+aws dynamodb list-tables
+</code>
+</pre>
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

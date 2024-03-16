@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+    <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>WebStorage(ver0.09)</h1>
+        <p id="lastModified"></p>
+        
+        <hr />
+        <details>
+            <summary>参考サイト</summary>
+            <p>
+            <a href="http://www.htmq.com/webstorage/"
+                >Web Storage－HTML5のAPI - HTMLクイックリファレンス（参考）</a
+            >
+            </p>
+        </details>
+        <hr />
+        
+        <div id="textbox"></div>
+        <p>キー：<input id="k" type="text" /></p>
+        <p>値：<input id="v" type="text" /></p>
+        <button type="button" id="set">新規・更新</button>
+        <button type="button" id="cle">全クリア</button>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+    <script>
+    {
+        ("use strict");
+    
+        // 変数storageにlocalStorageを格納
+        var storage = localStorage;
+    
+        // エンターキーでイベント発火
+        document.getElementById("k").onkeydown = function () {
+        if (event.key === "Enter") set();
+        };
+        document.getElementById("v").onkeydown = function () {
+        if (event.key === "Enter") set();
+        };
+    
+        show_result();
+    
+        // 新規・更新ボタンにイベントを追加
+        const setElement = document.getElementById("set");
+        setElement.addEventListener("click", set);
+    
+        // 全クリアボタンにイベントを追加
+        const cleElement = document.getElementById("cle");
+        cleElement.addEventListener("click", () => {
+        if (confirm("テキストを全て削除してよいですか？")) cle();
+        return false;
+        });
+    
+        // データを保存する
+        function set() {
+        var k = document.getElementById("k").value;
+        if (k === "") return;
+        var v = document.getElementById("v").value;
+        storage.setItem(k, v);
+        show_result();
+        }
+    
+        // データを全てクリアする
+        function cle() {
+        storage.clear();
+        show_result();
+        }
+    
+        // 対象キーのデータをクリアする
+        function keyCle(k) {
+        storage.removeItem(k);
+        show_result();
+        }
+    
+        // キー情報を取得
+        function keyCopy(k, v) {
+        document.getElementById("k").value = k;
+        document.getElementById("v").value = v;
+        }
+    
+        // キー情報を取得
+        function show_result() {
+        // 子要素を全て削除
+        var textboxElement = document.getElementById("textbox");
+        while (textboxElement.firstChild) {
+            textboxElement.removeChild(textboxElement.firstChild);
+        }
+        // 保存されているデータの数だけループ
+        for (var i = 0; i < storage.length; i++) {
+            // i番目のキーを取得
+            const k = storage.key(i);
+            // ボックスdiv作成
+            const boxElement = document.createElement("div");
+            //   boxElement.style = "display: flex; justify-content: space-between; width: 330px; border-bottom: solid 1px #333;";
+            //   boxElement.style.paddingTop = "10px";
+            boxElement.classList.add("box");
+            // テキストdiv作成
+            const textElement = document.createElement("div");
+            textElement.innerText =
+            "id: " + i + "\nkey: " + k + "：" + "\nvalue: " + storage.getItem(k);
+            textElement.addEventListener("click", () => {
+            keyCopy(k, storage.getItem(k));
+            });
+            boxElement.appendChild(textElement);
+            // 削除div作成
+            const deleteElement = document.createElement("div");
+            deleteElement.classList.add("del");
+            deleteElement.textContent = "×";
+            const message = "テキスト(id:" + k + ")を削除してよいですか？";
+            deleteElement.addEventListener("click", () => {
+            if (confirm(message)) keyCle(k);
+            return false;
+            });
+            boxElement.appendChild(deleteElement);
+            // 指定した要素の中の末尾に挿入
+            textboxElement.appendChild(boxElement);
+        }
+        }
+    }
+    </script>
+</body>
+</html>

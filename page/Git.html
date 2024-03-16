@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+    <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>Git</h1>
+        <p id="lastModified"></p>
+    
+        <h2>環境構築_20230319</h2>
+        <details>
+            <p>Gitをダウンロード及びインストール。オプション等はデフォルトで良いと思うけど良く知らない。(Git-2.40.0-64-bit.exe)</p>
+            <p><a href="https://gitforwindows.org/">Git公式</a></p>
+            <figure>
+                <img class="beside" src="../img/Git/環境構築_20230319/Gitをダウンロード及びインストール.jpg" alt="Gitをダウンロード及びインストール.jpg">
+                <figcaption>ログを埋め込んでみる.jpg</figcaption>
+            </figure>
+            <p>TortoiseGitをダウンロード及びインストール。オプション等はデフォルトで良いと思うけど良く知らない。(TortoiseGit-2.14.0.0-64bit.msi)</p>
+            <p><a href="https://tortoisegit.org/download/">TortoiseGit公式</a></p>
+            <figure>
+                <img class="beside" src="../img/Git/環境構築_20230319/TortoiseGitをダウンロード及びインストール.jpg" alt="TortoiseGitをダウンロード及びインストール.jpg">
+                <figcaption>TortoiseGitをダウンロード及びインストール.jpg</figcaption>
+            </figure>
+        </details>
+
+        <h2>TortoiseGit使い方</h2>
+        <h3>既存のリポジトリのgit urlを指定してローカル環境に複製する【git clone】</h3>
+        <details>
+            <p>「git URL」を確認。例としてherokuのものを使用</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/gitURL.jpg" alt="gitURL.jpg">
+                <figcaption>gitURL.jpg</figcaption>
+            </figure>
+            <p>環境を作成したいディレクトリで右クリック「Git clone」を選択</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/GitClone.jpg" alt="GitClone.jpg">
+                <figcaption>GitClone.jpg</figcaption>
+            </figure>
+            <p>URLに「git URL」を設定。Directoryに複製するパスを指定。OKをクリック。</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/GitCloneTortoiseGit設定.jpg" alt="GitCloneTortoiseGit設定.jpg">
+                <figcaption>GitCloneTortoiseGit設定.jpg</figcaption>
+            </figure>
+            <p>「close」を選択</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/close.jpg" alt="close.jpg">
+                <figcaption>close.jpg</figcaption>
+            </figure>
+            <p>Directoryに指定したディレクトリにgitの内容が複製されていることを確認。隠しファイルを表示にすると「.git」が作成されているが、これはGitの情報を格納する隠しディレクトリらしい。複製を削除する場合はこのディレクトリごと削除すれば良いらしい。</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/CloneOK.jpg" alt="CloneOK.jpg">
+                <figcaption>CloneOK.jpg</figcaption>
+            </figure>
+        </details>
+        <h3>ファイルを追加する。【git add/commit/push】</h3>
+        <details>
+            <p>適当なファイルを作成する</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/適当なファイルを作成する.jpg" alt="適当なファイルを作成する.jpg">
+                <figcaption>適当なファイルを作成する.jpg</figcaption>
+            </figure>
+            <p>ファイルを右クリックファイルをadd(作業ディレクトリ内の変更をステージングエリアに追加)する</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/ファイルをadd.jpg" alt="ファイルをadd.jpg">
+                <figcaption>ファイルをadd.jpg</figcaption>
+            </figure>
+            <p>OKをクリックする</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/ファイルをaddしてOK.jpg" alt="ファイルをaddしてOK.jpg">
+                <figcaption>ファイルをaddしてOK.jpg</figcaption>
+            </figure>
+            <p>ファイルを右クリック。Git Commit(変更を確定)する</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/addGitCommit.jpg" alt="addGitCommit.jpg">
+                <figcaption>addGitCommit.jpg</figcaption>
+            </figure>
+            <p>メッセージを記載。Commitをクリックする。コミットする対象が合っているかどうかを見ておく。</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/addGitCommitOK.jpg" alt="addGitCommitOK.jpg">
+                <figcaption>addGitCommitOK.jpg</figcaption>
+            </figure>
+            <p>closeをクリックする。</p>
+            <p>上記の手順でローカル環境からローカルリポジトリ(自分のパソコン・マシン内に存在するリポジトリ)に追加した状態になる。</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/addGitCommitOKClose.jpg" alt="addGitCommitOKClose.jpg">
+                <figcaption>addGitCommitOKClose.jpg</figcaption>
+            </figure>
+            <p>試しに「https://toriisan-php-001.herokuapp.com/test.html」にアクセスしてもファイルが見つからないとなる。</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/addGitファイルが見つからない.jpg" alt="addGitファイルが見つからない.jpg">
+                <figcaption>addGitファイルが見つからない.jpg</figcaption>
+            </figure>
+            <p>追加したファイルのディレクトリを右クリックしてpush(ローカルリポジトリコンテンツをリモートリポジトリにアップロード)する。</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/addGitCommitPush.jpg" alt="addGitCommitPush.jpg">
+                <figcaption>addGitCommitPush.jpg</figcaption>
+            </figure>
+            <p>OKを選択する。</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/addGitCommitPush設定.jpg" alt="addGitCommitPush設定.jpg">
+                <figcaption>addGitCommitPush設定.jpg</figcaption>
+            </figure>
+            <p>closeを選択する。</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/addGitCommitPushClose.jpg" alt="addGitCommitPushClose.jpg">
+                <figcaption>addGitCommitPushClose.jpg</figcaption>
+            </figure>
+            <p>再度「https://toriisan-php-001.herokuapp.com/test.html」にアクセス。リモートリポジトリにアップロードされていることが確認出来る。</p>
+            <figure>
+                <img class="beside" src="../img/Git/TortoiseGit使い方/リモートリポジトリにアップロードOK.jpg" alt="リモートリポジトリにアップロードOK.jpg">
+                <figcaption>リモートリポジトリにアップロードOK.jpg</figcaption>
+            </figure>
+        </details>
+        <h3>ファイルを修正する。</h3>
+        <details>
+            <p></p>
+        </details>
+
+        <h2>AWS_EC2でGitサーバーを構築_SSH接続_20231119</h2>
+        <p>SSH接続。SSHキーを使用して受け渡して認証。セキュリティ的には高いらしいが鍵の受け渡しが面倒らしい。</p>
+        <details>
+            <p><a href="https://tex2e.github.io/blog/git/git-server-and-gitweb-on-centos7">【参考】GitサーバとGitWebをCentOS 7で構築する</a></p>
+            <p><a href="https://www.ucl-group.co.jp/blog/10/post/aws-ec2git-64">【参考】AWS EC2でGitサーバーを構築する</a></p>
+            <p><a href="https://qiita.com/aiandrox/items/98ad9b7551481d890916">【参考】【SSH】公開鍵認証とEC2について</a></p>
+            <p><a href="https://zenn.dev/chamo/articles/fe98c8c8e65138">【参考】【Linux】chmodコマンド早見表</a></p>
+            <h3>EC2インスタンスを作成(Amazon Linux 2023 AMI)。EC2にssh接続。</h3>
+            <p>ボリュームのタイプ:マグネティック(標準)、インスタンスタイプ:t2.nanoでよさそう？</p>
+            <h3>セキュリティグループの設定で、SSH（TCP 22）を許可。</h3>
+            <h3>EC2インスタンスにSSHで接続</h3>
+            <h3>[サーバー]「sudo yum update -y」でパッケージの最新化</h3>
+            <h3>[サーバー]「sudo yum install git -y」でGitをインストール</h3>
+            <h3>[サーバー]「sudo adduser git」でGitユーザーを作成</h3>
+            <h3>[サーバー]「sudo passwd git」でGitユーザーのパスワードを設定</h3>
+<pre>
+[ec2-user@************ ~]$ sudo passwd git
+Changing password for user git.
+New password:
+BAD PASSWORD: The password is shorter than 8 characters
+Retype new password:
+passwd: all authentication tokens updated successfully.
+</pre>
+            <h3>[サーバー]「sudo su - git」でGitユーザーに変更</h3>
+            <h3>[サーバー]「mkdir my_project.git」で.gitディレクトリを作成</h3>
+            <h3>[サーバー]「cd my_project.git」で.gitディレクトリへ移動</h3>
+            <h3>[サーバー]「git init --bare --shared=0777」でリポジトリの初期化。 自分以外のユーザもpushできるようにするため「--shared=0777」を付けるらしい。</h3>
+<pre>
+[git@*********** my_project.git]$ git init --bare --shared=0777
+ヒント: 最初のブランチの名前として「master」を使用します。 このデフォルトのブランチ名
+ヒント: 変更される可能性があります。 すべてのブランチで使用する初期ブランチ名を設定するには
+ヒント: この警告を抑制する新しいリポジトリで、次を呼び出します。
+ヒント：
+ヒント: git config --global init.defaultBranch <名前>
+ヒント：
+ヒント: 「マスター」の代わりに一般的に選択される名前は、「メイン」、「トランク」、および
+ヒント：「開発」。 作成したばかりのブランチの名前は、次のコマンドで変更できます。
+ヒント：
+ヒント: git branch -m <名前>
+/home/git/my_project.git/ にある空の Git リポジトリを初期化しました
+</pre>
+            <h3>[ローカル]「C:\Users\${自身のPCのユーザー名}\.ssh」ディレクトリでgit bashを立ち上げる</h3>
+            <h3>[ローカル]「ssh-keygen -t rsa -b 2048」でSSHキーペアを生成。 ~/.ssh/id_rsa という名前の秘密鍵と ~/.ssh/id_rsa.pub という名前の公開鍵が生成される。</h3>
+<pre>
+$ ssh-keygen -t rsa -b 2048
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/*****/.ssh/id_rsa):
+/c/Users/*****/.ssh/id_rsa already exists.
+Overwrite (y/n)? y
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/*****/.ssh/id_rsa
+Your public key has been saved in /c/Users/*****/.ssh/id_rsa.pub
+The key fingerprint is:
+***** *****@*****
+The key's randomart image is:
+</pre>
+            <h3>[サーバー]「cd」でgitユーザーのルートへ移動</h3>
+            <h3>[サーバー]「mkdir .ssh」で.sshディレクトリを作成</h3>
+            <h3>[サーバー]「cd ~/.ssh」で.sshディレクトリに移動</h3>
+            <h3>[サーバー]「vi authorized_keys」でローカルで作成した「id_rsa.pub」(公開鍵)の中身を追記する。既にawsの認証キーが書かれているのでその次の行に追記する。</h3>
+<pre>
+ssh-rsa *** ${aws認証キー名}
+ssh-rsa *** ${ローカルPC名@PC名}
+</pre>
+            <h3>[サーバー]「chmod 600 authorized_keys」でパーミッションを設定(所有者のみ_読み取り・書き込み)</h3>
+            <h3>TortoiseGitの「SSH Client」を変更する</h3>
+            <p>右クリックして「tortoiseGit⇒setting」を選択</p>
+            <p>「Network」を選択して</p>
+            <p>「C:\Program Files\TortoiseGit\bin\TortoiseGitPlink.exe」から「C:\Program Files\Git\usr\bin\ssh.exe」へ変更する</p>
+            <p>bashからならclone出来たが、tortoiseGitからはclone出来なかったので変更した</p>
+            <p><a href="https://qiita.com/aonim/items/f66bf28a9e67597750d1">【参考】TortoiseGitプルできない解決方法</a></p>
+            <h3>リモートリポジトリをcloneする</h3>
+            <p>右クリック⇒「Git Clone...」を選択</p>
+            <p>URLに「ssh://git@${パブリック IPv4 DNS または Elastic IP アドレス}:22/home/git/my-repo.git」を設定してOKを選択</p>
+            <figure>
+                <img class="beside" src="../img/Git/AWS_EC2でGitサーバーを構築_SSH接続_20231119/Git_clone.jpg" alt="Git_clone.jpg">
+                <figcaption>Git_clone.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Git/AWS_EC2でGitサーバーを構築_SSH接続_20231119/Git_clone_OK.jpg" alt="Git_clone_OK.jpg">
+                <figcaption>Git_clone_OK.jpg</figcaption>
+            </figure>
+            <figure>
+                <img class="beside" src="../img/Git/AWS_EC2でGitサーバーを構築_SSH接続_20231119/Git_clone_OK2.jpg" alt="Git_clone_OK2.jpg">
+                <figcaption>Git_clone_OK2.jpg</figcaption>
+            </figure>
+        </details>
+
+        <h2>AWS_EC2でGitサーバーを構築_http接続_20231125</h2>
+        <p>http接続でパスワード認証。セキュリティ的には低いらしいが使い勝手がいいらしい。</p>
+        <details>
+            <p><a href="https://www.server-world.info/query?os=Ubuntu_22.04&p=git&f=4">【参考】Git : HTTP でアクセスする</a></p>
+            <p><a href="https://zenn.dev/chamo/articles/fe98c8c8e65138">【Linux】chmodコマンド早見表</a></p>
+            <h3>EC2インスタンスを作成(Amazon Linux 2023 AMI)。EC2にssh接続。</h3>
+            <p>ボリュームのタイプ:マグネティック(標準)、インスタンスタイプ:t2.nanoでよさそう？</p>
+            <h3>セキュリティグループの設定でHTTP（TCP 80）を許可。</h3>
+            <h3>EC2インスタンスにSSHで接続</h3>
+            <h3>[サーバー]「sudo yum update -y」でパッケージの最新化</h3>
+            <h3>[サーバー]「sudo yum -y install httpd」でhttpサーバーをインストール</h3>
+            <h3>[サーバー]「sudo yum install git -y」でGitをインストール</h3>
+            <h3>[サーバー]「sudo service httpd start」でweb サーバーを起動</h3>
+            <h3>[サーバー]「sudo chkconfig httpd on」でサーバを再起動した時に自動的に httpd も起動</h3>
+            <h3>[サーバー]「sudo mkdir -p /var/lib/git」でgitのディレクトリを作成。「-p」オプションで間のディレクトリが無い場合は作成。</h3>
+            <h3>[サーバー]「cd /var/lib/git」でディレクトリに移動</h3>
+            <h3>[サーバー]「sudo mkdir my-repo.git」でGitディレクトリを作成。</h3>
+            <h3>[サーバー]「cd my-repo.git」でGitディレクトリへ移動。</h3>
+            <h3>[サーバー]「sudo chown -R ec2-user:ec2-user /var/lib/git」で「ec2-user」に「/var/lib/git」の権限を付与。sudoを使わなくて良くなる。</h3>
+            <h3>[サーバー]「git init --bare --shared=0777」でリポジトリの初期化。 自分以外のユーザもpushできるようにするため「--shared=0777」を付けるらしい。</h3>
+<pre>
+[git@*********** my-repo.git]$ git init --bare --shared=0777
+ヒント: 最初のブランチの名前として「master」を使用します。 このデフォルトのブランチ名
+ヒント: 変更される可能性があります。 すべてのブランチで使用する初期ブランチ名を設定するには
+ヒント: この警告を抑制する新しいリポジトリで、次を呼び出します。
+ヒント：
+ヒント: git config --global init.defaultBranch <名前>
+ヒント：
+ヒント: 「マスター」の代わりに一般的に選択される名前は、「メイン」、「トランク」、および
+ヒント：「開発」。 作成したばかりのブランチの名前は、次のコマンドで変更できます。
+ヒント：
+ヒント: git branch -m <名前>
+/home/git/my-repo.git/ にある空の Git リポジトリを初期化しました
+</pre>
+            <h3>[サーバー]「sudo vi /etc/httpd/conf.d/git.conf」でGitのリポジトリに対してHTTP経由でのアクセスを設定</h3>
+<pre>
+SetEnv GIT_PROJECT_ROOT /var/lib/git
+SetEnv GIT_HTTP_EXPORT_ALL
+ScriptAlias /git/ /usr/libexec/git-core/git-http-backend/
+
+&lt;Location /git&gt;
+    Options ExecCGI
+    AuthName &quot;Git for HTTP&quot;
+    AuthType Basic
+    AuthUserFile /etc/httpd/conf/.htpasswd
+    Require valid-user
+&lt;/Location&gt;
+</pre>
+        <h3>[サーバー]「sudo systemctl restart httpd」でApacheの再起動</h3>
+        <h3>[サーバー]「sudo chgrp -R apache /var/lib/git/my-repo.git」でディレクトリの所有者をapacheに変更。-Rはリカーシブ（再帰的）な操作を行うためのオプションで、ディレクトリ内のすべてのファイルやサブディレクトリに変更を適用。</h3>
+        <h3>[サーバー]「sudo htpasswd -c /etc/httpd/conf/.htpasswd git」でApacheの基本認証（Basic Authentication）で使用されるユーザー名とパスワードを追加</h3>
+<pre>
+[ec2-user@************ my-repo.git]$ sudo htpasswd -c /etc/httpd/conf/.htpasswd git
+New password:
+Re-type new password:
+Adding password for user git
+</pre>
+        <h3>TortoiseGitの「SSH Client」を変更する</h3>
+        <p>右クリックして「tortoiseGit⇒setting」を選択</p>
+        <p>「Network」を選択して</p>
+        <p>「C:\Program Files\TortoiseGit\bin\TortoiseGitPlink.exe」から「C:\Program Files\Git\usr\bin\ssh.exe」へ変更する</p>
+        <p>bashからならclone出来たが、tortoiseGitからはclone出来なかったので変更した</p>
+        <h3>リモートリポジトリをcloneする</h3>
+        <p>右クリック⇒「Git Clone...」を選択</p>
+        <p>URLに「http://git@${パブリック IPv4 DNS または Elastic IP アドレス}/git/my-repo.git」を設定してOKを選択。初回はベーシック認証が出てくるので指定したgitユーザーのパスワードを入力。</p>
+        <figure>
+            <img class="beside" src="../img/Git/AWS_EC2でGitサーバーを構築_http接続_20231125/Git_clone.jpg" alt="Git_clone.jpg">
+            <figcaption>Git_clone.jpg</figcaption>
+        </figure>
+        <figure>
+            <img class="beside" src="../img/Git/AWS_EC2でGitサーバーを構築_http接続_20231125/Git_CredentialManager.jpg" alt="Git_CredentialManager.jpg">
+            <figcaption>Git_CredentialManager.jpg</figcaption>
+        </figure>
+        <figure>
+            <img class="beside" src="../img/Git/AWS_EC2でGitサーバーを構築_http接続_20231125/Git_clone_OK.jpg" alt="Git_clone_OK.jpg">
+            <figcaption>Git_clone_OK.jpg</figcaption>
+        </figure>
+        </details>
+
+        <!-- <h2>AWS_EC2でGitWebサーバーを構築_SSH接続_20231126</h2>
+        <p>SSH接続。SSHキーを使用して受け渡して認証。セキュリティ的には高いらしいが鍵の受け渡しが面倒らしい。 Git サーバーの中身を web で閲覧出来るらしい。</p>
+        <details>
+            <p><a href="https://tex2e.github.io/blog/git/git-server-and-gitweb-on-centos7">【参考】GitサーバとGitWebをCentOS 7で構築する</a></p>
+            <h3>EC2インスタンスを作成(Amazon Linux 2023 AMI)。EC2にssh接続。</h3>
+            <p>ボリュームのタイプ:マグネティック(標準)、インスタンスタイプ:t2.nanoでよさそう？</p>
+            <h3>セキュリティグループの設定で、SSH（TCP 22）を許可。</h3>
+            <h3>EC2インスタンスにSSHで接続</h3>
+            <h3>[サーバー]「sudo yum update -y」でパッケージの最新化</h3>
+            <h3>[サーバー]「sudo yum install git -y」でGitをインストール</h3>
+            <h3>[サーバー]「sudo yum install httpd  -y」でhttpdをインストール</h3>
+            <h3>[サーバー]「sudo yum install gitweb -y」でGitWebをインストール</h3>
+            <h3>[サーバー]「sudo service httpd start」でweb サーバーを起動</h3>
+            <h3>[サーバー]「sudo chkconfig httpd on」でサーバを再起動した時に自動的に httpd も起動</h3>
+            <h3>[サーバー]「sudo mkdir -p /var/lib/git」でgitのディレクトリを作成</h3>
+            <h3>[サーバー]「cd /var/lib/git」でディレクトリに移動</h3>
+            <h3>[サーバー]「sudo mkdir my-repo.git」で.gitディレクトリを作成</h3>
+            <h3>[サーバー]「cd my-repo.git」で.gitディレクトリへ移動</h3>
+            <h3>[サーバー]「sudo chown -R ec2-user:ec2-user /var/lib/git」で「ec2-user」に「/var/lib/git」の権限を付与。sudoを使わなくて良くなる。</h3>
+            <h3>[サーバー]「git init --bare --shared=0777」でリポジトリの初期化。 自分以外のユーザもpushできるようにするため「--shared=0777」を付けるらしい。</h3>
+<pre>
+[git@*********** my_project.git]$ git init --bare --shared=0777
+ヒント: 最初のブランチの名前として「master」を使用します。 このデフォルトのブランチ名
+ヒント: 変更される可能性があります。 すべてのブランチで使用する初期ブランチ名を設定するには
+ヒント: この警告を抑制する新しいリポジトリで、次を呼び出します。
+ヒント：
+ヒント: git config --global init.defaultBranch <名前>
+ヒント：
+ヒント: 「マスター」の代わりに一般的に選択される名前は、「メイン」、「トランク」、および
+ヒント：「開発」。 作成したばかりのブランチの名前は、次のコマンドで変更できます。
+ヒント：
+ヒント: git branch -m <名前>
+/home/git/my_project.git/ にある空の Git リポジトリを初期化しました
+</pre>
+            <h3>[ローカル]「C:\Users\${自身のPCのユーザー名}\.ssh」ディレクトリでgit bashを立ち上げる</h3>
+            <h3>[ローカル]「ssh-keygen -t rsa -b 2048」でSSHキーペアを生成。 ~/.ssh/id_rsa という名前の秘密鍵と ~/.ssh/id_rsa.pub という名前の公開鍵が生成される。</h3>
+<pre>
+$ ssh-keygen -t rsa -b 2048
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/*****/.ssh/id_rsa):
+/c/Users/*****/.ssh/id_rsa already exists.
+Overwrite (y/n)? y
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /c/Users/*****/.ssh/id_rsa
+Your public key has been saved in /c/Users/*****/.ssh/id_rsa.pub
+The key fingerprint is:
+***** *****@*****
+The key's randomart image is:
++---[RSA 2048]----+
+|@=.              |
+|/.               |
+|BO.              |
+|o+o=             |
+|..= +  oS        |
+|*=... o .o       |
+|=+.. oo+o        |
+|..E..oo++.       |
+|. ....oo..       |
++----[SHA256]-----+
+</pre>
+            <h3>[サーバー]「cd ~/.ssh」で.sshディレクトリに移動</h3>
+            <h3>[サーバー]「vi authorized_keys」でローカルで作成した「id_rsa.pub」(公開鍵)の中身を追記する。既にawsの認証キーが書かれているのでその次の行に追記する。</h3>
+<pre>
+ssh-rsa *** ${aws認証キー名}
+ssh-rsa *** ${ローカルPC名@PC名}
+</pre>
+            <h3>TortoiseGitの「SSH Client」を変更する</h3>
+            <p>右クリックして「tortoiseGit⇒setting」を選択</p>
+            <p>「Network」を選択して</p>
+            <p>「C:\Program Files\TortoiseGit\bin\TortoiseGitPlink.exe」から「C:\Program Files\Git\usr\bin\ssh.exe」へ変更する</p>
+            <p>bashからならclone出来たが、tortoiseGitからはclone出来なかったので変更した</p>
+        </details> -->
+
+        <!-- <h3>commitする前のローカルの修正内容について、修正前の状態に戻す。【git revert】</h3>
+        <p>例として、「test.html」に追記して</p>
+        <figure>
+            <img class="beside" src="../img/Git/TortoiseGit使い方/リモートリポジトリにアップロードOK.jpg" alt="リモートリポジトリにアップロードOK.jpg">
+            <figcaption>リモートリポジトリにアップロードOK.jpg</figcaption>
+        </figure>
+        </details> -->
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

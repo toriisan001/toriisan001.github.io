@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>javaScript</h1>
+        <p id="lastModified"></p>
+        
+        <h2>厳密なチェック</h2>
+            <p>スクリプトの先頭にあるようにする必要があるらしい</p>
+            <pre>
+                <code>
+        'use strict';
+                </code>
+            </pre>
+        
+            <h2>まずブロックで囲むらしい</h2>
+            <pre>
+                <code>
+        'use strict';
+        {
+        
+        }
+                </code>
+            </pre>
+        
+            <h2>ログを出力</h2>
+            <pre>
+                <code>
+        console.log('hogehoge');
+                </code>
+            </pre>
+            <p>※Ｆ12キー -> Consoleタブからログを確認</p>
+        
+            <h2>要素の取得</h2>
+            <p>getElementByの方がquerySelectorよりも速度が早いらしい</p>
+            <p><a href="https://qiita.com/tomokichi_ruby/items/c3ed6f6edbd5078ddf70">【JavaScript】要素の取得方法(getElement、querySelector)</a></p>
+            <h3>IDで取得(例)</h3>
+            <p>documentオブジェクトに対してのみ使用可能</p>
+            <p>id属性の値は、HTMLドキュメント上で唯一の値である必要がある</p>
+            <p>同じidを持つ要素ノードが複数ある場合、基本的に一番はじめの要素ノードを取得する</p>
+            <pre>
+                <code>
+        const sample = document.getElementById('sample');
+                </code>
+            </pre>
+            <h3>クラス名で取得(例)</h3>
+            <pre>
+                <code>
+        ===HTML===
+        &lt;p class=&quot;sample&quot;&gt;サンプルテキスト１&lt;/p&gt;
+        ===JavaScript===
+        const sample = document.getElementsByClassName('sample');
+                </code>
+            </pre>
+            <h3>ID or クラス名で取得(例)</h3>
+            <pre>
+                <code>
+        ===IDで取得===
+        ===HTML===
+        &lt;p id=&quot;sample&quot;&gt;サンプルテキスト１&lt;/p&gt;
+        ===JavaScript===
+        const sample = document.querySelector('#sample');
+        
+        ===クラス名で取得===
+        ===HTML===
+        &lt;p class=&quot;sample&quot;&gt;サンプルテキスト１&lt;/p&gt;
+        ===JavaScript===
+        const sample = document.querySelectorALL('.sample');
+        // すべての要素に処理
+        sample.forEach(el => {
+            // 処理...
+        });
+        document.querySelectorAll('.animate').forEach(el => {
+            observer.observe(el);
+        });
+                </code>
+            </pre>
+            <p>※1件しかなくても配列での取得となるため注意</p>
+            <p><a href="https://9cubed.info/article/javascript/0029" target="_blank">【参考】JavaScript - アロー関数(ラムダ式)</a></p>
+        
+        
+        <h2>htmlのパーツを読み込む</h2>
+            <pre>
+            <code>
+        ・jquery-3.6.1.min.jsを読み込む
+        &lt;script src=&quot;../js/jquery-3.6.1.min.js&quot;&gt;&lt;/script&gt;
+        
+        ・htmlParts.htmlを作成
+        &lt;div id=&quot;home&quot;&gt;
+        パーツ部分記述
+        &lt;/div&gt;
+        
+        ・htmlPage.html
+        以下の場所に配置
+        &lt;div id=&quot;home&quot;&gt;&lt;/div&gt;
+        
+            </code>
+        </pre>
+            <p><a href="https://codelife.cafe/entry/2015/10/27/222803" target="_blank">【jQuery】htmlページをパーツごとに分けて読み込む方法</a></p>
+        
+        <h2>HTML aside要素でサイドバーのアウトラインを作る</h2>
+            <pre>
+            <code>
+        ・homePage.html
+        &lt;article&gt;
+        &lt;div class=&quot;side&quot;&gt;
+            &lt;div id=&quot;side&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;content&quot;&gt;
+            &lt;div id=&quot;home&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;/article&gt;
+        
+        ・style.css
+        /* side */
+        
+        .side {
+            /* background-color: #ff838b; */
+            width: 150px;
+            text-align: center;
+        }
+        
+        .content {
+            /* background-color: #b3d874; */
+            text-align: center;
+            margin-left: 1px;
+        }
+        
+        article {
+            /* outline: 2px solid red; */
+            margin: 0 auto;
+            width: 1000px;
+            display: flex;
+        }
+        
+            </code>
+        </pre>
+            <p><a href="https://webukatu.com/wordpress/blog/27994/" target="_blank">HTML aside要素でサイドバーのアウトラインを作る</a></p>
+        
+            <h2>ファイルアクセスエラー</h2>
+            <pre>
+                「index.html:1 Access to XMLHttpRequest at 'file:///C:/xampp/htdocs/MyPortfolio/header.html' from origin 'null'
+                has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data,
+                chrome, chrome-extension, chrome-untrusted, https, isolated-app.」
+            </pre>
+            <p>Chromeはhttpアクセスしかファイルへのアクセスを許可していない</p>
+            <p>nodejsでローカルサーバーを立ち上げることで解決する</p>
+
+            <h2>テキストをクリップボードにコピー</h2>
+            <pre>
+            <code>
+        ===HTML===
+        &lt;p class=&quot;button&quot; style=&quot;background-color: #efefef;&quot;&gt;#efefef&lt;/p&gt;
+        
+        ===JavaScript===
+        &lt;script&gt;
+            $(function() {
+                var button = document.getElementsByClassName(&quot;button&quot;);
+                Array.from(button).forEach(element =&gt; {
+                    const bkupText = element.innerHTML;
+                    element.addEventListener(&#039;click&#039;, () =&gt; {
+                        navigator.clipboard.writeText(element.innerHTML);
+                        element.innerHTML = &#039;Copy OK！&#039;;
+                        setTimeout(() =&gt; element.innerHTML = bkupText, 500);
+                    });
+                });
+            });
+        &lt;/script&gt;
+            </code>
+        </pre>
+            <p><a href="https://don-bu-rakko.com/%E3%80%90%E8%B6%85%E7%B0%A1%E5%8D%98%E3%80%91javascript-%E3%81%A7-%E3%83%9C%E3%82%BF%E3%83%B3%E3%82%92%E6%8A%BC%E3%81%97%E3%81%9F%E3%82%89%E3%82%B3%E3%83%94%E3%83%BC-%E3%82%92%E5%AE%9F%E8%A3%85/"
+                    target="_blank">【１行だけ】ボタンをクリックしたら文章をコピーしたい！【JavaScript】</a></p>
+        
+        <h2>ゼロ埋め関数</h2>
+            <pre>
+            <code>
+        function zeroPadding(no, digit) {
+            return ('0'.repeat(digit) + no).slice( (-1 * digit) );
+        }
+            </code>
+        </pre>
+        
+        <h2>うるう年判定関数</h2>
+            <pre>
+            <code>
+        function isLeapYear(year) {
+            return new Date(year, 2, 0).getDate() === 29;
+        }
+            </code>
+        </pre>
+        
+        <h2>毎秒実行</h2>
+            <pre>
+            <code>
+        setInterval(() => {
+        
+        }, 1000);
+            </code>
+        </pre>
+
+        <h2>クラスを付与する</h2>
+            <pre>
+            <code>
+        header.classList.add('scrolled');
+            </code>
+        </pre>
+        
+        <h2>クラスを除去する</h2>
+            <pre>
+            <code>
+        header.classList.remove('scrolled');
+            </code>
+        </pre>
+        
+        <h2>キーでイベントを発火</h2>
+            <pre>
+            <code>
+        // エンターキーでイベント発火
+        document.getElementById('k').onkeydown = function() {
+            if (event.key === 'Enter') set();
+        };
+            </code>
+        </pre>
+        
+        <h2>WEBストレージ</h2>
+            <pre>
+            <code>
+        // データを保存
+        var k = document.getElementById("k").value;
+        if (k === '') return;
+        var v = document.getElementById("v").value;
+        storage.setItem(k, v);
+        
+        // keyを指定してデータを取得
+        getItem(key)
+        
+        // データを全てクリア
+        storage.clear();
+        
+        // キーを指定してデータをクリア
+        storage.removeItem(k);
+        
+        // i番目のキーを取得
+        var k = storage.key(i);
+            </code>
+        </pre>
+        
+        <h2>指定したエレメントのhtml要素を書き換える。(jQueryが必要)</h2>
+        <pre>
+        <code>
+        var notes_html = '';
+        games_html += `&lt;tr&gt;&lt;td id=&quot;id&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;title&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;body&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;datetime&quot; id=&quot;updated_at&quot; value=&quot;${updatedAt}&quot;&gt;&lt;/td&gt;&lt;/tr&gt;`;
+        games_html += &#039;&lt;/table&gt;&#039;;
+        $(&#039;#table&#039;).html(games_html);
+        </code>
+        </pre>
+        
+        <h2>テキストボックスをクリックしたときに全選択状態にする</h2>
+        <pre>
+        <code>
+        &lt;input type=&quot;text&quot;onfocus=&quot;this.select();&quot;&gt;
+
+        以下でもいい
+        const input = document.querySelector('[name="title"]');
+        input.focus();
+        </code>
+        </pre>
+        
+        <h2>addEventListener</h2>
+        <a href="https://qiita.com/mzmz__02/items/873118fbd8723c44956d">【JavaScript】addEventListenerの使い方</a>
+        <pre>
+        <code>
+        strageSelect.addEventListener('change', (e) => {
+            // 変数を更新
+            localStorageObj.setItem('STRANGE_KBN', String(e.target.value));
+            // ストレージタイトルの設定
+            setStorageTitle();
+            // ストレージ選択
+            selectStrage();
+            // 再読み込み
+            show_result();
+        });
+        </code>
+        </pre>
+        ※removeもあるらしい。document.removeEventListener('touchmove', disableScroll, { passive: false });
+        
+        <h2>イベント無効化</h2>
+        <pre>
+        <code>
+        // to_topイベント
+        toTop.addEventListener('click', e => {
+            // イベントを無効化(#(パウンド記号がついてしまうことを防ぐため))
+            e.preventDefault();
+            // ページ上部へ戻る
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+            })
+        });
+        </code>
+        </pre>
+        
+        <h2>別のクリックイベントを呼び出す(click())</h2>
+        <pre>
+        <code>
+        close.addEventListener('click', () => {
+            modal.classList.add('hidden');
+            mask.classList.add('hidden');
+        });
+        mask.addEventListener('click', () => {
+            // modal.classList.add('hidden');
+            // mask.classList.add('hidden');
+            close.click();
+        });
+        </code>
+        </pre>
+        
+        <h2>スクロールを禁止にする</h2>
+        <pre>
+        <code>
+        =====CSS=====
+        /* スクロール禁止 */
+        .overflow-hidden {
+            overflow: hidden;
+        }
+        =====JavaScript=====
+        // スクロール禁止付与
+        document.addEventListener('touchmove', disableScroll, { passive: false });
+        document.body.classList.add('overflow-hidden');
+        
+        // スクロール禁止除去
+        document.removeEventListener('touchmove', disableScroll, { passive: false });
+        document.body.classList.remove('overflow-hidden');
+        </code>
+        </pre>
+        <a href="https://qumeru.com/magazine/278">CSSで画面をスクロールさせないようにする方法！【参考】</a>
+        
+        <h2>JavaScriptのクラス（class）を理解する</h2>
+        <a href="https://techplay.jp/column/482">JavaScriptのクラス（class）を理解する【参考】</a>
+        
+        <h2>【JavaScript】 Promiseの使い方</h2>
+        <a href="https://hidekazu-blog.com/javascript-fetch/#toc5">【JavaScript】Fetch API による非同期ネットワーク通信【参考】(プロミスオブジェクトの取得)</a>
+        
+        <h2>【JavaScript】 async / await の使い方</h2>
+        <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/async_function">mdn web docs 非同期関数【参考】</a>
+        <a href="https://laboradian.com/use-js-async-await/">【JavaScript】 async / await の使い方【参考】</a>
+        <a href="https://qiita.com/koedamon/items/9a486d4db5dd2614272d">JavaScriptのPromiseに関するまとめ（async/await含む）【参考】</a>
+        
+        <h2>データ属性にデータを持たせる。</h2>
+        <pre>
+            <code>
+        =====HTML=====
+        &lt;div class=&quot;mv&quot; data-youtube-id=&quot;Kjoe1vXlmxQ&quot;&gt;
+        &lt;/div&gt;
+        =====JavaScript=====
+        Array.from(mvs).forEach(el => {
+        console.log(el.dataset.youtubeId);
+        });
+            </code>
+        </pre>
+        
+        <h2>配列をforEachでループ</h2>
+        <pre>
+            <code>
+        const array1 = ['a', 'b', 'c'];
+        array1.forEach(data => console.log(data));
+            </code>
+        </pre>
+        <a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach">mdn web docs Array.prototype.forEach()【参考】</a>
+        
+        <h2>テキストエリアの項目を改行ごとに配列に設定</h2>
+        <pre>
+            <code>
+        =====HTML=====
+        <textarea id="mvAddText" rows="1"></textarea>
+        =====JavaScript=====
+        const mvAddText = document.getElementById('mvAddText');
+        console.log(mvAddText.value.split(/\n/));
+            </code>
+        </pre>
+        <a href="https://magazine.techacademy.jp/magazine/26943">JavaScriptでsplitメソッドを使ってテキストを改行で分割して配列に格納する方法を現役エンジニアが解説【初心者向け】【参考】</a>
+        
+        <h2>URLをパース(プログラムで扱えるようなデータ構造の集合体に変換すること)(例)</h2>
+        <pre>
+            <code>
+        var parser = new URL("https://www.youtube.com/watch?v=kRXn3Da895Y");
+        parser.host; // "https://www.youtube.com/watch"
+        var parser = new URL(url.value)
+        youtubeObj.youtubeId = parser.searchParams.get('v');
+            </code>
+        </pre>
+        <a href="https://qiita.com/edisonthk/items/9e76784bedbd0cb969a5">javascriptでURLをパース【参考】</a>
+        
+        <h2>【javascript】HTMLコレクションのループ方法</h2>
+        <p>HTMLコレクションはforeachが使えないが、配列に変換すると使えるようになるらしい。</p>
+        <pre>
+            <code>
+        const fontSelect = document.getElementById("fontSelect");
+        Array.from(fontSelect.options).forEach(el => {
+            console.log(el);
+        });
+            </code>
+        </pre>
+        <a href="https://twotone.me/web/5087/">【javascript】HTMLコレクションのループ方法【参考】</a>
+        
+        <h2>【JavaScript】特定の文字列を含むか否かを評価する方法</h2>
+        <pre>
+            <code>
+        if (!e.path[0].className.match("operationMenuParts")) {
+            operationMenu.classList.toggle("hidden");
+        }
+            </code>
+        </pre>
+        <a href="https://hataworakuni.net/check-included-words-in-javascript">【JavaScript】特定の文字列を含むか否かを評価する方法【参考】</a>
+        
+        <h2>【JavaScript】HTMLでbodyタグにonLoad属性を使う</h2>
+        <pre>
+        <code>
+        &lt;html&gt;
+        &lt;head&gt;
+            &lt;meta charset=&quot;utf-8&quot;&gt;
+            &lt;title&gt;onLoadサンプル&lt;/title&gt;
+        &lt;/head&gt;
+        &lt;body onload=&quot;loadFunc()&quot;&gt;
+            &lt;h1&gt;これはサンプルです&lt;/h1&gt;
+        &lt;/body&gt;
+        &lt;script&gt;
+            function loadFunc() {
+                alert(&quot;Hello World&quot;);
+            }
+        &lt;/script&gt;
+        &lt;/html&gt;
+        </code>
+        </pre>
+        <a href="https://magazine.techacademy.jp/magazine/38326">【JavaScript】HTMLでbodyタグにonLoad属性を使う方法を現役エンジニアが解説【初心者向け】【参考】</a>
+        
+        <h2>jsからformを送信を実行</h2>
+        <pre>
+        <code>
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                // 親要素のformを送信
+                checkbox.parentNode.submit();
+            });
+        });
+        </code>
+        </pre>
+        
+        <h2>セレクトボックスで選択した値を取得</h2>
+        <pre>
+        <code>
+        const category = document.getElementById('category');
+        category = category.options[category.selectedIndex].value;
+        </code>
+        </pre>
+
+        <h2>JavascriptでURLの日本語をエンコード/デコード</h2>
+        <p>urlについて日本語を使うとlocation.hrefで取得すると文字化けしていた。</p>
+        <p>decodeURIを使うと文字化けが解消された。</p>
+        <p><a href="JavascriptでURLの日本語をエンコード/デコード">【参考】https://hatolabo.com/programming/js-url-encode-utf8</a></p>
+
+        <h2>クラス有無を切り替える</h2>
+
+        <h2>数値、文字列相互変換</h2>
+<pre>
+<code>
+// 数値 ⇒ 文字列
+function dateFomatNumToString(num) {
+    return String(num).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+}
+
+// 文字列 ⇒ 数値
+function dateFomatStringToNum(str) {
+    return Number(str.replace(/,/, ''));
+}
+</code>
+</pre>
+
+<pre>
+<code>
+dt.parentNode.classList.toggle('appear');
+</code>
+</pre>
+
+<h2>再実行防止について</h2>
+<pre>
+<code>
+=====HTML=====
+&lt;form action=&quot;?action=send&quot; method=&quot;post&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;token&quot; value=&quot;&lt;?=h($_SESSION[&#039;token&#039;]);?&gt;&quot;&gt;
+&lt;p style=&quot;font-size:15px;&quot;&gt;メッセージ
+&lt;span class=&quot;tooltip1&quot;&gt;
+    &lt;span class=&quot;mark&quot; style=&quot;font-size:15px&quot;&gt;？&lt;/span&gt;
+    &lt;span class=&quot;description1&quot;&gt;
+        1日に送信出来る制限は10件です。&lt;br&gt;
+        &lt;?=h($systemDateTime);?&gt;はあと&lt;?=(int) CHAT_GPT_SEND_LIMIT - h($sendCount);?&gt;回送信可能です。
+    &lt;/span&gt;
+&lt;/span&gt;
+&lt;/p&gt;
+&lt;input type=&quot;text&quot; name=&quot;message&quot; autocomplete=&quot;off&quot; maxlength=&quot;100&quot; style=&quot;width:calc(100% - 10px); height:30px; margin-bottom:20px; font-size:15px&quot;&gt;
+&lt;br&gt;
+&lt;button id=&quot;send&quot; style=&quot;font-size:15px&quot;&gt;送信&lt;/button&gt;
+&lt;/form&gt;
+
+=====HTML=====
+// 送信押下
+const send = document.getElementById('send');
+send.addEventListener('click', e => {
+    send.disabled = true;
+    send.textContent = '送信中...';
+    send.parentNode.submit();
+});
+</code>
+</pre>
+<p>再実行防止について以下の方法もあるらしい。</p>
+<p><a href="https://qiita.com/sumihiro/items/2cb6fd372a497a937192">【参考】formのsubmit時にdata-loading-textを適切に有効にする</a></p>
+
+<h2>要素の削除</h2>
+<pre>
+<code>
+const li = document.getElementById("li");
+li.remove();
+</code>
+</pre>
+
+    <h2>子要素を取得</h2>
+<pre>
+<code>
+li.children
+</code>
+</pre>
+
+<h2>fetchを使用した非同期通信</h2>
+<pre>
+<code>
+fetch('?action=test', {
+    method: 'POST',
+    body: new URLSearchParams({
+        id: id,
+    }),
+});
+</code>
+</pre>
+
+    <h2>最新の状態に更新</h2>
+<pre>
+<code>
+location.reload();
+</code>
+</pre>
+
+    <h2>エンターキーで送信</h2>
+<pre>
+<code>
+document.onkeydown = function(e) {
+    const key = e.keyCode || e.charCode || 0;
+    // 13はEnterキーのキーコード
+    if (key == config.KEY_CODE.ENTER_KEY) {
+        send.click();
+    }
+};
+</code>
+</pre>
+
+    <h2>子要素をforEachでループ</h2>
+<pre>
+<code>
+const messageList = document.getElementById('messageList');
+Array.from(messageList.children).forEach((element) => {
+    console.log(element);
+});
+</code>
+</pre>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

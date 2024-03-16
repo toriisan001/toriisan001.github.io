@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>WebService</h1>
+        <p id="lastModified"></p>
+    
+        <a href="heroku.html" style="border: solid 1px #333;margin:5px;padding:10px 10px;border-radius: 5px;cursor: pointer;user-select: none;display: block;text-decoration: none;color:inherit">Heroku</a>
+        <a href="aws.html" style="border: solid 1px #333;margin:5px;padding:10px 10px;border-radius: 5px;cursor: pointer;user-select: none;display: block;text-decoration: none;color:inherit">AWS</a>
+        <a href="Redmine.html" style="border: solid 1px #333;margin:5px;padding:10px 10px;border-radius: 5px;cursor: pointer;user-select: none;display: block;text-decoration: none;color:inherit">Redmine</a>
+        <a href="Git.html" style="border: solid 1px #333;margin:5px;padding:10px 10px;border-radius: 5px;cursor: pointer;user-select: none;display: block;text-decoration: none;color:inherit">Git</a>
+        <a href="Minecraft.html" style="border: solid 1px #333;margin:5px;padding:10px 10px;border-radius: 5px;cursor: pointer;user-select: none;display: block;text-decoration: none;color:inherit">Minecraft</a>
+        <a href="SVN.html" style="border: solid 1px #333;margin:5px;padding:10px 10px;border-radius: 5px;cursor: pointer;user-select: none;display: block;text-decoration: none;color:inherit">SVN</a>
+        <a href="GitBucket.html" style="border: solid 1px #333;margin:5px;padding:10px 10px;border-radius: 5px;cursor: pointer;user-select: none;display: block;text-decoration: none;color:inherit">GitBucket</a>
+
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>

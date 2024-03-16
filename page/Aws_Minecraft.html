@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.JPG">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+    <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>Aws_Minecraft</h1>
+        <p id="lastModified"></p>
+
+        <h2>インスタンス起動時間</h2>
+        <p style="text-decoration:line-through">インスタンス開始:毎時7:00</p>
+        <p style="text-decoration:line-through">インスタンス停止:毎時0:00</p>
+        <p>20240223追記event vridgeで起動時間を指定していたが、数日放置すると停止してしまっていた。起動しっぱなしにしてみる。</p>
+
+        <h2>環境</h2>
+        <p>サーバー名:ToriiServer</p>
+        <p>サーバーアドレス:54.178.18.91</p>
+        <p>ポート:19132</p>
+        <p>備考:Minecraft統合版(PC・スマホ・ゲーム機)でアクセス出来るはずです。飽きたり料金が高すぎたりその他問題が発生した場合は停止する予定です。</p>
+        <p>バージョン:1.20.62.02(ホスト側とクライアント側のバージョンが一致している必要があるので注意)</p>
+        <p>その他</p>
+<pre>
+player-idle-timeout=30
+view-distance=15
+default-player-permission-level=member
+</pre>
+        <figure>
+            <img class="beside" src="../img/Minecraft/EC2でMinecraftサーバーを構築_統合版_20231209/外部サーバーを追加.JPG" alt="外部サーバーを追加.JPG">
+            <figcaption>外部サーバーを追加.JPG</figcaption>
+        </figure>
+
+        <h2>更新履歴</h2>
+        <p>20240223:サーバー側のバージョンを「1.20.50.03」から「1.20.62.02」にアップデート</p>
+
+</pre>
+    </main>
+    <div id="log"></div>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>
