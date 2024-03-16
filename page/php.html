@@ -637,17 +637,16 @@ DocumentRoot &quot;C:/xampp/htdocs/example-app/public&quot;
             <p>xampのapacheを再起動</p>
             <p>ブラウザで「http://127.0.0.1」または「http://localhost」でアクセス。xamppでLaravelが立ち上がった。</p>
             <h3>画面を追加する</h3>
-            <p>「php artisan make:model Memos」で「C:\xampp\htdocs\example-app\app\Models\User.php」にモデルファイルが作成される。(手動で追加してもよい)</p>
+            <p>「php artisan make:model Memo」で「C:\xampp\htdocs\example-app\app\Models\Memo.php」にモデルファイルが作成される。(手動で追加してもよい)</p>
 <pre>
-■ C:\xampp\htdocs\example-app\app\Models\User.php
+■ C:\xampp\htdocs\example-app\app\Models\Memo.php
 &lt;?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Memos extends Model
+class Memo extends Model
 {
     use HasFactory;
 }
