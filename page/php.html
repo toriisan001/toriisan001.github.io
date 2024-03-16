@@ -715,14 +715,14 @@ class MemoController extends Controller
 
 namespace App\Http\Controllers;
 
-use App\Models\Memos;
+use App\Models\Memo;
 use Illuminate\Http\Request;
 
 class MemoController extends Controller
 {
     public function index()
     {
-        $memos = Memos::all();
+        $memos = Memo::all();
         return view('memos.index', ['memos' => $memos]);
     }
 }
