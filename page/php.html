@@ -797,6 +797,43 @@ Route::get('/memos', [MemoController::class, 'index']);
             </figure>
         </details>
 
+        <h2>XAMPPでhttps接続を行う</h2>
+<details>
+<h3>ドメインを設定する</h3>
+<p>「C:\xampp\apache\conf\httpd.conf」を確認</p>
+<pre>
+■ 以下のように先頭の「#」が外れていることを確認
+LoadModule ssl_module modules/mod_ssl.so
+</pre>
+<p>git bashを立ち上げる。</p>
+<p>【ローカル_bash】「cd C:\xampp\apache」で移動する。</p>
+<p>【ローカル_bash】「openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ssl.key -out ssl.crt」を実行して「ssl.key(秘密鍵)」「ssl.crt(証明書)」が作成される。</p>
+<p>「C:\xampp\apache\conf\extra」ディレクトリを開く</p>
+<p>「httpd-ssl.conf」ファイルを編集する。</p>
+<pre>
+C:\xampp\apache\conf\extra\httpd-ssl.conf
+■ 修正前
+SSLCertificateFile "conf/ssl.crt/server.crt"
+SSLCertificateKeyFile "conf/ssl.key/server.key"
+
+■ 修正後
+SSLCertificateFile "C:/xampp/apache/ssl.crt"
+SSLCertificateKeyFile "C:/xampp/apache/ssl.key"
+</pre>
+<p>「C:\xampp\apache\conf\extra\httpd-vhosts.conf」ファイルを編集する。</p>
+<pre>
+&lt;VirtualHost *:443&gt;
+    DocumentRoot &quot;C:/xampp/htdocs/toriisan-laravel-001/public&quot;
+    ServerName localhsot
+    SSLEngine on
+    SSLCertificateFile &quot;C:/xampp/apache/ssl.crt&quot;
+    SSLCertificateKeyFile &quot;C:/xampp/apache/ssl.key&quot;
+&lt;/VirtualHost&gt;
+</pre>
+<p>Xamppのapacheを起動する。</p>
+<p>ブラウザで「https://localhost/」へアクセス出来るようになっていることを確認</p>
+</details>
+
         <h2>CURL実行時にファイルを添付</h2>
         <p><a href="https://www.php.net/manual/ja/class.curlfile.php">CURLFile クラス【参考】</a></p>
     
