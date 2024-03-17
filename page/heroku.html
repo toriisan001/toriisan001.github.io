@@ -820,18 +820,137 @@ foreach ($memos as $row) {
     </details>
 
     <h2>git cloneが上手くいかない</h2>
-    <h3>発生したエラー</h3>
+    <details>
+
+        <h3>発生したエラー</h3>
+    <pre>
+    RPC failed; curl 18 transfer closed with outstanding read data remaining
+    </pre>
+        <h3>試したこと</h3>
+    <pre>
+    ■以下でとりあえずclone出来た。(git bashで実行)
+    herok login
+    git config --global http.postBuffer 10M
+    git clone https://github.com/※※※※/hogehoge.git --depth 1
+    </pre>
+    <p><a href="https://web-survivor.com/useful/git-error-curl/">【参考】【github】gitでpullした時に『RPC failed; curl 18 transfer closed with outstanding read data remaining』で怒られた時の対処方</a></p>
+    </details>
+
+    <h2>HerokuでLaravelの環境を構築する_20240317</h2>
+    <details>
+        <p>Herokuアプリを追加する。(例:toriisan-laravel-001)</p>
+        <p>Heroku Postgresを追加する。環境変数に「DATABASE_URL」が追加される。</p>
+        <p>「C:\xampp\htdocs」ディレクトリにHerokuのgitをローカルにクローンする。</p>
+        <p>【ローカル_git_cmd】「cd C:\xampp\htdocs\toriisan-laravel-001」で作業ディレクトリへ移動する。</p>
+        <p>【ローカル_git_cmd】「laravel new example-app」Larabelのローカル開発環境を作成する。</p>
+        <p>「C:\xampp\htdocs\toriisan-laravel-001\example-app」に作成されたファイル、ディレクトリを全て「C:\xampp\htdocs\toriisan-laravel-001」に移動させる。</p>
+        <p>「\config\database.php」を編集する。デフォルトのDBを「sqlite」から「pgsql」に編集して、「DATABASE_URL」を加工してPostgresでDB接続を行うように修正する。</p>
 <pre>
-RPC failed; curl 18 transfer closed with outstanding read data remaining
+■ 編集前
+'default' => env('DB_CONNECTION', 'sqlite'),
+
+'pgsql' => [
+'driver' => 'pgsql',
+'url' => env('DB_URL'),
+'host' => env('DB_HOST', '127.0.0.1'),
+'port' => env('DB_PORT', '5432'),
+'database' => env('DB_DATABASE', 'laravel'),
+'username' => env('DB_USERNAME', 'root'),
+'password' => env('DB_PASSWORD', ''),
+'charset' => env('DB_CHARSET', 'utf8'),
+'prefix' => '',
+'prefix_indexes' => true,
+'search_path' => 'public',
+'sslmode' => 'prefer',
+],
+
+■ 編集後
+'default' => env('DB_CONNECTION', 'pgsql'),
+
+'pgsql' => [
+'driver' => 'pgsql',
+'url' => env('DB_URL'),
+'host' => parse_url(env('DATABASE_URL'), PHP_URL_HOST),
+'port' => parse_url(env('DATABASE_URL'), PHP_URL_PORT),
+'database' => substr(parse_url(env('DATABASE_URL'), PHP_URL_PATH), 1),
+'username' => parse_url(env('DATABASE_URL'), PHP_URL_USER),
+'password' => parse_url(env('DATABASE_URL'), PHP_URL_PASS),
+'charset' => env('DB_CHARSET', 'utf8'),
+'prefix' => '',
+'prefix_indexes' => true,
+'search_path' => 'public',
+'sslmode' => 'prefer',
+],
 </pre>
-    <h3>試したこと</h3>
+        <p>「C:\xampp\htdocs\toriisan-laravel-001\Procfile」を作成。「public」はWebサーバーの起動方法を指定するファイルで、ルートディレクトリに指定できる。</p>
 <pre>
-■以下でとりあえずclone出来た。(git bashで実行)
-herok login
-git config --global http.postBuffer 10M
-git clone https://github.com/※※※※/hogehoge.git --depth 1
+■ toriisan-laravel-001\Procfileに以下を追記
+web: vendor/bin/heroku-php-apache2 public/
 </pre>
-<p><a href="https://web-survivor.com/useful/git-error-curl/">【参考】【github】gitでpullした時に『RPC failed; curl 18 transfer closed with outstanding read data remaining』で怒られた時の対処方</a></p>
+        <p>「C:\xampp\htdocs\toriisan-laravel-001\.env」ファイルを参照してAPP_KEYを確認</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/HerokuでLaravelの環境を構築する_20240317/APP_KEYを確認.JPG" alt="APP_KEYを確認.JPG">
+            <figcaption>APP_KEYを確認.JPG</figcaption>
+        </figure>
+        <p>Herokuの環境変数にAPP_KEYを追加登録。値は「.env」のAPP_KEYを設定</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/HerokuでLaravelの環境を構築する_20240317/Herokuの環境変数にAPP_KEYを追加登録.JPG" alt="Herokuの環境変数にAPP_KEYを追加登録.JPG">
+            <figcaption>Herokuの環境変数にAPP_KEYを追加登録.JPG</figcaption>
+        </figure>
+        <p>Herokuへソースをcommit・pushする。</p>
+<pre>
+■ 以下の対象外ではないディレクトリ、ファイルをcommit・pushする
+.git・・・commit・push対象外
+.vscode・・・commit・push対象外
+app
+bootstrap
+config
+database
+public
+resources
+routes
+storage
+tests
+vendor・・・commit・push対象外
+.env・・・commit・push対象外
+.env.example・・・commit・push対象外
+.gitattributes・・・commit・push対象外
+.gitignore・・・commit・push対象外
+artisan
+composer.json
+composer.lock
+package.json
+phpunit.xml
+Procfile
+README.md
+vite.config.js
+</pre>
+        <p>【ローカル_bash】「heroku run php artisan migrate -app ${herokuアプリ名} --force」でマイグレーションを実行(DBの同期)</p>
+<pre>
+$ heroku run --app toriisan-laravel-001 php artisan migrate --force
+Running php artisan migrate --force on toriisan-laravel-001... starting, run.3905 (Eco)
+Running php artisan migrate --force on toriisan-laravel-001... connecting, run.3905 (Eco)Running php artisan migrate --force on toriisan-laravel-001... up, run.3905 (Eco)
+
+    INFO  Preparing database.
+
+    Creating migration table ...................................... 84.35ms DONE
+
+    INFO  Running migrations.
+
+    0001_01_01_000000_create_users_table .......................... 57.49ms DONE
+    0001_01_01_000001_create_cache_table .......................... 25.91ms DONE
+    0001_01_01_000002_create_jobs_table ........................... 55.26ms DONE
+</pre>
+        <p>Herokuのダッシュボードから「Open app」をクリックする。laravelのwelcomeページが表示される。</p>
+        <figure>
+            <img class="beside" src="../img/Heroku/HerokuでLaravelの環境を構築する_20240317/Open_appをクリック.JPG" alt="Open_appをクリック.JPG">
+            <figcaption>Open_appをクリック.JPG</figcaption>
+        </figure>
+        <figure>
+            <img class="beside" src="../img/Heroku/HerokuでLaravelの環境を構築する_20240317/laravelのwelcomeページ.JPG" alt="laravelのwelcomeページ.JPG">
+            <figcaption>laravelのwelcomeページ.JPG</figcaption>
+        </figure>
+    </details>
 
     </main>
     <div id="log"></div>
