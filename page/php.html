@@ -797,6 +797,102 @@ Route::get('/memos', [MemoController::class, 'index']);
             </figure>
         </details>
 
+        <h2>LaravelでServiceProviderを使用したグローバル関数を使用する_20240330</h2>
+        <details>
+            <h3>関数の追加</h3>
+            <p>「app\Helpers\Common.php」を作成</p>
+<pre>
+<code>
+&lt;?php
+function hogehoge() {
+    return &quot;hogehoge!&quot;;
+}
+</code>
+</pre>
+<p>「app\Providers\AppServiceProvider.php」を作成</p>
+<pre>
+<code>
+■ 修正前
+&lt;?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+        * Register any application services.
+        */
+    public function register(): void
+    {
+        //
+    }
+
+    /**
+        * Bootstrap any application services.
+        */
+    public function boot(): void
+    {
+        //
+    }
+}
+■ 修正後
+&lt;?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+        * Register any application services.
+        */
+    public function register(): void
+    {
+        require_once app_path(&#039;Helpers/Common.php&#039;);
+    }
+
+    /**
+        * Bootstrap any application services.
+        */
+    public function boot(): void
+    {
+        //
+    }
+}
+</code>
+</pre>
+<h3>関数の呼び出し方</h3>
+<p>Controllerからの呼び出し方</p>
+<pre>
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class ExampleController extends Controller
+{
+    public function index()
+    {
+        $result = hogehoge();
+    }
+}
+</pre>
+<figure>
+    <img class="beside" src="../img/PHP/LaravelでServiceProviderを使用したグローバル関数を使用する_20240330/Controllerからの呼び出し方.JPG" alt="viewファイルからの呼び出し方.JPG">
+    <figcaption>Controllerからの呼び出し方.JPG</figcaption>
+</figure>
+    <p>viewファイルからの呼び出し方</p>
+<pre>
+{{ hogehoge() }}
+</pre>
+<figure>
+    <img class="beside" src="../img/PHP/LaravelでServiceProviderを使用したグローバル関数を使用する_20240330/viewファイルからの呼び出し方.JPG" alt="viewファイルからの呼び出し方.JPG">
+    <figcaption>viewファイルからの呼び出し方.JPG</figcaption>
+</figure>
+        </details>
+
         <h2>XAMPPでhttps接続(SSL接続)を行う</h2>
 <details>
 <h3>ドメインを設定する</h3>
