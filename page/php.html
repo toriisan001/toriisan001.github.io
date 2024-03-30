@@ -653,6 +653,7 @@ class Memo extends Model
 </pre>
             <p>「php artisan make:migration create_memos_table --create=memos」でカラムを追加するためのマイグレーションを作成する。</p>
             <p>マイグレーションファイルを修正する。</p>
+            <p>作成済みでマイグレーションファイルを置いておくために作成済みの場合はcreateを実行しないため「if (!Schema::hasTable('memos')) {」を付けている。</p>
 <pre>
 ■ C:\xampp\htdocs\example-app\database\migrations\2024_03_09_130138_create_memos_table.php
 ■ 修正前
@@ -673,12 +674,14 @@ public function up(): void
 */
 public function up(): void
 {
-   Schema::create('memos', function (Blueprint $table) {
-       $table->bigIncrements('id'); // 自動増分のID（プライマリーキー）
-       $table->string('title');
-       $table->text('memo');
-       $table->timestamps(); // created_atとupdated_atカラム
-   });
+    if (!Schema::hasTable('memos')) {
+        Schema::create('memos', function (Blueprint $table) {
+            $table->bigIncrements('id'); // 自動増分のID（プライマリーキー）
+            $table->string('title');
+            $table->text('memo');
+            $table->timestamps(); // created_atとupdated_atカラム
+        });
+    }
 }
 </pre>
             <p>「php artisan migrate」でマイグレーションを実行</p>
