@@ -925,7 +925,7 @@ Procfile
 README.md
 vite.config.js
 </pre>
-        <p>【ローカル_bash】「heroku run php artisan migrate -app ${herokuアプリ名} --force」でマイグレーションを実行(DBの同期)</p>
+        <p>【ローカル_bash】「heroku run --app ${herokuアプリ名} php artisan migrate --force」でマイグレーションを実行(DBの同期)</p>
 <pre>
 $ heroku run --app toriisan-laravel-001 php artisan migrate --force
 Running php artisan migrate --force on toriisan-laravel-001... starting, run.3905 (Eco)
