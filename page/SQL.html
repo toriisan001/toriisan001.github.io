@@ -25,6 +25,11 @@
         <h3>MySQLのワークベンチ（MySQL Workbench）で全権削除ができない場合</h3>
         <p><a href="https://marock.tokyo/2021/06/21/mysql-%E3%83%AF%E3%83%BC%E3%82%AF%E3%83%99%E3%83%B3%E3%83%81%E3%81%A71175%E3%82%A8%E3%83%A9%E3%83%BC%E3%81%8C%E7%99%BA%E7%94%9F%E3%81%99%E3%82%8B%E6%99%82%E3%81%AE%E5%AF%BE%E5%87%A6%E6%96%B9/">MySQL ワークベンチで1175エラーが発生する時の対処方【参考】</a></p>
 
+        <h2>改行コードを設定</h2>
+<pre>
+update ${テーブル名} set ${カラム名} = char(10);
+</pre>
+
     </main>
     <div id="log"></div>
     <div id="operationParts"></div>
