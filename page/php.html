@@ -684,6 +684,30 @@ public function up(): void
     }
 }
 </pre>
+<h3>種類</h3>
+<pre>
+    <!-- 自動増分のID（プライマリーキー） -->
+$table-&gt;bigIncrements(&#039;id&#039;);
+&lt;!-- 文字列 --&gt;
+$table-&gt;string(&#039;title&#039;);
+&lt;!-- 文字列_桁数指定 --&gt;
+$table-&gt;string(&#039;shop_name&#039;, 20);
+&lt;!-- テキスト --&gt;
+$table-&gt;text(&#039;memo&#039;);
+&lt;!-- 数字 --&gt;
+$table-&gt;integer(&#039;math&#039;);
+&lt;!-- created_atとupdated_atカラム --&gt;
+$table-&gt;timestamps();
+
+■ 制約
+&lt;!-- ユニーク指定 --&gt;
+$table-&gt;integer(&#039;manage_number&#039;)-&gt;unique();
+&lt;!-- null許容 --&gt;
+$table-&gt;string(&#039;title&#039;)-&gt;nullable();
+&lt;!-- 外部キー --&gt;
+$table-&gt;unsignedBigInteger(&#039;area_id&#039;);
+</pre>
+
             <p>「php artisan migrate」でマイグレーションを実行</p>
             <p>修正したマイグレーションファイルとDBが同期される</p>
             <p>適当なデータを追加する</p>
