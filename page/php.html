@@ -902,7 +902,7 @@ class ExampleController extends Controller
 {
     public function index()
     {
-        $result = hogehoge();
+        $result = \Utils::hogehoge();
     }
 }
 </pre>
@@ -912,7 +912,7 @@ class ExampleController extends Controller
 </figure>
     <p>viewファイルからの呼び出し方</p>
 <pre>
-{{ hogehoge() }}
+{{ \Utils::hogehoge() }}
 </pre>
 <figure>
     <img class="beside" src="../img/PHP/LaravelでServiceProviderを使用したグローバル関数を使用する_20240330/viewファイルからの呼び出し方.JPG" alt="viewファイルからの呼び出し方.JPG">
