@@ -450,6 +450,10 @@ footer {
 }
 
 /* Log */
+#log {
+    margin:10px;
+    border-top: 1px solid #efefef;
+}
 #log.hidden {
     display: none;
 }
