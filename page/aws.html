@@ -403,6 +403,258 @@ aws dynamodb help
 aws dynamodb list-tables
 </code>
 </pre>
+
+<h2>S3を画像のコンテンツサーバーとして利用する</h2>
+<details>
+    <h3>事前準備</h3>
+    <p>AWSのアカウントの作成</p>
+    <h3>S3にアクセスする用のユーザーを作成する</h3>
+    <p>「IAM」のユーザーメニューの「ユーザーの作成」をクリック</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/ユーザーの作成をクリック.JPG" alt="ユーザーの作成をクリック.JPG">
+        <figcaption>ユーザーの作成をクリック.JPG</figcaption>
+    </figure>
+    <p>ユーザー名を指定して次へをクリック</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/ユーザーの詳細を指定.JPG" alt="ユーザーの詳細を指定.JPG">
+        <figcaption>ユーザーの詳細を指定.JPG</figcaption>
+    </figure>
+    <p>許可を設定で「ユーザーをグループに追加」を選択して次へをクリック</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/許可を設定.JPG" alt="許可を設定.JPG">
+        <figcaption>許可を設定.JPG</figcaption>
+    </figure>
+    <p>確認して作成で「ユーザーの作成」をクリック</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/確認して作成.JPG" alt="確認して作成.JPG">
+        <figcaption>確認して作成.JPG</figcaption>
+    </figure>
+    <p>ユーザーが作成された。ユーザー名をクリック。</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/ユーザーの作成が完了.JPG" alt="ユーザーの作成が完了.JPG">
+        <figcaption>ユーザーの作成が完了.JPG</figcaption>
+    </figure>
+    <p>ユーザーのARM(Amazon リソースネーム)を確認。セキュリティ認証情報タブをクリック。</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/ARMの確認.JPG" alt="ARMの確認.JPG">
+        <figcaption>ARMの確認.JPG</figcaption>
+    </figure>
+    <p>セキュリティ認証情報タブの「アクセスキーを作成」をクリック</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/アクセスキーを作成.JPG" alt="アクセスキーを作成.JPG">
+        <figcaption>アクセスキーを作成.JPG</figcaption>
+    </figure>
+    <p>ユースケースについて「AWSの外部で実行されるアプリケーション」を選択して次へをクリック</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/ユースケース選択.JPG" alt="ユースケース選択.JPG">
+        <figcaption>ユースケース選択.JPG</figcaption>
+    </figure>
+    <p>アクセスキー作成をクリック</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/アクセスキー作成をクリック.JPG" alt="アクセスキー作成をクリック.JPG">
+        <figcaption>アクセスキー作成をクリック.JPG</figcaption>
+    </figure>
+    <p>「.csvファイルをダウンロード」で「アクセスキー」と「シークレットアクセスキー」をファイルで取得できる。完了をクリック。</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/アクセスキーを取得.JPG" alt="アクセスキーを取得.JPG">
+        <figcaption>アクセスキーを取得.JPG</figcaption>
+    </figure>
+    <h3>「S3」のBucketを作成</h3>
+    <p>適当な設定をしてバケットを作成をクリック</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/バケットを作成をクリック.JPG" alt="バケットを作成をクリック.JPG">
+        <figcaption>バケットを作成をクリック.JPG</figcaption>
+    </figure>
+    <p>バケットの設定を行う</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/バケットの設定を行う_1.JPG" alt="バケットの設定を行う_1.JPG">
+        <figcaption>バケットの設定を行う_1.JPG</figcaption>
+    </figure>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/バケットの設定を行う_2.JPG" alt="バケットの設定を行う_2.JPG">
+        <figcaption>バケットの設定を行う_2.JPG</figcaption>
+    </figure>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/バケットの設定を行う_3.JPG" alt="バケットの設定を行う_3.JPG">
+        <figcaption>バケットの設定を行う_3.JPG</figcaption>
+    </figure>
+    <p>バケットが作成された。バケットの名前をクリックする</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/バケットが作成された.JPG" alt="バケットが作成された.JPG">
+        <figcaption>バケットが作成された.JPG</figcaption>
+    </figure>
+    <p>プロパティからバケットのARM(Amazon リソースネーム)</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/プロパティを確認.JPG" alt="プロパティを確認.JPG">
+        <figcaption>プロパティを確認.JPG</figcaption>
+    </figure>
+    <p>アクセス許可タブのバケットポリシーの「編集」をクリックする</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/バケットポリシーの編集をクリック.JPG" alt="バケットポリシーの編集をクリック.JPG">
+        <figcaption>バケットポリシーの編集をクリック.JPG</figcaption>
+    </figure>
+    <p>ポリシーに以下を設定して「変更の保存」をクリック</p>
+<pre>
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "${ユーザーのARM(Amazon リソースネーム)}"
+            },
+            "Action": "s3:*",
+            "Resource": "arn:aws:s3:::${作成したバケット名}/*"
+        }
+    ]
+}
+</pre>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/バケットポリシーの編集.JPG" alt="バケットポリシーの編集.JPG">
+        <figcaption>バケットポリシーの編集.JPG</figcaption>
+    </figure>
+    <p>「IAM」の許可タブの許可ポリシーの「許可の追加」プルダウンから、「許可ポリシー」をクリック。</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/許可ポリシーをクリック.JPG" alt="許可ポリシーをクリック.JPG">
+        <figcaption>許可ポリシーをクリック.JPG</figcaption>
+    </figure>
+    <p>Json形式でポリシーエディタを編集して次へをクリック</p>
+    <p>以下のように編集する</p>
+<pre>
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+                "s3:*"
+            ],
+            "Resource": [
+                "arn:aws:s3:::${作成したバケット名}"
+            ]
+        }
+    ]
+}
+</pre>
+<p>ポリシー名を入力してポリシーの作成をクリック</p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/ポリシー名を入力してポリシーの作成をクリック.JPG" alt="ポリシー名を入力してポリシーの作成をクリック.JPG">
+        <figcaption>ポリシー名を入力してポリシーの作成をクリック.JPG</figcaption>
+    </figure>
+    <h3>PHPから画像の取得、画像の送信</h3>
+    <h4>aws-sdkのライブラリを取得</h4>
+    <p>「composer require aws/aws-sdk-php」</p>を実行
+    <h4>Laravel側を修正</h4>
+<pre>
+■web.php(参考)
+use App\Http\Controllers\PhotoController;
+// Photo
+Route::get(&#039;/photo&#039;, [PhotoController::class, &#039;index&#039;])-&gt;name(&#039;photo.index&#039;);
+Route::post(&#039;/photo/post&#039;, [PhotoController::class, &#039;post&#039;])-&gt;name(&#039;photo.post&#039;);
+
+■service.php(参考)
+&#039;s3&#039; =&gt; [
+    &#039;key&#039; =&gt; env(&#039;AWS_S3_KEY&#039;),
+    &#039;secret&#039; =&gt; env(&#039;AWS_S3_SECRET&#039;),
+    &#039;region&#039; =&gt; env(&#039;AWS_S3_REGION&#039;),
+    &#039;bucket&#039; =&gt; env(&#039;AWS_S3_BUCKET_NAME&#039;),
+],
+
+■PhotoController.php(参考)
+&lt;?php
+
+namespace App\Http\Controllers;
+
+use Aws\S3\S3Client;
+use Aws\S3\Exception\S3Exception;
+
+use Illuminate\Http\Request;
+
+class PhotoController extends Controller
+{
+    public function index()
+    {
+        $config = config(&#039;services.s3&#039;);
+        // S3クライアントを作成
+        $s3 = new S3Client(array(
+            &#039;version&#039; =&gt; &#039;latest&#039;,
+            &#039;region&#039; =&gt; $config[&#039;region&#039;],
+            &#039;credentials&#039; =&gt; array(
+                &#039;key&#039; =&gt; $config[&#039;key&#039;],
+                &#039;secret&#039; =&gt; $config[&#039;secret&#039;],
+            ),
+        ));
+        // S3バケットの画像を全て取得
+        $objects = $s3-&gt;listObjects(array(
+            &#039;Bucket&#039; =&gt; $config[&#039;bucket&#039;]
+        ));
+        // セッション取得・削除
+        $session = $this-&gt;getSessionAndDelete();
+        return view(&#039;photo.index&#039;, [
+                &#039;messageBox&#039; =&gt; $this-&gt;getMessageBox($session),
+                &#039;bucket&#039; =&gt; $config[&#039;bucket&#039;],
+                &#039;objects&#039; =&gt; $objects,
+            ]
+        );
+    }
+
+    public function post(Request $request)
+    {
+        $config = config(&#039;services.s3&#039;);
+        // リクエストからファイルを取得
+        $file = $request-&gt;file(&#039;uploadFile&#039;);
+        $keyname = &#039;photo_007&#039;;
+        $s3 = new S3Client([
+            &#039;version&#039; =&gt; &#039;latest&#039;,
+            &#039;region&#039; =&gt; $config[&#039;region&#039;],
+            &#039;credentials&#039; =&gt; array(
+                &#039;key&#039; =&gt; $config[&#039;key&#039;],
+                &#039;secret&#039; =&gt; $config[&#039;secret&#039;],
+            ),
+        ]);
+        try {
+            $s3-&gt;putObject([
+                &#039;Bucket&#039; =&gt; $config[&#039;bucket&#039;],
+                &#039;Key&#039;    =&gt; $keyname,
+                &#039;Body&#039;   =&gt; fopen($file-&gt;path(), &#039;rb&#039;),
+                &#039;ACL&#039;    =&gt; &#039;public-read&#039;,
+                &#039;ContentType&#039; =&gt; $file-&gt;getMimeType(),
+            ]);
+        } catch (S3Exception $e) {
+            session()-&gt;flash(&#039;photo.index&#039;, [&#039;errorMsg&#039; =&gt; &#039;アップロードが失敗しました。&#039;]);
+            return redirect()-&gt;route(&#039;photo.index&#039;);
+        }
+        session()-&gt;flash(&#039;photo.index&#039;, [&#039;infoMsg&#039; =&gt; &#039;アップロードが完了しました。&#039;]);
+        return redirect()-&gt;route(&#039;photo.index&#039;);
+    }
+}
+
+■index.blade.php(参考)
+&lt;form action=&quot;/photo/post&quot; method=&quot;post&quot; enctype=&quot;multipart/form-data&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;_token&quot; value=&quot;{{ csrf_token() }}&quot;&gt;
+&lt;input type=&quot;file&quot; name=&quot;uploadFile&quot; accept=&quot;image/jpeg&quot; capture&gt;
+&lt;button id=&quot;upsertButton&quot;&gt;送信&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;div class=&quot;image-gallery&quot; style=&quot;display:flex;flex-wrap:wrap;justify-content: start;&quot;&gt;
+@if (!empty($objects[&#039;Contents&#039;]))
+@foreach ($objects[&#039;Contents&#039;] as $object)
+    &lt;img style=&quot;width:100px;&quot; src=&quot;https://{{ $bucket }}.s3.ap-northeast-1.amazonaws.com/{{ $object[&#039;Key&#039;] }}&quot; alt=&quot;&quot;&gt;
+@endforeach
+@endif
+&lt;/div&gt;
+</pre>
+    <p></p>
+    <figure>
+        <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/画像の取得と送信.JPG" alt="画像の取得と送信.JPG">
+        <figcaption>画像の取得と送信.JPG</figcaption>
+    </figure>
+
+</details>
+
+
 <div id="log"></div>
     </main>
     <div id="operationParts"></div>
