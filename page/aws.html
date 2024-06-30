@@ -652,6 +652,15 @@ class PhotoController extends Controller
         <img class="beside" src="../img/AWS/S3を画像のコンテンツサーバーとして利用する/画像の取得と送信.JPG" alt="画像の取得と送信.JPG">
         <figcaption>画像の取得と送信.JPG</figcaption>
     </figure>
+    <h3>Laravelのアップロード上限緩和</h3>
+    <p>Laravelの場合はpublicの配下に配置するらしい</p>
+<pre>
+■.user.ini(参考)
+;POSTデータの最大サイズ※合計サイズ
+post_max_size = 20M
+;1ファイルあたりの最大アップロードサイズ
+upload_max_filesize = 5M
+</pre>
 
 </details>
 
