@@ -605,7 +605,8 @@ class PhotoController extends Controller
         $config = config(&#039;services.s3&#039;);
         // リクエストからファイルを取得
         $file = $request-&gt;file(&#039;uploadFile&#039;);
-        $keyname = &#039;photo_007&#039;;
+        $datetime = new \DateTime();
+        $keyname = &#039;photo&#039; . &#039;_&#039; . $datetime-&gt;format(&#039;YmdHis&#039;);
         $s3 = new S3Client([
             &#039;version&#039; =&gt; &#039;latest&#039;,
             &#039;region&#039; =&gt; $config[&#039;region&#039;],
