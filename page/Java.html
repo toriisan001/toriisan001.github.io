@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+     <h2>用語</h2>
+     <h3>JDK(Java Development Kit)</h3>
+     <p>Javaアプリケーションの開発に必要なツールとライブラリを含むソフトウェア開発キットです。JDKは、Javaプログラミング言語でアプリケーションを作成するためのすべての基本的な機能を提供</p>
+     <p>JDKにはJava SE、JRE、JVMが含まれている。</p>
+     <p>主な構成:Javaコンパイラ(javac)、Java仮想マシン(JVM)、標準ライブラリ(Java API)、Javaドキュメント生成ツール(javadoc)、Javaアーカイブツール(jar):、デバッガ(jdb):、プロファイラ(jps、jstat、jstackなど):、ランタイム環境(JRE: Java Runtime Environment)</p>
+     <h4>Oracle JDK</h4>
+     <p>オラクルがビルドしたOpenJDK + インストーラ</p>
+     <p>オラクルのサポートが受けられる</p>
+     <p>(Oracle Java SE 8 u202)以降のバージョンから有償となった。それ以下のバージョンであれば商用利用可能。</p>
+     <p>Oracle JDKの商用利用には、LTS版（Long Term Support）や非LTS版に関わらず、有償のサポート契約が必要</p>
+     <p>LTS版(大体8～10年)と比べてnon-LTS版(6か月から1年間)はJDKのバージョンを頻繁に入れ替える必要が出てくる。</p>
+     <h4>Open JDK</h4>
+     <p>Oracle以外が配布しているJDK</p>
+     <p>配布元の会社は複数ある。会社によって無償・有償それぞれある</p>
+     <p>その中でもAmazon Correttoは無償で商用利用可能らしい。ライセンスは「Class Path Exception (GPLv2 と CPE) 付きの GNU 公衆利用許諾書バージョン 2」となっているので確認する必要がある。</p>
+     <h3>Java SE(Java Platform, Standard Edition)</h3>
+     <p>Javaプログラミング言語の主要なプラットフォームで、一般的なアプリケーションの開発に必要な基本的な機能とライブラリを提供</p>
+     <h3>Java EE(Java Enterprise Edition)</h3>
+     <p>Javaプログラミング言語のエンタープライズ向け拡張で、企業レベルのアプリケーションやサービスを開発、展開、管理するための追加機能とAPIを提供</p>
+     <h3>JRE(Java Runtime Environment)</h3>
+     <p>Javaアプリケーションを実行するための環境</p>
+     <h3>JVM(Java Virtual Machine)</h3>
+     <p>Javaバイトコードを実行するための仮想マシン</p>
+     <p>プラットフォームに依存しない中間形式から、実際に動作する機械語に変換して実行</p>
+
+     <h2>ローカル環境の作成_20240804</h2>
+     <p>Open JDK(Amazon Corretto)をダウンロード。20240804時点ではAmazon Corretto 22が最新だった。「https://corretto.aws/downloads/latest/amazon-corretto-22-x64-windows-jdk.msi」をダウンロードした。</p>
+     <a href="https://docs.aws.amazon.com/corretto/latest/corretto-22-ug/downloads-list.html">Amazon Corretto 22 Permanent URLs</a>
+     <p>「next」をクリック</p>
+     <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Amazon_Correttoのセットアップ_1.JPG" alt="Amazon_Correttoのセットアップ_1.JPG">
+        <figcaption>Amazon_Correttoのセットアップ_1.JPG</figcaption>
+    </figure>
+     <p>「next」をクリック</p>
+     <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Amazon_Correttoのセットアップ_2.JPG" alt="Amazon_Correttoのセットアップ_2.JPG">
+        <figcaption>Amazon_Correttoのセットアップ_2.JPG</figcaption>
+    </figure>
+     <p>「Install」をクリック</p>
+     <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Amazon_Correttoのセットアップ_3.JPG" alt="Amazon_Correttoのセットアップ_3.JPG">
+        <figcaption>Amazon_Correttoのセットアップ_3.JPG</figcaption>
+    </figure>
+     <p>「Finish」をクリック</p>
+     <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Amazon_Correttoのセットアップ_4.JPG" alt="Amazon_Correttoのセットアップ_4.JPG">
+        <figcaption>Amazon_Correttoのセットアップ_4.JPG</figcaption>
+    </figure>
+    <p>「C:\Program Files\Amazon Corretto\jdk22.0.2_9」にインストールされた。</p>
+    <figure>
+       <img class="beside" src="../img/Java/ローカル環境の作成_20240804/インストールされている.JPG" alt="インストールされている.JPG">
+       <figcaption>インストールされている.JPG</figcaption>
+   </figure>
+   <p>JAVA_HOMEを追記する必要があるが、システム環境変数を見てみると、JAVA_HOMEが既に更新されていた。</p>
+   <p>JAVA_HOMEは、Javaのインストールディレクトリを指定する環境変数。ツールやアプリケーションがJavaの場所を参照するために使用</p>
+<pre>
+JAVA_HOME
+C:\Program Files\Amazon Corretto\jdk22.0.2_9
+</pre>
+   <figure>
+      <img class="beside" src="../img/Java/ローカル環境の作成_20240804/JAVA_HOMEを確認.JPG" alt="JAVA_HOMEを確認.JPG">
+      <figcaption>JAVA_HOMEを確認.JPG</figcaption>
+  </figure>
+   <p>Pathを追記する必要があるが、Pathを見てみると、既に設定されていた。</p>
+   <p>Pathは、コマンドラインから実行するプログラムのディレクトリを指定する環境変数。Javaのバイナリを直接呼び出すために設定</p>
+<pre>
+Path
+C:\Program Files\Amazon Corretto\jdk22.0.2_9\bin
+</pre>
+   <figure>
+      <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Pathを確認.JPG" alt="Pathを確認.JPG">
+      <figcaption>Pathを確認.JPG</figcaption>
+  </figure>
+  <p>cmdで「java -version」でjavaのバージョンを確認</p>
+<pre>
+C:\Users\****>java -version
+openjdk version "22.0.2" 2024-07-16
+OpenJDK Runtime Environment Corretto-22.0.2.9.1 (build 22.0.2+9-FR)
+OpenJDK 64-Bit Server VM Corretto-22.0.2.9.1 (build 22.0.2+9-FR, mixed mode, sharing)
+</pre>
+
+
+
+<div id="log"></div>
+    </main>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>
