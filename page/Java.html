@@ -38,11 +38,33 @@
      <h3>JVM(Java Virtual Machine)</h3>
      <p>Javaバイトコードを実行するための仮想マシン</p>
      <p>プラットフォームに依存しない中間形式から、実際に動作する機械語に変換して実行</p>
+     <h3>Apache</h3>
+     <p>オープンソースのWebサーバーソフトウェア</p>
+     <h3>MySQL</h3>
+     <p>オープンソースソフトウェア</p>
+     <p>データをテーブルという形式で管理するリレーショナルデータベース</p>
+     <h3>Tomcat</h3>
+     <p>Java Servlet APIとJavaServer Pages (JSP) APIを実装するためのサーバー</p>
+     <h3> ビルドツール(Build Tool)</h3>
+     <h4>Maven</h4>
+     <p>特定のフレームワークに依存しない、もしくは軽量なもの</p>
+     <p>Mavenは、依存関係の管理やビルドプロセスの自動化に役立つ</p>
+     <p>Mavenは多くのJavaプロジェクトで標準的に使用されており、特に大規模なプロジェクトやフレームワークを使わない場合に便利らしい</p>
+     <h3>フレームワーク(Framework)</h3>
+     <h4>Spring Boot</h4>
+     <p>セットアップが簡単で迅速にプロジェクトを開始でき、依存関係や設定も自動的に管理してくれるため、こちらが優れています。らしい</p>
+     <p>Spring Bootが非常に便利です。特に、Spring Bootは多くの作業を自動化してくれるため、スピード重視の開発には向いています。らしい</p>
+     <p>Spring Bootは、特にWebアプリケーションやマイクロサービスの開発に非常に適しており、Mavenを内包しているため、Mavenのすべての機能も利用できます</p>
 
      <h2>ローカル環境の作成_20240804</h2>
+     <h3>JDKのインストール</h3>
      <p>Open JDK(Amazon Corretto)をダウンロード。20240804時点ではAmazon Corretto 22が最新だった。「https://corretto.aws/downloads/latest/amazon-corretto-22-x64-windows-jdk.msi」をダウンロードした。</p>
      <a href="https://docs.aws.amazon.com/corretto/latest/corretto-22-ug/downloads-list.html">Amazon Corretto 22 Permanent URLs</a>
-     <p>「next」をクリック</p>
+     <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/JDKをダウンロード.JPG" alt="JDKをダウンロード.JPG">
+        <figcaption>JDKをダウンロード.JPG</figcaption>
+    </figure>
+     <p>インストールを始める。「next」をクリック</p>
      <figure>
         <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Amazon_Correttoのセットアップ_1.JPG" alt="Amazon_Correttoのセットアップ_1.JPG">
         <figcaption>Amazon_Correttoのセットアップ_1.JPG</figcaption>
@@ -94,8 +116,181 @@ openjdk version "22.0.2" 2024-07-16
 OpenJDK Runtime Environment Corretto-22.0.2.9.1 (build 22.0.2+9-FR)
 OpenJDK 64-Bit Server VM Corretto-22.0.2.9.1 (build 22.0.2+9-FR, mixed mode, sharing)
 </pre>
+    <h3>Mavenをインストール(20240825時点で3.9.9が最新だった)</h3>
+    <p>「apache-maven-3.9.9-bin.zip」をダウンロード</p>
+    <a href="https://maven.apache.org/download.cgi">Downloading Apache Maven</a>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/mavenをダウンロード.JPG" alt="mavenをダウンロード.JPG">
+        <figcaption>mavenをダウンロード.JPG</figcaption>
+    </figure>
+    <p>「apache-maven-3.9.9-bin.zip」を回答して適当なディレクトリ「C:\workspace」に配置</p>
+    <p>Mavenを配置</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Mavenを配置.JPG" alt="Mavenを配置.JPG">
+        <figcaption>Mavenを配置.JPG</figcaption>
+    </figure>
+    <p>システム環境変数のPathについて「C:\workspace\apache-maven-3.9.9\bin」を追加する</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/MavenのPathを通す.JPG" alt="MavenのPathを通す.JPG">
+        <figcaption>MavenのPathを通す.JPG</figcaption>
+    </figure>
+    <p>cmdで「mvn -version」を実行してパスが通ったことを確認</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/MavenのPathが通ったことを確認.JPG" alt="MavenのPathが通ったことを確認.JPG">
+        <figcaption>MavenのPathが通ったことを確認.JPG</figcaption>
+    </figure>
+    <h3>Maven + JSP サーブレット環境を作成</h3>
+    <p>VS Codeをインストール</p>
+    <p>拡張機能「Extension Pack for Java」をインストール。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Extension_Pack_for_Java_インストール.JPG" alt="Extension_Pack_for_Java_インストール.JPG">
+        <figcaption>Extension_Pack_for_Java_インストール.JPG</figcaption>
+    </figure>
+    <p>インストールがなかなか終わらない場合は、拡張機能ファイル(vsix)をダウンロードしてインストールした方が良いかもしれない。</p>
+    <a href="https://qiita.com/ss_tom_jp/items/5977e4f16d78b8ca7cc8">VSCode拡張機能をオフライン環境でインストールする方法</a>
+<pre>
+拡張機能「Extension Pack for Java」は、以下の7種類の拡張機能が入っているらしい
+Language Support for Java(TM) by Red Hat
+Debugger for Java
+Test Runner for Java
+Maven for Java
+Gradle for Java
+Project Manager for Java
+IntelliCode
+</pre>
+    <p>拡張機能「Community Server Connectors」をインストール</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Community_Server_Connectorsインストール.JPG" alt="Community_Server_Connectorsインストール.JPG">
+        <figcaption>Community_Server_Connectorsインストール.JPG</figcaption>
+    </figure>
+    <p>左下の歯車アイコン⇒設定を開く(ctl + ,)</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/設定を開く.JPG" alt="設定を開く.JPG">
+        <figcaption>設定を開く.JPG</figcaption>
+    </figure>
+    <p>検索バーから「java home」で検索して「Java: Home」のsettings.jsonを編集をクリック</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/java_homeの編集1.JPG" alt="java_homeの編集1.JPG">
+        <figcaption>java_homeの編集1.JPG</figcaption>
+    </figure>
+    <p>「java.jdt.ls.java.home」にJava Homeの値を設定する。「C:\\Program Files\\Amazon Corretto\\jdk22.0.2_9」<br>※バックスラッシュ「\」について、エスケープとしてバックスラッシュ「\」を付ける。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/java_homeの編集2.JPG" alt="java_homeの編集2.JPG">
+        <figcaption>java_homeの編集2.JPG</figcaption>
+    </figure>
+    <p>再度、左下の歯車アイコン⇒設定を開く(ctl + ,)検索バーから「mvn path」を検索してExecutable: Pathに「C:\workspace\apache-maven-3.9.9\bin\mvn.cmd」を設定する。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Executable_Pathを設定.JPG" alt="Executable_Pathを設定.JPG">
+        <figcaption>Executable_Pathを設定.JPG</figcaption>
+    </figure>
+    <p>設定を反映させるために一度vs codeを再起動させる。</p><br>
+    <p>「C:\workspace\java」に作業ディレクトリを作成</p><br>
+    <p>ファイル⇒フォルダーを開く(ctl + o)作成した作業ディレクトリを指定する。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/フォルダーを開く.JPG" alt="フォルダーを開く.JPG">
+        <figcaption>フォルダーを開く.JPG</figcaption>
+    </figure>
+    <p>左下の歯車アイコン⇒コマンドパレットを開く(ctl + shift + p)</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/コマンドパレットを開く.JPG" alt="コマンドパレットを開く.JPG">
+        <figcaption>コマンドパレットを開く.JPG</figcaption>
+    </figure>
+    <p>検索バーで「java」で検索して「Java: Create Java Project」を選択</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/CreateJavaProjectを選択.JPG" alt="CreateJavaProjectを選択.JPG">
+        <figcaption>CreateJavaProjectを選択.JPG</figcaption>
+    </figure>
+    <p>「Maven」を選択</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Mavenを選択.JPG" alt="Mavenを選択.JPG">
+        <figcaption>Mavenを選択.JPG</figcaption>
+    </figure>
+    <p>「maven-archetype-quickstart」を選択</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/maven_archetype_quickstartを選択.JPG" alt="maven_archetype_quickstartを選択.JPG">
+        <figcaption>maven_archetype_quickstartを選択.JPG</figcaption>
+    </figure>
+    <p>バージョンを選択</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/バージョンを選択.JPG" alt="バージョンを選択.JPG">
+        <figcaption>バージョンを選択.JPG</figcaption>
+    </figure>
+    <p>グループIdを記入してエンター(デフォルトは「com.example」)</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/グループIdを記入.JPG" alt="グループIdを記入.JPG">
+        <figcaption>グループIdを記入.JPG</figcaption>
+    </figure>
+    <p>artifact idを記入してエンター(デフォルトは「demo」)</p>
+    <p>artifact:人工物，工芸品，人工遺跡</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/artifact_idを記入.JPG" alt="artifact_idを記入.JPG">
+        <figcaption>artifact_idを記入.JPG</figcaption>
+    </figure>
 
 
+    <!-- 「http://localhost:8080/demo-1.0-SNAPSHOT/hello」 -->
+
+    <!-- <h3>Xamppのインストール</h3>
+    <p>Xamppをダウンロード(20240824時点で「xampp-windows-x64-8.2.12-0-VS16-installer.exe」が最新だった)</p>
+    <a href="https://www.apachefriends.org/jp/download.html">Windows 向け XAMPP ダウンロード</a>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをダウンロード.JPG" alt="Xamppをダウンロード.JPG">
+        <figcaption>Xamppをダウンロード.JPG</figcaption>
+    </figure>
+    <p>警告を確認してOKをクリック</p>
+    <a href="https://teamtreehouse.com/community/xampp-warningwhat-does-this-mean">XAMPP Warning--What does this mean?</a>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール1.JPG" alt="Xamppをインストール1.JPG">
+        <figcaption>Xamppをインストール1.JPG</figcaption>
+    </figure>
+<pre>
+警告
+Important Because an actreted& User Arteunt Control (UAO) on
+your system some functions of XAMPP are pessibly restricted.
+With UAC please avoid to install YAMPP to CyProgram Files
+(missing write permissions). Or deactivate UAC with msconfig
+after this setup.
+
+警告(翻訳)
+重要: システムにユーザー コントロール (UAO) がアクティブ化されているため、
+XAMPP の一部の機能が制限される可能性があります。
+UAC を使用する場合は、XAMPP を CyProgram Files にインストールしないでください
+ (書き込み権限がありません)。
+ または、このセットアップ後に msconfig で UAC を無効にしてください。
+</pre>
+    <p>Nextをクリック</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール2.JPG" alt="Xamppをインストール2.JPG">
+        <figcaption>Xamppをインストール2.JPG</figcaption>
+    </figure>
+    <p>Nextをクリック</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール3.JPG" alt="Xamppをインストール3.JPG">
+        <figcaption>Xamppをインストール3.JPG</figcaption>
+    </figure>
+    <p>インストール先を選択してNextをクリック</p>
+    <p>デフォルトのインストール先は「C:\xampp」</p>
+    <p>今回は「C:\workspace\xamppJava」にインストールさせる。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール4.JPG" alt="Xamppをインストール4.JPG">
+        <figcaption>Xamppをインストール4.JPG</figcaption>
+    </figure>
+    <p>Nextをクリック</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール5.JPG" alt="Xamppをインストール5.JPG">
+        <figcaption>Xamppをインストール5.JPG</figcaption>
+    </figure>
+    <p>Nextをクリック</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール6.JPG" alt="Xamppをインストール6.JPG">
+        <figcaption>Xamppをインストール6.JPG</figcaption>
+    </figure>
+    <p>Finishをクリック</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール7.JPG" alt="Xamppをインストール7.JPG">
+        <figcaption>Xamppをインストール7.JPG</figcaption>
+    </figure>
+    <h3>Tomcatのインストール</h3> -->
 
 <div id="log"></div>
     </main>
