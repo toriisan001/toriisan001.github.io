@@ -226,7 +226,346 @@ IntelliCode
         <img class="beside" src="../img/Java/ローカル環境の作成_20240804/artifact_idを記入.JPG" alt="artifact_idを記入.JPG">
         <figcaption>artifact_idを記入.JPG</figcaption>
     </figure>
+    <p>作業ディレクトリ(C:\workspace\java)を開いて「Select Destination Folder」をクリック。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/作業ディレクトリを指定.JPG" alt="作業ディレクトリを指定.JPG">
+        <figcaption>作業ディレクトリを指定.JPG</figcaption>
+    </figure>
+    <p>VS Codeの「ターミナル」を参照すると以下のように記載されている</p>
+<pre>
+■翻訳前
+[INFO] Generating project in Interactive mode
+[INFO] Archetype repository not defined. Using the one from [org.apache.maven.archetypes:maven-archetype-quickstart:1.5] found in catalog remote
+[INFO] Using property: groupId = com.example
+[INFO] Using property: artifactId = demo
+Define value for property 'version' 1.0-SNAPSHOT: :
+■翻訳後
+[INFO] インタラクティブ モードでプロジェクトを生成しています
+[INFO] アーキタイプ リポジトリが定義されていません。カタログ リモートにある [org.apache.maven.archetypes:maven-archetype-quickstart:1.5] のものを使用しています
+[INFO] プロパティを使用しています: groupId = com.example
+[INFO] プロパティを使用しています: artifactId = demo
+プロパティ 'version' 1.0-SNAPSHOT の値を定義します: :
+</pre>
+    <p>上記はプロジェクトの version プロパティの値を定義するように求められている。</p>
+    <p>デフォルトでは 1.0-SNAPSHOT が設定されている。</p>
+    <p>良く分からないが、とりあえずデフォルト(1.0-SNAPSHOT)のままで設定するため、何も入力せずにエンターを押した。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/versionプロパティの値を定義.JPG" alt="versionプロパティの値を定義.JPG">
+        <figcaption>versionプロパティの値を定義.JPG</figcaption>
+    </figure>
+    <p>続いて以下のように表示される。構成が正しいかどうかを聞かれている。「Y」を入力してエンターを押す。</p>
+<pre>
+■翻訳前
+[INFO] Using property: package = com.example
+Confirm properties configuration:
+groupId: com.example
+artifactId: demo
+version: 1.0-SNAPSHOT
+package: com.example
+Y: :
+■翻訳後
+[INFO] プロパティの使用: package = com.example
+プロパティ構成を確認:
+groupId: com.example
+artifactId: demo
+version: 1.0-SNAPSHOT
+package: com.example
+Y: :
+</pre>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/構成を確認.JPG" alt="構成を確認.JPG">
+        <figcaption>構成を確認.JPG</figcaption>
+    </figure>
+    <p>「ターミナルはタスクで再利用されます、閉じるには任意のキーを押してください。」と表示されるのでエンターを押す。</p>
+    <p>「C:\workspace\java\demo」以下が作成されているはず。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ターミナルはタスクで再利用される.JPG" alt="ターミナルはタスクで再利用される.JPG">
+        <figcaption>ターミナルはタスクで再利用される.JPG</figcaption>
+    </figure>
+    <p>ファイル⇒フォルダーを開く(ctl + o)作成した作業ディレクトリについて「C:\workspace\java\demo」を指定する。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/作業ディレクトリを開く.JPG" alt="作業ディレクトリを開く.JPG">
+        <figcaption>作業ディレクトリを開く.JPG</figcaption>
+    </figure>
+    <p>ソースを修正する</p>
+<pre>
+■C:\workspace\java\demo\pom.xml
+1.packagingをwarで指定。これでpackageしたときにjarファイルではなくwarファイルで作成される。
+〇修正前
+&lt;groupId&gt;com.example&lt;/groupId&gt;
+&lt;artifactId&gt;demo&lt;/artifactId&gt;
+&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+〇修正後
+&lt;groupId&gt;com.example&lt;/groupId&gt;
+&lt;artifactId&gt;demo&lt;/artifactId&gt;
+&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+&lt;packaging&gt;war&lt;/packaging&gt;
 
+2.dependencies(依存関係(正常に動作するために必要な外部ライブラリやコンポーネントのこと))
+・Java Servletのライブラリを追加
+〇修正前
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;4.11&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+〇修正後
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;4.11&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+        &lt;version&gt;6.0.0&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+3.プラグインの設定を修正
+・maven-war-pluginを追加
+・maven-compiler-pluginの設定を修正
+〇修正後
+&lt;build&gt;
+    &lt;pluginManagement&gt;&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;
+        &lt;plugins&gt;
+        &lt;!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle --&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging --&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.0.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.8.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.22.1&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.0.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.5.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.8.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle --&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.7.1&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.0.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+    &lt;/build&gt;
+〇修正後
+&lt;build&gt;
+    &lt;pluginManagement&gt;&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;
+        &lt;plugins&gt;
+        &lt;!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle --&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging --&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.0.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.8.0&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;source&gt;8&lt;/source&gt;
+                &lt;target&gt;8&lt;/target&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.22.1&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.0.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.5.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.8.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle --&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.7.1&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.0.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.4.0&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;webXml&gt;src/main/webapp/WEB-INF/web.xml&lt;/webXml&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+    &lt;/build&gt;
+
+■C:\workspace\java\demo\src\main\java\com\example\HelloServlet.java
+〇新規作成
+package com.example;
+
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class HelloServlet extends HttpServlet {
+
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    res.setContentType(&quot;text/html; charset=utf-8&quot;);
+    try (PrintWriter out = res.getWriter()) {
+      out.println(&quot;&lt;html&gt;&lt;body&gt;&quot;);
+      out.println(&quot;Hello World!&lt;br&gt;&quot;);
+      out.println(getServletContext().getServerInfo());
+      out.println(&quot;&lt;/body&gt;&lt;/html&gt;&quot;);
+    }
+  }
+}
+
+■C:\workspace\java\demo\src\main\webapp\WEB-INF\web.xml
+〇新規作成
+&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;
+         version=&quot;3.1&quot;&gt;
+
+    &lt;!-- サーブレットの定義 --&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+
+    &lt;!-- サーブレットのマッピング --&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;
+
+</pre>
+    <p>修正が完了したらExplolerタブ⇒Mavenタブ⇒「Reload All Maven Projects」でpom.xmlファイルを再読み込み</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Reload_All_Maven_Projects.JPG" alt="Reload_All_Maven_Projects.JPG">
+        <figcaption>Reload_All_Maven_Projects.JPG</figcaption>
+    </figure>
+    <p>修正が完了したらExplolerタブ⇒Mavenタブ⇒demoプルダウン⇒LifeCycleプルダウンの「clean」で「Run」を実行</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/cleanの実行.JPG" alt="cleanの実行.JPG">
+        <figcaption>cleanの実行.JPG</figcaption>
+    </figure>
+    <p>Explolerタブ⇒Mavenタブ⇒demoプルダウン⇒LifeCycleプルダウンの「package」で「Run」を実行</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/packageの実行.JPG" alt="packageの実行.JPG">
+        <figcaption>packageの実行.JPG</figcaption>
+    </figure>
+    <p>「C:\workspace\java\demo\target\demo-1.0-SNAPSHOT.war」が作成される。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/warファイルの作成.JPG" alt="warファイルの作成.JPG">
+        <figcaption>warファイルの作成.JPG</figcaption>
+    </figure>
+    <p>Serversタブ⇒Community Server Connectorプルダウンで右クリック⇒「Create New Server」をクリック。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Create_New_Server.JPG" alt="Create_New_Server.JPG">
+        <figcaption>Create_New_Server.JPG</figcaption>
+    </figure>
+    <p>「Download server?」と聞かれるので「Yes」を選択する</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/DownloadServer.JPG" alt="DownloadServer.JPG">
+        <figcaption>DownloadServer.JPG</figcaption>
+    </figure>
+    <p>「Please Choose a server o dwnload.」と聞かれるので20240831時点のApache Tomcatの最新である「Apache Tomcat 11.0.0-M6」を選択する</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ChooseServer.JPG" alt="ChooseServer.JPG">
+        <figcaption>ChooseServer.JPG</figcaption>
+    </figure>
+    <p>「License URL: https://www.apache.org/licenses/LICENSE-2.0.txt」の「Configure」をクリック</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/LicenseConfigure.JPG" alt="LicenseConfigure.JPG">
+        <figcaption>LicenseConfigure.JPG</figcaption>
+    </figure>
+    <p>「Do you agree to the license?」と聞かれるのでライセンスを読んで「Yes(True)」を選択</p>
+    <p>上記選択後、Explolerタブ⇒SERVERSタブ⇒Community Server Connectorプルダウンに「apache-tomcat-11.0.0-M6」が追加される。</p>
+    <p>※workflow.licenseが作成されるが保存できない？不明。コピペなら保存できるか？</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/LicenseConfigure.JPG" alt="LicenseConfigure.JPG">
+        <figcaption>LicenseConfigure.JPG</figcaption>
+    </figure>
+    <p>Explolerタブ⇒SERVERSタブ⇒Community Server Connectorプルダウンを右クリックして「Add Deployment」を選択する。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Add_Deployment.JPG" alt="Add_Deployment.JPG">
+        <figcaption>Add_Deployment.JPG</figcaption>
+    </figure>
+    <p>「What type of deployment do you want to add?」で「File」を選択する。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/What_type_of_deployment_do_you_want_to_add.JPG" alt="What_type_of_deployment_do_you_want_to_add.JPG">
+        <figcaption>What_type_of_deployment_do_you_want_to_add.JPG</figcaption>
+    </figure>
+    <p>「C:\workspace\java\demo\target\demo-1.0-SNAPSHOT.war」を選択して「Select File Deployment」をクリック。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/warファイルを選択.JPG" alt="warファイルを選択.JPG">
+        <figcaption>warファイルを選択.JPG</figcaption>
+    </figure>
+    <p>「Do you want to edit optional deployment parameters?」と表示されているが、特にデプロイ時のパラメータを指定しないので「No」を選択。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Do_you_want_to_edit_optional_deployment_parameters.JPG" alt="Do_you_want_to_edit_optional_deployment_parameters.JPG">
+        <figcaption>Do_you_want_to_edit_optional_deployment_parameters.JPG</figcaption>
+    </figure>
+    <p>「apache-tomcat-11.0.0-M6」にwarファイルがぶら下がったことを確認。「apache-tomcat-11.0.0-M6」を右クリックして「Start Server」をクリックする。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Start_Server.JPG" alt="Start_Server.JPG">
+        <figcaption>Start_Server.JPG</figcaption>
+    </figure>
+    <p>ブラウザで「http://localhost:8080/」にアクセスすると「Apache Tomcat」のページにアクセスできる。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Apache_Tomcat.JPG" alt="Apache_Tomcat.JPG">
+        <figcaption>Apache_Tomcat.JPG</figcaption>
+    </figure>
+    <p>ブラウザで「http://localhost:8080/demo-1.0-SNAPSHOT/hello」にアクセスすると作成したページにアクセスできる。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/HelloWorld.JPG" alt="HelloWorld.JPG">
+        <figcaption>HelloWorld.JPG</figcaption>
+    </figure>
 
     <!-- 「http://localhost:8080/demo-1.0-SNAPSHOT/hello」 -->
 
