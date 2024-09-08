@@ -14,6 +14,9 @@
     <div id="headerParts"></div>
     <div id="menuParts"></div>
     <main>
+        <h1>Java</h1>
+        <p id="lastModified"></p>
+
      <h2>用語</h2>
      <h3>JDK(Java Development Kit)</h3>
      <p>Javaアプリケーションの開発に必要なツールとライブラリを含むソフトウェア開発キットです。JDKは、Javaプログラミング言語でアプリケーションを作成するためのすべての基本的な機能を提供</p>
@@ -331,7 +334,7 @@ Y: :
 3.プラグインの設定を修正
 ・maven-war-pluginを追加
 ・maven-compiler-pluginの設定を修正
-〇修正後
+〇修正前
 &lt;build&gt;
     &lt;pluginManagement&gt;&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;
         &lt;plugins&gt;
@@ -566,10 +569,53 @@ public class HelloServlet extends HttpServlet {
         <img class="beside" src="../img/Java/ローカル環境の作成_20240804/HelloWorld.JPG" alt="HelloWorld.JPG">
         <figcaption>HelloWorld.JPG</figcaption>
     </figure>
-
-    <!-- 「http://localhost:8080/demo-1.0-SNAPSHOT/hello」 -->
-
-    <!-- <h3>Xamppのインストール</h3>
+    <h3>デバッグ実行</h3>
+    <p>行番号の左側をクリックしてブレークポイントを追加する。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ブレークポイントを追加.JPG" alt="ブレークポイントを追加.JPG">
+        <figcaption>ブレークポイントを追加.JPG</figcaption>
+    </figure>
+    <p>「apache-tomcat」を立ち上げるときに「Debug Server」を指定する。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Debug_Serverを指定.JPG" alt="Debug_Serverを指定.JPG">
+        <figcaption>Debug_Serverを指定.JPG</figcaption>
+    </figure>
+    <p>「Please input a project name to be used by the java debugger.」(Java デバッガーで使用するプロジェクト名を入力してください。)と表示されるので適当にdemoと入れた。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Debug_Serverで使用する名前を指定.JPG" alt="Debug_Serverで使用する名前を指定.JPG">
+        <figcaption>Debug_Serverで使用する名前を指定.JPG</figcaption>
+    </figure>
+    <p>画面下側の出力タブに「Listening for transport dt_socket at address: 2506」と出力される。ここの番号がデバッグサーバーのポート番号。</p>
+    <p>「ctl + shift + d」を押してlaunch.json「C:\workspace\java\demo\.vscode\launch.json」を作成する。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/launch_jsonを作成.JPG" alt="launch_jsonを作成.JPG">
+        <figcaption>launch_jsonを作成.JPG</figcaption>
+    </figure>
+    <p>「C:\workspace\java\demo\.vscode\launch.json」に以下のように書き換える</p>
+    <p>ポート番号について先ほど確認したデバッグサーバーのポート番号を設定する。ここのポート固定できないのだろうか・・・</p>
+<pre>
+■C:\workspace\java\demo\.vscode\launch.json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+        "type": "java",
+        "name": "Debug Tomcat",
+        "request": "attach",
+        "hostName": "localhost",
+        "port": 2506,
+        "timeout": 10000,
+        "projectName": "demo"
+        }
+    ]
+}
+</pre>
+    <p>再度「http://localhost:8080/demo-1.0-SNAPSHOT/hello」にアクセスするとブレークポイントで停止したことを確認。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ブレークポイントで停止.JPG" alt="ブレークポイントで停止.JPG">
+        <figcaption>ブレークポイントで停止.JPG</figcaption>
+    </figure>
+    <h3>Xamppのインストール</h3>
     <p>Xamppをダウンロード(20240824時点で「xampp-windows-x64-8.2.12-0-VS16-installer.exe」が最新だった)</p>
     <a href="https://www.apachefriends.org/jp/download.html">Windows 向け XAMPP ダウンロード</a>
     <figure>
@@ -629,7 +675,219 @@ UAC を使用する場合は、XAMPP を CyProgram Files にインストール�
         <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール7.JPG" alt="Xamppをインストール7.JPG">
         <figcaption>Xamppをインストール7.JPG</figcaption>
     </figure>
-    <h3>Tomcatのインストール</h3> -->
+    <h3>xamppでapache・mysqlを立ち上げてvscode等からアクセス</h3>
+    <h4>DB側を作成</h4>
+    <p>「C:\workspace\xamppJava\xampp-control.exe」を実行して立ち上げる。</p>
+    <p>ApacheとMySQLのActions⇒Startを押して立ち上げる。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ApacheとMySQLを立ち上げる.JPG" alt="ApacheとMySQLを立ち上げる.JPG">
+        <figcaption>ApacheとMySQLを立ち上げる.JPG</figcaption>
+    </figure>
+    <p>MysqlのAdminをクリックしてMySQLMyAdmin(http://localhost/phpmyadmin/index.php)にアクセス。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/MySQLMyAdminにアクセス.JPG" alt="MySQLMyAdminにアクセス.JPG">
+        <figcaption>MySQLMyAdminにアクセス.JPG</figcaption>
+    </figure>
+    <p>データベースタブから適当なデータベース名「torii_db」を設定して作成をクリック。</p>
+    <p>「utf8」「utf8mb4_general_ci」どちらがいいかだと、「utf8mb4_general_ci」が現在(20240908)のMySQLの標準らしい。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベース作成.JPG" alt="データベース作成.JPG">
+        <figcaption>データベース作成.JPG</figcaption>
+    </figure>
+    <p>適当なテーブルを作成する。今回はテストとしてテーブル名「memos」カラム「id」「title」「text」「created_date」で作成するため、テーブル名「memos」カラム数「4」で作成をクリックする。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/テーブルを作成.JPG" alt="テーブルを作成.JPG">
+        <figcaption>テーブルを作成.JPG</figcaption>
+    </figure>
+    <p>カラムを設定する。</p>
+   <p>idは、多くでint型が良いのでBIGINT、主キーで自動加算(AUTO_INCREMENT)</p>
+   <p>titleは、桁数が決まっていない可変長の文字列(128桁)だからVARCHAR。2累乗(2,4,8,64,128,16384・・・)が処理効率が良いらしいので。</p>
+   <p>textは、長めの長文でいいのでTEXT。最大65,535バイト（約64KB）</p>
+   <p>created_dateは、タイムゾーンをアプリ側で管理する日付の入れ物でいいと思ったのでdatetime型を指定</p>
+   <p>設定が完了したら「保存する」をクリック。</p>
+   <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/カラムを設定.JPG" alt="カラムを設定.JPG">
+        <figcaption>カラムを設定.JPG</figcaption>
+    </figure>
+    <p>「挿入」タブから値を設定して「実行」をクリックする。idは自動加算なので空にしている。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/値を挿入.JPG" alt="値を挿入.JPG">
+        <figcaption>値を挿入.JPG</figcaption>
+    </figure>
+    <p>「表示」タブをクリックして値が入ったことを確認。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/表示を確認.JPG" alt="表示を確認.JPG">
+        <figcaption>表示を確認.JPG</figcaption>
+    </figure>
+    <h4>VS Codeから接続</h4>
+    <p>ソースコードを修正</p>
+<pre>
+■C:\workspace\java\demo\pom.xml
+1.dependenciesを修正(mysql-connector-jを追加)
+〇修正前
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;4.11&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+        &lt;version&gt;6.0.0&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+〇修正後
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;4.11&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+        &lt;version&gt;6.0.0&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.mysql&lt;/groupId&gt;
+        &lt;artifactId&gt;mysql-connector-j&lt;/artifactId&gt;
+        &lt;version&gt;8.0.33&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+■C:\workspace\java\demo\src\main\webapp\WEB-INF\web.xmlを修正
+1.DatabaseServletの定義とマッピングを追加
+〇修正前
+&lt;!-- サーブレットの定義 --&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+
+&lt;!-- サーブレットのマッピング --&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+〇修正後
+&lt;!-- サーブレットの定義 --&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;DatabaseServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.example.DatabaseServlet&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+
+&lt;!-- サーブレットのマッピング --&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;DatabaseServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/database&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+
+■C:\workspace\java\demo\src\main\java\com\example\DatabaseServlet.javaを新規追加
+package com.example;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+public class DatabaseServlet extends HttpServlet {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType(&quot;text/html&quot;);
+        PrintWriter out = response.getWriter();
+
+        String jdbcUrl = &quot;jdbc:mysql://localhost:3306/torii_db&quot;;
+        String dbUser = &quot;root&quot;;
+        String dbPassword = &quot;&quot;;
+
+        try {
+            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
+            Connection connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(&quot;SELECT * FROM torii_db.memos&quot;);
+
+            while (resultSet.next()) {
+                out.println(&quot;id: &quot; + resultSet.getString(&quot;id&quot;) + &quot;&lt;br&gt;&quot;);
+                out.println(&quot;title: &quot; + resultSet.getString(&quot;title&quot;) + &quot;&lt;br&gt;&quot;);
+                out.println(&quot;text: &quot; + resultSet.getString(&quot;text&quot;) + &quot;&lt;br&gt;&quot;);
+                out.println(&quot;created_date: &quot; + resultSet.getString(&quot;created_date&quot;) + &quot;&lt;br&gt;&quot;);
+            }
+
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            out.println(&quot;Error: &quot; + e.getMessage());
+        }
+    }
+}
+</pre>
+    <p>「pom.xmlの再読み込み」「cleanの実行」「packageを再作成」「warファイルの再設定」する。「Apache・Tomcatを再起動」は別にしなくても良いらしい。</p>
+    <p>上記実行後「http://localhost:8080/demo-1.0-SNAPSHOT/database」にアクセスすると、DBの値が取れていることが確認できる。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/表示を確認.JPG" alt="表示を確認.JPG">
+        <figcaption>表示を確認.JPG</figcaption>
+    </figure>
+    <h4>A5M2からアクセス</h4>
+    <p>A5M2をインストールして立ち上げる</p>
+    <p>「データベースの追加と削除」をクリック。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベースの追加と削除.JPG" alt="データベースの追加と削除.JPG">
+        <figcaption>データベースの追加と削除.JPG</figcaption>
+    </figure>
+    <p>「追加(A)」をクリック</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/追加をクリック.JPG" alt="追加をクリック.JPG">
+        <figcaption>追加をクリック.JPG</figcaption>
+    </figure>
+    <p>「MySQL/MariaDB(直接接続)(M)」をクリック</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/MySQLを選択.JPG" alt="MySQLを選択.JPG">
+        <figcaption>MySQLを選択.JPG</figcaption>
+    </figure>
+    <p>基本タブで「ホスト名」「ポート番号」「ユーザーID」「データベース」「キャラクタセット」を設定して「テスト接続」をクリックすると「接続に成功しました」と表示されることを確認したのち「OK」をクリックする。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベースの内容を設定.JPG" alt="データベースの内容を設定.JPG">
+        <figcaption>データベースの内容を設定.JPG</figcaption>
+    </figure>
+    <p>データベース別名が求められるので適当に「localhost_mysql/mysql」と書いて「OK」をクリック。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベース別名を設定.JPG" alt="データベース別名を設定.JPG">
+        <figcaption>データベース別名を設定.JPG</figcaption>
+    </figure>
+    <p>データベースが追加されたことを確認して「OK」をクリック。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベースが追加されたことを確認.JPG" alt="データベースが追加されたことを確認.JPG">
+        <figcaption>データベースが追加されたことを確認.JPG</figcaption>
+    </figure>
+    <p>追加したデータベース「mysql」をダブルクリックして「接続」をクリックする。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/追加したデータベースに接続.JPG" alt="追加したデータベースに接続.JPG">
+        <figcaption>追加したデータベースに接続.JPG</figcaption>
+    </figure>
+    <p>作成したテーブルにアクセス出来ることを確認。</p>
+    <figure>
+        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/作成したテーブルにアクセス.JPG" alt="作成したテーブルにアクセス.JPG">
+        <figcaption>作成したテーブルにアクセス.JPG</figcaption>
+    </figure>
 
 <div id="log"></div>
     </main>
