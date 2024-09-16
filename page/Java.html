@@ -60,833 +60,943 @@
      <p>Spring Bootは、特にWebアプリケーションやマイクロサービスの開発に非常に適しており、Mavenを内包しているため、Mavenのすべての機能も利用できます</p>
 
      <h2>ローカル環境の作成_20240804</h2>
-     <h3>JDKのインストール</h3>
-     <p>Open JDK(Amazon Corretto)をダウンロード。20240804時点ではAmazon Corretto 22が最新だった。「https://corretto.aws/downloads/latest/amazon-corretto-22-x64-windows-jdk.msi」をダウンロードした。</p>
-     <a href="https://docs.aws.amazon.com/corretto/latest/corretto-22-ug/downloads-list.html">Amazon Corretto 22 Permanent URLs</a>
-     <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/JDKをダウンロード.JPG" alt="JDKをダウンロード.JPG">
-        <figcaption>JDKをダウンロード.JPG</figcaption>
-    </figure>
-     <p>インストールを始める。「next」をクリック</p>
-     <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Amazon_Correttoのセットアップ_1.JPG" alt="Amazon_Correttoのセットアップ_1.JPG">
-        <figcaption>Amazon_Correttoのセットアップ_1.JPG</figcaption>
-    </figure>
-     <p>「next」をクリック</p>
-     <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Amazon_Correttoのセットアップ_2.JPG" alt="Amazon_Correttoのセットアップ_2.JPG">
-        <figcaption>Amazon_Correttoのセットアップ_2.JPG</figcaption>
-    </figure>
-     <p>「Install」をクリック</p>
-     <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Amazon_Correttoのセットアップ_3.JPG" alt="Amazon_Correttoのセットアップ_3.JPG">
-        <figcaption>Amazon_Correttoのセットアップ_3.JPG</figcaption>
-    </figure>
-     <p>「Finish」をクリック</p>
-     <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Amazon_Correttoのセットアップ_4.JPG" alt="Amazon_Correttoのセットアップ_4.JPG">
-        <figcaption>Amazon_Correttoのセットアップ_4.JPG</figcaption>
-    </figure>
-    <p>「C:\Program Files\Amazon Corretto\jdk22.0.2_9」にインストールされた。</p>
-    <figure>
-       <img class="beside" src="../img/Java/ローカル環境の作成_20240804/インストールされている.JPG" alt="インストールされている.JPG">
-       <figcaption>インストールされている.JPG</figcaption>
-   </figure>
-   <p>JAVA_HOMEを追記する必要があるが、システム環境変数を見てみると、JAVA_HOMEが既に更新されていた。</p>
-   <p>JAVA_HOMEは、Javaのインストールディレクトリを指定する環境変数。ツールやアプリケーションがJavaの場所を参照するために使用</p>
-<pre>
-JAVA_HOME
-C:\Program Files\Amazon Corretto\jdk22.0.2_9
-</pre>
-   <figure>
-      <img class="beside" src="../img/Java/ローカル環境の作成_20240804/JAVA_HOMEを確認.JPG" alt="JAVA_HOMEを確認.JPG">
-      <figcaption>JAVA_HOMEを確認.JPG</figcaption>
-  </figure>
-   <p>Pathを追記する必要があるが、Pathを見てみると、既に設定されていた。</p>
-   <p>Pathは、コマンドラインから実行するプログラムのディレクトリを指定する環境変数。Javaのバイナリを直接呼び出すために設定</p>
-<pre>
-Path
-C:\Program Files\Amazon Corretto\jdk22.0.2_9\bin
-</pre>
-   <figure>
-      <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Pathを確認.JPG" alt="Pathを確認.JPG">
-      <figcaption>Pathを確認.JPG</figcaption>
-  </figure>
-  <p>cmdで「java -version」でjavaのバージョンを確認</p>
-<pre>
-C:\Users\****>java -version
-openjdk version "22.0.2" 2024-07-16
-OpenJDK Runtime Environment Corretto-22.0.2.9.1 (build 22.0.2+9-FR)
-OpenJDK 64-Bit Server VM Corretto-22.0.2.9.1 (build 22.0.2+9-FR, mixed mode, sharing)
-</pre>
-    <h3>Mavenをインストール(20240825時点で3.9.9が最新だった)</h3>
-    <p>「apache-maven-3.9.9-bin.zip」をダウンロード</p>
-    <a href="https://maven.apache.org/download.cgi">Downloading Apache Maven</a>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/mavenをダウンロード.JPG" alt="mavenをダウンロード.JPG">
-        <figcaption>mavenをダウンロード.JPG</figcaption>
-    </figure>
-    <p>「apache-maven-3.9.9-bin.zip」を回答して適当なディレクトリ「C:\workspace」に配置</p>
-    <p>Mavenを配置</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Mavenを配置.JPG" alt="Mavenを配置.JPG">
-        <figcaption>Mavenを配置.JPG</figcaption>
-    </figure>
-    <p>システム環境変数のPathについて「C:\workspace\apache-maven-3.9.9\bin」を追加する</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/MavenのPathを通す.JPG" alt="MavenのPathを通す.JPG">
-        <figcaption>MavenのPathを通す.JPG</figcaption>
-    </figure>
-    <p>cmdで「mvn -version」を実行してパスが通ったことを確認</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/MavenのPathが通ったことを確認.JPG" alt="MavenのPathが通ったことを確認.JPG">
-        <figcaption>MavenのPathが通ったことを確認.JPG</figcaption>
-    </figure>
-    <h3>Maven + JSP サーブレット環境を作成</h3>
-    <p>VS Codeをインストール</p>
-    <p>拡張機能「Extension Pack for Java」をインストール。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Extension_Pack_for_Java_インストール.JPG" alt="Extension_Pack_for_Java_インストール.JPG">
-        <figcaption>Extension_Pack_for_Java_インストール.JPG</figcaption>
-    </figure>
-    <p>インストールがなかなか終わらない場合は、拡張機能ファイル(vsix)をダウンロードしてインストールした方が良いかもしれない。</p>
-    <a href="https://qiita.com/ss_tom_jp/items/5977e4f16d78b8ca7cc8">VSCode拡張機能をオフライン環境でインストールする方法</a>
-<pre>
-拡張機能「Extension Pack for Java」は、以下の7種類の拡張機能が入っているらしい
-Language Support for Java(TM) by Red Hat
-Debugger for Java
-Test Runner for Java
-Maven for Java
-Gradle for Java
-Project Manager for Java
-IntelliCode
-</pre>
-    <p>拡張機能「Community Server Connectors」をインストール</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Community_Server_Connectorsインストール.JPG" alt="Community_Server_Connectorsインストール.JPG">
-        <figcaption>Community_Server_Connectorsインストール.JPG</figcaption>
-    </figure>
-    <p>左下の歯車アイコン⇒設定を開く(ctl + ,)</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/設定を開く.JPG" alt="設定を開く.JPG">
-        <figcaption>設定を開く.JPG</figcaption>
-    </figure>
-    <p>検索バーから「java home」で検索して「Java: Home」のsettings.jsonを編集をクリック</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/java_homeの編集1.JPG" alt="java_homeの編集1.JPG">
-        <figcaption>java_homeの編集1.JPG</figcaption>
-    </figure>
-    <p>「java.jdt.ls.java.home」にJava Homeの値を設定する。「C:\\Program Files\\Amazon Corretto\\jdk22.0.2_9」<br>※バックスラッシュ「\」について、エスケープとしてバックスラッシュ「\」を付ける。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/java_homeの編集2.JPG" alt="java_homeの編集2.JPG">
-        <figcaption>java_homeの編集2.JPG</figcaption>
-    </figure>
-    <p>再度、左下の歯車アイコン⇒設定を開く(ctl + ,)検索バーから「mvn path」を検索してExecutable: Pathに「C:\workspace\apache-maven-3.9.9\bin\mvn.cmd」を設定する。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Executable_Pathを設定.JPG" alt="Executable_Pathを設定.JPG">
-        <figcaption>Executable_Pathを設定.JPG</figcaption>
-    </figure>
-    <p>設定を反映させるために一度vs codeを再起動させる。</p><br>
-    <p>「C:\workspace\java」に作業ディレクトリを作成</p><br>
-    <p>ファイル⇒フォルダーを開く(ctl + o)作成した作業ディレクトリを指定する。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/フォルダーを開く.JPG" alt="フォルダーを開く.JPG">
-        <figcaption>フォルダーを開く.JPG</figcaption>
-    </figure>
-    <p>左下の歯車アイコン⇒コマンドパレットを開く(ctl + shift + p)</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/コマンドパレットを開く.JPG" alt="コマンドパレットを開く.JPG">
-        <figcaption>コマンドパレットを開く.JPG</figcaption>
-    </figure>
-    <p>検索バーで「java」で検索して「Java: Create Java Project」を選択</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/CreateJavaProjectを選択.JPG" alt="CreateJavaProjectを選択.JPG">
-        <figcaption>CreateJavaProjectを選択.JPG</figcaption>
-    </figure>
-    <p>「Maven」を選択</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Mavenを選択.JPG" alt="Mavenを選択.JPG">
-        <figcaption>Mavenを選択.JPG</figcaption>
-    </figure>
-    <p>「maven-archetype-quickstart」を選択</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/maven_archetype_quickstartを選択.JPG" alt="maven_archetype_quickstartを選択.JPG">
-        <figcaption>maven_archetype_quickstartを選択.JPG</figcaption>
-    </figure>
-    <p>バージョンを選択</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/バージョンを選択.JPG" alt="バージョンを選択.JPG">
-        <figcaption>バージョンを選択.JPG</figcaption>
-    </figure>
-    <p>グループIdを記入してエンター(デフォルトは「com.example」)</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/グループIdを記入.JPG" alt="グループIdを記入.JPG">
-        <figcaption>グループIdを記入.JPG</figcaption>
-    </figure>
-    <p>artifact idを記入してエンター(デフォルトは「demo」)</p>
-    <p>artifact:人工物，工芸品，人工遺跡</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/artifact_idを記入.JPG" alt="artifact_idを記入.JPG">
-        <figcaption>artifact_idを記入.JPG</figcaption>
-    </figure>
-    <p>作業ディレクトリ(C:\workspace\java)を開いて「Select Destination Folder」をクリック。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/作業ディレクトリを指定.JPG" alt="作業ディレクトリを指定.JPG">
-        <figcaption>作業ディレクトリを指定.JPG</figcaption>
-    </figure>
-    <p>VS Codeの「ターミナル」を参照すると以下のように記載されている</p>
-<pre>
-■翻訳前
-[INFO] Generating project in Interactive mode
-[INFO] Archetype repository not defined. Using the one from [org.apache.maven.archetypes:maven-archetype-quickstart:1.5] found in catalog remote
-[INFO] Using property: groupId = com.example
-[INFO] Using property: artifactId = demo
-Define value for property 'version' 1.0-SNAPSHOT: :
-■翻訳後
-[INFO] インタラクティブ モードでプロジェクトを生成しています
-[INFO] アーキタイプ リポジトリが定義されていません。カタログ リモートにある [org.apache.maven.archetypes:maven-archetype-quickstart:1.5] のものを使用しています
-[INFO] プロパティを使用しています: groupId = com.example
-[INFO] プロパティを使用しています: artifactId = demo
-プロパティ 'version' 1.0-SNAPSHOT の値を定義します: :
-</pre>
-    <p>上記はプロジェクトの version プロパティの値を定義するように求められている。</p>
-    <p>デフォルトでは 1.0-SNAPSHOT が設定されている。</p>
-    <p>良く分からないが、とりあえずデフォルト(1.0-SNAPSHOT)のままで設定するため、何も入力せずにエンターを押した。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/versionプロパティの値を定義.JPG" alt="versionプロパティの値を定義.JPG">
-        <figcaption>versionプロパティの値を定義.JPG</figcaption>
-    </figure>
-    <p>続いて以下のように表示される。構成が正しいかどうかを聞かれている。「Y」を入力してエンターを押す。</p>
-<pre>
-■翻訳前
-[INFO] Using property: package = com.example
-Confirm properties configuration:
-groupId: com.example
-artifactId: demo
-version: 1.0-SNAPSHOT
-package: com.example
-Y: :
-■翻訳後
-[INFO] プロパティの使用: package = com.example
-プロパティ構成を確認:
-groupId: com.example
-artifactId: demo
-version: 1.0-SNAPSHOT
-package: com.example
-Y: :
-</pre>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/構成を確認.JPG" alt="構成を確認.JPG">
-        <figcaption>構成を確認.JPG</figcaption>
-    </figure>
-    <p>「ターミナルはタスクで再利用されます、閉じるには任意のキーを押してください。」と表示されるのでエンターを押す。</p>
-    <p>「C:\workspace\java\demo」以下が作成されているはず。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ターミナルはタスクで再利用される.JPG" alt="ターミナルはタスクで再利用される.JPG">
-        <figcaption>ターミナルはタスクで再利用される.JPG</figcaption>
-    </figure>
-    <p>ファイル⇒フォルダーを開く(ctl + o)作成した作業ディレクトリについて「C:\workspace\java\demo」を指定する。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/作業ディレクトリを開く.JPG" alt="作業ディレクトリを開く.JPG">
-        <figcaption>作業ディレクトリを開く.JPG</figcaption>
-    </figure>
-    <p>ソースを修正する</p>
-<pre>
-■C:\workspace\java\demo\pom.xml
-1.packagingをwarで指定。これでpackageしたときにjarファイルではなくwarファイルで作成される。
-〇修正前
-&lt;groupId&gt;com.example&lt;/groupId&gt;
-&lt;artifactId&gt;demo&lt;/artifactId&gt;
-&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-〇修正後
-&lt;groupId&gt;com.example&lt;/groupId&gt;
-&lt;artifactId&gt;demo&lt;/artifactId&gt;
-&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-&lt;packaging&gt;war&lt;/packaging&gt;
+     <details>
 
-2.dependencies(依存関係(正常に動作するために必要な外部ライブラリやコンポーネントのこと))
-・Java Servletのライブラリを追加
-〇修正前
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;junit&lt;/groupId&gt;
-        &lt;artifactId&gt;junit&lt;/artifactId&gt;
-        &lt;version&gt;4.11&lt;/version&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-〇修正後
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;junit&lt;/groupId&gt;
-        &lt;artifactId&gt;junit&lt;/artifactId&gt;
-        &lt;version&gt;4.11&lt;/version&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
-        &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
-        &lt;version&gt;6.0.0&lt;/version&gt;
-        &lt;scope&gt;provided&lt;/scope&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-
-3.プラグインの設定を修正
-・maven-war-pluginを追加
-・maven-compiler-pluginの設定を修正
-〇修正前
-&lt;build&gt;
-    &lt;pluginManagement&gt;&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;
-        &lt;plugins&gt;
-        &lt;!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle --&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.1.0&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging --&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.0.2&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.8.0&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.22.1&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.0.2&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.5.2&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.8.2&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle --&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.7.1&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.0.0&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;/plugins&gt;
-    &lt;/pluginManagement&gt;
-    &lt;/build&gt;
-〇修正後
-&lt;build&gt;
-    &lt;pluginManagement&gt;&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;
-        &lt;plugins&gt;
-        &lt;!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle --&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.1.0&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging --&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.0.2&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.8.0&lt;/version&gt;
-            &lt;configuration&gt;
-                &lt;source&gt;8&lt;/source&gt;
-                &lt;target&gt;8&lt;/target&gt;
-            &lt;/configuration&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.22.1&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.0.2&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.5.2&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
-            &lt;version&gt;2.8.2&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle --&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.7.1&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-            &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.0.0&lt;/version&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-            &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.4.0&lt;/version&gt;
-            &lt;configuration&gt;
-                &lt;webXml&gt;src/main/webapp/WEB-INF/web.xml&lt;/webXml&gt;
-            &lt;/configuration&gt;
-        &lt;/plugin&gt;
-        &lt;/plugins&gt;
-    &lt;/pluginManagement&gt;
-    &lt;/build&gt;
-
-■C:\workspace\java\demo\src\main\java\com\example\HelloServlet.java
-〇新規作成
-package com.example;
-
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-
-public class HelloServlet extends HttpServlet {
-
-  @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
-    res.setContentType(&quot;text/html; charset=utf-8&quot;);
-    try (PrintWriter out = res.getWriter()) {
-      out.println(&quot;&lt;html&gt;&lt;body&gt;&quot;);
-      out.println(&quot;Hello World!&lt;br&gt;&quot;);
-      out.println(getServletContext().getServerInfo());
-      out.println(&quot;&lt;/body&gt;&lt;/html&gt;&quot;);
+         <h3>JDKのインストール</h3>
+         <p>Open JDK(Amazon Corretto)をダウンロード。20240804時点ではAmazon Corretto 22が最新だった。「https://corretto.aws/downloads/latest/amazon-corretto-22-x64-windows-jdk.msi」をダウンロードした。</p>
+         <a href="https://docs.aws.amazon.com/corretto/latest/corretto-22-ug/downloads-list.html">Amazon Corretto 22 Permanent URLs</a>
+         <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/JDKをダウンロード.JPG" alt="JDKをダウンロード.JPG">
+            <figcaption>JDKをダウンロード.JPG</figcaption>
+        </figure>
+         <p>インストールを始める。「next」をクリック</p>
+         <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Amazon_Correttoのセットアップ_1.JPG" alt="Amazon_Correttoのセットアップ_1.JPG">
+            <figcaption>Amazon_Correttoのセットアップ_1.JPG</figcaption>
+        </figure>
+         <p>「next」をクリック</p>
+         <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Amazon_Correttoのセットアップ_2.JPG" alt="Amazon_Correttoのセットアップ_2.JPG">
+            <figcaption>Amazon_Correttoのセットアップ_2.JPG</figcaption>
+        </figure>
+         <p>「Install」をクリック</p>
+         <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Amazon_Correttoのセットアップ_3.JPG" alt="Amazon_Correttoのセットアップ_3.JPG">
+            <figcaption>Amazon_Correttoのセットアップ_3.JPG</figcaption>
+        </figure>
+         <p>「Finish」をクリック</p>
+         <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Amazon_Correttoのセットアップ_4.JPG" alt="Amazon_Correttoのセットアップ_4.JPG">
+            <figcaption>Amazon_Correttoのセットアップ_4.JPG</figcaption>
+        </figure>
+        <p>「C:\Program Files\Amazon Corretto\jdk22.0.2_9」にインストールされた。</p>
+        <figure>
+           <img class="beside" src="../img/Java/ローカル環境の作成_20240804/インストールされている.JPG" alt="インストールされている.JPG">
+           <figcaption>インストールされている.JPG</figcaption>
+       </figure>
+       <p>JAVA_HOMEを追記する必要があるが、システム環境変数を見てみると、JAVA_HOMEが既に更新されていた。</p>
+       <p>JAVA_HOMEは、Javaのインストールディレクトリを指定する環境変数。ツールやアプリケーションがJavaの場所を参照するために使用</p>
+    <pre>
+    JAVA_HOME
+    C:\Program Files\Amazon Corretto\jdk22.0.2_9
+    </pre>
+       <figure>
+          <img class="beside" src="../img/Java/ローカル環境の作成_20240804/JAVA_HOMEを確認.JPG" alt="JAVA_HOMEを確認.JPG">
+          <figcaption>JAVA_HOMEを確認.JPG</figcaption>
+      </figure>
+       <p>Pathを追記する必要があるが、Pathを見てみると、既に設定されていた。</p>
+       <p>Pathは、コマンドラインから実行するプログラムのディレクトリを指定する環境変数。Javaのバイナリを直接呼び出すために設定</p>
+    <pre>
+    Path
+    C:\Program Files\Amazon Corretto\jdk22.0.2_9\bin
+    </pre>
+       <figure>
+          <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Pathを確認.JPG" alt="Pathを確認.JPG">
+          <figcaption>Pathを確認.JPG</figcaption>
+      </figure>
+      <p>cmdで「java -version」でjavaのバージョンを確認</p>
+    <pre>
+    C:\Users\****>java -version
+    openjdk version "22.0.2" 2024-07-16
+    OpenJDK Runtime Environment Corretto-22.0.2.9.1 (build 22.0.2+9-FR)
+    OpenJDK 64-Bit Server VM Corretto-22.0.2.9.1 (build 22.0.2+9-FR, mixed mode, sharing)
+    </pre>
+        <h3>Mavenをインストール(20240825時点で3.9.9が最新だった)</h3>
+        <p>「apache-maven-3.9.9-bin.zip」をダウンロード</p>
+        <a href="https://maven.apache.org/download.cgi">Downloading Apache Maven</a>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/mavenをダウンロード.JPG" alt="mavenをダウンロード.JPG">
+            <figcaption>mavenをダウンロード.JPG</figcaption>
+        </figure>
+        <p>「apache-maven-3.9.9-bin.zip」を回答して適当なディレクトリ「C:\workspace」に配置</p>
+        <p>Mavenを配置</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Mavenを配置.JPG" alt="Mavenを配置.JPG">
+            <figcaption>Mavenを配置.JPG</figcaption>
+        </figure>
+        <p>システム環境変数のPathについて「C:\workspace\apache-maven-3.9.9\bin」を追加する</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/MavenのPathを通す.JPG" alt="MavenのPathを通す.JPG">
+            <figcaption>MavenのPathを通す.JPG</figcaption>
+        </figure>
+        <p>cmdで「mvn -version」を実行してパスが通ったことを確認</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/MavenのPathが通ったことを確認.JPG" alt="MavenのPathが通ったことを確認.JPG">
+            <figcaption>MavenのPathが通ったことを確認.JPG</figcaption>
+        </figure>
+        <h3>Maven + JSP サーブレット環境を作成</h3>
+        <p>VS Codeをインストール</p>
+        <p>拡張機能「Extension Pack for Java」をインストール。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Extension_Pack_for_Java_インストール.JPG" alt="Extension_Pack_for_Java_インストール.JPG">
+            <figcaption>Extension_Pack_for_Java_インストール.JPG</figcaption>
+        </figure>
+        <p>インストールがなかなか終わらない場合は、拡張機能ファイル(vsix)をダウンロードしてインストールした方が良いかもしれない。</p>
+        <a href="https://qiita.com/ss_tom_jp/items/5977e4f16d78b8ca7cc8">VSCode拡張機能をオフライン環境でインストールする方法</a>
+    <pre>
+    拡張機能「Extension Pack for Java」は、以下の7種類の拡張機能が入っているらしい
+    Language Support for Java(TM) by Red Hat
+    Debugger for Java
+    Test Runner for Java
+    Maven for Java
+    Gradle for Java
+    Project Manager for Java
+    IntelliCode
+    </pre>
+        <p>拡張機能「Community Server Connectors」をインストール</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Community_Server_Connectorsインストール.JPG" alt="Community_Server_Connectorsインストール.JPG">
+            <figcaption>Community_Server_Connectorsインストール.JPG</figcaption>
+        </figure>
+        <p>左下の歯車アイコン⇒設定を開く(ctl + ,)</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/設定を開く.JPG" alt="設定を開く.JPG">
+            <figcaption>設定を開く.JPG</figcaption>
+        </figure>
+        <p>検索バーから「java home」で検索して「Java: Home」のsettings.jsonを編集をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/java_homeの編集1.JPG" alt="java_homeの編集1.JPG">
+            <figcaption>java_homeの編集1.JPG</figcaption>
+        </figure>
+        <p>「java.jdt.ls.java.home」にJava Homeの値を設定する。「C:\\Program Files\\Amazon Corretto\\jdk22.0.2_9」<br>※バックスラッシュ「\」について、エスケープとしてバックスラッシュ「\」を付ける。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/java_homeの編集2.JPG" alt="java_homeの編集2.JPG">
+            <figcaption>java_homeの編集2.JPG</figcaption>
+        </figure>
+        <p>再度、左下の歯車アイコン⇒設定を開く(ctl + ,)検索バーから「mvn path」を検索してExecutable: Pathに「C:\workspace\apache-maven-3.9.9\bin\mvn.cmd」を設定する。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Executable_Pathを設定.JPG" alt="Executable_Pathを設定.JPG">
+            <figcaption>Executable_Pathを設定.JPG</figcaption>
+        </figure>
+        <p>設定を反映させるために一度vs codeを再起動させる。</p><br>
+        <p>「C:\workspace\java」に作業ディレクトリを作成</p><br>
+        <p>ファイル⇒フォルダーを開く(ctl + o)作成した作業ディレクトリを指定する。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/フォルダーを開く.JPG" alt="フォルダーを開く.JPG">
+            <figcaption>フォルダーを開く.JPG</figcaption>
+        </figure>
+        <p>左下の歯車アイコン⇒コマンドパレットを開く(ctl + shift + p)</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/コマンドパレットを開く.JPG" alt="コマンドパレットを開く.JPG">
+            <figcaption>コマンドパレットを開く.JPG</figcaption>
+        </figure>
+        <p>検索バーで「java」で検索して「Java: Create Java Project」を選択</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/CreateJavaProjectを選択.JPG" alt="CreateJavaProjectを選択.JPG">
+            <figcaption>CreateJavaProjectを選択.JPG</figcaption>
+        </figure>
+        <p>「Maven」を選択</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Mavenを選択.JPG" alt="Mavenを選択.JPG">
+            <figcaption>Mavenを選択.JPG</figcaption>
+        </figure>
+        <p>「maven-archetype-quickstart」を選択</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/maven_archetype_quickstartを選択.JPG" alt="maven_archetype_quickstartを選択.JPG">
+            <figcaption>maven_archetype_quickstartを選択.JPG</figcaption>
+        </figure>
+        <p>バージョンを選択</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/バージョンを選択.JPG" alt="バージョンを選択.JPG">
+            <figcaption>バージョンを選択.JPG</figcaption>
+        </figure>
+        <p>グループIdを記入してエンター(デフォルトは「com.example」)</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/グループIdを記入.JPG" alt="グループIdを記入.JPG">
+            <figcaption>グループIdを記入.JPG</figcaption>
+        </figure>
+        <p>artifact idを記入してエンター(デフォルトは「demo」)</p>
+        <p>artifact:人工物，工芸品，人工遺跡</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/artifact_idを記入.JPG" alt="artifact_idを記入.JPG">
+            <figcaption>artifact_idを記入.JPG</figcaption>
+        </figure>
+        <p>作業ディレクトリ(C:\workspace\java)を開いて「Select Destination Folder」をクリック。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/作業ディレクトリを指定.JPG" alt="作業ディレクトリを指定.JPG">
+            <figcaption>作業ディレクトリを指定.JPG</figcaption>
+        </figure>
+        <p>VS Codeの「ターミナル」を参照すると以下のように記載されている</p>
+    <pre>
+    ■翻訳前
+    [INFO] Generating project in Interactive mode
+    [INFO] Archetype repository not defined. Using the one from [org.apache.maven.archetypes:maven-archetype-quickstart:1.5] found in catalog remote
+    [INFO] Using property: groupId = com.example
+    [INFO] Using property: artifactId = demo
+    Define value for property 'version' 1.0-SNAPSHOT: :
+    ■翻訳後
+    [INFO] インタラクティブ モードでプロジェクトを生成しています
+    [INFO] アーキタイプ リポジトリが定義されていません。カタログ リモートにある [org.apache.maven.archetypes:maven-archetype-quickstart:1.5] のものを使用しています
+    [INFO] プロパティを使用しています: groupId = com.example
+    [INFO] プロパティを使用しています: artifactId = demo
+    プロパティ 'version' 1.0-SNAPSHOT の値を定義します: :
+    </pre>
+        <p>上記はプロジェクトの version プロパティの値を定義するように求められている。</p>
+        <p>デフォルトでは 1.0-SNAPSHOT が設定されている。</p>
+        <p>良く分からないが、とりあえずデフォルト(1.0-SNAPSHOT)のままで設定するため、何も入力せずにエンターを押した。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/versionプロパティの値を定義.JPG" alt="versionプロパティの値を定義.JPG">
+            <figcaption>versionプロパティの値を定義.JPG</figcaption>
+        </figure>
+        <p>続いて以下のように表示される。構成が正しいかどうかを聞かれている。「Y」を入力してエンターを押す。</p>
+    <pre>
+    ■翻訳前
+    [INFO] Using property: package = com.example
+    Confirm properties configuration:
+    groupId: com.example
+    artifactId: demo
+    version: 1.0-SNAPSHOT
+    package: com.example
+    Y: :
+    ■翻訳後
+    [INFO] プロパティの使用: package = com.example
+    プロパティ構成を確認:
+    groupId: com.example
+    artifactId: demo
+    version: 1.0-SNAPSHOT
+    package: com.example
+    Y: :
+    </pre>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/構成を確認.JPG" alt="構成を確認.JPG">
+            <figcaption>構成を確認.JPG</figcaption>
+        </figure>
+        <p>「ターミナルはタスクで再利用されます、閉じるには任意のキーを押してください。」と表示されるのでエンターを押す。</p>
+        <p>「C:\workspace\java\demo」以下が作成されているはず。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ターミナルはタスクで再利用される.JPG" alt="ターミナルはタスクで再利用される.JPG">
+            <figcaption>ターミナルはタスクで再利用される.JPG</figcaption>
+        </figure>
+        <p>ファイル⇒フォルダーを開く(ctl + o)作成した作業ディレクトリについて「C:\workspace\java\demo」を指定する。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/作業ディレクトリを開く.JPG" alt="作業ディレクトリを開く.JPG">
+            <figcaption>作業ディレクトリを開く.JPG</figcaption>
+        </figure>
+        <p>ソースを修正する</p>
+    <pre>
+    ■C:\workspace\java\demo\pom.xml
+    1.packagingをwarで指定。これでpackageしたときにjarファイルではなくwarファイルで作成される。
+    〇修正前
+    &lt;groupId&gt;com.example&lt;/groupId&gt;
+    &lt;artifactId&gt;demo&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    〇修正後
+    &lt;groupId&gt;com.example&lt;/groupId&gt;
+    &lt;artifactId&gt;demo&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;packaging&gt;war&lt;/packaging&gt;
+    
+    2.dependencies(依存関係(正常に動作するために必要な外部ライブラリやコンポーネントのこと))
+    ・Java Servletのライブラリを追加
+    〇修正前
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.11&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    〇修正後
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.11&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+            &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+            &lt;version&gt;6.0.0&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    
+    3.プラグインの設定を修正
+    ・maven-war-pluginを追加
+    ・maven-compiler-pluginの設定を修正
+    〇修正前
+    &lt;build&gt;
+        &lt;pluginManagement&gt;&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;
+            &lt;plugins&gt;
+            &lt;!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle --&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.1.0&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging --&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.0.2&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.8.0&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.22.1&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.0.2&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.5.2&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.8.2&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle --&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.7.1&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.0.0&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;/plugins&gt;
+        &lt;/pluginManagement&gt;
+        &lt;/build&gt;
+    〇修正後
+    &lt;build&gt;
+        &lt;pluginManagement&gt;&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;
+            &lt;plugins&gt;
+            &lt;!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle --&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.1.0&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging --&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.0.2&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.8.0&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;8&lt;/source&gt;
+                    &lt;target&gt;8&lt;/target&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.22.1&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.0.2&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.5.2&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.8.2&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle --&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.7.1&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.0.0&lt;/version&gt;
+            &lt;/plugin&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+                &lt;version&gt;3.4.0&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;webXml&gt;src/main/webapp/WEB-INF/web.xml&lt;/webXml&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+            &lt;/plugins&gt;
+        &lt;/pluginManagement&gt;
+        &lt;/build&gt;
+    
+    ■C:\workspace\java\demo\src\main\java\com\example\HelloServlet.java
+    〇新規作成
+    package com.example;
+    
+    import jakarta.servlet.http.HttpServlet;
+    import jakarta.servlet.http.HttpServletRequest;
+    import jakarta.servlet.http.HttpServletResponse;
+    
+    import java.io.IOException;
+    import java.io.PrintWriter;
+    
+    public class HelloServlet extends HttpServlet {
+    
+      @Override
+      protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
+        res.setContentType(&quot;text/html; charset=utf-8&quot;);
+        try (PrintWriter out = res.getWriter()) {
+          out.println(&quot;&lt;html&gt;&lt;body&gt;&quot;);
+          out.println(&quot;Hello World!&lt;br&gt;&quot;);
+          out.println(getServletContext().getServerInfo());
+          out.println(&quot;&lt;/body&gt;&lt;/html&gt;&quot;);
+        }
+      }
     }
-  }
-}
-
-■C:\workspace\java\demo\src\main\webapp\WEB-INF\web.xml
-〇新規作成
-&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
-         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee
-                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;
-         version=&quot;3.1&quot;&gt;
-
+    
+    ■C:\workspace\java\demo\src\main\webapp\WEB-INF\web.xml
+    〇新規作成
+    &lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+             xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+             xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee
+                                 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;
+             version=&quot;3.1&quot;&gt;
+    
+        &lt;!-- サーブレットの定義 --&gt;
+        &lt;servlet&gt;
+            &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+            &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
+        &lt;/servlet&gt;
+    
+        &lt;!-- サーブレットのマッピング --&gt;
+        &lt;servlet-mapping&gt;
+            &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+            &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
+        &lt;/servlet-mapping&gt;
+    
+    &lt;/web-app&gt;
+    
+    </pre>
+        <p>修正が完了したらExplolerタブ⇒Mavenタブ⇒「Reload All Maven Projects」でpom.xmlファイルを再読み込み</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Reload_All_Maven_Projects.JPG" alt="Reload_All_Maven_Projects.JPG">
+            <figcaption>Reload_All_Maven_Projects.JPG</figcaption>
+        </figure>
+        <p>修正が完了したらExplolerタブ⇒Mavenタブ⇒demoプルダウン⇒LifeCycleプルダウンの「clean」で「Run」を実行</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/cleanの実行.JPG" alt="cleanの実行.JPG">
+            <figcaption>cleanの実行.JPG</figcaption>
+        </figure>
+        <p>Explolerタブ⇒Mavenタブ⇒demoプルダウン⇒LifeCycleプルダウンの「package」で「Run」を実行</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/packageの実行.JPG" alt="packageの実行.JPG">
+            <figcaption>packageの実行.JPG</figcaption>
+        </figure>
+        <p>「C:\workspace\java\demo\target\demo-1.0-SNAPSHOT.war」が作成される。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/warファイルの作成.JPG" alt="warファイルの作成.JPG">
+            <figcaption>warファイルの作成.JPG</figcaption>
+        </figure>
+        <p>Serversタブ⇒Community Server Connectorプルダウンで右クリック⇒「Create New Server」をクリック。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Create_New_Server.JPG" alt="Create_New_Server.JPG">
+            <figcaption>Create_New_Server.JPG</figcaption>
+        </figure>
+        <p>「Download server?」と聞かれるので「Yes」を選択する</p>
+        <p>※すでにダウンロードしている場合、「C:\Users\****\.rsp\redhat-community-server-connector\runtimes\installations\tomcat-11.0.0-M6_2\apache-tomcat-11.0.0-M6」のように「bin」があるディレクトリを指定すれば良い。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/DownloadServer.JPG" alt="DownloadServer.JPG">
+            <figcaption>DownloadServer.JPG</figcaption>
+        </figure>
+        <p>「Please Choose a server o dwnload.」と聞かれるので20240831時点のApache Tomcatの最新である「Apache Tomcat 11.0.0-M6」を選択する</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ChooseServer.JPG" alt="ChooseServer.JPG">
+            <figcaption>ChooseServer.JPG</figcaption>
+        </figure>
+        <p>「License URL: https://www.apache.org/licenses/LICENSE-2.0.txt」の「Configure」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/LicenseConfigure.JPG" alt="LicenseConfigure.JPG">
+            <figcaption>LicenseConfigure.JPG</figcaption>
+        </figure>
+        <p>「Do you agree to the license?」と聞かれるのでライセンスを読んで「Yes(True)」を選択</p>
+        <p>上記選択後、Explolerタブ⇒SERVERSタブ⇒Community Server Connectorプルダウンに「apache-tomcat-11.0.0-M6」が追加される。</p>
+        <p>※workflow.licenseが作成されるが保存できない？不明。コピペなら保存できるか？</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/LicenseConfigure.JPG" alt="LicenseConfigure.JPG">
+            <figcaption>LicenseConfigure.JPG</figcaption>
+        </figure>
+        <p>Explolerタブ⇒SERVERSタブ⇒Community Server Connectorプルダウンを右クリックして「Add Deployment」を選択する。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Add_Deployment.JPG" alt="Add_Deployment.JPG">
+            <figcaption>Add_Deployment.JPG</figcaption>
+        </figure>
+        <p>「What type of deployment do you want to add?」で「File」を選択する。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/What_type_of_deployment_do_you_want_to_add.JPG" alt="What_type_of_deployment_do_you_want_to_add.JPG">
+            <figcaption>What_type_of_deployment_do_you_want_to_add.JPG</figcaption>
+        </figure>
+        <p>「C:\workspace\java\demo\target\demo-1.0-SNAPSHOT.war」を選択して「Select File Deployment」をクリック。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/warファイルを選択.JPG" alt="warファイルを選択.JPG">
+            <figcaption>warファイルを選択.JPG</figcaption>
+        </figure>
+        <p>「Do you want to edit optional deployment parameters?」と表示されているが、特にデプロイ時のパラメータを指定しないので「No」を選択。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Do_you_want_to_edit_optional_deployment_parameters.JPG" alt="Do_you_want_to_edit_optional_deployment_parameters.JPG">
+            <figcaption>Do_you_want_to_edit_optional_deployment_parameters.JPG</figcaption>
+        </figure>
+        <p>「apache-tomcat-11.0.0-M6」にwarファイルがぶら下がったことを確認。「apache-tomcat-11.0.0-M6」を右クリックして「Start Server」をクリックする。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Start_Server.JPG" alt="Start_Server.JPG">
+            <figcaption>Start_Server.JPG</figcaption>
+        </figure>
+        <p>ブラウザで「http://localhost:8080/」にアクセスすると「Apache Tomcat」のページにアクセスできる。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Apache_Tomcat.JPG" alt="Apache_Tomcat.JPG">
+            <figcaption>Apache_Tomcat.JPG</figcaption>
+        </figure>
+        <p>ブラウザで「http://localhost:8080/demo-1.0-SNAPSHOT/hello」にアクセスすると作成したページにアクセスできる。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/HelloWorld.JPG" alt="HelloWorld.JPG">
+            <figcaption>HelloWorld.JPG</figcaption>
+        </figure>
+        <h3>デバッグ実行</h3>
+        <p>行番号の左側をクリックしてブレークポイントを追加する。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ブレークポイントを追加.JPG" alt="ブレークポイントを追加.JPG">
+            <figcaption>ブレークポイントを追加.JPG</figcaption>
+        </figure>
+        <p>「apache-tomcat」を立ち上げるときに「Debug Server」を指定する。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Debug_Serverを指定.JPG" alt="Debug_Serverを指定.JPG">
+            <figcaption>Debug_Serverを指定.JPG</figcaption>
+        </figure>
+        <p>「Please input a project name to be used by the java debugger.」(Java デバッガーで使用するプロジェクト名を入力してください。)と表示されるので適当にdemoと入れた。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Debug_Serverで使用する名前を指定.JPG" alt="Debug_Serverで使用する名前を指定.JPG">
+            <figcaption>Debug_Serverで使用する名前を指定.JPG</figcaption>
+        </figure>
+        <p>画面下側の出力タブに「Listening for transport dt_socket at address: 2506」と出力される。ここの番号がデバッグサーバーのポート番号。</p>
+        <p>「ctl + shift + d」を押してlaunch.json「C:\workspace\java\demo\.vscode\launch.json」を作成する。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/launch_jsonを作成.JPG" alt="launch_jsonを作成.JPG">
+            <figcaption>launch_jsonを作成.JPG</figcaption>
+        </figure>
+        <p>「C:\workspace\java\demo\.vscode\launch.json」に以下のように書き換える</p>
+        <p>ポート番号について先ほど確認したデバッグサーバーのポート番号を設定する。ここのポート固定できないのだろうか・・・</p>
+    <pre>
+    ■C:\workspace\java\demo\.vscode\launch.json
+    {
+        "version": "0.2.0",
+        "configurations": [
+            {
+            "type": "java",
+            "name": "Debug Tomcat",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 2506,
+            "timeout": 10000,
+            "projectName": "demo"
+            }
+        ]
+    }
+    </pre>
+        <p>再度「http://localhost:8080/demo-1.0-SNAPSHOT/hello」にアクセスするとブレークポイントで停止したことを確認。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ブレークポイントで停止.JPG" alt="ブレークポイントで停止.JPG">
+            <figcaption>ブレークポイントで停止.JPG</figcaption>
+        </figure>
+        <h3>Xamppのインストール</h3>
+        <p>Xamppをダウンロード(20240824時点で「xampp-windows-x64-8.2.12-0-VS16-installer.exe」が最新だった)</p>
+        <a href="https://www.apachefriends.org/jp/download.html">Windows 向け XAMPP ダウンロード</a>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをダウンロード.JPG" alt="Xamppをダウンロード.JPG">
+            <figcaption>Xamppをダウンロード.JPG</figcaption>
+        </figure>
+        <p>警告を確認してOKをクリック</p>
+        <a href="https://teamtreehouse.com/community/xampp-warningwhat-does-this-mean">XAMPP Warning--What does this mean?</a>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール1.JPG" alt="Xamppをインストール1.JPG">
+            <figcaption>Xamppをインストール1.JPG</figcaption>
+        </figure>
+    <pre>
+    警告
+    Important Because an actreted& User Arteunt Control (UAO) on
+    your system some functions of XAMPP are pessibly restricted.
+    With UAC please avoid to install YAMPP to CyProgram Files
+    (missing write permissions). Or deactivate UAC with msconfig
+    after this setup.
+    
+    警告(翻訳)
+    重要: システムにユーザー コントロール (UAO) がアクティブ化されているため、
+    XAMPP の一部の機能が制限される可能性があります。
+    UAC を使用する場合は、XAMPP を CyProgram Files にインストールしないでください
+     (書き込み権限がありません)。
+     または、このセットアップ後に msconfig で UAC を無効にしてください。
+    </pre>
+        <p>Nextをクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール2.JPG" alt="Xamppをインストール2.JPG">
+            <figcaption>Xamppをインストール2.JPG</figcaption>
+        </figure>
+        <p>Nextをクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール3.JPG" alt="Xamppをインストール3.JPG">
+            <figcaption>Xamppをインストール3.JPG</figcaption>
+        </figure>
+        <p>インストール先を選択してNextをクリック</p>
+        <p>デフォルトのインストール先は「C:\xampp」</p>
+        <p>今回は「C:\workspace\xamppJava」にインストールさせる。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール4.JPG" alt="Xamppをインストール4.JPG">
+            <figcaption>Xamppをインストール4.JPG</figcaption>
+        </figure>
+        <p>Nextをクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール5.JPG" alt="Xamppをインストール5.JPG">
+            <figcaption>Xamppをインストール5.JPG</figcaption>
+        </figure>
+        <p>Nextをクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール6.JPG" alt="Xamppをインストール6.JPG">
+            <figcaption>Xamppをインストール6.JPG</figcaption>
+        </figure>
+        <p>Finishをクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール7.JPG" alt="Xamppをインストール7.JPG">
+            <figcaption>Xamppをインストール7.JPG</figcaption>
+        </figure>
+        <h3>xamppでapache・mysqlを立ち上げてvscode等からアクセス</h3>
+        <h4>DB側を作成</h4>
+        <p>「C:\workspace\xamppJava\xampp-control.exe」を実行して立ち上げる。</p>
+        <p>ApacheとMySQLのActions⇒Startを押して立ち上げる。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ApacheとMySQLを立ち上げる.JPG" alt="ApacheとMySQLを立ち上げる.JPG">
+            <figcaption>ApacheとMySQLを立ち上げる.JPG</figcaption>
+        </figure>
+        <p>MysqlのAdminをクリックしてMySQLMyAdmin(http://localhost/phpmyadmin/index.php)にアクセス。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/MySQLMyAdminにアクセス.JPG" alt="MySQLMyAdminにアクセス.JPG">
+            <figcaption>MySQLMyAdminにアクセス.JPG</figcaption>
+        </figure>
+        <p>データベースタブから適当なデータベース名「torii_db」を設定して作成をクリック。</p>
+        <p>「utf8」「utf8mb4_general_ci」どちらがいいかだと、「utf8mb4_general_ci」が現在(20240908)のMySQLの標準らしい。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベース作成.JPG" alt="データベース作成.JPG">
+            <figcaption>データベース作成.JPG</figcaption>
+        </figure>
+        <p>適当なテーブルを作成する。今回はテストとしてテーブル名「memos」カラム「id」「title」「text」「created_date」で作成するため、テーブル名「memos」カラム数「4」で作成をクリックする。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/テーブルを作成.JPG" alt="テーブルを作成.JPG">
+            <figcaption>テーブルを作成.JPG</figcaption>
+        </figure>
+        <p>カラムを設定する。</p>
+       <p>idは、桁数多いint型が良いのでBIGINT(8byte, 0から18446744073709551615)、主キーにして自動加算(AUTO_INCREMENT)</p>
+       <p>titleは、桁数が決まっていない可変長の文字列で少し長めの桁数VARCHARの128桁にしておく。128なのは、2累乗(2,4,8,64,128,16384・・・)が処理効率が良いらしいので。</p>
+       <p>textは、長めの長文でいいのでTEXT。最大65,535バイト（約64KB）</p>
+       <p>created_dateは、タイムゾーンをアプリ側で管理する日付の入れ物でいいと思ったのでdatetime型を指定</p>
+       <p>設定が完了したら「保存する」をクリック。</p>
+       <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/カラムを設定.JPG" alt="カラムを設定.JPG">
+            <figcaption>カラムを設定.JPG</figcaption>
+        </figure>
+        <p>「挿入」タブから値を設定して「実行」をクリックする。idは自動加算なので空にしている。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/値を挿入.JPG" alt="値を挿入.JPG">
+            <figcaption>値を挿入.JPG</figcaption>
+        </figure>
+        <p>「表示」タブをクリックして値が入ったことを確認。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/表示を確認.JPG" alt="表示を確認.JPG">
+            <figcaption>表示を確認.JPG</figcaption>
+        </figure>
+        <h4>VS Codeから接続</h4>
+        <p>ソースコードを修正</p>
+    <pre>
+    ■C:\workspace\java\demo\pom.xml
+    1.dependenciesを修正(mysql-connector-jを追加)
+    〇修正前
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.11&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+            &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+            &lt;version&gt;6.0.0&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    〇修正後
+    &lt;dependencies&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.11&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+            &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+            &lt;version&gt;6.0.0&lt;/version&gt;
+            &lt;scope&gt;provided&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;com.mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-j&lt;/artifactId&gt;
+            &lt;version&gt;8.0.33&lt;/version&gt;
+        &lt;/dependency&gt;
+    &lt;/dependencies&gt;
+    
+    ■C:\workspace\java\demo\src\main\webapp\WEB-INF\web.xmlを修正
+    1.DatabaseServletの定義とマッピングを追加
+    〇修正前
     &lt;!-- サーブレットの定義 --&gt;
     &lt;servlet&gt;
         &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
         &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
     &lt;/servlet&gt;
-
+    
     &lt;!-- サーブレットのマッピング --&gt;
     &lt;servlet-mapping&gt;
         &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
         &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
     &lt;/servlet-mapping&gt;
-
-&lt;/web-app&gt;
-
-</pre>
-    <p>修正が完了したらExplolerタブ⇒Mavenタブ⇒「Reload All Maven Projects」でpom.xmlファイルを再読み込み</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Reload_All_Maven_Projects.JPG" alt="Reload_All_Maven_Projects.JPG">
-        <figcaption>Reload_All_Maven_Projects.JPG</figcaption>
-    </figure>
-    <p>修正が完了したらExplolerタブ⇒Mavenタブ⇒demoプルダウン⇒LifeCycleプルダウンの「clean」で「Run」を実行</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/cleanの実行.JPG" alt="cleanの実行.JPG">
-        <figcaption>cleanの実行.JPG</figcaption>
-    </figure>
-    <p>Explolerタブ⇒Mavenタブ⇒demoプルダウン⇒LifeCycleプルダウンの「package」で「Run」を実行</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/packageの実行.JPG" alt="packageの実行.JPG">
-        <figcaption>packageの実行.JPG</figcaption>
-    </figure>
-    <p>「C:\workspace\java\demo\target\demo-1.0-SNAPSHOT.war」が作成される。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/warファイルの作成.JPG" alt="warファイルの作成.JPG">
-        <figcaption>warファイルの作成.JPG</figcaption>
-    </figure>
-    <p>Serversタブ⇒Community Server Connectorプルダウンで右クリック⇒「Create New Server」をクリック。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Create_New_Server.JPG" alt="Create_New_Server.JPG">
-        <figcaption>Create_New_Server.JPG</figcaption>
-    </figure>
-    <p>「Download server?」と聞かれるので「Yes」を選択する</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/DownloadServer.JPG" alt="DownloadServer.JPG">
-        <figcaption>DownloadServer.JPG</figcaption>
-    </figure>
-    <p>「Please Choose a server o dwnload.」と聞かれるので20240831時点のApache Tomcatの最新である「Apache Tomcat 11.0.0-M6」を選択する</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ChooseServer.JPG" alt="ChooseServer.JPG">
-        <figcaption>ChooseServer.JPG</figcaption>
-    </figure>
-    <p>「License URL: https://www.apache.org/licenses/LICENSE-2.0.txt」の「Configure」をクリック</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/LicenseConfigure.JPG" alt="LicenseConfigure.JPG">
-        <figcaption>LicenseConfigure.JPG</figcaption>
-    </figure>
-    <p>「Do you agree to the license?」と聞かれるのでライセンスを読んで「Yes(True)」を選択</p>
-    <p>上記選択後、Explolerタブ⇒SERVERSタブ⇒Community Server Connectorプルダウンに「apache-tomcat-11.0.0-M6」が追加される。</p>
-    <p>※workflow.licenseが作成されるが保存できない？不明。コピペなら保存できるか？</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/LicenseConfigure.JPG" alt="LicenseConfigure.JPG">
-        <figcaption>LicenseConfigure.JPG</figcaption>
-    </figure>
-    <p>Explolerタブ⇒SERVERSタブ⇒Community Server Connectorプルダウンを右クリックして「Add Deployment」を選択する。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Add_Deployment.JPG" alt="Add_Deployment.JPG">
-        <figcaption>Add_Deployment.JPG</figcaption>
-    </figure>
-    <p>「What type of deployment do you want to add?」で「File」を選択する。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/What_type_of_deployment_do_you_want_to_add.JPG" alt="What_type_of_deployment_do_you_want_to_add.JPG">
-        <figcaption>What_type_of_deployment_do_you_want_to_add.JPG</figcaption>
-    </figure>
-    <p>「C:\workspace\java\demo\target\demo-1.0-SNAPSHOT.war」を選択して「Select File Deployment」をクリック。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/warファイルを選択.JPG" alt="warファイルを選択.JPG">
-        <figcaption>warファイルを選択.JPG</figcaption>
-    </figure>
-    <p>「Do you want to edit optional deployment parameters?」と表示されているが、特にデプロイ時のパラメータを指定しないので「No」を選択。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Do_you_want_to_edit_optional_deployment_parameters.JPG" alt="Do_you_want_to_edit_optional_deployment_parameters.JPG">
-        <figcaption>Do_you_want_to_edit_optional_deployment_parameters.JPG</figcaption>
-    </figure>
-    <p>「apache-tomcat-11.0.0-M6」にwarファイルがぶら下がったことを確認。「apache-tomcat-11.0.0-M6」を右クリックして「Start Server」をクリックする。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Start_Server.JPG" alt="Start_Server.JPG">
-        <figcaption>Start_Server.JPG</figcaption>
-    </figure>
-    <p>ブラウザで「http://localhost:8080/」にアクセスすると「Apache Tomcat」のページにアクセスできる。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Apache_Tomcat.JPG" alt="Apache_Tomcat.JPG">
-        <figcaption>Apache_Tomcat.JPG</figcaption>
-    </figure>
-    <p>ブラウザで「http://localhost:8080/demo-1.0-SNAPSHOT/hello」にアクセスすると作成したページにアクセスできる。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/HelloWorld.JPG" alt="HelloWorld.JPG">
-        <figcaption>HelloWorld.JPG</figcaption>
-    </figure>
-    <h3>デバッグ実行</h3>
-    <p>行番号の左側をクリックしてブレークポイントを追加する。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ブレークポイントを追加.JPG" alt="ブレークポイントを追加.JPG">
-        <figcaption>ブレークポイントを追加.JPG</figcaption>
-    </figure>
-    <p>「apache-tomcat」を立ち上げるときに「Debug Server」を指定する。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Debug_Serverを指定.JPG" alt="Debug_Serverを指定.JPG">
-        <figcaption>Debug_Serverを指定.JPG</figcaption>
-    </figure>
-    <p>「Please input a project name to be used by the java debugger.」(Java デバッガーで使用するプロジェクト名を入力してください。)と表示されるので適当にdemoと入れた。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Debug_Serverで使用する名前を指定.JPG" alt="Debug_Serverで使用する名前を指定.JPG">
-        <figcaption>Debug_Serverで使用する名前を指定.JPG</figcaption>
-    </figure>
-    <p>画面下側の出力タブに「Listening for transport dt_socket at address: 2506」と出力される。ここの番号がデバッグサーバーのポート番号。</p>
-    <p>「ctl + shift + d」を押してlaunch.json「C:\workspace\java\demo\.vscode\launch.json」を作成する。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/launch_jsonを作成.JPG" alt="launch_jsonを作成.JPG">
-        <figcaption>launch_jsonを作成.JPG</figcaption>
-    </figure>
-    <p>「C:\workspace\java\demo\.vscode\launch.json」に以下のように書き換える</p>
-    <p>ポート番号について先ほど確認したデバッグサーバーのポート番号を設定する。ここのポート固定できないのだろうか・・・</p>
-<pre>
-■C:\workspace\java\demo\.vscode\launch.json
-{
-    "version": "0.2.0",
-    "configurations": [
-        {
-        "type": "java",
-        "name": "Debug Tomcat",
-        "request": "attach",
-        "hostName": "localhost",
-        "port": 2506,
-        "timeout": 10000,
-        "projectName": "demo"
-        }
-    ]
-}
-</pre>
-    <p>再度「http://localhost:8080/demo-1.0-SNAPSHOT/hello」にアクセスするとブレークポイントで停止したことを確認。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ブレークポイントで停止.JPG" alt="ブレークポイントで停止.JPG">
-        <figcaption>ブレークポイントで停止.JPG</figcaption>
-    </figure>
-    <h3>Xamppのインストール</h3>
-    <p>Xamppをダウンロード(20240824時点で「xampp-windows-x64-8.2.12-0-VS16-installer.exe」が最新だった)</p>
-    <a href="https://www.apachefriends.org/jp/download.html">Windows 向け XAMPP ダウンロード</a>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをダウンロード.JPG" alt="Xamppをダウンロード.JPG">
-        <figcaption>Xamppをダウンロード.JPG</figcaption>
-    </figure>
-    <p>警告を確認してOKをクリック</p>
-    <a href="https://teamtreehouse.com/community/xampp-warningwhat-does-this-mean">XAMPP Warning--What does this mean?</a>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール1.JPG" alt="Xamppをインストール1.JPG">
-        <figcaption>Xamppをインストール1.JPG</figcaption>
-    </figure>
-<pre>
-警告
-Important Because an actreted& User Arteunt Control (UAO) on
-your system some functions of XAMPP are pessibly restricted.
-With UAC please avoid to install YAMPP to CyProgram Files
-(missing write permissions). Or deactivate UAC with msconfig
-after this setup.
-
-警告(翻訳)
-重要: システムにユーザー コントロール (UAO) がアクティブ化されているため、
-XAMPP の一部の機能が制限される可能性があります。
-UAC を使用する場合は、XAMPP を CyProgram Files にインストールしないでください
- (書き込み権限がありません)。
- または、このセットアップ後に msconfig で UAC を無効にしてください。
-</pre>
-    <p>Nextをクリック</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール2.JPG" alt="Xamppをインストール2.JPG">
-        <figcaption>Xamppをインストール2.JPG</figcaption>
-    </figure>
-    <p>Nextをクリック</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール3.JPG" alt="Xamppをインストール3.JPG">
-        <figcaption>Xamppをインストール3.JPG</figcaption>
-    </figure>
-    <p>インストール先を選択してNextをクリック</p>
-    <p>デフォルトのインストール先は「C:\xampp」</p>
-    <p>今回は「C:\workspace\xamppJava」にインストールさせる。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール4.JPG" alt="Xamppをインストール4.JPG">
-        <figcaption>Xamppをインストール4.JPG</figcaption>
-    </figure>
-    <p>Nextをクリック</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール5.JPG" alt="Xamppをインストール5.JPG">
-        <figcaption>Xamppをインストール5.JPG</figcaption>
-    </figure>
-    <p>Nextをクリック</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール6.JPG" alt="Xamppをインストール6.JPG">
-        <figcaption>Xamppをインストール6.JPG</figcaption>
-    </figure>
-    <p>Finishをクリック</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール7.JPG" alt="Xamppをインストール7.JPG">
-        <figcaption>Xamppをインストール7.JPG</figcaption>
-    </figure>
-    <h3>xamppでapache・mysqlを立ち上げてvscode等からアクセス</h3>
-    <h4>DB側を作成</h4>
-    <p>「C:\workspace\xamppJava\xampp-control.exe」を実行して立ち上げる。</p>
-    <p>ApacheとMySQLのActions⇒Startを押して立ち上げる。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ApacheとMySQLを立ち上げる.JPG" alt="ApacheとMySQLを立ち上げる.JPG">
-        <figcaption>ApacheとMySQLを立ち上げる.JPG</figcaption>
-    </figure>
-    <p>MysqlのAdminをクリックしてMySQLMyAdmin(http://localhost/phpmyadmin/index.php)にアクセス。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/MySQLMyAdminにアクセス.JPG" alt="MySQLMyAdminにアクセス.JPG">
-        <figcaption>MySQLMyAdminにアクセス.JPG</figcaption>
-    </figure>
-    <p>データベースタブから適当なデータベース名「torii_db」を設定して作成をクリック。</p>
-    <p>「utf8」「utf8mb4_general_ci」どちらがいいかだと、「utf8mb4_general_ci」が現在(20240908)のMySQLの標準らしい。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベース作成.JPG" alt="データベース作成.JPG">
-        <figcaption>データベース作成.JPG</figcaption>
-    </figure>
-    <p>適当なテーブルを作成する。今回はテストとしてテーブル名「memos」カラム「id」「title」「text」「created_date」で作成するため、テーブル名「memos」カラム数「4」で作成をクリックする。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/テーブルを作成.JPG" alt="テーブルを作成.JPG">
-        <figcaption>テーブルを作成.JPG</figcaption>
-    </figure>
-    <p>カラムを設定する。</p>
-   <p>idは、桁数多いint型が良いのでBIGINT(8byte, 0から18446744073709551615)、主キーにして自動加算(AUTO_INCREMENT)</p>
-   <p>titleは、桁数が決まっていない可変長の文字列で少し長めの桁数VARCHARの128桁にしておく。128なのは、2累乗(2,4,8,64,128,16384・・・)が処理効率が良いらしいので。</p>
-   <p>textは、長めの長文でいいのでTEXT。最大65,535バイト（約64KB）</p>
-   <p>created_dateは、タイムゾーンをアプリ側で管理する日付の入れ物でいいと思ったのでdatetime型を指定</p>
-   <p>設定が完了したら「保存する」をクリック。</p>
-   <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/カラムを設定.JPG" alt="カラムを設定.JPG">
-        <figcaption>カラムを設定.JPG</figcaption>
-    </figure>
-    <p>「挿入」タブから値を設定して「実行」をクリックする。idは自動加算なので空にしている。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/値を挿入.JPG" alt="値を挿入.JPG">
-        <figcaption>値を挿入.JPG</figcaption>
-    </figure>
-    <p>「表示」タブをクリックして値が入ったことを確認。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/表示を確認.JPG" alt="表示を確認.JPG">
-        <figcaption>表示を確認.JPG</figcaption>
-    </figure>
-    <h4>VS Codeから接続</h4>
-    <p>ソースコードを修正</p>
-<pre>
-■C:\workspace\java\demo\pom.xml
-1.dependenciesを修正(mysql-connector-jを追加)
-〇修正前
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;junit&lt;/groupId&gt;
-        &lt;artifactId&gt;junit&lt;/artifactId&gt;
-        &lt;version&gt;4.11&lt;/version&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
-        &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
-        &lt;version&gt;6.0.0&lt;/version&gt;
-        &lt;scope&gt;provided&lt;/scope&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-〇修正後
-&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;junit&lt;/groupId&gt;
-        &lt;artifactId&gt;junit&lt;/artifactId&gt;
-        &lt;version&gt;4.11&lt;/version&gt;
-        &lt;scope&gt;test&lt;/scope&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
-        &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
-        &lt;version&gt;6.0.0&lt;/version&gt;
-        &lt;scope&gt;provided&lt;/scope&gt;
-    &lt;/dependency&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;com.mysql&lt;/groupId&gt;
-        &lt;artifactId&gt;mysql-connector-j&lt;/artifactId&gt;
-        &lt;version&gt;8.0.33&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;
-
-■C:\workspace\java\demo\src\main\webapp\WEB-INF\web.xmlを修正
-1.DatabaseServletの定義とマッピングを追加
-〇修正前
-&lt;!-- サーブレットの定義 --&gt;
-&lt;servlet&gt;
-    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
-&lt;/servlet&gt;
-
-&lt;!-- サーブレットのマッピング --&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
-&lt;/servlet-mapping&gt;
-〇修正後
-&lt;!-- サーブレットの定義 --&gt;
-&lt;servlet&gt;
-    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
-&lt;/servlet&gt;
-&lt;servlet&gt;
-    &lt;servlet-name&gt;DatabaseServlet&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;com.example.DatabaseServlet&lt;/servlet-class&gt;
-&lt;/servlet&gt;
-
-&lt;!-- サーブレットのマッピング --&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
-&lt;/servlet-mapping&gt;
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;DatabaseServlet&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;/database&lt;/url-pattern&gt;
-&lt;/servlet-mapping&gt;
-
-■C:\workspace\java\demo\src\main\java\com\example\DatabaseServlet.javaを新規追加
-package com.example;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
-public class DatabaseServlet extends HttpServlet {
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType(&quot;text/html&quot;);
-        PrintWriter out = response.getWriter();
-
-        String jdbcUrl = &quot;jdbc:mysql://localhost:3306/torii_db&quot;;
-        String dbUser = &quot;root&quot;;
-        String dbPassword = &quot;&quot;;
-
-        try {
-            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-            Connection connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(&quot;SELECT * FROM torii_db.memos&quot;);
-
-            while (resultSet.next()) {
-                out.println(&quot;id: &quot; + resultSet.getString(&quot;id&quot;) + &quot;&lt;br&gt;&quot;);
-                out.println(&quot;title: &quot; + resultSet.getString(&quot;title&quot;) + &quot;&lt;br&gt;&quot;);
-                out.println(&quot;text: &quot; + resultSet.getString(&quot;text&quot;) + &quot;&lt;br&gt;&quot;);
-                out.println(&quot;created_date: &quot; + resultSet.getString(&quot;created_date&quot;) + &quot;&lt;br&gt;&quot;);
+    〇修正後
+    &lt;!-- サーブレットの定義 --&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;DatabaseServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;com.example.DatabaseServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+    
+    &lt;!-- サーブレットのマッピング --&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;DatabaseServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/database&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+    
+    ■C:\workspace\java\demo\src\main\java\com\example\DatabaseServlet.javaを新規追加
+    package com.example;
+    
+    import java.io.IOException;
+    import java.io.PrintWriter;
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.ResultSet;
+    import java.sql.Statement;
+    import jakarta.servlet.ServletException;
+    import jakarta.servlet.http.HttpServlet;
+    import jakarta.servlet.http.HttpServletRequest;
+    import jakarta.servlet.http.HttpServletResponse;
+    
+    public class DatabaseServlet extends HttpServlet {
+    
+        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+            response.setContentType(&quot;text/html&quot;);
+            PrintWriter out = response.getWriter();
+    
+            String jdbcUrl = &quot;jdbc:mysql://localhost:3306/torii_db&quot;;
+            String dbUser = &quot;root&quot;;
+            String dbPassword = &quot;&quot;;
+    
+            try {
+                Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
+                Connection connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery(&quot;SELECT * FROM torii_db.memos&quot;);
+    
+                while (resultSet.next()) {
+                    out.println(&quot;id: &quot; + resultSet.getString(&quot;id&quot;) + &quot;&lt;br&gt;&quot;);
+                    out.println(&quot;title: &quot; + resultSet.getString(&quot;title&quot;) + &quot;&lt;br&gt;&quot;);
+                    out.println(&quot;text: &quot; + resultSet.getString(&quot;text&quot;) + &quot;&lt;br&gt;&quot;);
+                    out.println(&quot;created_date: &quot; + resultSet.getString(&quot;created_date&quot;) + &quot;&lt;br&gt;&quot;);
+                }
+    
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                out.println(&quot;Error: &quot; + e.getMessage());
             }
-
-            connection.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            out.println(&quot;Error: &quot; + e.getMessage());
         }
     }
-}
-</pre>
-    <p>「pom.xmlの再読み込み」「cleanの実行」「packageを再作成」「warファイルの再設定」する。「Apache・Tomcatを再起動」は別にしなくても良いらしい。</p>
-    <p>上記実行後「http://localhost:8080/demo-1.0-SNAPSHOT/database」にアクセスすると、DBの値が取れていることが確認できる。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/表示を確認.JPG" alt="表示を確認.JPG">
-        <figcaption>表示を確認.JPG</figcaption>
+    </pre>
+        <p>「pom.xmlの再読み込み」「cleanの実行」「packageを再作成」「warファイルの再設定」する。「Apache・Tomcatを再起動」は別にしなくても良いらしい。</p>
+        <p>上記実行後「http://localhost:8080/demo-1.0-SNAPSHOT/database」にアクセスすると、DBの値が取れていることが確認できる。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/DBの値が取得できることを確認.JPG" alt="DBの値が取得できることを確認.JPG">
+            <figcaption>DBの値が取得できることを確認.JPG</figcaption>
+        </figure>
+        <h4>A5M2からアクセス</h4>
+        <p>A5M2をインストールして立ち上げる</p>
+        <p>「データベースの追加と削除」をクリック。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベースの追加と削除.JPG" alt="データベースの追加と削除.JPG">
+            <figcaption>データベースの追加と削除.JPG</figcaption>
+        </figure>
+        <p>「追加(A)」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/追加をクリック.JPG" alt="追加をクリック.JPG">
+            <figcaption>追加をクリック.JPG</figcaption>
+        </figure>
+        <p>「MySQL/MariaDB(直接接続)(M)」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/MySQLを選択.JPG" alt="MySQLを選択.JPG">
+            <figcaption>MySQLを選択.JPG</figcaption>
+        </figure>
+        <p>基本タブで「ホスト名」「ポート番号」「ユーザーID」「データベース」「キャラクタセット」を設定して「テスト接続」をクリックすると「接続に成功しました」と表示されることを確認したのち「OK」をクリックする。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベースの内容を設定.JPG" alt="データベースの内容を設定.JPG">
+            <figcaption>データベースの内容を設定.JPG</figcaption>
+        </figure>
+        <p>データベース別名が求められるので適当に「localhost_mysql/mysql」と書いて「OK」をクリック。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベース別名を設定.JPG" alt="データベース別名を設定.JPG">
+            <figcaption>データベース別名を設定.JPG</figcaption>
+        </figure>
+        <p>データベースが追加されたことを確認して「OK」をクリック。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベースが追加されたことを確認.JPG" alt="データベースが追加されたことを確認.JPG">
+            <figcaption>データベースが追加されたことを確認.JPG</figcaption>
+        </figure>
+        <p>追加したデータベース「mysql」をダブルクリックして「接続」をクリックする。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/追加したデータベースに接続.JPG" alt="追加したデータベースに接続.JPG">
+            <figcaption>追加したデータベースに接続.JPG</figcaption>
+        </figure>
+        <p>作成したテーブルにアクセス出来ることを確認。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_20240804/作成したテーブルにアクセス.JPG" alt="作成したテーブルにアクセス.JPG">
+            <figcaption>作成したテーブルにアクセス.JPG</figcaption>
+        </figure>
+     </details>
+
+     <h2>HerokuにJavaのサーブレット環境を構築_20240914</h2>
+     <h3>事前準備</h3>
+     <p>warファイル:demo-1.0-SNAPSHOT.war(例)を作成</p>
+     <p>Heroku</p>
+     <p>A5M2のインストール</p>
+     <h3>Herokuにアプリを作成</h3>
+     <p>「Create new app」をクリック</p>
+     <figure>
+         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/create_new_appをクリック.JPG" alt="create_new_appをクリック.JPG">
+         <figcaption>create_new_appをクリック.JPG</figcaption>
+     </figure>
+     <p>アプリ名について「toriisan-java-servlet-001」としておく。</p>
+     <p>Choose a ragionについてUSとEUが選べるが、何となくUSにしておく。</p>
+     <p>「Create app」をクリックする。</p>
+     <figure>
+         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/Create_appをクリック.JPG" alt="Create_appをクリック.JPG">
+         <figcaption>Create_appをクリック.JPG</figcaption>
+     </figure>
+     <p>アプリ作成が完了して「toriisan-java-servlet-001」アプリの「Overview」が表示される。</p>
+     <figure>
+         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/アプリ作成が完了.JPG" alt="アプリ作成が完了.JPG">
+         <figcaption>アプリ作成が完了.JPG</figcaption>
+     </figure>
+     <h3>HerokuにMySQLのアドオンを追加</h3>
+     <p>Herokuが公式でサポートしているのはPostgresだけであり、MySQLは外部の会社でのサポートとなる。</p>
+     <p>以前はClearDBで無料プランがあったが、無くなってしまった。「JawsDB MySQL」にはまだ無料プランがあるみたいなので試しでこちらを利用してみる。こちらもいずれは無料プランが無くなってしまうかもしれない。</p>
+     <p>MySQLとの違いは以下らしい<br>MySQL:シンプルで高速なパフォーマンス<br>Postgres:高度で複雑な操作に向き</p>
+     <p>「Resources」タブの「Add-ons」で「mysql」で検索して「JawsDB MySQL」を選択する。</p>
+     <figure>
+         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/JawsDB_MySQLを追加.JPG" alt="JawsDB_MySQLを追加.JPG">
+         <figcaption>JawsDB_MySQLを追加.JPG</figcaption>
+     </figure>
+     <p>「Kltefin Shared Free」を選択して「Submit Order Form」をクリックする。</p>
+     <figure>
+         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/料金プランを選択.JPG" alt="料金プランを選択.JPG">
+         <figcaption>料金プランを選択.JPG</figcaption>
+     </figure>
+     <p>「Overview」タブを確認すると「JawsDB MySQL」のアドオンが追加されたことが確認できる。「JawsDB MySQL」をクリックする。</p>
+     <figure>
+         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/アドオンが追加された.JPG" alt="アドオンが追加された.JPG">
+         <figcaption>アドオンが追加された.JPG</figcaption>
+     </figure>
+     <p>「Kitefin Server Dashboard」が表示される。「Host」「Username」「Password」「Port」「Database」が確認できる。</p>
+     <figure>
+        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/Kitefin_Server_Dashboardを確認.JPG" alt="Kitefin_Server_Dashboardを確認.JPG">
+        <figcaption>Kitefin_Server_Dashboardを確認.JPG</figcaption>
     </figure>
-    <h4>A5M2からアクセス</h4>
-    <p>A5M2をインストールして立ち上げる</p>
-    <p>「データベースの追加と削除」をクリック。</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベースの追加と削除.JPG" alt="データベースの追加と削除.JPG">
-        <figcaption>データベースの追加と削除.JPG</figcaption>
-    </figure>
-    <p>「追加(A)」をクリック</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/追加をクリック.JPG" alt="追加をクリック.JPG">
-        <figcaption>追加をクリック.JPG</figcaption>
-    </figure>
-    <p>「MySQL/MariaDB(直接接続)(M)」をクリック</p>
-    <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/MySQLを選択.JPG" alt="MySQLを選択.JPG">
+     <h3>A5M2から接続等</h3>
+     <p>A5M2を立ち上げて「データベースの追加と削除」をクリック</p>
+     <figure>
+         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/データベースの追加と削除をクリック.JPG" alt="データベースの追加と削除をクリック.JPG">
+         <figcaption>データベースの追加と削除をクリック.JPG</figcaption>
+     </figure>
+     <p>「追加(A)」をクリック</p>
+     <figure>
+         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/追加をクリック.JPG" alt="追加をクリック.JPG">
+         <figcaption>追加をクリック.JPG</figcaption>
+     </figure>
+     <p>「MySQL/MariaDB(直接接続)(M)」をクリックする。</p>
+     <figure>
+        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/MySQLを選択.JPG" alt="MySQLを選択.JPG">
         <figcaption>MySQLを選択.JPG</figcaption>
     </figure>
-    <p>基本タブで「ホスト名」「ポート番号」「ユーザーID」「データベース」「キャラクタセット」を設定して「テスト接続」をクリックすると「接続に成功しました」と表示されることを確認したのち「OK」をクリックする。</p>
+    <p>基本タブについて「Kitefin Server Dashboard」で確認した内容を設定する。キャラクタセットには「utf8mb4」を入れておく。「テスト接続」をクリック。「接続に成功しました。」と表示されたら「OK」をクリックする。</p>
     <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベースの内容を設定.JPG" alt="データベースの内容を設定.JPG">
-        <figcaption>データベースの内容を設定.JPG</figcaption>
+        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/データベースの内容を登録.JPG" alt="データベースの内容を登録.JPG">
+        <figcaption>データベースの内容を登録.JPG</figcaption>
     </figure>
-    <p>データベース別名が求められるので適当に「localhost_mysql/mysql」と書いて「OK」をクリック。</p>
+    <p>A5M2で識別するデータベース別名を入力して「OK」をクリック。適当に「jawsdb/mysql」と入れた。</p>
     <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベース別名を設定.JPG" alt="データベース別名を設定.JPG">
-        <figcaption>データベース別名を設定.JPG</figcaption>
+        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/データベース別名を入力.JPG" alt="データベース別名を入力.JPG">
+        <figcaption>データベース別名を入力.JPG</figcaption>
     </figure>
-    <p>データベースが追加されたことを確認して「OK」をクリック。</p>
+    <p>「jawsdb/mysql」が登録された。「閉じる」をクリック。</p>
     <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/データベースが追加されたことを確認.JPG" alt="データベースが追加されたことを確認.JPG">
-        <figcaption>データベースが追加されたことを確認.JPG</figcaption>
+        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/登録を確認.JPG" alt="登録を確認.JPG">
+        <figcaption>登録を確認.JPG</figcaption>
     </figure>
-    <p>追加したデータベース「mysql」をダブルクリックして「接続」をクリックする。</p>
+    <p>追加したDBをダブルクリックする。</p>
     <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/追加したデータベースに接続.JPG" alt="追加したデータベースに接続.JPG">
-        <figcaption>追加したデータベースに接続.JPG</figcaption>
+        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/追加したDBをダブルクリック.JPG" alt="追加したDBをダブルクリック.JPG">
+        <figcaption>追加したDBをダブルクリック.JPG</figcaption>
     </figure>
-    <p>作成したテーブルにアクセス出来ることを確認。</p>
+    <p>「ユーザーID」「パスワード」を入力して「接続」をクリック。パスワードを保存するにチェックを入れておくと便利。</p>
     <figure>
-        <img class="beside" src="../img/Java/ローカル環境の作成_20240804/作成したテーブルにアクセス.JPG" alt="作成したテーブルにアクセス.JPG">
-        <figcaption>作成したテーブルにアクセス.JPG</figcaption>
+        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/追加したDBに接続.JPG" alt="追加したDBに接続.JPG">
+        <figcaption>追加したDBに接続.JPG</figcaption>
+    </figure>
+    <p>DBを選択した状態で以下をSQL実行(ctl + Enter)してテーブル作成、レコード追加を行う。</p>
+<pre>
+■テーブル作成
+CREATE TABLE `memos` (
+    `id` bigint(20) NOT NULL AUTO_INCREMENT,
+    `title` varchar(128) NOT NULL,
+    `text` text NOT NULL,
+    `created_date` datetime NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+■レコード追加
+INSERT INTO `memos` (`id`, `title`, `text`, `created_date`) VALUES (NULL, 'title_テスト', 'text_テスト', '2024-09-15 14:39:43.000000');
+</pre>
+    <figure>
+        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/SQLを実行.JPG" alt="SQLを実行.JPG">
+        <figcaption>SQLを実行.JPG</figcaption>
     </figure>
 
 <div id="log"></div>
