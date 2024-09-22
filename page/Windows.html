@@ -36,6 +36,30 @@
     <h2>エクスプローラーから別PCのドライブにアクセス</h2>
     <p><a href="https://bags-lab.com/2021/01/07/explorer-drive-acceess/">【参考】【Windows】エクスプローラーから別PCのドライブにアクセスする方法【tips】</a></p>
 
+    <h2>cmdからシステム環境変数のパスを追加</h2>
+<pre>
+<code>
+■コマンドプロンプトのセッション内でのみ有効
+set JAVA_HOME=C:\Program Files (x86)\Java\jdk1.5.0_22
+set PATH=%JAVA_HOME%\bin;%PATH%"
+■恒久的に設定
+setx JAVA_HOME "C:\Program Files (x86)\Java\jdk1.5.0_22"
+setx PATH "%JAVA_HOME%\bin;%PATH%""
+※setxコマンドは削除が出来なくなるので使わないほうがいい？
+</code>
+</pre>
+
+    <h2>cmdからJAVA_HOMEの追加</h2>
+<pre>
+<code>
+■コマンドプロンプトのセッション内でのみ有効
+set JAVA_HOME=C:\Program Files (x86)\Java\jdk1.5.0_22
+■恒久的に設定
+setx JAVA_HOME "C:\Program Files (x86)\Java\jdk1.5.0_22"
+※setxコマンドは削除が出来なくなるので使わないほうがいい？
+</code>
+</pre>
+
     <div id="log"></div>
     </main>
     <div id="operationParts"></div>
