@@ -894,94 +894,96 @@
      </details>
 
      <h2>HerokuにJavaのサーブレット環境を構築_20240914</h2>
-     <h3>事前準備</h3>
-     <p>warファイル:demo-1.0-SNAPSHOT.war(例)を作成</p>
-     <p>Heroku</p>
-     <p>A5M2のインストール</p>
-     <h3>Herokuにアプリを作成</h3>
-     <p>「Create new app」をクリック</p>
-     <figure>
-         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/create_new_appをクリック.JPG" alt="create_new_appをクリック.JPG">
-         <figcaption>create_new_appをクリック.JPG</figcaption>
-     </figure>
-     <p>アプリ名について「toriisan-java-servlet-001」としておく。</p>
-     <p>Choose a ragionについてUSとEUが選べるが、何となくUSにしておく。</p>
-     <p>「Create app」をクリックする。</p>
-     <figure>
-         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/Create_appをクリック.JPG" alt="Create_appをクリック.JPG">
-         <figcaption>Create_appをクリック.JPG</figcaption>
-     </figure>
-     <p>アプリ作成が完了して「toriisan-java-servlet-001」アプリの「Overview」が表示される。</p>
-     <figure>
-         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/アプリ作成が完了.JPG" alt="アプリ作成が完了.JPG">
-         <figcaption>アプリ作成が完了.JPG</figcaption>
-     </figure>
-     <h3>HerokuにMySQLのアドオンを追加</h3>
-     <p>Herokuが公式でサポートしているのはPostgresだけであり、MySQLは外部の会社でのサポートとなる。</p>
-     <p>以前はClearDBで無料プランがあったが、無くなってしまった。「JawsDB MySQL」にはまだ無料プランがあるみたいなので試しでこちらを利用してみる。こちらもいずれは無料プランが無くなってしまうかもしれない。</p>
-     <p>MySQLとの違いは以下らしい<br>MySQL:シンプルで高速なパフォーマンス<br>Postgres:高度で複雑な操作に向き</p>
-     <p>「Resources」タブの「Add-ons」で「mysql」で検索して「JawsDB MySQL」を選択する。</p>
-     <figure>
-         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/JawsDB_MySQLを追加.JPG" alt="JawsDB_MySQLを追加.JPG">
-         <figcaption>JawsDB_MySQLを追加.JPG</figcaption>
-     </figure>
-     <p>「Kltefin Shared Free」を選択して「Submit Order Form」をクリックする。</p>
-     <figure>
-         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/料金プランを選択.JPG" alt="料金プランを選択.JPG">
-         <figcaption>料金プランを選択.JPG</figcaption>
-     </figure>
-     <p>「Overview」タブを確認すると「JawsDB MySQL」のアドオンが追加されたことが確認できる。「JawsDB MySQL」をクリックする。</p>
-     <figure>
-         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/アドオンが追加された.JPG" alt="アドオンが追加された.JPG">
-         <figcaption>アドオンが追加された.JPG</figcaption>
-     </figure>
-     <p>「Kitefin Server Dashboard」が表示される。「Host」「Username」「Password」「Port」「Database」が確認できる。</p>
-     <figure>
-        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/Kitefin_Server_Dashboardを確認.JPG" alt="Kitefin_Server_Dashboardを確認.JPG">
-        <figcaption>Kitefin_Server_Dashboardを確認.JPG</figcaption>
-    </figure>
-     <h3>A5M2から接続等</h3>
-     <p>A5M2を立ち上げて「データベースの追加と削除」をクリック</p>
-     <figure>
-         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/データベースの追加と削除をクリック.JPG" alt="データベースの追加と削除をクリック.JPG">
-         <figcaption>データベースの追加と削除をクリック.JPG</figcaption>
-     </figure>
-     <p>「追加(A)」をクリック</p>
-     <figure>
-         <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/追加をクリック.JPG" alt="追加をクリック.JPG">
-         <figcaption>追加をクリック.JPG</figcaption>
-     </figure>
-     <p>「MySQL/MariaDB(直接接続)(M)」をクリックする。</p>
-     <figure>
-        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/MySQLを選択.JPG" alt="MySQLを選択.JPG">
-        <figcaption>MySQLを選択.JPG</figcaption>
-    </figure>
-    <p>基本タブについて「Kitefin Server Dashboard」で確認した内容を設定する。キャラクタセットには「utf8mb4」を入れておく。「テスト接続」をクリック。「接続に成功しました。」と表示されたら「OK」をクリックする。</p>
-    <figure>
-        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/データベースの内容を登録.JPG" alt="データベースの内容を登録.JPG">
-        <figcaption>データベースの内容を登録.JPG</figcaption>
-    </figure>
-    <p>A5M2で識別するデータベース別名を入力して「OK」をクリック。適当に「jawsdb/mysql」と入れた。</p>
-    <figure>
-        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/データベース別名を入力.JPG" alt="データベース別名を入力.JPG">
-        <figcaption>データベース別名を入力.JPG</figcaption>
-    </figure>
-    <p>「jawsdb/mysql」が登録された。「閉じる」をクリック。</p>
-    <figure>
-        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/登録を確認.JPG" alt="登録を確認.JPG">
-        <figcaption>登録を確認.JPG</figcaption>
-    </figure>
-    <p>追加したDBをダブルクリックする。</p>
-    <figure>
-        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/追加したDBをダブルクリック.JPG" alt="追加したDBをダブルクリック.JPG">
-        <figcaption>追加したDBをダブルクリック.JPG</figcaption>
-    </figure>
-    <p>「ユーザーID」「パスワード」を入力して「接続」をクリック。パスワードを保存するにチェックを入れておくと便利。</p>
-    <figure>
-        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/追加したDBに接続.JPG" alt="追加したDBに接続.JPG">
-        <figcaption>追加したDBに接続.JPG</figcaption>
-    </figure>
-    <p>DBを選択した状態で以下をSQL実行(ctl + Enter)してテーブル作成、レコード追加を行う。</p>
+     <details>
+         <h3>事前準備</h3>
+         <p>demo-1.0-SNAPSHOT.warを作成できる環境(例)</p>
+         <p>Heroku</p>
+         <p>A5M2のインストール</p>
+         <p>Git・TortoiseGitのインストール</p>
+         <h3>Herokuにアプリを作成</h3>
+         <p>「Create new app」をクリック</p>
+         <figure>
+             <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/create_new_appをクリック.JPG" alt="create_new_appをクリック.JPG">
+             <figcaption>create_new_appをクリック.JPG</figcaption>
+         </figure>
+         <p>アプリ名について「toriisan-java-servlet-001」としておく。</p>
+         <p>Choose a ragionについてUSとEUが選べるが、何となくUSにしておく。</p>
+         <p>「Create app」をクリックする。</p>
+         <figure>
+             <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/Create_appをクリック.JPG" alt="Create_appをクリック.JPG">
+             <figcaption>Create_appをクリック.JPG</figcaption>
+         </figure>
+         <p>アプリ作成が完了して「toriisan-java-servlet-001」アプリの「Overview」が表示される。</p>
+         <figure>
+             <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/アプリ作成が完了.JPG" alt="アプリ作成が完了.JPG">
+             <figcaption>アプリ作成が完了.JPG</figcaption>
+         </figure>
+         <h3>HerokuにMySQLのアドオンを追加</h3>
+         <p>Herokuが公式でサポートしているのはPostgresだけであり、MySQLは外部の会社でのサポートとなる。</p>
+         <p>以前はClearDBで無料プランがあったが、無くなってしまった。「JawsDB MySQL」にはまだ無料プランがあるみたいなので試しでこちらを利用してみる。こちらもいずれは無料プランが無くなってしまうかもしれない。</p>
+         <p>MySQLとの違いは以下らしい<br>MySQL:シンプルで高速なパフォーマンス<br>Postgres:高度で複雑な操作に向き</p>
+         <p>「Resources」タブの「Add-ons」で「mysql」で検索して「JawsDB MySQL」を選択する。</p>
+         <figure>
+             <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/JawsDB_MySQLを追加.JPG" alt="JawsDB_MySQLを追加.JPG">
+             <figcaption>JawsDB_MySQLを追加.JPG</figcaption>
+         </figure>
+         <p>「Kltefin Shared Free」を選択して「Submit Order Form」をクリックする。</p>
+         <figure>
+             <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/料金プランを選択.JPG" alt="料金プランを選択.JPG">
+             <figcaption>料金プランを選択.JPG</figcaption>
+         </figure>
+         <p>「Overview」タブを確認すると「JawsDB MySQL」のアドオンが追加されたことが確認できる。「JawsDB MySQL」をクリックする。</p>
+         <figure>
+             <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/アドオンが追加された.JPG" alt="アドオンが追加された.JPG">
+             <figcaption>アドオンが追加された.JPG</figcaption>
+         </figure>
+         <p>「Kitefin Server Dashboard」が表示される。「Host」「Username」「Password」「Port」「Database」が確認できる。</p>
+         <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/Kitefin_Server_Dashboardを確認.JPG" alt="Kitefin_Server_Dashboardを確認.JPG">
+            <figcaption>Kitefin_Server_Dashboardを確認.JPG</figcaption>
+        </figure>
+         <h3>A5M2から接続等</h3>
+         <p>A5M2を立ち上げて「データベースの追加と削除」をクリック</p>
+         <figure>
+             <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/データベースの追加と削除をクリック.JPG" alt="データベースの追加と削除をクリック.JPG">
+             <figcaption>データベースの追加と削除をクリック.JPG</figcaption>
+         </figure>
+         <p>「追加(A)」をクリック</p>
+         <figure>
+             <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/追加をクリック.JPG" alt="追加をクリック.JPG">
+             <figcaption>追加をクリック.JPG</figcaption>
+         </figure>
+         <p>「MySQL/MariaDB(直接接続)(M)」をクリックする。</p>
+         <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/MySQLを選択.JPG" alt="MySQLを選択.JPG">
+            <figcaption>MySQLを選択.JPG</figcaption>
+        </figure>
+        <p>基本タブについて「Kitefin Server Dashboard」で確認した内容を設定する。キャラクタセットには「utf8mb4」を入れておく。「テスト接続」をクリック。「接続に成功しました。」と表示されたら「OK」をクリックする。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/データベースの内容を登録.JPG" alt="データベースの内容を登録.JPG">
+            <figcaption>データベースの内容を登録.JPG</figcaption>
+        </figure>
+        <p>A5M2で識別するデータベース別名を入力して「OK」をクリック。適当に「jawsdb/mysql」と入れた。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/データベース別名を入力.JPG" alt="データベース別名を入力.JPG">
+            <figcaption>データベース別名を入力.JPG</figcaption>
+        </figure>
+        <p>「jawsdb/mysql」が登録された。「閉じる」をクリック。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/登録を確認.JPG" alt="登録を確認.JPG">
+            <figcaption>登録を確認.JPG</figcaption>
+        </figure>
+        <p>追加したDBをダブルクリックする。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/追加したDBをダブルクリック.JPG" alt="追加したDBをダブルクリック.JPG">
+            <figcaption>追加したDBをダブルクリック.JPG</figcaption>
+        </figure>
+        <p>「ユーザーID」「パスワード」を入力して「接続」をクリック。パスワードを保存するにチェックを入れておくと便利。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/追加したDBに接続.JPG" alt="追加したDBに接続.JPG">
+            <figcaption>追加したDBに接続.JPG</figcaption>
+        </figure>
+        <p>DBを選択した状態で以下をSQL実行(ctl + Enter)してテーブル作成、レコード追加を行う。</p>
 <pre>
 ■テーブル作成
 CREATE TABLE `memos` (
@@ -994,10 +996,368 @@ CREATE TABLE `memos` (
 ■レコード追加
 INSERT INTO `memos` (`id`, `title`, `text`, `created_date`) VALUES (NULL, 'title_テスト', 'text_テスト', '2024-09-15 14:39:43.000000');
 </pre>
-    <figure>
-        <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/SQLを実行.JPG" alt="SQLを実行.JPG">
-        <figcaption>SQLを実行.JPG</figcaption>
-    </figure>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/SQLを実行.JPG" alt="SQLを実行.JPG">
+            <figcaption>SQLを実行.JPG</figcaption>
+        </figure>
+        <h3>環境変数を確認</h3>
+        <p>「Settings」タブの「Config Vars」を確認</p>
+        <p>「JAWSDB_WHITE_URL」と「JAWSDB_URL」があるが、接続制限が必要な場合は「JAWSDB_WHITE_URL」、特に必要がない場合は「JAWSDB_URL」で良いらしい。</p>
+        <p>どちらでもいいけれど、「JAWSDB_WHITE_URL」を確認した。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/環境変数を確認.JPG" alt="環境変数を確認.JPG">
+            <figcaption>環境変数を確認.JPG</figcaption>
+        </figure>
+        <h3>システム環境変数を修正</h3>
+        <p>ローカルで環境変数から値を取得する動作確認をするため、システム環境変数に環境変数を設定する。</p>
+        <p>windowsの検索で「システム環境変数」で検索してクリックする。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/システム環境変数で検索.JPG" alt="システム環境変数で検索.JPG">
+            <figcaption>システム環境変数で検索.JPG</figcaption>
+        </figure>
+        <p>「環境変数(N)...」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/環境変数をクリック.JPG" alt="環境変数をクリック.JPG">
+            <figcaption>環境変数をクリック.JPG</figcaption>
+        </figure>
+        <p>システム環境変数に「JAWSDB_WHITE_URL」を「新規(W)...」から登録。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/環境変数を設定.JPG" alt="環境変数を設定.JPG">
+            <figcaption>環境変数を設定.JPG</figcaption>
+        </figure>
+        <p>設定を反映させるためPCを再起動する。</p>
+        <p>再起動後、cmdから「set JAWSDB_WHITE_URL」で取得できるか確認出来る</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/環境変数の反映を確認.JPG" alt="環境変数の反映を確認.JPG">
+            <figcaption>環境変数の反映を確認.JPG</figcaption>
+        </figure>
+        <p>システム環境変数よりも簡単な環境変数の設定方法がないか探したが見つかっていない。</p>
+        <h3>ソースコードを修正して動作確認</h3>
+<pre>
+<code>
+■C:\workspace\java\demo\src\main\java\com\example\HelloServlet.java
+・変更なし
+
+■C:\workspace\java\demo\src\main\webapp\WEB-INF\web.xml
+・変更なし
+
+■C:\workspace\java\demo\src\main\java\com\example\DatabaseServlet.java
+・「JAWSDB_WHITE_URL」を取得してMYSQLに接続するように修正
+package com.example;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+public class DatabaseServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType(&quot;text/html; charset=UTF-8&quot;);
+        PrintWriter out = response.getWriter();
+
+        String jawsdbUrl = System.getenv(&quot;JAWSDB_WHITE_URL&quot;);
+
+        if (jawsdbUrl == null) {
+            out.println(&quot;Params not found.&quot; + &quot;&lt;br&gt;&quot;);
+            return;
+        }
+
+        URI dbUri = null;
+
+        try {
+            dbUri = new URI(jawsdbUrl);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            out.println(&quot;Invalid database URL&quot; + &quot;&lt;br&gt;&quot;);
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, &quot;Invalid database URL&quot;);
+            return;
+        }
+
+        if (dbUri == null || dbUri.getUserInfo() == null) {
+            out.println(&quot;Invalid URI or UserInfo.&quot; + &quot;&lt;br&gt;&quot;);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, &quot;Invalid URI or UserInfo.&quot;);
+            return;
+        }
+
+        String dbUser = dbUri.getUserInfo().split(&quot;:&quot;)[0];
+        String dbPassword = dbUri.getUserInfo().split(&quot;:&quot;)[1];
+        String dbUrl = &quot;jdbc:mysql://&quot; + dbUri.getHost() + &quot;:&quot; + dbUri.getPort() + dbUri.getPath();
+        String dbName = dbUri.getPath().startsWith(&quot;/&quot;) ? dbUri.getPath().substring(1) : dbUri.getPath();
+
+        try {
+            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
+            Connection connection = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(&quot;SELECT * FROM &quot; + dbName + &quot;.memos&quot;);
+
+            while (resultSet.next()) {
+                out.println(&quot;id: &quot; + resultSet.getString(&quot;id&quot;) + &quot;&lt;br&gt;&quot;);
+                out.println(&quot;title: &quot; + resultSet.getString(&quot;title&quot;) + &quot;&lt;br&gt;&quot;);
+                out.println(&quot;text: &quot; + resultSet.getString(&quot;text&quot;) + &quot;&lt;br&gt;&quot;);
+                out.println(&quot;created_date: &quot; + resultSet.getString(&quot;created_date&quot;) + &quot;&lt;br&gt;&quot;);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            out.println(&quot;e.getMessage(): &quot; + e.getMessage() + &quot;&lt;br&gt;&quot;);
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, &quot;Database error: &quot; + e.getMessage());
+        }
+    }
+}
+
+■C:\workspace\java\demo\pom.xml
+〇properties
+・Javaのバージョンを11に指定するため修正(Herokuでjakarta.servletを使用するにはJava11を指定する必要があるらしい)
+&lt;properties&gt;
+    &lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+    &lt;maven.compiler.source&gt;11&lt;/maven.compiler.source&gt;
+    &lt;maven.compiler.target&gt;11&lt;/maven.compiler.target&gt;
+&lt;/properties&gt;
+
+〇build
+・「plugins」タグの親タグの「pluginManagement」タグを削除(webapp-runner.jar)のダウンロードが何故か実行されないため
+・プラグイン(webapp-runner.jar)を追加(Tomcatを起動するランチャーアプリケーション。Herokuで動作させるために必要らしい) ※ここのバージョンでTomcatのバージョンが決まる。
+&lt;build&gt;
+    &lt;plugins&gt;
+    &lt;!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle --&gt;
+    &lt;plugin&gt;
+        &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.1.0&lt;/version&gt;
+    &lt;/plugin&gt;
+    &lt;!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging --&gt;
+    &lt;plugin&gt;
+        &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.0.2&lt;/version&gt;
+    &lt;/plugin&gt;
+    &lt;plugin&gt;
+        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.8.0&lt;/version&gt;
+        &lt;configuration&gt;
+            &lt;source&gt;8&lt;/source&gt;
+            &lt;target&gt;8&lt;/target&gt;
+        &lt;/configuration&gt;
+    &lt;/plugin&gt;
+    &lt;plugin&gt;
+        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.22.1&lt;/version&gt;
+    &lt;/plugin&gt;
+    &lt;plugin&gt;
+        &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.0.2&lt;/version&gt;
+    &lt;/plugin&gt;
+    &lt;plugin&gt;
+        &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.5.2&lt;/version&gt;
+    &lt;/plugin&gt;
+    &lt;plugin&gt;
+        &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
+        &lt;version&gt;2.8.2&lt;/version&gt;
+    &lt;/plugin&gt;
+    &lt;!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle --&gt;
+    &lt;plugin&gt;
+        &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.7.1&lt;/version&gt;
+    &lt;/plugin&gt;
+    &lt;plugin&gt;
+        &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.0.0&lt;/version&gt;
+    &lt;/plugin&gt;
+    &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.4.0&lt;/version&gt;
+        &lt;configuration&gt;
+            &lt;webXml&gt;src/main/webapp/WEB-INF/web.xml&lt;/webXml&gt;
+            &lt;failOnMissingWebXml&gt;false&lt;/failOnMissingWebXml&gt;
+        &lt;/configuration&gt;
+    &lt;/plugin&gt;
+    &lt;plugin&gt;
+        &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+        &lt;artifactId&gt;maven-dependency-plugin&lt;/artifactId&gt;
+        &lt;version&gt;3.1.2&lt;/version&gt;
+        &lt;executions&gt;
+            &lt;execution&gt;
+                &lt;phase&gt;package&lt;/phase&gt;
+                &lt;goals&gt;
+                    &lt;goal&gt;copy&lt;/goal&gt;
+                &lt;/goals&gt;
+                &lt;configuration&gt;
+                    &lt;artifactItems&gt;
+                        &lt;artifactItem&gt;
+                            &lt;groupId&gt;com.heroku&lt;/groupId&gt;
+                            &lt;artifactId&gt;webapp-runner&lt;/artifactId&gt;
+                            &lt;version&gt;10.1.28.0&lt;/version&gt;
+                            &lt;destFileName&gt;webapp-runner.jar&lt;/destFileName&gt;
+                            &lt;outputDirectory&gt;${project.build.directory}/dependency&lt;/outputDirectory&gt;
+                        &lt;/artifactItem&gt;
+                    &lt;/artifactItems&gt;
+                &lt;/configuration&gt;
+            &lt;/execution&gt;
+        &lt;/executions&gt;
+    &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code>
+</pre>
+        <p>上記修正後再度デプロイして再度ローカルサーバーを起動させる。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/JAWSDBに接続する修正.JPG" alt="JAWSDBに接続する修正.JPG">
+            <figcaption>JAWSDBに接続する修正.JPG</figcaption>
+        </figure>
+        <h3>buildpackの追加</h3>
+        <p>アプリケーションをデプロイする際に必要な環境を設定するためのスクリプトの集合らしい。</p>
+        <p>JavaをHerokuで動かすためにはJavaのbuildpackの追加が必要となる。</p>
+        <p>「Settings」タブで「Add buildpack」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/Add_buildpackをクリック.JPG" alt="Add_buildpackをクリック.JPG">
+            <figcaption>Add_buildpackをクリック.JPG</figcaption>
+        </figure>
+        <p>「Heroku/Java」を選択して「Add Buildpack」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/Add_buildpackを追加.JPG" alt="Add_buildpackを追加.JPG">
+            <figcaption>Add_buildpackを追加.JPG</figcaption>
+        </figure>
+        <p>「Your new buildpack configuration will be used when this app is next deployed.」「このアプリが次にデプロイされるときに、新しいビルドパック構成が使用されます」と表示された。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/Add_buildpackの追加が完了.JPG" alt="Add_buildpackの追加が完了.JPG">
+            <figcaption>Add_buildpackの追加が完了.JPG</figcaption>
+        </figure>
+        <h3>Herokuにデプロイ</h3>
+        <p>「Settings」タブから「Heroku git URL」を確認</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/Heroku_git_URLを確認.JPG" alt="Heroku_git_URLを確認.JPG">
+            <figcaption>Heroku_git_URLを確認.JPG</figcaption>
+        </figure>
+        <p>「C:\workspace\java」ディレクトリ(適当なディレクトリ)で右クリック⇒「git clone...」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/git_cloneをクリック.JPG" alt="git_cloneをクリック.JPG">
+            <figcaption>git_cloneをクリック.JPG</figcaption>
+        </figure>
+        <p>「URL」設定してOKをクリックする。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/git_cloneを実行.JPG" alt="git_cloneを実行.JPG">
+            <figcaption>git_cloneを実行.JPG</figcaption>
+        </figure>
+        <p>「close」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/closeをクリック.JPG" alt="closeをクリック.JPG">
+            <figcaption>closeをクリック.JPG</figcaption>
+        </figure>
+        <p>「toriisan-java-servlet-001」ファイルが作成された。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/ディレクトリが作成される.JPG" alt="ディレクトリが作成される.JPG">
+            <figcaption>ディレクトリが作成される.JPG</figcaption>
+        </figure>
+        <p>Procfileを作成</p>
+    <pre>
+    <code>
+    web: java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/demo-1.0-SNAPSHOT.war
+    </code>
+    </pre>
+        <p>system.propertiesを作成(Javaのバージョンを11に指定(Herokuでjakarta.servletを使用するにはJava11を指定する必要があるらしい))</p>
+    <pre>
+    <code>
+    java.runtime.version=11
+    </code>
+    </pre>
+        <p>作成されたディレクトリ(C:\workspace\java\toriisan-java-servlet-001)に「src」「target」「pom.xml」「Procfile」「system.properties」を配置</p>
+        <p>「.vscode」はvscodeの設定なのでデプロイは不要。「.gitignore」に「/.vscode」と書いておけばデプロイ対象外となる。</p>
+        <p>「C:\workspace\java\toriisan-java-servlet-001\target\dependency\webapp-runner.jar」が入っていることを確認。cleanを実行したときにダウンロードされているはず。</p>
+        <p>「C:\workspace\java\toriisan-java-servlet-001\target\demo-1.0-SNAPSHOT.war」が入っていることを確認。packageを実行したときに作成されているはず。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/ファイルを配置.JPG" alt="ファイルを配置.JPG">
+            <figcaption>ファイルを配置.JPG</figcaption>
+        </figure>
+        <p>作成されたディレクトリ(C:\workspace\java\toriisan-java-servlet-001)で右クリック⇒「Git commit -> "master"」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/GitCommitをクリック.JPG" alt="GitCommitをクリック.JPG">
+            <figcaption>GitCommitをクリック.JPG</figcaption>
+        </figure>
+        <p>「Message」を適当に入力。以下にチェックを入れて「Commit」をクリックする。</p>
+<pre>
+C:\workspace\java\toriisan-java-servlet-001\.gitignore
+C:\workspace\java\toriisan-java-servlet-001\pom.xml
+C:\workspace\java\toriisan-java-servlet-001\src\main\java\com\example\App.java
+C:\workspace\java\toriisan-java-servlet-001\src\main\java\com\example\DatabaseServlet.java
+C:\workspace\java\toriisan-java-servlet-001\src\main\java\com\example\HelloServlet.java
+C:\workspace\java\toriisan-java-servlet-001\src\main\webapp\WEB-INF\web.xml
+C:\workspace\java\toriisan-java-servlet-001\src\test\java\com\example\AppTest.java
+C:\workspace\java\toriisan-java-servlet-001\system.properties
+C:\workspace\java\toriisan-java-servlet-001\Procfile
+C:\workspace\java\toriisan-java-servlet-001\target\classes\com\example\App.class
+C:\workspace\java\toriisan-java-servlet-001\target\classes\com\example\DatabaseServlet.class
+C:\workspace\java\toriisan-java-servlet-001\target\classes\com\example\HelloServlet.class
+C:\workspace\java\toriisan-java-servlet-001\target\demo-1.0-SNAPSHOT.war
+C:\workspace\java\toriisan-java-servlet-001\target\demo-1.0-SNAPSHOT\WEB-INF\classes\com\example\App.class
+C:\workspace\java\toriisan-java-servlet-001\target\demo-1.0-SNAPSHOT\WEB-INF\classes\com\example\DatabaseServlet.class
+C:\workspace\java\toriisan-java-servlet-001\target\demo-1.0-SNAPSHOT\WEB-INF\classes\com\example\HelloServlet.class
+C:\workspace\java\toriisan-java-servlet-001\target\demo-1.0-SNAPSHOT\WEB-INF\lib\mysql-connector-j-8.0.33.jar
+C:\workspace\java\toriisan-java-servlet-001\target\demo-1.0-SNAPSHOT\WEB-INF\lib\protobuf-java-3.21.9.jar
+C:\workspace\java\toriisan-java-servlet-001\target\demo-1.0-SNAPSHOT\WEB-INF\web.xml
+C:\workspace\java\toriisan-java-servlet-001\target\dependency\webapp-runner.jar
+C:\workspace\java\toriisan-java-servlet-001\target\maven-archiver\pom.properties
+C:\workspace\java\toriisan-java-servlet-001\target\maven-status\maven-compiler-plugin\compile\default-compile\createdFiles.lst
+C:\workspace\java\toriisan-java-servlet-001\target\maven-status\maven-compiler-plugin\compile\default-compile\inputFiles.lst
+C:\workspace\java\toriisan-java-servlet-001\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile\createdFiles.lst
+C:\workspace\java\toriisan-java-servlet-001\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile\inputFiles.lst
+C:\workspace\java\toriisan-java-servlet-001\target\surefire-reports\TEST-com.example.AppTest.xml
+C:\workspace\java\toriisan-java-servlet-001\target\surefire-reports\com.example.AppTest.txt
+C:\workspace\java\toriisan-java-servlet-001\target\test-classes\com\example\AppTest.class
+</pre>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/Commit.JPG" alt="Commit.JPG">
+            <figcaption>Commit.JPG</figcaption>
+        </figure>
+        <p>「close」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/commit_close.JPG" alt="commit_close.JPG">
+            <figcaption>commit_close.JPG</figcaption>
+        </figure>
+        <p>右クリック⇒「TortoiseGit」⇒「Push」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/pushをクリック.JPG" alt="pushをクリック.JPG">
+            <figcaption>pushをクリック.JPG</figcaption>
+        </figure>
+        <p>「OK」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/push_OK.JPG" alt="push_OK.JPG">
+            <figcaption>push_OK.JPG</figcaption>
+        </figure>
+        <p>「close」をクリック</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/push_close.JPG" alt="push_close.JPG">
+            <figcaption>push_close.JPG</figcaption>
+        </figure>
+        <h3>ブラウザからアプリを参照</h3>
+        <p>HerokuのDashbordから「Open App」をクリック</p>
+        <p>この時に参照されるアドレス「https://${アプリ名}-***********.herokuapp.com/」がアプリにアクセスするURLとなる。</p>
+        <p>ルートのアドレスに何も登録していないので404エラーとなっている。(「/hello」と「/database」はweb.xmlで登録している)</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/Open_Appをクリック.JPG" alt="Open_Appをクリック.JPG">
+            <figcaption>Open_Appをクリック.JPG</figcaption>
+        </figure>
+        <p>ブラウザで「https://${アプリにアクセスするURL}/hello」でアクセスする。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/HelloServletへアクセス.JPG" alt="HelloServletへアクセス.JPG">
+            <figcaption>HelloServletへアクセス.JPG</figcaption>
+        </figure>
+        <p>ブラウザで「https://${アプリにアクセスするURL}/database」でアクセスする。</p>
+        <figure>
+            <img class="beside" src="../img/Java/HerokuにJavaのサーブレット環境を構築_20240914/DatabaseServletへアクセス.JPG" alt="DatabaseServletへアクセス.JPG">
+            <figcaption>DatabaseServletへアクセス.JPG</figcaption>
+        </figure>
+     </details>
 
 <div id="log"></div>
     </main>
