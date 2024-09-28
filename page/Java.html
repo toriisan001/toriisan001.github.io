@@ -153,16 +153,16 @@
         </figure>
         <p>インストールがなかなか終わらない場合は、拡張機能ファイル(vsix)をダウンロードしてインストールした方が良いかもしれない。</p>
         <a href="https://qiita.com/ss_tom_jp/items/5977e4f16d78b8ca7cc8">VSCode拡張機能をオフライン環境でインストールする方法</a>
-    <pre>
-    拡張機能「Extension Pack for Java」は、以下の7種類の拡張機能が入っているらしい
-    Language Support for Java(TM) by Red Hat
-    Debugger for Java
-    Test Runner for Java
-    Maven for Java
-    Gradle for Java
-    Project Manager for Java
-    IntelliCode
-    </pre>
+<pre>
+拡張機能「Extension Pack for Java」は、以下の7種類の拡張機能が入っているらしい
+Language Support for Java(TM) by Red Hat
+Debugger for Java
+Test Runner for Java
+Maven for Java
+Gradle for Java
+Project Manager for Java
+IntelliCode
+</pre>
         <p>拡張機能「Community Server Connectors」をインストール</p>
         <figure>
             <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Community_Server_Connectorsインストール.JPG" alt="Community_Server_Connectorsインストール.JPG">
@@ -237,20 +237,20 @@
             <figcaption>作業ディレクトリを指定.JPG</figcaption>
         </figure>
         <p>VS Codeの「ターミナル」を参照すると以下のように記載されている</p>
-    <pre>
-    ■翻訳前
-    [INFO] Generating project in Interactive mode
-    [INFO] Archetype repository not defined. Using the one from [org.apache.maven.archetypes:maven-archetype-quickstart:1.5] found in catalog remote
-    [INFO] Using property: groupId = com.example
-    [INFO] Using property: artifactId = demo
-    Define value for property 'version' 1.0-SNAPSHOT: :
-    ■翻訳後
-    [INFO] インタラクティブ モードでプロジェクトを生成しています
-    [INFO] アーキタイプ リポジトリが定義されていません。カタログ リモートにある [org.apache.maven.archetypes:maven-archetype-quickstart:1.5] のものを使用しています
-    [INFO] プロパティを使用しています: groupId = com.example
-    [INFO] プロパティを使用しています: artifactId = demo
-    プロパティ 'version' 1.0-SNAPSHOT の値を定義します: :
-    </pre>
+<pre>
+■翻訳前
+[INFO] Generating project in Interactive mode
+[INFO] Archetype repository not defined. Using the one from [org.apache.maven.archetypes:maven-archetype-quickstart:1.5] found in catalog remote
+[INFO] Using property: groupId = com.example
+[INFO] Using property: artifactId = demo
+Define value for property 'version' 1.0-SNAPSHOT: :
+■翻訳後
+[INFO] インタラクティブ モードでプロジェクトを生成しています
+[INFO] アーキタイプ リポジトリが定義されていません。カタログ リモートにある [org.apache.maven.archetypes:maven-archetype-quickstart:1.5] のものを使用しています
+[INFO] プロパティを使用しています: groupId = com.example
+[INFO] プロパティを使用しています: artifactId = demo
+プロパティ 'version' 1.0-SNAPSHOT の値を定義します: :
+</pre>
         <p>上記はプロジェクトの version プロパティの値を定義するように求められている。</p>
         <p>デフォルトでは 1.0-SNAPSHOT が設定されている。</p>
         <p>良く分からないが、とりあえずデフォルト(1.0-SNAPSHOT)のままで設定するため、何も入力せずにエンターを押した。</p>
@@ -259,24 +259,24 @@
             <figcaption>versionプロパティの値を定義.JPG</figcaption>
         </figure>
         <p>続いて以下のように表示される。構成が正しいかどうかを聞かれている。「Y」を入力してエンターを押す。</p>
-    <pre>
-    ■翻訳前
-    [INFO] Using property: package = com.example
-    Confirm properties configuration:
-    groupId: com.example
-    artifactId: demo
-    version: 1.0-SNAPSHOT
-    package: com.example
-    Y: :
-    ■翻訳後
-    [INFO] プロパティの使用: package = com.example
-    プロパティ構成を確認:
-    groupId: com.example
-    artifactId: demo
-    version: 1.0-SNAPSHOT
-    package: com.example
-    Y: :
-    </pre>
+<pre>
+■翻訳前
+[INFO] Using property: package = com.example
+Confirm properties configuration:
+groupId: com.example
+artifactId: demo
+version: 1.0-SNAPSHOT
+package: com.example
+Y: :
+■翻訳後
+[INFO] プロパティの使用: package = com.example
+プロパティ構成を確認:
+groupId: com.example
+artifactId: demo
+version: 1.0-SNAPSHOT
+package: com.example
+Y: :
+</pre>
         <figure>
             <img class="beside" src="../img/Java/ローカル環境の作成_20240804/構成を確認.JPG" alt="構成を確認.JPG">
             <figcaption>構成を確認.JPG</figcaption>
@@ -293,202 +293,202 @@
             <figcaption>作業ディレクトリを開く.JPG</figcaption>
         </figure>
         <p>ソースを修正する</p>
-    <pre>
-    ■C:\workspace\java\demo\pom.xml
-    1.packagingをwarで指定。これでpackageしたときにjarファイルではなくwarファイルで作成される。
-    〇修正前
-    &lt;groupId&gt;com.example&lt;/groupId&gt;
-    &lt;artifactId&gt;demo&lt;/artifactId&gt;
-    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-    〇修正後
-    &lt;groupId&gt;com.example&lt;/groupId&gt;
-    &lt;artifactId&gt;demo&lt;/artifactId&gt;
-    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-    &lt;packaging&gt;war&lt;/packaging&gt;
-    
-    2.dependencies(依存関係(正常に動作するために必要な外部ライブラリやコンポーネントのこと))
-    ・Java Servletのライブラリを追加
-    〇修正前
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;junit&lt;/groupId&gt;
-            &lt;artifactId&gt;junit&lt;/artifactId&gt;
-            &lt;version&gt;4.11&lt;/version&gt;
-            &lt;scope&gt;test&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-    〇修正後
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;junit&lt;/groupId&gt;
-            &lt;artifactId&gt;junit&lt;/artifactId&gt;
-            &lt;version&gt;4.11&lt;/version&gt;
-            &lt;scope&gt;test&lt;/scope&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
-            &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
-            &lt;version&gt;6.0.0&lt;/version&gt;
-            &lt;scope&gt;provided&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-    
-    3.プラグインの設定を修正
-    ・maven-war-pluginを追加
-    ・maven-compiler-pluginの設定を修正
-    〇修正前
-    &lt;build&gt;
-        &lt;pluginManagement&gt;&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;
-            &lt;plugins&gt;
-            &lt;!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle --&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.1.0&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging --&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.0.2&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.8.0&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
-                &lt;version&gt;2.22.1&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.0.2&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;
-                &lt;version&gt;2.5.2&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
-                &lt;version&gt;2.8.2&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle --&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.7.1&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.0.0&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;/plugins&gt;
-        &lt;/pluginManagement&gt;
-        &lt;/build&gt;
-    〇修正後
-    &lt;build&gt;
-        &lt;pluginManagement&gt;&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;
-            &lt;plugins&gt;
-            &lt;!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle --&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.1.0&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging --&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.0.2&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.8.0&lt;/version&gt;
-                &lt;configuration&gt;
-                    &lt;source&gt;8&lt;/source&gt;
-                    &lt;target&gt;8&lt;/target&gt;
-                &lt;/configuration&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
-                &lt;version&gt;2.22.1&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.0.2&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;
-                &lt;version&gt;2.5.2&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
-                &lt;version&gt;2.8.2&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle --&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.7.1&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.0.0&lt;/version&gt;
-            &lt;/plugin&gt;
-            &lt;plugin&gt;
-                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-                &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
-                &lt;version&gt;3.4.0&lt;/version&gt;
-                &lt;configuration&gt;
-                    &lt;webXml&gt;src/main/webapp/WEB-INF/web.xml&lt;/webXml&gt;
-                &lt;/configuration&gt;
-            &lt;/plugin&gt;
-            &lt;/plugins&gt;
-        &lt;/pluginManagement&gt;
-        &lt;/build&gt;
-    
-    ■C:\workspace\java\demo\src\main\java\com\example\HelloServlet.java
-    〇新規作成
-    package com.example;
-    
-    import jakarta.servlet.http.HttpServlet;
-    import jakarta.servlet.http.HttpServletRequest;
-    import jakarta.servlet.http.HttpServletResponse;
-    
-    import java.io.IOException;
-    import java.io.PrintWriter;
-    
-    public class HelloServlet extends HttpServlet {
-    
-      @Override
-      protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
-        res.setContentType(&quot;text/html; charset=utf-8&quot;);
-        try (PrintWriter out = res.getWriter()) {
-          out.println(&quot;&lt;html&gt;&lt;body&gt;&quot;);
-          out.println(&quot;Hello World!&lt;br&gt;&quot;);
-          out.println(getServletContext().getServerInfo());
-          out.println(&quot;&lt;/body&gt;&lt;/html&gt;&quot;);
-        }
-      }
+<pre>
+■C:\workspace\java\demo\pom.xml
+1.packagingをwarで指定。これでpackageしたときにjarファイルではなくwarファイルで作成される。
+〇修正前
+&lt;groupId&gt;com.example&lt;/groupId&gt;
+&lt;artifactId&gt;demo&lt;/artifactId&gt;
+&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+〇修正後
+&lt;groupId&gt;com.example&lt;/groupId&gt;
+&lt;artifactId&gt;demo&lt;/artifactId&gt;
+&lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+&lt;packaging&gt;war&lt;/packaging&gt;
+
+2.dependencies(依存関係(正常に動作するために必要な外部ライブラリやコンポーネントのこと))
+・Java Servletのライブラリを追加
+〇修正前
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;4.11&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+〇修正後
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;4.11&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+        &lt;version&gt;6.0.0&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+3.プラグインの設定を修正
+・maven-war-pluginを追加
+・maven-compiler-pluginの設定を修正
+〇修正前
+&lt;build&gt;
+    &lt;pluginManagement&gt;&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;
+        &lt;plugins&gt;
+        &lt;!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle --&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging --&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.0.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.8.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.22.1&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.0.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.5.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.8.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle --&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.7.1&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.0.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+    &lt;/build&gt;
+〇修正後
+&lt;build&gt;
+    &lt;pluginManagement&gt;&lt;!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) --&gt;
+        &lt;plugins&gt;
+        &lt;!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle --&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-clean-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.1.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging --&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-resources-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.0.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.8.0&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;source&gt;8&lt;/source&gt;
+                &lt;target&gt;8&lt;/target&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.22.1&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.0.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-install-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.5.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-deploy-plugin&lt;/artifactId&gt;
+            &lt;version&gt;2.8.2&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle --&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-site-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.7.1&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;artifactId&gt;maven-project-info-reports-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.0.0&lt;/version&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.4.0&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;webXml&gt;src/main/webapp/WEB-INF/web.xml&lt;/webXml&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/pluginManagement&gt;
+    &lt;/build&gt;
+
+■C:\workspace\java\demo\src\main\java\com\example\HelloServlet.java
+〇新規作成
+package com.example;
+
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+public class HelloServlet extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
+    res.setContentType(&quot;text/html; charset=utf-8&quot;);
+    try (PrintWriter out = res.getWriter()) {
+        out.println(&quot;&lt;html&gt;&lt;body&gt;&quot;);
+        out.println(&quot;Hello World!&lt;br&gt;&quot;);
+        out.println(getServletContext().getServerInfo());
+        out.println(&quot;&lt;/body&gt;&lt;/html&gt;&quot;);
     }
-    
-    ■C:\workspace\java\demo\src\main\webapp\WEB-INF\web.xml
-    〇新規作成
-    &lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
-             xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-             xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee
-                                 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;
-             version=&quot;3.1&quot;&gt;
-    
-        &lt;!-- サーブレットの定義 --&gt;
-        &lt;servlet&gt;
-            &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
-            &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
-        &lt;/servlet&gt;
-    
-        &lt;!-- サーブレットのマッピング --&gt;
-        &lt;servlet-mapping&gt;
-            &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
-            &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
-        &lt;/servlet-mapping&gt;
-    
-    &lt;/web-app&gt;
-    
-    </pre>
+    }
+}
+
+■C:\workspace\java\demo\src\main\webapp\WEB-INF\web.xml
+〇新規作成
+&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;
+            xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+            xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee
+                                http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;
+            version=&quot;3.1&quot;&gt;
+
+    &lt;!-- サーブレットの定義 --&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
+    &lt;/servlet&gt;
+
+    &lt;!-- サーブレットのマッピング --&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;
+
+</pre>
         <p>修正が完了したらExplolerタブ⇒Mavenタブ⇒「Reload All Maven Projects」でpom.xmlファイルを再読み込み</p>
         <figure>
             <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Reload_All_Maven_Projects.JPG" alt="Reload_All_Maven_Projects.JPG">
@@ -596,23 +596,23 @@
         </figure>
         <p>「C:\workspace\java\demo\.vscode\launch.json」に以下のように書き換える</p>
         <p>ポート番号について先ほど確認したデバッグサーバーのポート番号を設定する。ここのポート固定できないのだろうか・・・</p>
-    <pre>
-    ■C:\workspace\java\demo\.vscode\launch.json
-    {
-        "version": "0.2.0",
-        "configurations": [
-            {
-            "type": "java",
-            "name": "Debug Tomcat",
-            "request": "attach",
-            "hostName": "localhost",
-            "port": 2506,
-            "timeout": 10000,
-            "projectName": "demo"
-            }
-        ]
-    }
-    </pre>
+<pre>
+■C:\workspace\java\demo\.vscode\launch.json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+        "type": "java",
+        "name": "Debug Tomcat",
+        "request": "attach",
+        "hostName": "localhost",
+        "port": 2506,
+        "timeout": 10000,
+        "projectName": "demo"
+        }
+    ]
+}
+</pre>
         <p>再度「http://localhost:8080/demo-1.0-SNAPSHOT/hello」にアクセスするとブレークポイントで停止したことを確認。</p>
         <figure>
             <img class="beside" src="../img/Java/ローカル環境の作成_20240804/ブレークポイントで停止.JPG" alt="ブレークポイントで停止.JPG">
@@ -631,21 +631,21 @@
             <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール1.JPG" alt="Xamppをインストール1.JPG">
             <figcaption>Xamppをインストール1.JPG</figcaption>
         </figure>
-    <pre>
-    警告
-    Important Because an actreted& User Arteunt Control (UAO) on
-    your system some functions of XAMPP are pessibly restricted.
-    With UAC please avoid to install YAMPP to CyProgram Files
-    (missing write permissions). Or deactivate UAC with msconfig
-    after this setup.
-    
-    警告(翻訳)
-    重要: システムにユーザー コントロール (UAO) がアクティブ化されているため、
-    XAMPP の一部の機能が制限される可能性があります。
-    UAC を使用する場合は、XAMPP を CyProgram Files にインストールしないでください
-     (書き込み権限がありません)。
-     または、このセットアップ後に msconfig で UAC を無効にしてください。
-    </pre>
+<pre>
+警告
+Important Because an actreted& User Arteunt Control (UAO) on
+your system some functions of XAMPP are pessibly restricted.
+With UAC please avoid to install YAMPP to CyProgram Files
+(missing write permissions). Or deactivate UAC with msconfig
+after this setup.
+
+警告(翻訳)
+重要: システムにユーザー コントロール (UAO) がアクティブ化されているため、
+XAMPP の一部の機能が制限される可能性があります。
+UAC を使用する場合は、XAMPP を CyProgram Files にインストールしないでください
+    (書き込み権限がありません)。
+    または、このセットアップ後に msconfig で UAC を無効にしてください。
+</pre>
         <p>Nextをクリック</p>
         <figure>
             <img class="beside" src="../img/Java/ローカル環境の作成_20240804/Xamppをインストール2.JPG" alt="Xamppをインストール2.JPG">
@@ -724,125 +724,125 @@
         </figure>
         <h4>VS Codeから接続</h4>
         <p>ソースコードを修正</p>
-    <pre>
-    ■C:\workspace\java\demo\pom.xml
-    1.dependenciesを修正(mysql-connector-jを追加)
-    〇修正前
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;junit&lt;/groupId&gt;
-            &lt;artifactId&gt;junit&lt;/artifactId&gt;
-            &lt;version&gt;4.11&lt;/version&gt;
-            &lt;scope&gt;test&lt;/scope&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
-            &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
-            &lt;version&gt;6.0.0&lt;/version&gt;
-            &lt;scope&gt;provided&lt;/scope&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-    〇修正後
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;junit&lt;/groupId&gt;
-            &lt;artifactId&gt;junit&lt;/artifactId&gt;
-            &lt;version&gt;4.11&lt;/version&gt;
-            &lt;scope&gt;test&lt;/scope&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
-            &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
-            &lt;version&gt;6.1.0&lt;/version&gt;
-            &lt;scope&gt;provided&lt;/scope&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;com.mysql&lt;/groupId&gt;
-            &lt;artifactId&gt;mysql-connector-j&lt;/artifactId&gt;
-            &lt;version&gt;8.0.33&lt;/version&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-    
-    ■C:\workspace\java\demo\src\main\webapp\WEB-INF\web.xmlを修正
-    1.DatabaseServletの定義とマッピングを追加
-    〇修正前
-    &lt;!-- サーブレットの定義 --&gt;
-    &lt;servlet&gt;
-        &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
-    &lt;/servlet&gt;
-    
-    &lt;!-- サーブレットのマッピング --&gt;
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-    〇修正後
-    &lt;!-- サーブレットの定義 --&gt;
-    &lt;servlet&gt;
-        &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
-    &lt;/servlet&gt;
-    &lt;servlet&gt;
-        &lt;servlet-name&gt;DatabaseServlet&lt;/servlet-name&gt;
-        &lt;servlet-class&gt;com.example.DatabaseServlet&lt;/servlet-class&gt;
-    &lt;/servlet&gt;
-    
-    &lt;!-- サーブレットのマッピング --&gt;
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-    &lt;servlet-mapping&gt;
-        &lt;servlet-name&gt;DatabaseServlet&lt;/servlet-name&gt;
-        &lt;url-pattern&gt;/database&lt;/url-pattern&gt;
-    &lt;/servlet-mapping&gt;
-    
-    ■C:\workspace\java\demo\src\main\java\com\example\DatabaseServlet.javaを新規追加
-    package com.example;
-    
-    import java.io.IOException;
-    import java.io.PrintWriter;
-    import java.sql.Connection;
-    import java.sql.DriverManager;
-    import java.sql.ResultSet;
-    import java.sql.Statement;
-    import jakarta.servlet.ServletException;
-    import jakarta.servlet.http.HttpServlet;
-    import jakarta.servlet.http.HttpServletRequest;
-    import jakarta.servlet.http.HttpServletResponse;
-    
-    public class DatabaseServlet extends HttpServlet {
-    
-        protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            response.setContentType(&quot;text/html&quot;);
-            PrintWriter out = response.getWriter();
-    
-            String jdbcUrl = &quot;jdbc:mysql://localhost:3306/torii_db&quot;;
-            String dbUser = &quot;root&quot;;
-            String dbPassword = &quot;&quot;;
-    
-            try {
-                Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
-                Connection connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
-                Statement statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery(&quot;SELECT * FROM torii_db.memos&quot;);
-    
-                while (resultSet.next()) {
-                    out.println(&quot;id: &quot; + resultSet.getString(&quot;id&quot;) + &quot;&lt;br&gt;&quot;);
-                    out.println(&quot;title: &quot; + resultSet.getString(&quot;title&quot;) + &quot;&lt;br&gt;&quot;);
-                    out.println(&quot;text: &quot; + resultSet.getString(&quot;text&quot;) + &quot;&lt;br&gt;&quot;);
-                    out.println(&quot;created_date: &quot; + resultSet.getString(&quot;created_date&quot;) + &quot;&lt;br&gt;&quot;);
-                }
-    
-                connection.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-                out.println(&quot;Error: &quot; + e.getMessage());
+<pre>
+■C:\workspace\java\demo\pom.xml
+1.dependenciesを修正(mysql-connector-jを追加)
+〇修正前
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;4.11&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+        &lt;version&gt;6.0.0&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+〇修正後
+&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;junit&lt;/groupId&gt;
+        &lt;artifactId&gt;junit&lt;/artifactId&gt;
+        &lt;version&gt;4.11&lt;/version&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;jakarta.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;jakarta.servlet-api&lt;/artifactId&gt;
+        &lt;version&gt;6.1.0&lt;/version&gt;
+        &lt;scope&gt;provided&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.mysql&lt;/groupId&gt;
+        &lt;artifactId&gt;mysql-connector-j&lt;/artifactId&gt;
+        &lt;version&gt;8.0.33&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+■C:\workspace\java\demo\src\main\webapp\WEB-INF\web.xmlを修正
+1.DatabaseServletの定義とマッピングを追加
+〇修正前
+&lt;!-- サーブレットの定義 --&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+
+&lt;!-- サーブレットのマッピング --&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+〇修正後
+&lt;!-- サーブレットの定義 --&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.example.HelloServlet&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet&gt;
+    &lt;servlet-name&gt;DatabaseServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;com.example.DatabaseServlet&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+
+&lt;!-- サーブレットのマッピング --&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;HelloServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/hello&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;DatabaseServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/database&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+
+■C:\workspace\java\demo\src\main\java\com\example\DatabaseServlet.javaを新規追加
+package com.example;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+public class DatabaseServlet extends HttpServlet {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType(&quot;text/html&quot;);
+        PrintWriter out = response.getWriter();
+
+        String jdbcUrl = &quot;jdbc:mysql://localhost:3306/torii_db&quot;;
+        String dbUser = &quot;root&quot;;
+        String dbPassword = &quot;&quot;;
+
+        try {
+            Class.forName(&quot;com.mysql.cj.jdbc.Driver&quot;);
+            Connection connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(&quot;SELECT * FROM torii_db.memos&quot;);
+
+            while (resultSet.next()) {
+                out.println(&quot;id: &quot; + resultSet.getString(&quot;id&quot;) + &quot;&lt;br&gt;&quot;);
+                out.println(&quot;title: &quot; + resultSet.getString(&quot;title&quot;) + &quot;&lt;br&gt;&quot;);
+                out.println(&quot;text: &quot; + resultSet.getString(&quot;text&quot;) + &quot;&lt;br&gt;&quot;);
+                out.println(&quot;created_date: &quot; + resultSet.getString(&quot;created_date&quot;) + &quot;&lt;br&gt;&quot;);
             }
+
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            out.println(&quot;Error: &quot; + e.getMessage());
         }
     }
-    </pre>
+}
+</pre>
         <p>「pom.xmlの再読み込み」「cleanの実行」「packageを再作成」「warファイルの再設定」する。「Apache・Tomcatを再起動」は別にしなくても良いらしい。</p>
         <p>上記実行後「http://localhost:8080/demo-1.0-SNAPSHOT/database」にアクセスすると、DBの値が取れていることが確認できる。</p>
         <figure>
@@ -1260,17 +1260,17 @@ public class DatabaseServlet extends HttpServlet {
             <figcaption>ディレクトリが作成される.JPG</figcaption>
         </figure>
         <p>Procfileを作成</p>
-    <pre>
-    <code>
-    web: java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/demo-1.0-SNAPSHOT.war
-    </code>
-    </pre>
+<pre>
+<code>
+web: java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/demo-1.0-SNAPSHOT.war
+</code>
+</pre>
         <p>system.propertiesを作成(Javaのバージョンを11に指定(Herokuでjakarta.servletを使用するにはJava11を指定する必要があるらしい))</p>
-    <pre>
-    <code>
-    java.runtime.version=11
-    </code>
-    </pre>
+<pre>
+<code>
+java.runtime.version=11
+</code>
+</pre>
         <p>作成されたディレクトリ(C:\workspace\java\toriisan-java-servlet-001)に「src」「target」「pom.xml」「Procfile」「system.properties」を配置</p>
         <p>「.vscode」はvscodeの設定なのでデプロイは不要。「.gitignore」に「/.vscode」と書いておけばデプロイ対象外となる。</p>
         <p>「C:\workspace\java\toriisan-java-servlet-001\target\dependency\webapp-runner.jar」が入っていることを確認。cleanを実行したときにダウンロードされているはず。</p>
