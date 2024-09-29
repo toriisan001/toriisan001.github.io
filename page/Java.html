@@ -1359,15 +1359,267 @@ C:\workspace\java\toriisan-java-servlet-001\target\test-classes\com\example\AppT
         </figure>
      </details>
 
-     <!-- <h2>ローカル環境の作成(SpringToolSuite(STS))_20240922</h2>
-     <h3>事前準備</h3>
-     <p>demo-1.0-SNAPSHOT.warを作成できる環境(例)</p>
-     <p>Herokuのアカウント</p>
-     <p>A5M2のインストール</p>
-     <p>Git・TortoiseGitのインストール</p>
-     <h3>Herokuにアプリを作成</h3>
-     <p>「Create new app」をクリック</p> -->
+     <h2>ローカル環境の作成_STS_SpringToolSuite_20240922</h2>
+     <details>
+         <h3>事前準備</h3>
+         <p>demo-1.0-SNAPSHOT.warを作成できる環境(例)</p>
+         <p>Herokuのアカウント</p>
+         <p>A5M2のインストール</p>
+         <p>「JAWSDB_WHITE_URL」をシステム環境変数に設定</p>
+         <p>Git・TortoiseGitのインストール</p>
+         <h3>VS Codeの拡張機能を追加</h3>
+         <p>「Spring Boot Extension Pack」を追加する。</p>
+         <h3>JavaProjectを作成</h3>
+         <p>VS Codeでコマンドパレットを起動(ctl + shift + p)する</p>
+         <p>検索ボックスで「java」で検索して「Java:Create Java Project」を選択</p>
+         <p>「Select the project type(プロジェクトの種類を選択)」で「Spring Boot」を選択</p>
+         <p>「Select project type(プロジェクトの種類を選択)」で「Maven project」を選択</p>
+         <P>「Specify Spring Boot version.(Spring Boot のバージョンを指定します。)」で「3.3.4」を選択</P>
+         <p>「Specify project language.(プロジェクトの言語を指定します。)」で「Java」を選択</p>
+         <p>「Spring linitializr. Input Group Id(Spring 初期化。入力グループ ID)」で適当に「com.example」デフォルトのままにした。※プロジェクトを一意に識別するための名前空間。他のプロジェクトと衝突しないような名前を設定する。組織や会社のドメイン名を逆にした形式で指定するらしい(com.companyname.projectnameなど)</p>
+         <p>「Input Artifact Id for your project.(プロジェクトのアーティファクト ID を入力します。)」で適当に「demo_sts」とした。</p>
+         <p>「Specify packaging. type.(パッケージの種類を指定します。)」で「Jar(Java ARchive)」を選択。※Spring BootはJAR形式でスタンドアロンアプリケーションを作成でき、java -jarコマンドで簡単に実行可能なため。</p>
+         <p>「Specify Java version.(Java バージョンを指定します。)」で「23」を選択。※最新のJavaを使用したいため。安定板は17、最新のLTS版は21らしい。</p>
+         <p>「Search for dependencies.(依存関係を検索します。)」で以下を選択。選択後、エンターを入力する。</p>
+<pre>
+Spring Web・・・Webアプリケーションを構築するための機能
+Thymeleaf・・・HTMLビューを生成するための機能
+Spring Data JPA・・・データアクセスのための機能
+MySQL Driver・・・MySQLデータベースに接続し、データを操作するための機能
+</pre>
+        <p>フォルダーの選択画面が表示されるので「C:\workspace\java」を開いて「Generate into this folder」をクリック。</p>
+        <p>フォルダーを開く(ctl + o)で「C:\workspace\java\demo_sts」をを選択して「フォルダーを選択」をクリックする。</p>
+        <h3>適当なページを作成・起動</h3>
+<pre>
+<code>
+■C:\workspace\java\demo_sts\src\main\java\com\example\demo_sts\HelloController.java
+package com.example.demo_sts;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+@Controller
+public class HogehogeController {
+
+    @GetMapping("/hello") 
+    public String hogehoge() {
+        return "pages/hello";
+    }
+}
+
+■C:\workspace\java\bk\20240928\demo_sts\demo_sts\src\main\resources\static\css\styles.css
+/* h1 */
+h1 {
+    color: brown;
+}
+
+■C:\workspace\java\bk\20240928\demo_sts\demo_sts\src\main\resources\static\js\script.js
+{
+    ("use strict");
+    console.log('hello.');
+}
+
+■C:\workspace\java\demo_sts\src\main\resources\templates\pages\hello.html
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;hello&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/styles.css&quot;&gt;
+    &lt;script src=&quot;/js/script.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;/header&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+■C:\workspace\java\demo_sts\src\main\resources\application.properties
+・「spring.jpa.hibernate.ddl-auto」について、DBの自動設定
+・「spring.jpa.show-sql」をtrueにすると、標準出力への SQL ステートメントのロギングされる。
+・「spring.jpa.properties.hibernate.dialect」について、Hibernateに使用するデータベースの方言（Dialect）を指定する設定
+spring.application.name=demo_sts
+# MySQLの接続設定
+spring.datasource.url=jdbc:${JAWSDB_WHITE_URL}
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+# JPAの設定（オプション）
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+</code>
+</pre>
+        <p>SpringBootDashboardをクリック</p>
+        <p>「APPS」タブから「demo_sts」の「run」を実行する。</p>
+        <p>ブラウザで「http://localhost:8080/hello」にアクセスする。</p>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_STS_SpringToolSuite_20240929/helloへアクセス.JPG" alt="helloへアクセス.JPG">
+            <figcaption>helloへアクセス.JPG</figcaption>
+        </figure>
+        <h3>デバッグ・ステップ実行</h3>
+        <p>ソースコード上でブレークポイントを追加する。</p>
+        <p>「APPS」タブから「demo_sts」の「Debug」を実行する。</p>
+        <p>ブラウザで「http://localhost:8080/hello」にアクセスする。</p>
+        <p>ブレークポイントで処理が停止していることを確認</p>
+        <h3>DBアクセスを試す</h3>
+        <p>ソースコードを修正</p>
+<pre>
+<code>
+■C:\workspace\java\demo_sts\src\main\java\com\example\demo_sts\model\Memo.java
+package com.example.demo_sts.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.util.Date;
+
+@Entity
+@Table(name = "memos")
+public class Memo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String title;
+    private String text;
+    private Date createdDate;
+
+    // Getters and Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+}
+
+■C:\workspace\java\demo_sts\src\main\java\com\example\demo_sts\repository\MemoRepository.java
+package com.example.demo_sts.repository;
+
+import com.example.demo_sts.model.Memo;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MemoRepository extends JpaRepository<Memo, Long> {
+}
+
+■C:\workspace\java\demo_sts\src\main\java\com\example\demo_sts\service\MemoService.java
+package com.example.demo_sts.service;
+
+import com.example.demo_sts.model.Memo;
+import com.example.demo_sts.repository.MemoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class MemoService {
+
+    @Autowired
+    private MemoRepository memoRepository;
+
+    public List<Memo> getAllMemos() {
+        return memoRepository.findAll();
+    }
+}
+■C:\workspace\java\demo_sts\src\main\java\com\example\demo_sts\DatabaseController.java
+package com.example.demo_sts;
+
+import com.example.demo_sts.model.Memo;
+import com.example.demo_sts.service.MemoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
+
+@Controller
+public class DatabaseController {
+
+    @Autowired
+    private MemoService memoService;
+
+    @GetMapping("/database")
+    public String database(Model model) {
+        List<Memo> memos = memoService.getAllMemos();
+        model.addAttribute("memos", memos);
+        return "pages/database";
+    }
+}
+
+■C:\workspace\java\demo_sts\src\main\resources\templates\pages\database.html
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Memo List&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/styles.css&quot;&gt;
+    &lt;script src=&quot;/js/script.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+    &lt;h1&gt;Memo List&lt;/h1&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;ID&lt;/th&gt;
+                &lt;th&gt;Title&lt;/th&gt;
+                &lt;th&gt;Text&lt;/th&gt;
+                &lt;th&gt;Created Date&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr th:each=&quot;memo : ${memos}&quot;&gt;
+                &lt;td th:text=&quot;${memo.id}&quot;&gt;&lt;/td&gt;
+                &lt;td th:text=&quot;${memo.title}&quot;&gt;&lt;/td&gt;
+                &lt;td th:text=&quot;${memo.text}&quot;&gt;&lt;/td&gt;
+                &lt;td th:text=&quot;${memo.createdDate}&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
+        <figure>
+            <img class="beside" src="../img/Java/ローカル環境の作成_STS_SpringToolSuite_20240929/databaseへアクセス.JPG" alt="databaseへアクセス.JPG">
+            <figcaption>databaseへアクセス.JPG</figcaption>
+        </figure>
+     </details>
 
 <div id="log"></div>
     </main>
