@@ -1621,6 +1621,361 @@ public class DatabaseController {
         </figure>
      </details>
 
+     <h2>Herokuの環境の作成_STS_SpringToolSuite_20241005</h2>
+     <details>
+        <h3>事前準備</h3>
+        <p>STSのローカル環境の作成</p>
+        <p>Herokuのアカウント</p>
+        <p>A5M2のインストール</p>
+        <p>Git・TortoiseGitのインストール</p>
+        <p>HerokuにBuildpacks「heroku/java」を入れておく</p>
+        <h3>JDKのバージョンを合わせる</h3>
+        <p>Java 17などのLTS（Long-Term Support）バージョンが安定しているらしい。</p>
+        <p>Java 23にしたらstsのjarファイルを作成できなかった。(20241005時点)そのため17を使用することにした。</p>
+        <a href="https://docs.aws.amazon.com/corretto/latest/corretto-17-ug/downloads-list.html">Amazon Corretto 17 Permanent URLs</a>
+        <p>cmdで「java -version」でjdkのバージョンを確認。17になっている。</p>
+<pre>
+<code>
+C:\Users\*****>java -version
+openjdk version "17.0.12" 2024-07-16 LTS
+OpenJDK Runtime Environment Corretto-17.0.12.7.1 (build 17.0.12+7-LTS)
+OpenJDK 64-Bit Server VM Corretto-17.0.12.7.1 (build 17.0.12+7-LTS, mixed mode, sharing)
+</code>
+</pre>
+        <p>pom.xmlファイルを修正する。</p>
+<pre>
+<code>
+■C:\workspace\java\demo_sts\pom.xml
+&lt;properties&gt;
+    &lt;java.version&gt;17&lt;/java.version&gt;
+&lt;/properties&gt;
+</code>
+</pre>
+        <p>設定「ctl + ,」で検索バーから「java home」で検索して「Java: Home」のsettings.jsonを編集をクリック</p>
+        <p>※バックスラッシュ「\」について、エスケープとしてバックスラッシュ「\」を付ける。</p>
+        <p>この修正は不要かもしれないが、何となく修正</p>
+<pre>
+<code>
+"java.jdt.ls.java.home": "C:\\Program Files\\Amazon Corretto\\jdk17.0.12_7",
+</code>
+</pre>
+        <h3>ソースコードの作成・修正・デプロイ</h3>
+        <p>Procfileを作成</p>
+<pre>
+<code>
+web: java -Dserver.port=$PORT -jar target/demo_sts-0.0.1-SNAPSHOT.jar
+</code>
+</pre>
+        <p>system.propertiesを作成</p>
+<pre>
+<code>
+java.runtime.version=17
+</code>
+</pre>
+        <p>その他ソースコード等</p>
+        <p>接続先を「JAWSDB_URL」にした。テーブルも作り直した。特に理由はない。どちらでもいい。</p>
+        <p>DB接続で手こずったのでエラー画面を追加している。必須ではない。</p>
+        <p>以下ローカルで作成したときと殆ど同じで特に特別修正が必要なことはなかった。</p>
+<pre>
+<code>
+■C:\workspace\java\demo_sts\src\main\resources\application.properties
+spring.application.name=demo_sts
+# MySQLの接続設定
+spring.datasource.url=jdbc:${JAWSDB_URL}
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+# JPAの設定（オプション）
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
+■C:\workspace\java\demo_sts\src\main\java\com\example\demo_sts\model\Memo.java
+package com.example.demo_sts.model;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.util.Date;
+
+@Entity
+@Table(name = "memos")
+public class Memo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String title;
+    private String text;
+    private Date createdDate;
+
+    // Getters and Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+}
+
+■C:\workspace\java\demo_sts\src\main\java\com\example\demo_sts\repository\MemoRepository.java
+package com.example.demo_sts.repository;
+
+import com.example.demo_sts.model.Memo;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MemoRepository extends JpaRepository<Memo, Long> {
+}
+
+■C:\workspace\java\demo_sts\src\main\java\com\example\demo_sts\service\MemoService.java
+package com.example.demo_sts.service;
+
+import com.example.demo_sts.model.Memo;
+import com.example.demo_sts.repository.MemoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+public class MemoService {
+
+    @Autowired
+    private MemoRepository memoRepository;
+
+    @Transactional(readOnly = true)
+    public List<Memo> getAllMemos() {
+        return memoRepository.findAll();
+    }
+}
+
+■C:\workspace\java\demo_sts\src\main\java\com\example\demo_sts\DatabaseController.java
+package com.example.demo_sts;
+
+import com.example.demo_sts.model.Memo;
+import com.example.demo_sts.service.MemoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
+
+@Controller
+public class DatabaseController {
+
+    @Autowired
+    private MemoService memoService;
+
+    @GetMapping("/database")
+    public String database(Model model) {
+        try {
+            List<Memo> memos = memoService.getAllMemos();
+            model.addAttribute("memos", memos);
+            return "pages/database";
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "データの取得中にエラーが発生しました: " + e.getMessage());
+            return "error";
+        }
+    }
+}
+
+■C:\workspace\java\demo_sts\src\main\java\com\example\demo_sts\HelloController.java
+package com.example.demo_sts;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class HelloController {
+
+    @GetMapping("/hello") 
+    public String hogehoge() {
+        return "pages/hello";
+    }
+
+}
+
+■C:\workspace\java\demo_sts\src\main\resources\static\css\styles.css
+/* h1 */
+h1 {
+    color: brown;
+}
+
+■C:\workspace\java\demo_sts\src\main\resources\static\js
+{
+    ("use strict");
+    console.log('hello.');
+}
+
+■C:\workspace\java\demo_sts\src\main\resources\templates\pages\database.html
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Memo List&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/styles.css&quot;&gt;
+    &lt;script src=&quot;/js/script.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+    &lt;h1&gt;Memo List&lt;/h1&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;ID&lt;/th&gt;
+                &lt;th&gt;Title&lt;/th&gt;
+                &lt;th&gt;Text&lt;/th&gt;
+                &lt;th&gt;Created Date&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr th:each=&quot;memo : ${memos}&quot;&gt;
+                &lt;td th:text=&quot;${memo.id}&quot;&gt;&lt;/td&gt;
+                &lt;td th:text=&quot;${memo.title}&quot;&gt;&lt;/td&gt;
+                &lt;td th:text=&quot;${memo.text}&quot;&gt;&lt;/td&gt;
+                &lt;td th:text=&quot;${memo.createdDate}&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+■C:\workspace\java\demo_sts\src\main\resources\templates\pages\hello.html
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;hello&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/css/styles.css&quot;&gt;
+    &lt;script src=&quot;/js/script.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;/header&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+■C:\workspace\java\demo_sts\src\main\resources\templates\error.html
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;
+&lt;head&gt;
+    &lt;title&gt;Error&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;エラーが発生しました&lt;/h1&gt;
+    &lt;p th:text=&quot;${errorMessage}&quot;&gt;エラーメッセージが表示されます。&lt;/p&gt;
+    &lt;a href=&quot;/&quot;&gt;ホームに戻る&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+■C:\workspace\java\demo_sts\src\test\java\com\example\demo_sts\DemoStsApplicationTests.java
+package com.example.demo_sts;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class DemoStsApplicationTests {
+
+    @Test
+    void contextLoads() {
+        // テストの内容
+    }
+}
+
+</code>
+</pre>
+        <p>Mavenの「clean」を「run」で実行</p>
+        <p>Mavenの「package」を「run」で実行。「C:\workspace\java\demo_sts\target\demo_sts-0.0.1-SNAPSHOT.jar」が作成される。</p>
+        <p>以下のファイルをデプロイする</p>
+<pre>
+C:\workspace\java\toriisan-java-001\.gitignore
+C:\workspace\java\toriisan-java-001\HELP.md
+C:\workspace\java\toriisan-java-001\Procfile
+C:\workspace\java\toriisan-java-001\mvnw
+C:\workspace\java\toriisan-java-001\mvnw.cmd
+C:\workspace\java\toriisan-java-001\pom.xml
+C:\workspace\java\toriisan-java-001\src\main\java\com\example\demo_sts\DatabaseController.java
+C:\workspace\java\toriisan-java-001\src\main\java\com\example\demo_sts\DemoStsApplication.java
+C:\workspace\java\toriisan-java-001\src\main\java\com\example\demo_sts\HelloController.java
+C:\workspace\java\toriisan-java-001\src\main\java\com\example\demo_sts\model\Memo.java
+C:\workspace\java\toriisan-java-001\src\main\java\com\example\demo_sts\repository\MemoRepository.java
+C:\workspace\java\toriisan-java-001\src\main\java\com\example\demo_sts\service\MemoService.java
+C:\workspace\java\toriisan-java-001\src\main\resources\application.properties
+C:\workspace\java\toriisan-java-001\src\main\resources\static\css\styles.css
+C:\workspace\java\toriisan-java-001\src\main\resources\static\js\script.js
+C:\workspace\java\toriisan-java-001\src\main\resources\templates\error.html
+C:\workspace\java\toriisan-java-001\src\main\resources\templates\pages\database.html
+C:\workspace\java\toriisan-java-001\src\main\resources\templates\pages\hello.html
+C:\workspace\java\toriisan-java-001\src\test\java\com\example\demo_sts\DemoStsApplicationTests.java
+C:\workspace\java\toriisan-java-001\system.properties
+C:\workspace\java\toriisan-java-001\target\classes\application.properties
+C:\workspace\java\toriisan-java-001\target\classes\com\example\demo_sts\DatabaseController.class
+C:\workspace\java\toriisan-java-001\target\classes\com\example\demo_sts\DemoStsApplication.class
+C:\workspace\java\toriisan-java-001\target\classes\com\example\demo_sts\HelloController.class
+C:\workspace\java\toriisan-java-001\target\classes\com\example\demo_sts\model\Memo.class
+C:\workspace\java\toriisan-java-001\target\classes\com\example\demo_sts\repository\MemoRepository.class
+C:\workspace\java\toriisan-java-001\target\classes\com\example\demo_sts\service\MemoService.class
+C:\workspace\java\toriisan-java-001\target\classes\static\css\styles.css
+C:\workspace\java\toriisan-java-001\target\classes\static\js\script.js
+C:\workspace\java\toriisan-java-001\target\classes\templates\error.html
+C:\workspace\java\toriisan-java-001\target\classes\templates\pages\database.html
+C:\workspace\java\toriisan-java-001\target\classes\templates\pages\hello.html
+C:\workspace\java\toriisan-java-001\target\demo_sts-0.0.1-SNAPSHOT.jar
+C:\workspace\java\toriisan-java-001\target\demo_sts-0.0.1-SNAPSHOT.jar.original
+C:\workspace\java\toriisan-java-001\target\maven-archiver\pom.properties
+C:\workspace\java\toriisan-java-001\target\maven-status\maven-compiler-plugin\compile\default-compile\createdFiles.lst
+C:\workspace\java\toriisan-java-001\target\maven-status\maven-compiler-plugin\compile\default-compile\inputFiles.lst
+C:\workspace\java\toriisan-java-001\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile\createdFiles.lst
+C:\workspace\java\toriisan-java-001\target\maven-status\maven-compiler-plugin\testCompile\default-testCompile\inputFiles.lst
+C:\workspace\java\toriisan-java-001\target\surefire-reports\TEST-com.example.demo_sts.DemoStsApplicationTests.xml
+C:\workspace\java\toriisan-java-001\target\surefire-reports\com.example.demo_sts.DemoStsApplicationTests.txt
+C:\workspace\java\toriisan-java-001\target\test-classes\com\example\demo_sts\DemoStsApplicationTests.class    
+</pre>
+        <h3>ブラウザからアクセス</h3>
+        <p>ブラウザで「https://${アプリにアクセスするURL}/hello」でアクセス。</p>
+        <figure>
+            <img class="beside" src="../img/Java/Herokuの環境の作成_STS_SpringToolSuite_20241005/helloでアクセス.JPG" alt="helloでアクセス.JPG">
+            <figcaption>helloでアクセス.JPG</figcaption>
+        </figure>
+        <p>ブラウザで「https://${アプリにアクセスするURL}/database」でアクセス。</p>
+        <figure>
+            <img class="beside" src="../img/Java/Herokuの環境の作成_STS_SpringToolSuite_20241005/databaseでアクセス.JPG" alt="databaseでアクセス.JPG">
+            <figcaption>databaseでアクセス.JPG</figcaption>
+        </figure>
+     </details>
+
 <div id="log"></div>
     </main>
     <div id="operationParts"></div>
