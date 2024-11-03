@@ -1978,6 +1978,31 @@ C:\workspace\java\toriisan-java-001\target\test-classes\com\example\demo_sts\Dem
             <img class="beside" src="../img/Java/Herokuの環境の作成_STS_SpringToolSuite_20241005/databaseでアクセス.JPG" alt="databaseでアクセス.JPG">
             <figcaption>databaseでアクセス.JPG</figcaption>
         </figure>
+        <h3>Postgresに対応</h3>
+        <p>「JawsDB MySQL」を使用していたが、使い勝手が良くなくて「Heroku Postgres」に移行した。</p>
+        <p>「Heroku Postgres」のアドオンを追加</p>
+        <p>以下を修正</p>
+<pre>
+<code>
+■依存関係を追加(toriisan-java-001\pom.xml)
+&lt;dependency&gt;
+    &lt;groupId&gt;org.postgresql&lt;/groupId&gt;
+    &lt;artifactId&gt;postgresql&lt;/artifactId&gt;
+    &lt;version&gt;42.7.4&lt;/version&gt;
+&lt;/dependency&gt;
+■設定ファイルを修正(toriisan-java-001\src\main\resources\application.properties)
+spring.application.name=demo_sts
+# 接続設定
+spring.datasource.url=${DATABASE_URL}
+spring.datasource.driver-class-name=org.postgresql.Driver
+# JPAの設定（オプション）
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+</code>
+</pre>
+        <p>clean、packageを実行して「demo_sts-0.0.1-SNAPSHOT.jar」を再作成。</p>
+        <p>HerokuにCommit・Push</p>
      </details>
 
      <h2>Thymeleaf(html)で別のThymeleaf(html)を読み込む</h2>
