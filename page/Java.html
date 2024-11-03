@@ -58,6 +58,10 @@
      <p>セットアップが簡単で迅速にプロジェクトを開始でき、依存関係や設定も自動的に管理してくれるため、こちらが優れています。らしい</p>
      <p>Spring Bootが非常に便利です。特に、Spring Bootは多くの作業を自動化してくれるため、スピード重視の開発には向いています。らしい</p>
      <p>Spring Bootは、特にWebアプリケーションやマイクロサービスの開発に非常に適しており、Mavenを内包しているため、Mavenのすべての機能も利用できます</p>
+     <h3>Thymeleaf(タイムリーフ)</h3>
+     <p>Javaベースのウェブアプリケーションで使用される、強力で柔軟なサーバーサイドテンプレートエンジン</p>
+     <p>Java コードからデータを渡し、Thymeleaf テンプレート内で動的にページを生成</p>
+     <p>th:text、th:if、th:each、th:href などの属性を使って、データの表示や条件分岐、ループ、リンクの動的生成が可能</p>
 
      <h2>ローカル環境の作成_20240804</h2>
      <details>
@@ -1975,6 +1979,88 @@ C:\workspace\java\toriisan-java-001\target\test-classes\com\example\demo_sts\Dem
             <figcaption>databaseでアクセス.JPG</figcaption>
         </figure>
      </details>
+
+     <h2>Thymeleaf(html)で別のThymeleaf(html)を読み込む</h2>
+<pre>
+<code>
+■読み込む側のhtml(例:C:\workspace\java\toriisan-java-001\src\main\resources\templates\common\statusBar.html)
+&lt;div th:include=&quot;~{common/statusBar :: statusBar}&quot;&gt;&lt;/div&gt;
+■共通パーツ側のhtml(例:toriisan-java-001\src\main\resources\templates\pages\home.html)
+&lt;div th:fragment=&quot;statusBar&quot;&gt;
+    &lt;div id=&#039;statusBarParts&#039;&gt;
+        &lt;span&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;Heroku + STS.&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;span id=&quot;statusBarYmdHis&quot;&gt;&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code>
+</pre>
+
+        <h2>ヘルパー関数(静的)を利用する(コントローラ側)</h2>
+<pre>
+<code>
+■呼び出し側コントローラ(例:toriisan-java-001\src\main\java\com\example\demo_sts\SessionController.java)
+try {
+    changedSessions = Helper.parseJson(changedSessionsJson);
+} catch (Exception e) {
+    Helper.setMessage(session, ERROR_MSG_KEY, &quot;errorMsg&quot;, &quot;JSONのパースに失敗しました: &quot; + e.getMessage());
+    return &quot;redirect:/session&quot;;
+}
+■Helper側(例:toriisan-java-001\src\main\java\com\example\demo_sts\Helper.java)
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.servlet.http.HttpSession;
+
+public class Helper {
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
+    // public にして他のクラスから呼び出せるようにする
+    public static Map&lt;String, Object&gt; parseJson(String json) throws Exception {
+        Map&lt;String, Object&gt; resultMap = new HashMap&lt;&gt;();
+        try {
+            resultMap = objectMapper.readValue(json, new TypeReference&lt;Map&lt;String, Object&gt;&gt;() {});
+        } catch (Exception e) {
+            // 例外をスローすることで呼び出し元に通知
+            throw new Exception(&quot;Failed to parse JSON: &quot; + e.getMessage(), e);
+        }
+        return resultMap;
+    }
+}
+</code>
+</pre>
+
+        <h2>ヘルパー関数(静的)を利用する(Thymeleaf(html)側)</h2>
+<pre>
+<code>
+■Thymeleaf(html)側(例:toriisan-java-001\src\main\resources\templates\pages\database.html)
+&lt;p th:text=&quot;${T(com.example.demo_sts.Helper).formatDate(&#039;2024-11-03&#039;)}&quot;&gt;&lt;/p&gt;
+■Helper側(例:toriisan-java-001\src\main\java\com\example\demo_sts\Helper.java)
+package com.example.demo_sts;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.servlet.http.HttpSession;
+
+public class Helper {
+
+    public static String formatDate(String inputDate) {
+        return "Formatted: " + inputDate;
+    }
+
+}
+</code>
+</pre>
 
 <div id="log"></div>
     </main>
