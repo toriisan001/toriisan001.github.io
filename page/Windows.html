@@ -60,6 +60,47 @@ setx JAVA_HOME "C:\Program Files (x86)\Java\jdk1.5.0_22"
 </code>
 </pre>
 
+<h2>cmd関連</h2>
+<h3>ホスト名からグローバルIPを調べるコマンド</h3>
+<pre>
+nslookup ${ホスト名}
+※先頭のhttpはあってもよいが、末尾にバックスラッシュ「/」は付けてはいけない。
+〇レスポンス_リクエスト側
+サーバー:名前解決を行っているDNSサーバーの情報
+Addresses:名前解決を行っているDNSサーバーに対応するIPアドレス。
+〇レスポンス_レスポンス側
+名前:nslookup で解決したドメイン名
+Addresses:ドメイン名に対応するIPアドレス。負荷分散 や 冗長性 を目的として複数ある場合もある。いずれかのIPアドレスが利用される。
+IPv6アドレスの形式とIPv4アドレスの形式どちらも表示されることがある
+
+■以下実行結果例
+C:\Users\*****>nslookup https://toriisan001.github.io
+サーバー:  test.*********
+Address:  192.168.100.1
+
+権限のない回答:
+名前:    https://toriisan001.github.io
+Addresses:  2606:50c0:8000::153
+          2606:50c0:8001::153
+          2606:50c0:8002::153
+          2606:50c0:8003::153
+          185.199.110.153
+          185.199.111.153
+          185.199.108.153
+          185.199.109.153
+
+C:\Users\*****>nslookup https://toriisan-laravel-001-47f52dd431c0.herokuapp.com
+サーバー:  stest.*********
+Address:  192.168.100.1
+
+権限のない回答:
+名前:    ie02.ingress.herokuapp.com
+Addresses:  54.73.53.134
+        54.220.192.176
+        46.137.15.86
+Aliases:  https://toriisan-laravel-001-47f52dd431c0.herokuapp.com
+</pre>
+
     <div id="log"></div>
     </main>
     <div id="operationParts"></div>
