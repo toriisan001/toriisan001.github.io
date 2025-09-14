@@ -251,11 +251,12 @@
 
     // すべての details にイベントを付ける
     document.querySelectorAll('details').forEach(d => {
-    if (!d.querySelector('summary')) {
-      const summary = document.createElement('summary');
-      summary.textContent = '詳細';
-      d.insertBefore(summary, d.firstChild);
-    }
+      if (!d.querySelector('summary')) {
+        const summary = document.createElement('summary');
+        summary.textContent = '詳細';
+        d.insertBefore(summary, d.firstChild);
+      }
+    });
 
     setInterval(() => {
       // 現在日時取得
