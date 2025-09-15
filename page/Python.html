@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>Python</h1>
+        <p id="lastModified"></p>
+
+        <h2>事前準備</h2>
+        <p>以下からPythonをダウンロード・インストール</p>
+        <p><a href="https://www.python.org/downloads/windows/">Python Releases for Windows</a></p>
+        <p>cmdを立ち上げてバージョンを確認</p>
+<pre>
+<code>
+C:\Users\****>py --version
+Python 3.11.1
+</code>
+</pre>
+
+        <h2>環境構築</h2>
+        <h3>対話モードで実行</h3>
+        <p>cmdで対話モードで実行</p>
+<pre>
+<code>
+C:\Users\****>python
+Python 3.11.1 (tags/v3.11.1:*****, Dec  6 2022, 19:58:39) [MSC v.1934 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 1+1
+2
+>>> print("hello")
+hello
+>>> quit()
+
+簡単な計算、文字の出力
+quit()で対話モードを終了
+</code>
+</pre>
+
+        <h3>Pythonファイルを作って実行</h3>
+        <p>適当な場所に作業ディレクトリを作成。(例:E:\workspace\test)そのディレクトリに移動。</p>
+        <p>そのディレクトリで以下を記入してPythonファイルを拡張子(py)で作成(例:例:E:\workspace\test\test.py)</p>
+<pre>
+<code>
+print("Hello Python!")
+print(1 + 1)
+</code>
+</pre>
+        <p>cmdを作業ディレクトリで立ち上げてPythonファイルを実行(pythonコマンド、空白開けてファイル名)</p>
+<pre>
+<code>
+E:\workspace\test>python test.py
+Hello Python!
+2
+</code>
+</pre>
+
+        <h3>GUIアプリを作ってexeファイルを作成</h3>
+        <p>pyinstaller(Python で書いた .py ファイルを .exe（実行ファイル）などに変換できるライブラリ)をインストールする</p>
+<pre>
+<code>
+pip install pyinstaller
+</code>
+</pre>
+        <p>作業ディレクトリ(例:E:\workspace\myapp)を作成。以下のファイル構成で作成する。</p>
+<pre>
+myapp/
+│
+└─ run_test.py
+</pre>
+        <p>以下「myapp/myapp.py」。実際のアプリ処理。※日本語でコメントを付けているためファイルをUTF-8で保存する必要がある。サクラエディタの「ファイル > 開きなおす」からutf-8で開きなおすを選択して上書きすると良い。</p>
+<pre>
+<code>
+# myapp.py
+import tkinter as tk
+
+# カウント用変数
+count = 0
+
+def increment():
+    global count
+    count += 1
+    label.config(text=f"Count: {count}")
+
+# ウィンドウ設定
+root = tk.Tk()
+root.title("Counter GUI")
+root.geometry("200x100")
+
+# ラベル
+label = tk.Label(root, text=f"Count: {count}")
+label.pack(expand=True)
+
+# ボタン
+button = tk.Button(root, text="Increment", command=increment)
+button.pack()
+
+# メインループ
+root.mainloop()
+</code>
+</pre>
+          <p>cmdからPythonファイルを起動する。GUIアプリが起動したことを確認。</p>
+<pre>
+<code>
+E:\workspace\MyApp>python myapp.py
+</code>
+</pre>
+          <p>cmdから以下のコマンドでexeファイル化</p>
+<pre>
+<code>
+pyinstaller --onefile --windowed --hidden-import=tkinter myapp.py
+</code>
+</pre>
+          <p>正常終了すると、build、dist、myapp.specが作成される</p>
+<pre>
+<code>
+MyApp/                  ← プロジェクトのフォルダ
+├─ myapp.py             ← GUIアプリ本体（1ファイルで完結）
+├─ myapp.spec           ← PyInstallerの設定ファイル
+├─ build/               ← 一時的に作られる作業用フォルダ
+└─ dist/                ← PyInstallerで生成されるexeの出力先（ビルド後に作成される）
+    └─ myapp.exe        ← 完成した実行ファイル
+</code>
+</pre>
+          <p>「myapp.exe」を実行するとアプリが起動することを確認。</p>
+
+      <div id="log"></div>
+    </main>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>
