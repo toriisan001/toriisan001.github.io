@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>ReactNative</h1>
+        <p id="lastModified"></p>
+
+        <h2>用語</h2>
+        <h3>Expo</h3>
+        <p>簡易的なReactNative環境</p>
+        <p>React Native をラップして、簡単にアプリ開発できるようにしたフレームワーク</p>
+        <p>ブラウザ（Web）対応が簡単</p>
+        <p>Expo標準ライブラリがそろっている（カメラ・認証など）</p>
+        <p>React Native はネイティブ依存が大きく、環境構築やビルドでつまずくことが多かった → それを簡単にするために Expo が登場した</p>
+        <h3>純 React Native</h3>
+        <p>iOS/Android のネイティブコード（Swift/Kotlin）に完全自由</p>
+        <p>すべてのネイティブSDKが使える</p>
+        <p>素のプロジェクトなので細かく最適化できる</p>
+        <p>企業向け大規模アプリでは標準</p>
+        <p>外部ネイティブSDKを使う（決済・Bluetooth・独自SDKなど）</p>
+        <h3>Expo、純 React Nativeのどちらを使うべきか</h3>
+        <p>試しに「純 React Native」を使ってみたら初回起動が遅すぎた。api呼び出し、カメラくらいしか使わないだろうと予想してExpoを使ってみることにした。必要が出てきたら後々「純 React Native」に切り替えで良いのではないだろうか。</p>
+
+        <h2>環境構築(Expo)</h2>
+        <h3>事前準備</h3>
+        <h4>Node.js(LTS推奨)をインストール</h4>
+        <p>用途：npm, npx, expo, react-native をするために必要</p>
+        <p>バージョンチェック</p>
+<pre>
+<code>
+npx -v
+9.9.4
+</code>
+</pre>
+        <h4>Java(OpenJDK)環境を作成</h4>
+        <p>用途：gradlew.batをするために必要</p>
+        <p>システム環境変数を追加</p>
+<pre>
+JAVA_HOME：C:\Program Files\Amazon Corretto\jdk17.0.12_7
+Path：C:\Program Files\Amazon Corretto\jdk17.0.12_7\bin
+</pre>
+        <p>バージョンチェック</p>
+<pre>
+<code>
+java -version
+openjdk version "17.0.12" 2024-07-16 LTS
+OpenJDK Runtime Environment Corretto-17.0.12.7.1 (build 17.0.12+7-LTS)
+OpenJDK 64-Bit Server VM Corretto-17.0.12.7.1 (build 17.0.12+7-LTS, mixed mode, sharing)
+</code>
+</pre>
+        <h4>Android Studio（SDK込み）</h4>
+        <p>用途：gradlew.batをするために必要</p>
+        <p>Android Studioをインストール</p>
+        <p>「Tool」⇒「SDK Manager」タブを確認</p>
+<pre>
+■SDK Platforms タブ
+⇒最新の AndroidがチェックされていたらOK
+
+■SDK Tools タブ
+⇒以下がチェックされていればOK。Android Emulatorは任意。
+Android SDK Build-Tools
+Android SDK Platform-Tools
+Android SDK Command-line Tools
+Android Emulator（任意）
+</pre>
+        <p>システム環境変数を追加</p>
+<pre>
+ANDROID_SDK_ROOT：C:\Users\*****\AppData\Local\Android\Sdk
+</pre>
+        <p>バージョンチェック。cmdで「adb version」を実行してバージョンが表示できればOK。</p>
+<pre>
+adb version
+>Android Debug Bridge version 1.0.41
+>Version 36.0.0-13206524
+>Installed as C:\Users\*****\AppData\Local\Android\Sdk\platform-tools\adb.exe
+>Running on Windows 10.0.19045
+</pre>
+        <h3>環境構築</h3>
+        <p>Expo CLIインストール</p>
+<pre>
+<code>
+npx create-expo-app ToriiApp
+</code>
+</pre>
+        <p>アプリフォルダに移動</p>
+<pre>
+<code>
+cd ToriiApp
+</code>
+</pre>
+        <p>依存関係のインストール</p>
+<pre>
+<code>
+npm install
+</code>
+</pre>
+        <p>アプリケーションの起動</p>
+<pre>
+<code>
+npx expo start -c
+</code>
+</pre>
+        <p>ブラウザで表示</p>
+<pre>
+<code>
+以下のように表示される。
+「w」キーを押す。あるいは「http://localhost:8081/」にアクセスすれば
+web上で「Expo Welcome!」ページを表示できる。
+Expo GoアプリをAppStore(Android Store)からダウンロードして
+「Scan QR code」で読み取ればAndroidで表示できる。
+
+> toriiapp@1.0.0 start
+> npx expo start -c
+
+Starting project at E:\workspace\React_Native\ToriiApp
+React Compiler enabled
+Starting Metro Bundler
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+█ ▄▄▄▄▄ █▀▀ ██    █ ▄▄▄▄▄ █
+█ █   █ █▄▀██▀███ █ █   █ █
+█ █▄▄▄█ █ ▄ █  ▀ ██ █▄▄▄█ █
+█▄▄▄▄▄▄▄█ █ ▀▄█ ▀ █▄▄▄▄▄▄▄█
+█ ▄█▄▀█▄ █▀█ ▄▄█ █ ▄   ▀▄██
+██▄ ▀█ ▄  ▀▀    ▀▄▄▀ ▀▀█▄▄█
+█▄▀▀ █ ▄▀▀█▄ ▄▄ █▀█ ▄█ ██▀█
+█▄▀ ▀▀▄▄ █▀▄ █  █ ▄▄ ▀▀██▄█
+█▄▄██▄█▄█ ▄▀▀██▄  ▄▄▄ █ ▄ █
+█ ▄▄▄▄▄ █▄▀▀▀▄▄▄  █▄█  ▀  █
+█ █   █ █▀▀███▄▀▀▄ ▄▄ █▀▄██
+█ █▄▄▄█ █▀ ██▄  █  █▄  ▄█▄█
+█▄▄▄▄▄▄▄█▄▄▄██▄▄█▄███▄▄█▄▄█
+
+> Metro waiting on exp://***.***.***.***:***
+> Scan the QR code above with Expo Go (Android) or the Camera app (iOS)
+
+> Web is waiting on http://localhost:8081
+
+> Using Expo Go
+> Press s │ switch to development build
+
+> Press a │ open Android
+> Press w │ open web
+
+> Press j │ open debugger
+> Press r │ reload app
+> Press m │ toggle menu
+> shift+m │ more tools
+> Press o │ open project code in your editor
+
+> Press ? │ show all commands
+
+Logs for your project will appear below. Press Ctrl+C to exit.
+</code>
+</pre>
+        <h3>トップページを表示してみる</h3>
+        <p>ファイル構成を確認</p>
+<pre>
+ToriiApp\app\(tabs)\
+                   ├ _layout.tsx
+                   ├ explore.tsx
+                   └ index.tsx
+
+■ _layout.tsx
+expo-router における特別なファイルで、アプリケーションのレイアウトやナビゲーションの構造を管理するために使用
+■ explore.tsx
+サンプルコードが入っているらしい。不要なら除去してもいいのかな。「_layout.tsx」からも削除。
+■ index.tsxについて
+アプリケーションのトップページやデフォルトの画面に関連付けられます。
+</pre>
+        <p>index.tsxを修正。Welcome Pageになっているので単純にHome画面に修正。※日本語を使用するため、ファイルはutf-8で保存する。</p>
+<pre>
+<code>
+■修正前
+import { Image } from &#039;expo-image&#039;;
+import { Platform, StyleSheet } from &#039;react-native&#039;;
+
+import { HelloWave } from &#039;@/components/hello-wave&#039;;
+import ParallaxScrollView from &#039;@/components/parallax-scroll-view&#039;;
+import { ThemedText } from &#039;@/components/themed-text&#039;;
+import { ThemedView } from &#039;@/components/themed-view&#039;;
+import { Link } from &#039;expo-router&#039;;
+
+export default function HomeScreen() {
+  return (
+    &lt;ParallaxScrollView
+      headerBackgroundColor={{ light: &#039;#A1CEDC&#039;, dark: &#039;#1D3D47&#039; }}
+      headerImage={
+        &lt;Image
+          source={require(&#039;@/assets/images/partial-react-logo.png&#039;)}
+          style={styles.reactLogo}
+        /&gt;
+      }&gt;
+      &lt;ThemedView style={styles.titleContainer}&gt;
+        &lt;ThemedText type=&quot;title&quot;&gt;Welcome!&lt;/ThemedText&gt;
+        &lt;HelloWave /&gt;
+      &lt;/ThemedView&gt;
+      &lt;ThemedView style={styles.stepContainer}&gt;
+        &lt;ThemedText type=&quot;subtitle&quot;&gt;Step 1: Try it&lt;/ThemedText&gt;
+        &lt;ThemedText&gt;
+          Edit &lt;ThemedText type=&quot;defaultSemiBold&quot;&gt;app/(tabs)/index.tsx&lt;/ThemedText&gt; to see changes.
+          Press{&#039; &#039;}
+          &lt;ThemedText type=&quot;defaultSemiBold&quot;&gt;
+            {Platform.select({
+              ios: &#039;cmd + d&#039;,
+              android: &#039;cmd + m&#039;,
+              web: &#039;F12&#039;,
+            })}
+          &lt;/ThemedText&gt;{&#039; &#039;}
+          to open developer tools.
+        &lt;/ThemedText&gt;
+      &lt;/ThemedView&gt;
+      &lt;ThemedView style={styles.stepContainer}&gt;
+        &lt;Link href=&quot;/modal&quot;&gt;
+          &lt;Link.Trigger&gt;
+            &lt;ThemedText type=&quot;subtitle&quot;&gt;Step 2: Explore&lt;/ThemedText&gt;
+          &lt;/Link.Trigger&gt;
+          &lt;Link.Preview /&gt;
+          &lt;Link.Menu&gt;
+            &lt;Link.MenuAction title=&quot;Action&quot; icon=&quot;cube&quot; onPress={() =&gt; alert(&#039;Action pressed&#039;)} /&gt;
+            &lt;Link.MenuAction
+              title=&quot;Share&quot;
+              icon=&quot;square.and.arrow.up&quot;
+              onPress={() =&gt; alert(&#039;Share pressed&#039;)}
+            /&gt;
+            &lt;Link.Menu title=&quot;More&quot; icon=&quot;ellipsis&quot;&gt;
+              &lt;Link.MenuAction
+                title=&quot;Delete&quot;
+                icon=&quot;trash&quot;
+                destructive
+                onPress={() =&gt; alert(&#039;Delete pressed&#039;)}
+              /&gt;
+            &lt;/Link.Menu&gt;
+          &lt;/Link.Menu&gt;
+        &lt;/Link&gt;
+
+        &lt;ThemedText&gt;
+          {`Tap the Explore tab to learn more about what&#039;s included in this starter app.`}
+        &lt;/ThemedText&gt;
+      &lt;/ThemedView&gt;
+      &lt;ThemedView style={styles.stepContainer}&gt;
+        &lt;ThemedText type=&quot;subtitle&quot;&gt;Step 3: Get a fresh start&lt;/ThemedText&gt;
+        &lt;ThemedText&gt;
+          {`When you&#039;re ready, run `}
+          &lt;ThemedText type=&quot;defaultSemiBold&quot;&gt;npm run reset-project&lt;/ThemedText&gt; to get a fresh{&#039; &#039;}
+          &lt;ThemedText type=&quot;defaultSemiBold&quot;&gt;app&lt;/ThemedText&gt; directory. This will move the current{&#039; &#039;}
+          &lt;ThemedText type=&quot;defaultSemiBold&quot;&gt;app&lt;/ThemedText&gt; to{&#039; &#039;}
+          &lt;ThemedText type=&quot;defaultSemiBold&quot;&gt;app-example&lt;/ThemedText&gt;.
+        &lt;/ThemedText&gt;
+      &lt;/ThemedView&gt;
+    &lt;/ParallaxScrollView&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  titleContainer: {
+    flexDirection: &#039;row&#039;,
+    alignItems: &#039;center&#039;,
+    gap: 8,
+  },
+  stepContainer: {
+    gap: 8,
+    marginBottom: 8,
+  },
+  reactLogo: {
+    height: 178,
+    width: 290,
+    bottom: 0,
+    left: 0,
+    position: &#039;absolute&#039;,
+  },
+});
+
+■修正後
+// Home.js
+import React from &quot;react&quot;;
+import { View, Text } from &quot;react-native&quot;;
+
+export default function Home() {
+  return (
+    &lt;View style={{ flex: 1, justifyContent: &quot;center&quot;, alignItems: &quot;center&quot; }}&gt;
+      &lt;Text&gt;{&quot;ホーム画面&quot;}&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+</code>
+</pre>
+        <p>再度ブラウザを確認すると「Home Page」に変わったことを確認できる。再起動不要で楽。</p>
+        <h3>アイコンを変更してみる</h3>
+        <p>ファイル構成。以下のファイルを必要に応じて差し替える。</p>
+<pre>
+ToriiApp\assets\images\
+                      ├ android-icon-background.png・・・Android アダプティブアイコンの背景画像(192x192 ピクセル)
+                      ├ android-icon-foreground.png・・・Android アダプティブアイコンの前景画像(192x192 ピクセル)
+                      ├ android-icon-monochrome.png・・・Android の通知アイコン(192x192 ピクセル)
+                      ├ favicon.png・・・ウェブアプリや ブラウザタブ で表示される ファビコン(16x16 ピクセル、32x32 ピクセル)
+                      ├ icon.png・・・アプリのメインアイコン(1024x1024 ピクセル（正方形）)
+                      ├ partial-react-logo.png・・・React ロゴの一部を示す画像
+                      ├ react-logo.png・・・React ロゴ を表示するための画像ファイル
+                      ├ react-logo@2x.png・・・2x(3倍) 解像度の React ロゴ
+                      ├ react-logo@3x.png・・・3x(3倍) 解像度の React ロゴ
+                      └ splash-icon.png・・・アプリが起動したときに最初に表示される画面に表示される画像(1024x1024 ピクセル)
+</pre>
+        <p>とりあえず「android-icon-foreground.png」「android-icon-monochrome.png」「favicon.png」「icon.png」を差し替えてみる。</p>
+        <p>ブラウザをリロードして反映されたことを確認</p>
+        <h3>apk(Android Package)を作成</h3>
+        <p>ルートディレクトリにあるapp.jsonファイルを修正</p>
+<pre>
+<code>
+パッケージ名を追加
+逆ドメイン形式
+com.会社名.アプリ名
+※Google Playに登録する場合について
+Google Play に登録したパッケージ名は変更できないらしい
+既に登録済みのものは使用できないらしい
+
+■ app.json
+"ios": {
+"bundleIdentifier": "com.toriisan.toriapp",・・・この行を追加
+"supportsTablet": true
+},
+"android": {
+"package": "com.toriisan.toriapp",・・・この行を追加
+"adaptiveIcon": {
+"backgroundColor": "#E6F4FE",
+"foregroundImage": "./assets/images/android-icon-foreground.png",
+"backgroundImage": "./assets/images/android-icon-background.png",
+"monochromeImage": "./assets/images/android-icon-monochrome.png"
+},
+"edgeToEdgeEnabled": true,
+"predictiveBackGestureEnabled": false
+},
+</code>
+</pre>
+        <p>ローカルでapiファイルを作成。クラウドビルドする方法もあるらしいけどお金かかるらしいからやめた。</p>
+<pre>
+<code>
+npx expo prebuild
+
+上記を実行。「ToriiApp\android」ディレクトリ配下が作成される。
+Expoアプリケーションのネイティブコードを事前にビルド（生成）するためのコマンド。
+</code>
+</pre>
+        <p>node_modulesフォルダを削除（存在しない場合もエラー無視）※結構時間がかかるが放っておくと終わる。</p>
+<pre>
+<code>
+rmdir /s /q node_modules
+</code>
+</pre>
+        <p>追加で必要なライブラリをインストール</p>
+<pre>
+<code>
+// @expo/config-plugins：Expo プロジェクトの設定やネイティブモジュールの統合を助ける
+// expo-constants：端末情報（OS バージョンやアプリバージョンなど）を取得する
+// react-native-gesture-handler：ジェスチャー（スワイプ、タップなど）を処理する
+// react-native-reanimated / react-native-worklets：アニメーションのパフォーマンスを向上させるためのネイティブ実装
+npm install @expo/config-plugins expo-constants react-native-gesture-handler react-native-reanimated react-native-worklets
+</code>
+</pre>
+        <p>android フォルダに移動</p>
+<pre>
+<code>
+cd android
+</code>
+</pre>
+        <p>Gradle タスクを実行</p>
+<pre>
+<code>
+// React Native の コード生成（Codegen） 
+gradlew.bat generateCodegenArtifactsFromSchema
+
+// 以前のビルド成果物の削除
+gradlew.bat clean
+
+// リリース用 APK のビルド
+gradlew.bat assembleRelease
+</code>
+</pre>
+        <p>Android アプリの完成版ファイルが生成される。これを手持ちのAndroid端末に持って行って、パッケージマネージャー等でインストールできる。</p>
+<pre>
+E:\workspace\React_Native\ToriiApp\android\app\build\outputs\apk\release\app-release.apk
+</pre>
+
+      <div id="log"></div>
+    </main>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>
