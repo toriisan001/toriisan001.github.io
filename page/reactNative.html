@@ -18,6 +18,10 @@
         <p id="lastModified"></p>
 
         <h2>用語</h2>
+        <h3>React</h3>
+        <p>Web向けのライブラリ</p>
+        <p>HTML + CSS + JS で動く</p>
+        <p>主に ブラウザで動く UI を作るために使う。あくまで装飾。必須ではない。</p>
         <h3>Expo</h3>
         <p>簡易的なReactNative環境</p>
         <p>React Native をラップして、簡単にアプリ開発できるようにしたフレームワーク</p>
@@ -34,6 +38,7 @@
         <p>試しに「純 React Native」を使ってみたら初回起動が遅すぎた。api呼び出し、カメラくらいしか使わないだろうと予想してExpoを使ってみることにした。必要が出てきたら後々「純 React Native」に切り替えで良いのではないだろうか。</p>
 
         <h2>環境構築(Expo)</h2>
+        <details>
         <h3>事前準備</h3>
         <h4>Node.js(LTS推奨)をインストール</h4>
         <p>用途：npm, npx, expo, react-native をするために必要</p>
@@ -92,6 +97,11 @@ adb version
 <pre>
 <code>
 npx create-expo-app ToriiApp
+※ルートディレクトリに「.git」が作成されるが、git管理しない場合は削除してよい。
+※不調があれば以下でキャッシュを削除する。
+npm cache clean --force
+以下が削除されるらしい
+C:\Users\****\AppData\Local\npm-cache
 </code>
 </pre>
         <p>アプリフォルダに移動</p>
@@ -109,6 +119,9 @@ npm install
         <p>アプリケーションの起動</p>
 <pre>
 <code>
+npx expo start
+
+※キャッシュ関連の問題が発生している場合、「-c」オプションを付ける。
 npx expo start -c
 </code>
 </pre>
@@ -175,7 +188,7 @@ ToriiApp\app\(tabs)\
 ■ _layout.tsx
 expo-router における特別なファイルで、アプリケーションのレイアウトやナビゲーションの構造を管理するために使用
 ■ explore.tsx
-サンプルコードが入っているらしい。不要なら除去してもいいのかな。「_layout.tsx」からも削除。
+サンプルコードが入っているらしい。あってもなくてもいい。とりあえずおいとく。
 ■ index.tsxについて
 アプリケーションのトップページやデフォルトの画面に関連付けられます。
 </pre>
@@ -315,34 +328,6 @@ ToriiApp\assets\images\
         <p>とりあえず「android-icon-foreground.png」「android-icon-monochrome.png」「favicon.png」「icon.png」を差し替えてみる。</p>
         <p>ブラウザをリロードして反映されたことを確認</p>
         <h3>apk(Android Package)を作成</h3>
-        <p>ルートディレクトリにあるapp.jsonファイルを修正</p>
-<pre>
-<code>
-パッケージ名を追加
-逆ドメイン形式
-com.会社名.アプリ名
-※Google Playに登録する場合について
-Google Play に登録したパッケージ名は変更できないらしい
-既に登録済みのものは使用できないらしい
-
-■ app.json
-"ios": {
-"bundleIdentifier": "com.toriisan.toriapp",・・・この行を追加
-"supportsTablet": true
-},
-"android": {
-"package": "com.toriisan.toriapp",・・・この行を追加
-"adaptiveIcon": {
-"backgroundColor": "#E6F4FE",
-"foregroundImage": "./assets/images/android-icon-foreground.png",
-"backgroundImage": "./assets/images/android-icon-background.png",
-"monochromeImage": "./assets/images/android-icon-monochrome.png"
-},
-"edgeToEdgeEnabled": true,
-"predictiveBackGestureEnabled": false
-},
-</code>
-</pre>
         <p>ローカルでapiファイルを作成。クラウドビルドする方法もあるらしいけどお金かかるらしいからやめた。</p>
 <pre>
 <code>
@@ -368,6 +353,12 @@ rmdir /s /q node_modules
 npm install @expo/config-plugins expo-constants react-native-gesture-handler react-native-reanimated react-native-worklets
 </code>
 </pre>
+        <p>cmdで一時的に環境変数NODE_ENVに値productionを設定するコマンドを実行</p>
+<pre>
+<code>
+set NODE_ENV=production
+</code>
+</pre>
         <p>android フォルダに移動</p>
 <pre>
 <code>
@@ -383,7 +374,7 @@ gradlew.bat generateCodegenArtifactsFromSchema
 // 以前のビルド成果物の削除
 gradlew.bat clean
 
-// リリース用 APK のビルド。※JSの変更だけならここを再実行で良い。
+// リリース用 APK(.apk)のビルド。※JSの変更だけならここを再実行で良い。
 gradlew.bat assembleRelease
 </code>
 </pre>
@@ -391,6 +382,292 @@ gradlew.bat assembleRelease
 <pre>
 E:\workspace\React_Native\ToriiApp\android\app\build\outputs\apk\release\app-release.apk
 </pre>
+        <p>その他ライブラリメモ</p>
+<pre>
+<code>
+■サイドメニュー（ハンバーガーメニュー）が使いたい
+// @react-navigation/native は React Navigation のナビゲーション管理のコア部分を提供します。これがないと、基本的なナビゲーション機能（例えば、画面遷移やスタックナビゲーションなど）を使うことができません。
+// @react-navigation/drawer は、アプリに サイドメニュー を実装するために必要です。サイドメニュー（ハンバーガーメニュー）を使用する場合、このパッケージが必須となります。
+// react-native-screens は、画面遷移を効率的に管理し、パフォーマンスを向上させるために使われます。ナビゲーションの際にスムーズな遷移を提供します。
+// react-native-safe-area-context は、デバイスのセーフエリアに適切にコンテンツを配置するために使われます。特に、iPhone X 以降のモデルではノッチやホームインジケータが存在するため、これらを考慮したレイアウトが重要です。
+npx expo install @react-navigation/native @react-navigation/drawer react-native-screens react-native-safe-area-context
+</code>
+</pre>
+        </details>
+
+        <h2>Android ストア（Google Play）に公開</h2>
+        <details>
+        <h3>AAB(AppBundleファイル)(.aab)形式を作成</h3>
+        <p>署名用キーストアを作成。※キーストア(秘密鍵＋証明書の入れ物)</p>
+<pre>
+<code>
+keytool -genkey -v -keystore {キーストア名}.jks -keyalg {アルゴリズム} -keysize {ビット長} -validity {有効日数} -alias {キーの別名}
+
+{キーストア名} → my-release-key や app-release-key など、作成するファイル名
+{アルゴリズム} → 通常は RSA
+{ビット長} → 2048（推奨）や 4096 など
+{有効日数} → 例えば 10000（約27年）署名証明書の有効期間。この日数が切れた場合、Google Play にアップロードしても アップデートとして受け付けられない。個人用テストアプリなら27年で十分。長期のアプリなら36500日(約100年)でもいい。Google Play App Signing を使えば、さらに安全に管理可能らしい。
+{キーの別名} → キーストア内で識別する名前、例： my-key-alias
+
+以下例
+keytool -genkey -v -keystore torii-release-key.jks -keyalg RSA -keysize 2048 -validity 36500 -alias torii-key-alias
+
+キーストアのパスワードを入力してください:
+新規パスワードを再入力してください:
+姓名は何ですか。
+  [Unknown]:  ToriiRyouta
+組織単位名は何ですか。
+  [Unknown]:  Personal
+組織名は何ですか。
+  [Unknown]:  Individual
+都市名または地域名は何ですか。
+  [Unknown]:  Tokyo
+都道府県名または州名は何ですか。
+  [Unknown]:  Tokyo
+この単位に該当する2文字の国コードは何ですか。
+  [Unknown]:  JP
+CN=ToriiRyouta, OU=Personal, O=Individual, L=Tokyo, ST=Tokyo, C=JPでよろしいですか。
+  [いいえ]:  はい
+
+36,500日間有効な2,048ビットのRSAのキー・ペアと自己署名型証明書(SHA256withRSA)を生成しています
+        ディレクトリ名: CN=ToriiRyouta, OU=Personal, O=Individual, L=Tokyo, ST=Tokyo, C=JP
+[torii-release-key.jksを格納中]
+</code>
+</pre>
+        <p>作成した署名用キーストアを配置する</p>
+<pre>
+■androidディレクトリ配下に「keystores」ディレクトリを作成してその中に入れる。
+以下例
+E:\workspace\ReactNative\ToriiApp\android\keystores\torii-release-key.jks
+</pre>
+        <p>リリース用の署名に切り替える</p>
+<pre>
+<code>
+E:\workspace\ReactNative\ToriiApp\android\app\build.gradleを書き換える
+■修正前
+〇E:\workspace\ReactNative\ToriiApp\android\app\build.gradlebuild.gradleを修正
+signingConfigs {
+    debug {
+        storeFile file(&#039;debug.keystore&#039;)
+        storePassword &#039;android&#039;
+        keyAlias &#039;androiddebugkey&#039;
+        keyPassword &#039;android&#039;
+    }
+}
+buildTypes {
+    debug {
+        signingConfig signingConfigs.debug
+    }
+    release {
+        // Caution! In production, you need to generate your own keystore file.
+        // see https://reactnative.dev/docs/signed-apk-android.
+        signingConfig signingConfigs.debug
+        def enableShrinkResources = findProperty(&#039;android.enableShrinkResourcesInReleaseBuilds&#039;) ?: &#039;false&#039;
+        shrinkResources enableShrinkResources.toBoolean()
+        minifyEnabled enableMinifyInReleaseBuilds
+        proguardFiles getDefaultProguardFile(&quot;proguard-android.txt&quot;), &quot;proguard-rules.pro&quot;
+        def enablePngCrunchInRelease = findProperty(&#039;android.enablePngCrunchInReleaseBuilds&#039;) ?: &#039;true&#039;
+        crunchPngs enablePngCrunchInRelease.toBoolean()
+    }
+}
+■修正後
+〇E:/workspace/ReactNative/ToriiApp/android/gradle.propertiesの最後に追記
+// ※ パスワードは英大文字・小文字・数字・記号を含むのを推奨(例:ToriiPass2025!)
+// ※ キーストアパスワードはkeystore を開くためのパスワード。キーパスワードはアプリ署名に使うキーのパスワード。同じでもいいらしい。セキュリティ的には分けたほうが良いらしい。
+MYAPP_RELEASE_STORE_FILE=../keystores/{キーストア名}.jks
+MYAPP_RELEASE_KEY_ALIAS={キーの別名}
+MYAPP_RELEASE_STORE_PASSWORD={キーストアパスワード}
+MYAPP_RELEASE_KEY_PASSWORD={キーパスワード}
+〇E:\workspace\ReactNative\ToriiApp\android\app\build.gradlebuild.gradleを修正
+signingConfigs {
+  release {
+      storeFile file(MYAPP_RELEASE_STORE_FILE)
+      storePassword MYAPP_RELEASE_STORE_PASSWORD
+      keyAlias MYAPP_RELEASE_KEY_ALIAS
+      keyPassword MYAPP_RELEASE_KEY_PASSWORD
+  }
+  debug {
+          storeFile file('debug.keystore')
+          storePassword 'android'
+          keyAlias 'androiddebugkey'
+          keyPassword 'android'
+  }
+}
+buildTypes {
+    debug {
+            signingConfig signingConfigs.debug
+    }
+    release {
+        signingConfig signingConfigs.release
+        minifyEnabled false
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+}
+</code>
+</pre>
+        <p>ルートディレクトリにあるapp.jsonファイルを修正</p>
+<pre>
+<code>
+パッケージ名を追加
+逆ドメイン形式
+com.会社名.アプリ名
+※Google Playに登録する場合について
+Google Play に登録したパッケージ名は変更できないらしい
+既に登録済みのものは使用できないらしい。またアプリごとに必ずユニーク(一意)である必要があるらしい。
+同じパッケージ名のアプリは 同時にインストールできない
+OSやGoogle Playはパッケージ名でアプリを管理するから
+
+例：com.toriisan.toriapp
+
+■ ToriiApp/app.json
+// bundleIdentifier、packageを追加
+    "ios": {
+      "bundleIdentifier": "com.toriisan.toriapp",
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.toriisan.toriapp"
+    },
+
+■ ToriiApp/android/app/src/main/AndroidManifest.xml
+// packageを追加
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; package=&quot;com.toriisan.toriapp&quot;&gt;
+
+■ ToriiApp/android/app/build.gradle
+// applicationIdを合わせる。versionCode、versionCodeについて更新タイミングで修正する。
+// versionCode・・・Google PlayやAndroidの更新判定。1,2,3などと増やしていく。
+// versionName・・・Play Storeに表示。アプリ情報に表示「1.0-bata」みたいな書き方もできる。
+    namespace &#039;com.toriisan.toriapp&#039;
+    defaultConfig {
+        applicationId &#039;com.toriisan.toriapp&#039;
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName &quot;1.0.0&quot;
+
+        buildConfigField &quot;String&quot;, &quot;REACT_NATIVE_RELEASE_LEVEL&quot;, &quot;\&quot;${findProperty(&#039;reactNativeReleaseLevel&#039;) ?: &#039;stable&#039;}\&quot;&quot;
+    }
+</code>
+</pre>
+        <p>cmdで一時的に環境変数NODE_ENVに値productionを設定するコマンドを実行</p>
+<pre>
+<code>
+set NODE_ENV=production
+</code>
+</pre>
+        <p>cmdでandroidフォルダに移動</p>
+<pre>
+<code>
+cd android
+</code>
+</pre>
+        <p>パッケージ名を変えたため、buildを再生成をする。</p>
+<pre>
+<code>
+以下のディレクトリを削除
+E:\workspace\ReactNative\ToriiApp\android\build
+E:\workspace\ReactNative\ToriiApp\android\app\build
+以下を実行する。ビルドディレクトリが再生成される。
+gradlew.bat clean
+</code>
+</pre>
+        <p>AAB(AppBundleファイル)(.aab)形式を作成</p>
+<pre>
+<code>
+gradlew.bat bundleRelease
+
+※ 以下に出力される
+E:\workspace\ReactNative\ToriiApp\android\app\build\outputs\bundle\release\app-release.aab
+</code>
+</pre>
+        <h>Androidストアにアプリを公開</h3>
+        <p>Google Play Consoleにアクセス</p>
+        <a href="https://play.google.com/console/signup">Google Play Console</a>
+        <p>会員登録・登録料 $25 を支払い</p>
+        <p>デベロッパー アカウントの設定</p>
+<pre>
+・本人確認(数分で完了した)
+・Android モバイル デバイスにアクセスできることをご確認ください
+・連絡先電話番号の確認(本人確認を先にする必要がある)
+</pre>
+        <p>ホーム → アプリを作成</p>
+<pre>
+適宜入力。以下例
+アプリ名：鳥居_テスト
+デフォルトの言語：日本語
+アプリ/ゲーム:アプリ
+無料/有料:無料
+</pre>
+        <p>内部テスト版リリースの作成</p>
+<pre>
+テストとリリース⇒テスト⇒内部テスト。リリースタブを参照
+リリースを編集をクリック
+App Bundleに作成した「app-release.aab」をドラッグ
+ファイル形式：App bundle
+バージョン：1(1.0.0)
+APIレベル：24以上
+対象SDK：36
+画面レイアウト：4
+ABI：4
+必要な機能：2
+
+以下設定例)
+リリース名：1 (1.0.0)
+リリースノート：
+&lt;ja-JP&gt;
+サンプルアプリです。homeの表示のみです。
+&lt;/ja-JP&gt;
+
+上記設定後、次へをクリック。
+その後、保存して公開をクリック。
+</pre>
+        <p>テスターの設定</p>
+<pre>
+テストとリリース⇒テスト⇒内部テスト。テスター数タブを参照
+メーリングリストの作成
+以下例)
+リスト名：android-testers
+csvファイルのアップロードで以下のファイルをアップロードする。本番リリースするには12個のテスターが必要らしい
+
+email.csv
+*****gmail.com
+*****gmail.com
+*****gmail.com
+*****gmail.com
+*****gmail.com
+*****gmail.com
+*****gmail.com
+*****gmail.com
+*****gmail.com
+*****gmail.com
+*****gmail.com
+*****gmail.com
+</pre>
+        <p>公開について</p>
+<pre>
+2024年から、androidアプリのアプリストアでの公開について
+12人のテストユーザーの登録が必要になったらしい。
+個人開発者をはじくためなのかも。
+Android Studioのエミュレータでの登録という手もあるらしいが
+仮に通ってもそれは正式な手順ではないらしい。
+一旦ここまでとする。apkを作成までで一応アプリの作成にはなっている。
+ストアで公開できるレベルの何かが出来たらまた考えよう。
+
+ストア以外での販売・配布について
+キーストアを使った署名は必要となる。何故かというと
+アップデート時にもapkをインストールすることになるが
+署名の無いapkだと、更新にならずに別のアプリとして扱われるらしい。
+パッケージ名の設定も不要だがやっておくとよりよい。
+</pre>
+        </details>
 
       <div id="log"></div>
     </main>
