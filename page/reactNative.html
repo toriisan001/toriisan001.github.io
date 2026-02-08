@@ -667,6 +667,203 @@ Android Studioのエミュレータでの登録という手もあるらしいが
 署名の無いapkだと、更新にならずに別のアプリとして扱われるらしい。
 パッケージ名の設定も不要だがやっておくとよりよい。
 </pre>
+
+        </details>
+
+        <h2>環境構築(純React Native)</h2>
+
+      <details>
+        <h3>事前準備</h3>
+        <p>Expoを作成できる環境</p>
+        <h3>環境構築手順</h3>
+        <h4>初期化</h4>
+        <p>初期化</p>
+<pre>
+<code>
+E:\workspace\ReactNative>npx @react-native-community/cli init ToriiApp
+Ok to proceed? (y) y
+</code>
+</pre>
+        <p>作業ディレクトリに移動</p>
+<pre>
+<code>
+cd ToriiApp
+</code>
+</pre>
+        <p>依存関係をインストール</p>
+<pre>
+<code>
+npm install
+
+※警告が出ていた場合
+警告は出るが、React Native の開発自体は問題なく続行出来ることもある
+
+※自動で安全な範囲で修正する(破壊的変更は避ける)
+npm audit fix
+
+※強制的に最新にアップデート(バージョンが変わって互換性が壊れる可能性あり)
+npm audit fix --force
+</code>
+</pre>
+        <p>別のcmdを立ち上げて、Metro 開発サーバを起動。エミュレータ等で実行時、修正を反映させたりする機能らしい。</p>
+<pre>
+<code>
+npx react-native start
+
+>INFO Dev server ready.Press Ctrl+C to exit.
+>INFO Key commands available:
+>r - reload app(s) -> アプリをリロード（Hot Reloadみたいなもの）
+>d - open Dev Menu -> エミュレーターで Dev Menu を開く
+>j - open DevTools -> React DevTools をブラウザで開く
+
+</code>
+</pre>
+        <h4>Androidエミュレータで起動(※空き容量が8G必要なので注意)</h4>
+        <p>Android Stydioを起動</p>
+        <p>Tools > Device Manager タブを開く</p>
+        <p>「+」ボタン(Add a new Device)をクリック</p>
+        <p>Create Virtual Deviceをクリック</p>
+        <p>Pixcel6 をクリック</p>
+        <p>Additional settingタブを開いて「Expanded storage」について 1 GBに修正</p>
+        <p>Finishをクリック</p>
+        <p>Device ManagerのリストにPixcel6が追加されるので▷(再生)ボタンをクリック</p>
+        <p>エミュレータを認識しているかを確認</p>
+<pre>
+<code>
+E:\workspace\ReactNative\ToriiApp>adb devices
+List of devices attached
+emulator-*****   device ★こちらが追加されている
+</code>
+</pre>
+        <p>Android向けビルド&インストール。こちらの実行でエミュレータでアプリが起動する。</p>
+<pre>
+<code>
+E:\workspace\ReactNative\ToriiApp>npx react-native run-android
+</code>
+</pre>
+        <p>Hello Word画面に書き換えてみる</p>
+<pre>
+<code>
+E:\workspace\ReactNative\ToriiApp\App.tsx
+■修正前
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
+
+import { NewAppScreen } from &#039;@react-native/new-app-screen&#039;;
+import { StatusBar, StyleSheet, useColorScheme, View } from &#039;react-native&#039;;
+import {
+  SafeAreaProvider,
+  useSafeAreaInsets,
+} from &#039;react-native-safe-area-context&#039;;
+
+function App() {
+  const isDarkMode = useColorScheme() === &#039;dark&#039;;
+
+  return (
+    &lt;SafeAreaProvider&gt;
+      &lt;StatusBar barStyle={isDarkMode ? &#039;light-content&#039; : &#039;dark-content&#039;} /&gt;
+      &lt;AppContent /&gt;
+    &lt;/SafeAreaProvider&gt;
+  );
+}
+
+function AppContent() {
+  const safeAreaInsets = useSafeAreaInsets();
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;NewAppScreen
+        templateFileName=&quot;App.tsx&quot;
+        safeAreaInsets={safeAreaInsets}
+      /&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
+
+export default App;
+
+■修正後
+import React from &#039;react&#039;;
+import { SafeAreaView, Text, StyleSheet } from &#039;react-native&#039;;
+
+const App = () =&gt; {
+  return (
+    &lt;SafeAreaView style={styles.container}&gt;
+      &lt;Text style={styles.text}&gt;Hello World!&lt;/Text&gt;
+    &lt;/SafeAreaView&gt;
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: &#039;center&#039;, // 縦方向中央
+    alignItems: &#039;center&#039;,     // 横方向中央
+    backgroundColor: &#039;#f0f0f0&#039;,
+  },
+  text: {
+    fontSize: 32,
+    fontWeight: &#039;bold&#039;,
+    color: &#039;#333&#039;,
+  },
+});
+
+export default App;
+</code>
+</pre>
+        <p>修正後、エミュレータを見てみると、「Hello World」に書き換わったことが確認できる。</p>
+        <h4>アイコンを変更する</h4>
+        <p>以下などでアイコンを作成する。</p>
+        <p><a href="https://makeappicon.com/result/#">makeappicon</a></p>
+        <p>作成したファイルで以下のファイルを置き換える</p>
+<pre>
+<code>
+E:\workspace\ReactNative\ToriiApp\android\app\src\main\res\mipmap-hdpi
+E:\workspace\ReactNative\ToriiApp\android\app\src\main\res\mipmap-mdpi
+E:\workspace\ReactNative\ToriiApp\android\app\src\main\res\mipmap-xhdpi
+E:\workspace\ReactNative\ToriiApp\android\app\src\main\res\mipmap-xxhdpi
+E:\workspace\ReactNative\ToriiApp\android\app\src\main\res\mipmap-xxxhdpi
+</code>
+</pre>
+        <p>Android向けビルド&インストール。アイコンが変更されていることが確認できる。</p>
+<pre>
+<code>
+E:\workspace\ReactNative\ToriiApp>npx react-native run-android
+</code>
+</pre>
+        <h4>実機での動作確認</h4>
+        <p>設定 → デバイス情報 → ビルド番号を7回タップ</p>
+        <p>設定 → 開発者向けオプション → USBデバッグをON</p>
+        <p>USBでPCと接続</p>
+        <p>初回は「このPCを許可しますか？」と端末に表示されるので許可</p>
+        <p>PCで端末を認識しているか確認</p>
+<pre>
+<code>
+E:\workspace\ReactNative\ToriiApp>adb devices
+List of devices attached
+R5*******     device ★こちらが追加されている
+</code>
+</pre>
+        <p>Android向けビルド&インストールを実行すれば実機にアプリがインストールされる。</p>
+<pre>
+<code>
+npx react-native run-android
+</code>
+</pre>
+        <p>修正した場合、Retro 開発サーバでreloadすれば反映されるらしい</p>
+        <h4>apk等の作成について</h4>
+        <p>Expoと手順が同じなため省略</p>
+
         </details>
 
       <div id="log"></div>
