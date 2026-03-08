@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鳥居涼太のポートフォリオサイト</title>
+    <link rel="icon" href="../img/tottori.jpg">
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+     <div id="statusBarParts"></div>
+    <div id="headerParts"></div>
+    <div id="menuParts"></div>
+    <main>
+        <h1>Nodejs</h1>
+        <p id="lastModified"></p>
+
+        <h2>用語</h2>
+        <h3>Nodejs</h3>
+        <p>クロスプラットフォームに対応したフリーでオープンソースのJavaScript実行環境</p>
+        <h3>JavaScriptとの違い</h3>
+        <p>JavaScript:プログラミング言語そのもの、Node.js:JavaScriptをサーバーサイドで動作させるためのランタイム環境</p>
+        <h3>ランタイム環境(Runtime Environment)</h3>
+        <p>プログラムが実行されるために必要なソフトウェアやライブラリ、設定</p>
+        <h3>Express</h3>
+        <p>Node.js 上で動く Webアプリケーションフレームワーク</p>
+        <h3>NestJS</h3>
+        <p>大規模サービス用フレームワーク</p>
+        <h3>EJSファイル(Effective JavaScript Templating)</h3>
+        <p>拡張子は「.ejs」</p>
+        <p>HTMLの中にJavaScriptのコードを直接記述し、サーバーサイドやビルド時に動的なHTMLを生成するためのテンプレートエンジン</p>
+        <h3>ポート3000番</h3>
+        <p>Node.js のチュートリアルやサンプルで 3000番 が使われてきた。「他のサービスとぶつかりにくい番号」として慣習化</p>
+        <h3>MVC</h3>
+        <p>M: Model、V: View、C: Controller</p>
+        <p>MVC とは、アプリケーションを 3つの役割に分けて設計するパターン のこと</p>
+        <h3>Sequelize（シーキュライズ）</h3>
+        <p>Node.js 用の ORM（Object-Relational Mapping）ライブラリ</p>
+        <h3>ORM（Object-Relational Mapping）</h3>
+        <p>DB の テーブルとレコードをオブジェクトとして扱える仕組み</p>
+        <p>DBをオブジェクトとして扱える便利な仕組み</p>
+        <p>基本的なDB操作はORM、複雑なDB操作はORMでは対応できないので普通にSQLで書くのが良いとされている。</p>
+<pre>
+<code>
+■ 普通のSQL（生SQL）
+SELECT * FROM users WHERE id = 1;
+
+■ ORM（Object-Relational Mapping）
+const user = await User.findByPk(1);
+</code>
+</pre>
+
+        <h2>よく使うnpmコマンド</h2>
+        <h3>npm初期化。(デフォルト)</h3>
+        <p>コマンド>npm init -y</p>
+        <h3>package.jsonに設定したライブラリ（パッケージ）をダウンロードして使えるようにするコマンド</h3>
+        <p>コマンド>npm install</p>
+        <h3>特定のライブラリを明示的に最新のライブラリをインストール。</h3>
+        <p>コマンド>npm install ${ライブラリ名}@latest</p>
+        <p>例) npm install express@latest</p>
+        <h3>特定のライブラリを明示的に特定のバージョンのライブラリをインストール。</h3>
+        <p>コマンド>npm install ${ライブラリ名}@${バージョン}</p>
+        <p>例)npm install express@4.18.2</p>
+        <h3>すでに入っているライブラリを新しいバージョンに更新するコマンド</h3>
+        <p>コマンド>npm update</p>
+        <p>メジャーバージョン(1桁目)は上げないらしい。壊れる可能性があるから。</p>
+        <h3>package.json のバージョンを 全部最新に書き換え(メジャーバージョンも含む)</h3>
+        <p>コマンド>npm-check-updates</p>
+        <p>コマンド>npm install</p>
+        <h3>あるライブラリの全バージョンを見る</h3>
+        <p>コマンド>npm view ${ライブラリ名} versions</p>
+        <p>例)npm view express versions</p>
+        <h3>今のプロジェクトに入っているライブラリを全部ツリー形式で表示。(どのライブラリに入っているか調べる)</h3>
+        <p>コマンド>npm ls ${ライブラリ名}</p>
+        <p>例)npm ls express</p>
+<pre>
+<code>
+C:\xampp\htdocs\nodeapp>npm ls express
+nodeapp@1.0.0 C:\xampp\htdocs\nodeapp
++-- @nestjs/platform-express@11.1.16
+| `-- express@5.2.1 deduped
+`-- express@5.2.1
+</code>
+</pre>
+        <h3>脆弱なライブラリ、影響レベル（low / moderate / high / critical）を調べる</h3>
+        <p>コマンド>npm audit</p>
+        <h3>セキュリティの問題（脆弱性）を自動で修正するコマンド</h3>
+        <p>コマンド>npm audit fix</p>
+        <p>安全なバージョンへ自動アップデート</p>
+        <h3>セキュリティの問題（脆弱性）を自動で修正するコマンド(強制修正（危険）)</h3>
+        <p>コマンド>npm audit fix --force</p>
+        <p>メジャーバージョンも上げて修正</p>
+
+        <h2>package.jsonについて</h2>
+        <h3>dependencies</h3>
+        <p>このプロジェクトが動くために必要なライブラリ一覧</p>
+<pre>
+<code>
+"dependencies": {
+  "express": "^4.18.2"
+}
+</code>
+</pre>
+        <h3>overrides</h3>
+        <p>依存ライブラリのバージョンを強制的に上書きする設定</p>
+        <p>内部のライブラリのバージョンを強制変更する</p>
+<pre>
+<code>
+■ 内部のライブラリのバージョンを強制変更する
+{
+  "overrides": {
+    "debug": "4.3.4"
+  }
+}
+■ 特定のライブラリだけ変更(例:expressの中のdebugだけ変更)
+{
+  "overrides": {
+    "express": {
+      "debug": "4.3.4"
+    }
+  }
+}
+</code>
+</pre>
+
+        <h2>事前準備</h2>
+        <p>Nodejsを入手、インストール</p>
+        <a href="https://nodejs.org/ja">Nodejsを入手</a>
+        <p>cmdを立ち上げてバージョンを確認</p>
+<pre>
+<code>
+C:\Users\*****>node -v
+v24.11.1
+</code>
+</pre>
+
+        <h2>コンソールで実行する</h2>
+        <p>「node」を入力してエンター。「console.log('Hello, World!');」を入力でよい。終了するときには「.exit」</p>
+<pre>
+<code>
+C:\Users\*****>node
+Welcome to Node.js v24.11.1.
+Type ".help" for more information.
+> console.log('Hello, World!');
+Hello, World!
+> .exit
+</code>
+</pre>
+
+        <h2>コンソールでファイルを実行する</h2>
+        <p>「hello.js」ファイルを作成。「console.log('Hello, World!');」を記入。</p>
+<pre>
+<code>
+■ hello.js
+console.log('Hello, World!');
+</code>
+</pre>
+        <p>コンソール上で「node hello.js」を実行する。</p>
+<pre>
+<code>
+C:\Users\******\Desktop\work>node hello.js
+Hello, World!
+</code>
+</pre>
+
+        <h2>コンソールでファイルを実行する(コマンドライン引数、readlineモジュールを使用して入力値を受け取り)</h2>
+        <p>「user-input.js」ファイルを作成。日本語を使用するためファイルはutf-8で作成する。</p>
+<pre>
+<code>
+■ user-input.js
+// user-input.js
+const readline = require(&#039;readline&#039;);
+const args = process.argv.slice(2); // コマンドライン引数を取得
+
+// 引数が渡されているか確認
+if (args.length &gt; 0) {
+  console.log(`ようこそ${args[0]}さん！`);
+} else {
+  // 引数がなければ、ユーザーに名前を入力してもらう
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  rl.question(&#039;名前を入力してください: &#039;, (name) =&gt; {
+    console.log(`ようこそ${name}さん！`);
+    rl.close();
+  });
+}
+</code>
+</pre>
+        <p>実行できることを確認</p>
+<pre>
+<code>
+C:\Users\*****\Desktop\work>node user-input.js test
+ようこそtestさん!
+
+C:\Users\*****\Desktop\work>node user-input.js
+名前を入力してください: test
+ようこそtestさん!
+</code>
+</pre>
+
+        <h2>簡易なサーバーを立ち上げる。(実運用には向かない)</h2>
+        <p>「server.js」ファイルを作成。日本語を使用するためファイルはutf-8で作成する。</p>
+<pre>
+<code>
+■ server.js
+const http = require(&#039;http&#039;);
+
+const server = http.createServer((req, res) =&gt; {
+
+  if (req.url === &#039;/&#039;) {
+    res.writeHead(200, { &#039;Content-Type&#039;: &#039;text/plain; charset=UTF-8&#039; });
+    res.end(&#039;トップページ\n&#039;);
+
+  } else if (req.url === &#039;/about&#039;) {
+    res.writeHead(200, { &#039;Content-Type&#039;: &#039;text/plain; charset=UTF-8&#039; });
+    res.end(&#039;Aboutページ\n&#039;);
+
+  } else if (req.url === &#039;/contact&#039;) {
+    res.writeHead(200, { &#039;Content-Type&#039;: &#039;text/plain; charset=UTF-8&#039; });
+    res.end(&#039;Contactページ\n&#039;);
+
+  } else {
+    res.writeHead(404, { &#039;Content-Type&#039;: &#039;text/plain; charset=UTF-8&#039; });
+    res.end(&#039;404 Not Found\n&#039;);
+  }
+});
+
+server.listen(3000, () =&gt; {
+  console.log(&#039;http://localhost:3000 で起動中&#039;);
+});
+</code>
+</pre>
+        <p>ブラウザで「http://localhost:3000/」にアクセス。「トップページ」が表示されることを確認。</p>
+        <p>ブラウザで「http://localhost:3000/about」にアクセス。「Aboutページ」が表示されることを確認。</p>
+        <p>ブラウザで「http://localhost:3000/contact」にアクセス。「Contactページ」が表示されることを確認。</p>
+        <p>ブラウザで「http://localhost:3000/test」にアクセス。「404 Not Found」が表示されることを確認。</p>
+
+        <h2>apacheで動かす</h2>
+        <p>「xampp」をダウンロード・インストール。インストール先は「C:\xampp」</p>
+        <a href="https://www.apachefriends.org/jp/download.html">Xampp ダウンロード</a>
+        <p>リバースプロキシを有効にする。「C:\xampp\apache\conf\httpd.conf」について以下がコメントアウトになっていたら先頭の「#」を除去してコメントアウトを外す。</p>
+<pre>
+<code>
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_http_module modules/mod_proxy_http.so
+
+※proxy_module・・・プロキシ機能の土台。すべてのプロキシに必要
+※proxy_http_module・・・HTTP プロトコルを扱うための拡張。Node.js の HTTP サーバに転送する場合に必要
+</code>
+</pre>
+        <p>リバースプロキシの設定を行う。以下を追記。外部に公開するのはポート「80」のみ。そこから「3000」へ転送する。アプリ側のポートを公開するのはセキュリティ的に良くないためこのようにしているらしい。</p>
+<pre>
+<code>
+■ C:\xampp\apache\conf\extra\httpd-vhosts.conf
+&lt;VirtualHost *:80&gt;
+    ServerName node-app.local
+
+    ProxyPreserveHost On
+    ProxyPass / http://127.0.0.1:3000/
+    ProxyPassReverse / http://127.0.0.1:3000/
+
+    ErrorLog &quot;logs/node-app-error.log&quot;
+    CustomLog &quot;logs/node-app-access.log&quot; common
+&lt;/VirtualHost&gt;
+</code>
+</pre>
+        <p>xamppのapacheを再起動</p>
+        <p>hostsの設定を行う。「C:\Windows\System32\drivers\etc\hosts」に以下を追記</p>
+<pre>
+<code>
+127.0.0.1 node-app.local
+</code>
+</pre>
+        <p>「server.js」「index.html」を作成</p>
+<pre>
+<code>
+■ ファイル構成
+nodeapp/
+ ├─ server.js
+ └─ public/
+      └─ index.html
+</code>
+</pre>
+<pre>
+<code>
+■ server.js
+const http = require(&#039;http&#039;);
+const fs = require(&#039;fs&#039;);
+const path = require(&#039;path&#039;);
+
+const PORT = 3000;
+
+const server = http.createServer((req, res) =&gt; {
+  console.log(`Request received: ${req.url}`);
+
+  if (req.url === &#039;/&#039;) {
+    const filePath = path.join(__dirname, &#039;public&#039;, &#039;index.html&#039;);
+
+    fs.readFile(filePath, (err, data) =&gt; {
+      if (err) {
+        res.writeHead(500);
+        res.end(&#039;Server Error&#039;);
+        return;
+      }
+
+      res.writeHead(200, { &#039;Content-Type&#039;: &#039;text/html; charset=UTF-8&#039; });
+      res.end(data);
+    });
+
+  } else if (req.url === &#039;/api&#039;) {
+    res.writeHead(200, { &#039;Content-Type&#039;: &#039;application/json; charset=UTF-8&#039; });
+    res.end(JSON.stringify({ message: &#039;JSON response from Node.js&#039; }));
+
+  } else {
+    res.writeHead(404);
+    res.end(&#039;Not Found&#039;);
+  }
+});
+
+server.listen(PORT, &#039;127.0.0.1&#039;, () =&gt; {
+  console.log(`Server running at http://127.0.0.1:${PORT}`);
+});
+
+■ index.html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Test&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello HTML File&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
+        <p>cmdから「server.js」を起動させる。PHPとは違い、サーバー側も起動させる必要がある。</p>
+<pre>
+<code>
+C:\xampp\htdocs\nodeapp>node server.js
+Node.js server running at http://127.0.0.1:3000
+</code>
+</pre>
+        <p>ブラウザからアクセスする。「http://node-app.local/」「http://node-app.local/api」「http://node-app.local/test」</p>
+
+        <h2>apache + Expressで動かす</h2>
+        <h3>事前準備</h3>
+        <p>「xamppのapacheを再起動」で設定した、リバースプロキシ等</p>
+        <h3>環境構築</h3>
+        <p>「npm init -y」でnpm初期化。</p>
+        <p>「npm install express」でExpressインストール。「package.json」「package-lock.json」「node_modules」が作成される。</p>
+<pre>
+<code>
+C:\xampp\htdocs\nodeapp>npm init -y
+Wrote to C:\xampp\htdocs\nodeapp\package.json:
+
+{
+  "name": "nodeapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
+C:\xampp\htdocs\nodeapp>npm install express
+
+added 65 packages, and audited 66 packages in 3s
+
+22 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+</code>
+</pre>
+        <p>フォルダ構成</p>
+<pre>
+<code>
+nodeapp/
+ ├─ app.js
+ ├─ package.json
+ ├─ package-lock.json
+ └─ node_modules/
+ └─ public/
+      └─ index.html
+</code>
+</pre>
+        <p>各種ファイルを作成。「app.js」「index.html」</p>
+<pre>
+<code>
+■ C:\xampp\htdocs\nodeapp\app.js
+const express = require(&#039;express&#039;);
+const path = require(&#039;path&#039;);
+const app = express();
+
+const PORT = 3000;
+
+// 静的ファイル配信(public フォルダ内の HTML/CSS/JS)
+app.use(express.static(path.join(__dirname, &#039;public&#039;)));
+
+// API
+app.get(&#039;/api&#039;, (req, res) =&gt; {
+  res.json({ message: &#039;JSON response from Express&#039; });
+});
+
+// catch-all 404
+app.use((req, res) =&gt; {
+  res.status(404).send(&#039;Not Found&#039;);
+});
+
+app.listen(PORT, &#039;127.0.0.1&#039;, () =&gt; {
+  console.log(`Express running at http://127.0.0.1:${PORT}`);
+});
+&lt;/code&gt;
+&lt;/pre&gt;
+&lt;pre&gt;
+&lt;code&gt;
+
+■ C:\xampp\htdocs\nodeapp\public\index.html
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Express テスト&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello from Express テスト&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+■ C:\xampp\htdocs\nodeapp\package.json
+{
+  &quot;name&quot;: &quot;test&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;type&quot;: &quot;commonjs&quot;,
+  &quot;dependencies&quot;: {
+    &quot;express&quot;: &quot;^5.2.1&quot;
+  }
+}
+</code>
+</pre>
+        <p>nodeを立ち上げる</p>
+<pre>
+<code>
+C:\xampp\htdocs\nodeapp>node app.js
+</code>
+</pre>
+        <p>ブラウザからアクセスする。「http://localhost:3000/」</p>
+
+        <h2>apache + NestJSで動かす(DB接続 + Sequelize + MVC + 画面)</h2>
+        <h3>事前準備</h3>
+        <p>「xamppのapacheを再起動」で設定した、リバースプロキシ等</p>
+        <h3>DBを準備する</h3>
+        <p>postgresをローカルにインストール</p>
+        <p>データベースを作成する。「test」という名前にしてみる。</p>
+        <p>テーブルを作成する。「Memo」テーブルを試しに作成した。</p>
+<pre>
+<code>
+■ テーブル名
+Memo
+■ 項目
+id・・・serial(primary key)
+title・・・varchar(255)
+content・・・text
+createAt・・・timestamp without timezone
+updatedAt・・・timestamp without timezone
+※createAt、updatedAtはNestJSのデフォルトになるらしいから付けておく。
+</code>
+</pre>
+        <p>「Memo」テーブルにテストデータを適当に入れておく。</p>
+        <h3>環境構築</h3>
+        <p>npm初期化。「npm init -y」</p>
+        <p>nestjs関連のライブラリをインストール。「npm install @nestjs/core@latest @nestjs/common@latest @nestjs/platform-express@latest reflect-metadata rxjs」</p>
+        <p>DB関連のライブラリをインストール。「npm install express sequelize pg pg-hstore」</p>
+        <p>ejsのライブラリををインストール。「npm install ejs」</p>
+<pre>
+<code>
+C:\xampp\htdocs\nodeapp>npm init -y
+Wrote to C:\xampp\htdocs\nodeapp\package.json:
+
+{
+  "name": "nodeapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
+
+C:\xampp\htdocs\nodeapp>npm install @nestjs/core@latest @nestjs/common@latest @nestjs/platform-express@latest reflect-metadata rxjs
+
+added 103 packages, and audited 104 packages in 6s
+
+36 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+C:\xampp\htdocs\nodeapp>npm install express sequelize pg pg-hstore
+
+added 34 packages, and audited 138 packages in 8s
+
+37 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+C:\xampp\htdocs\nodeapp>npm install ejs
+
+added 1 package, and audited 139 packages in 2s
+
+37 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+</code>
+</pre>
+        <p>フォルダ構成</p>
+<pre>
+<code>
+project/
+ ├─ app.js                  ← Expressサーバ起動、共通設定
+ ├─ config/
+ │    └─ database.js         ← Sequelize / DB接続設定
+ ├─ models/                  ← DBモデル
+ │    └─ Memo.js
+ ├─ controllers/             ← MVCのController
+ │    └─ PageController.js   ← 画面用
+ ├─ routes/                  ← ルート設定
+ │    └─ pages.js            ← 画面ルート (/)
+ │─ public/                  ← 静的ファイル(CSS, JS, 画像など)
+ └─ views/                   ← EJSテンプレート
+      └─ index.ejs
+</code>
+</pre>
+        <p>各種ファイルを作成。「database.js」「Memo.js」「PageController.js」「pages.js」「index.ejs」</p>
+<pre>
+<code>
+■ C:\xampp\htdocs\nodeapp\config\database.js
+const { Sequelize } = require(&quot;sequelize&quot;)
+
+const sequelize = new Sequelize(
+  &quot;test&quot;,
+  &quot;postgres&quot;,
+  &quot;postgres&quot;,
+  {
+    host: &quot;localhost&quot;,
+    dialect: &quot;postgres&quot;
+  }
+)
+
+module.exports = sequelize
+
+■ C:\xampp\htdocs\nodeapp\models\Memo.js
+const { DataTypes } = require(&quot;sequelize&quot;)
+const sequelize = require(&quot;../config/database&quot;)
+
+const Memo = sequelize.define(&quot;Memo&quot;, {   // テーブル名に合わせる
+  title: {
+    type: DataTypes.STRING
+  },
+  content: {
+    type: DataTypes.TEXT
+  }
+}, {
+  freezeTableName: true,   // 名前をそのまま使う
+  tableName: &quot;Memo&quot;,       // PgAdmin 上のテーブル名を明示
+  schema: &quot;public&quot;         // publicスキーマを明示
+})
+
+module.exports = Memo
+
+■ C:\xampp\htdocs\nodeapp\controllers\PageController.js
+const Memo = require(&#039;../models/Memo&#039;);
+
+exports.index = async (req, res) =&gt; {
+  try {
+    const memos = await Memo.findAll();
+    // EJSテンプレートに渡す
+    res.render(&#039;index&#039;, { memos });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send(&quot;DBエラー&quot;);
+  }
+};
+
+■ C:\xampp\htdocs\nodeapp\routes\pages.js
+const express = require(&#039;express&#039;);
+const router = express.Router();
+const PageController = require(&#039;../controllers/PageController&#039;);
+
+router.get(&#039;/&#039;, PageController.index);
+
+module.exports = router;
+
+■ C:\xampp\htdocs\nodeapp\views\index.ejs
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;title&gt;Hello&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Hello World&lt;/h1&gt;
+
+&lt;h2&gt;DBの結果&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;% memos.forEach(function(memo){ %&gt;
+    &lt;li&gt;&lt;%= memo.id %&gt;: &lt;%= memo.title %&gt; - &lt;%= memo.content %&gt;&lt;/li&gt;
+  &lt;% }) %&gt;
+&lt;/ul&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+■ C:\xampp\htdocs\nodeapp\app.js
+const express = require(&quot;express&quot;);
+const path = require(&quot;path&quot;);
+const sequelize = require(&quot;./config/database&quot;);
+const pageRoutes = require(&quot;./routes/pages&quot;);
+
+const app = express();
+
+app.use(express.json());
+
+// EJSを使う設定
+app.set(&quot;view engine&quot;, &quot;ejs&quot;);
+app.set(&quot;views&quot;, path.join(__dirname, &quot;views&quot;));
+
+// ルート
+app.use(&quot;/&quot;, pageRoutes);
+
+// 静的ファイル
+app.use(express.static(path.join(__dirname, &quot;public&quot;)));
+
+async function start() {
+  try {
+    await sequelize.authenticate();
+    console.log(&quot;DB connected:&quot;, sequelize.getDatabaseName());
+
+    await sequelize.sync({ alter: false });
+
+    app.listen(3000, () =&gt; {
+      console.log(&quot;Server started: http://localhost:3000&quot;);
+    });
+  } catch (err) {
+    console.error(&quot;Error:&quot;, err);
+  }
+}
+
+start();
+
+■ C:\xampp\htdocs\nodeapp\package.json
+{
+  &quot;name&quot;: &quot;nodeapp&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;app.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;type&quot;: &quot;commonjs&quot;,
+  &quot;dependencies&quot;: {
+    &quot;@nestjs/common&quot;: &quot;^11.1.16&quot;,
+    &quot;@nestjs/core&quot;: &quot;^11.1.16&quot;,
+    &quot;@nestjs/platform-express&quot;: &quot;^11.1.16&quot;,
+    &quot;ejs&quot;: &quot;^5.0.1&quot;,
+    &quot;express&quot;: &quot;^5.2.1&quot;,
+    &quot;pg&quot;: &quot;^8.20.0&quot;,
+    &quot;pg-hstore&quot;: &quot;^2.3.4&quot;,
+    &quot;reflect-metadata&quot;: &quot;^0.2.2&quot;,
+    &quot;rxjs&quot;: &quot;^7.8.2&quot;,
+    &quot;sequelize&quot;: &quot;^6.37.7&quot;
+  }
+}
+</code>
+</pre>
+        <p>nodeを立ち上げる</p>
+<pre>
+<code>
+C:\xampp\htdocs\nodeapp>node app.js
+</code>
+</pre>
+        <p>ブラウザからアクセスする。「http://localhost:3000/」</p>
+
+        </details>
+
+      <div id="log"></div>
+    </main>
+    <div id="operationParts"></div>
+    <div id="footerParts"></div>
+    <script src="../js/jquery-3.6.1.min.js"></script>
+    <script>
+        'use strict';
+        {
+            $("#statusBarParts").load("../parts/statusBar.html");
+            $("#headerParts").load("../parts/header.html");
+            $("#menuParts").load("../parts/menu.html");
+            $("#operationParts").load("../parts/operation.html");
+            $("#footerParts").load("../parts/footer.html");
+        }
+    </script>
+    <script src="../js/util.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/common.js"></script>
+</body>
+</html>
