@@ -124,6 +124,18 @@ nodeapp@1.0.0 C:\xampp\htdocs\nodeapp
 }
 </code>
 </pre>
+        <h3>scripts</h3>
+        <p>npmから実行できるコマンドのショートカット</p>
+        <p>herokuが起動するごとに実行してくれるらしい。</p>
+<pre>
+<code>
+{
+  "scripts": {
+    "start": "node app.js"
+  }
+}
+</code>
+</pre>
 
         <h2>事前準備</h2>
         <p>Nodejsを入手、インストール</p>
@@ -150,6 +162,7 @@ Hello, World!
 </pre>
 
         <h2>コンソールでファイルを実行する</h2>
+        <details>
         <p>「hello.js」ファイルを作成。「console.log('Hello, World!');」を記入。</p>
 <pre>
 <code>
@@ -164,8 +177,10 @@ C:\Users\******\Desktop\work>node hello.js
 Hello, World!
 </code>
 </pre>
+        </details>
 
         <h2>コンソールでファイルを実行する(コマンドライン引数、readlineモジュールを使用して入力値を受け取り)</h2>
+        <details>
         <p>「user-input.js」ファイルを作成。日本語を使用するためファイルはutf-8で作成する。</p>
 <pre>
 <code>
@@ -202,8 +217,10 @@ C:\Users\*****\Desktop\work>node user-input.js
 ようこそtestさん!
 </code>
 </pre>
+        </details>
 
         <h2>簡易なサーバーを立ち上げる。(実運用には向かない)</h2>
+        <details>
         <p>「server.js」ファイルを作成。日本語を使用するためファイルはutf-8で作成する。</p>
 <pre>
 <code>
@@ -239,8 +256,10 @@ server.listen(3000, () =&gt; {
         <p>ブラウザで「http://localhost:3000/about」にアクセス。「Aboutページ」が表示されることを確認。</p>
         <p>ブラウザで「http://localhost:3000/contact」にアクセス。「Contactページ」が表示されることを確認。</p>
         <p>ブラウザで「http://localhost:3000/test」にアクセス。「404 Not Found」が表示されることを確認。</p>
+        </details>
 
         <h2>apacheで動かす</h2>
+        <details>
         <p>「xampp」をダウンロード・インストール。インストール先は「C:\xampp」</p>
         <a href="https://www.apachefriends.org/jp/download.html">Xampp ダウンロード</a>
         <p>リバースプロキシを有効にする。「C:\xampp\apache\conf\httpd.conf」について以下がコメントアウトになっていたら先頭の「#」を除去してコメントアウトを外す。</p>
@@ -347,8 +366,10 @@ Node.js server running at http://127.0.0.1:3000
 </code>
 </pre>
         <p>ブラウザからアクセスする。「http://node-app.local/」「http://node-app.local/api」「http://node-app.local/test」</p>
+        </details>
 
         <h2>apache + Expressで動かす</h2>
+        <details>
         <h3>事前準備</h3>
         <p>「xamppのapacheを再起動」で設定した、リバースプロキシ等</p>
         <h3>環境構築</h3>
@@ -464,8 +485,10 @@ C:\xampp\htdocs\nodeapp>node app.js
 </code>
 </pre>
         <p>ブラウザからアクセスする。「http://localhost:3000/」</p>
+        </details>
 
         <h2>apache + NestJSで動かす(DB接続 + Sequelize + MVC + 画面)</h2>
+        <details>
         <h3>事前準備</h3>
         <p>「xamppのapacheを再起動」で設定した、リバースプロキシ等</p>
         <h3>DBを準備する</h3>
@@ -708,8 +731,212 @@ C:\xampp\htdocs\nodeapp>node app.js
 </code>
 </pre>
         <p>ブラウザからアクセスする。「http://localhost:3000/」</p>
-
         </details>
+
+        <h2>Heroku + NestJSで動かす</h2>
+        <details>
+        <h3>事前準備</h3>
+        <p>apache + NestJSで動かす(DB接続 + Sequelize + MVC + 画面)の手順を行っておく。</p>
+        <h3>Herokuに対応した形に修正</h3>
+        <p>dotenvのライブラリををインストール。「npm install dotenv」</p>
+<pre>
+<code>
+C:\xampp\htdocs\nodeapp>npm install dotenv
+</code>
+</pre>
+        <p>「package.json」の修正(scriptsを修正)</p>
+<pre>
+<code>
+{
+  "name": "nodeapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@nestjs/common": "^11.1.16",
+    "@nestjs/core": "^11.1.16",
+    "@nestjs/platform-express": "^11.1.16",
+    "dotenv": "^17.3.1",
+    "ejs": "^5.0.1",
+    "express": "^5.2.1",
+    "pg": "^8.20.0",
+    "pg-hstore": "^2.3.4",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "sequelize": "^6.37.7"
+  }
+}
+</code>
+</pre>
+        <p>「app.js」の修正 (アプリ起動をprocess.env.PORTを使用するように修正。)</p>
+<pre>
+<code>
+const express = require("express");
+const path = require("path");
+const sequelize = require("./config/database");
+const pageRoutes = require("./routes/pages");
+
+const app = express();
+
+app.use(express.json());
+
+// EJS設定
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+// 静的ファイル
+app.use(express.static(path.join(__dirname, "public")));
+
+// ルート
+app.use("/", pageRoutes);
+
+// Heroku対応ポート
+const PORT = process.env.PORT || 3000;
+
+async function start() {
+  try {
+    await sequelize.authenticate();
+    console.log("DB connected:", sequelize.getDatabaseName());
+
+    await sequelize.sync({ alter: false });
+
+    app.listen(PORT, () => {
+      console.log(`Server started: ${PORT}`);
+    });
+
+  } catch (err) {
+    console.error("Error:", err);
+  }
+}
+
+start();
+</code>
+</pre>
+        <p>「database.js」の修正 (DB接続をprocess.env.DATABASE_URLを使用出来るように修正。)</p>
+<pre>
+<code>
+const { Sequelize } = require("sequelize");
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
+let sequelize;
+
+if (process.env.DATABASE_URL) {
+  // Heroku用（DATABASE_URLがある場合）
+  sequelize = new Sequelize(process.env.DATABASE_URL, { 
+    dialect: 'postgres',
+    protocol: 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    }
+  });
+} else {
+  // ローカル用（.envから読み込む場合）
+  sequelize = new Sequelize(
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
+    {
+      host: process.env.DB_HOST,
+      dialect: process.env.DB_DIALECT,
+      port: process.env.DB_PORT
+    }
+  );
+}
+
+module.exports = sequelize;
+</code>
+</pre>
+      <p>Herokuでアプリを作成(例:toriisan-nodejs-001)</p>
+      <p>コンソールの「Reesources」タブにて「Heroku Postgres」(Essential 0(0.0007/hour(Max of $5.00/month)))、「Papertrail」(Choklad - Free)アドオンを追加</p>
+      <p>コンソールの「Settings」タブにて環境変数を追加する。一部はアドオンが勝手に追加する。PORTについて、設定不要らしい。</p>
+<pre>
+<code>
+DATABASE_URL:***************** ※Postgresアドオンが勝手に追加している
+NODE_ENV:production
+</code>
+</pre>
+      <p>Postgresアドオンについて適当なテーブルを作成。A5M2からテストデータも入れておく。接続先は「DATABASE_URL」を参照。</p>
+<pre>
+<code>
+■ A5M2の設定について
+〇登録方法
+A5M2のデータベースの内容を登録 - PostgresSQL(直接接続)
+
+〇SSL設定
+SSLモード:優先(SSL接続を優先)
+サーバー証明書を信用するにチェックを入れておく
+
+〇 接続先についてDATABASE_URLを参照する。以下のようになっている
+DATABASE_URL=postgres://user:password@host:5432/dbname
+
+■ テストで作成するテーブル
+〇 テーブル名
+Memo
+〇 項目
+id・・・serial(primary key)
+title・・・varchar(255)
+content・・・text
+createAt・・・timestamp without timezone
+updatedAt・・・timestamp without timezone
+
+■ create SQL
+create table public."Memo" (
+  id serial not null
+  , title character varying(255)
+  , content text
+  , "createdAt" timestamp(6) with time zone
+  , "updatedAt" timestamp(6) with time zone
+  , primary key (id)
+);
+</code>
+</pre>
+      <p>追加したアプリのgitをローカルにクローンする。(コンソールの「Settings」タブの「Heroku Git URL」を参照)</p>
+      <p>追加したアプリに各種ファイルをcommit・pushする。</p>
+<pre>
+<code>
+■ cloneするときにGitの認証を求められる。以下を入力で良い。
+ユーザー名：Herokuに登録したメールアドレス
+パスワード：APIキー(Herokuのアカウント画面 - アカウントタブにてAPIキーを確認しておく)
+
+■ ignore対象(コミットするときに邪魔になるので登録しておく)
+C:\xampp\htdocs\toriisan-nodejs-001\.gitignore
+.gitignore
+node_modules
+.env
+
+■ commit対象
+project/
+ ├─ package.json             ← commit対象
+ ├─ package-lock.json        ← commit対象
+ ├─ app.js                   ← commit対象
+ ├─ config/
+ │    └─ database.js         ← commit対象
+ ├─ models/
+ │    └─ Memo.js             ← commit対象
+ ├─ controllers/
+ │    └─ PageController.js   ← commit対象
+ ├─ routes/
+ │    └─ pages.js            ← commit対象
+ │─ public/
+ └─ views/
+      └─ index.ejs           ← commit対象
+</code>
+</pre>
+        <p>ブラウザからアプリにアクセスする。コンソールの右上の「Open app」を押すとアクセス先に移動する。</p>
+      </details>
 
       <div id="log"></div>
     </main>
