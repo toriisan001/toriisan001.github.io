@@ -484,7 +484,7 @@ app.listen(PORT, &#039;127.0.0.1&#039;, () =&gt; {
 C:\xampp\htdocs\nodeapp>node app.js
 </code>
 </pre>
-        <p>ブラウザからアクセスする。「http://localhost:3000/」</p>
+        <p>ブラウザからアクセスする。「http://node-app.local/」</p>
         </details>
 
         <h2>apache + NestJSで動かす(DB接続 + Sequelize + MVC + 画面)</h2>
@@ -730,7 +730,7 @@ start();
 C:\xampp\htdocs\nodeapp>node app.js
 </code>
 </pre>
-        <p>ブラウザからアクセスする。「http://localhost:3000/」</p>
+        <p>ブラウザからアクセスする。「http://node-app.local/」</p>
         </details>
 
         <h2>Heroku + NestJSで動かす</h2>
@@ -773,6 +773,17 @@ C:\xampp\htdocs\nodeapp>npm install dotenv
     "sequelize": "^6.37.7"
   }
 }
+</code>
+</pre>
+        <p>「nodeapp\.env」を作成</p>
+<pre>
+<code>
+DB_NAME=test
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_HOST=localhost
+DB_DIALECT=postgres
+PORT=3000
 </code>
 </pre>
         <p>「app.js」の修正 (アプリ起動をprocess.env.PORTを使用するように修正。)</p>
@@ -937,6 +948,109 @@ project/
 </pre>
         <p>ブラウザからアプリにアクセスする。コンソールの右上の「Open app」を押すとアクセス先に移動する。</p>
       </details>
+
+      <h2>ログを出力する。(ローカル・herokuに対応)</h2>
+      <details>
+      <h3>ファイル構成</h3>
+<pre>
+<code>
+project/
+ ├─ app.js                  ← Expressサーバ起動、共通設定
+ ├─ config/
+ │    ├─ database.js         ← Sequelize / DB接続設定
+ │    └─ logger.js           ← winston ロガー設定
+ ├─ models/                  ← DBモデル
+ │    └─ Memo.js
+ ├─ controllers/             ← MVCのController
+ │    └─ PageController.js
+ ├─ routes/                  ← ルート設定
+ │    └─ pages.js
+ ├─ public/                  ← 静的ファイル(CSS, JS, 画像など)
+ ├─ views/                   ← EJSテンプレート
+ │    └─ index.ejs
+ └─ logs/
+      └─ app.log             ← ローカル用ログファイル（Herokuでは不要）
+</code>
+</pre>
+        <h3>手順</h3>
+        <p>winstonをインストール。今回は「"winston": "^3.19.0"」が入った。</p>
+<pre>
+<code>
+npm install winston
+</code>
+</pre>
+        <p>winston ロガー設定を作成。「nodeapp\config\logger.js」</p>
+<pre>
+<code>
+const { createLogger, format, transports } = require(&#039;winston&#039;);
+const path = require(&#039;path&#039;);
+
+// ログファイルのパス（ローカル用）
+const logFilePath = path.join(__dirname, &#039;..&#039;, &#039;logs&#039;, &#039;app.log&#039;);
+
+const logger = createLogger({
+  level: &#039;info&#039;,
+  format: format.combine(
+    format.timestamp({ format: &#039;YYYY-MM-DD HH:mm:ss&#039; }),
+    format.printf(({ timestamp, level, message }) =&gt; {
+      return `${timestamp} [${level.toUpperCase()}] ${message}`;
+    })
+  ),
+  transports: []
+});
+
+// 環境によって出力先を変える
+if (process.env.NODE_ENV === &#039;production&#039;) {
+  // Herokuなど本番 &rarr; 標準出力
+  logger.add(new transports.Console());
+} else {
+  // ローカル開発 &rarr; コンソール + ファイル
+  logger.add(new transports.Console());
+  logger.add(new transports.File({ filename: logFilePath }));
+}
+
+module.exports = logger;
+</code>
+</pre>
+        <p>適当なファイルから呼び出す。今回は「page.js」から呼び出してみる。loggerをrequireで読み込んでから使用する。</p>
+<pre>
+<code>
+const express = require('express');
+const logger = require('./config/logger');
+const router = express.Router();
+const PageController = require('../controllers/PageController');
+
+// トップページアクセス
+router.get('/', (req, res, next) => {
+  logger.info(`アクセス: ${req.method} ${req.originalUrl} from ${req.ip}`);
+  PageController.index(req, res, next);
+});
+
+module.exports = router;
+</code>
+</pre>
+        <p>ローカルで動かすためxamppのapache、nodeを立ち上げる</p>
+<pre>
+<code>
+C:\xampp\htdocs\nodeapp>node app.js
+</code>
+</pre>
+        <p>ブラウザからアクセスする。「http://node-app.local/」</p>
+        <p>「\nodeapp\logs\app.log」が勝手に作成される。</p>
+<pre>
+<code>
+■ \nodeapp\logs\app.log
+2026-03-14 22:28:53 [INFO] アクセス: GET / from ::ffff:127.0.0.1
+</code>
+</pre>
+        <p>「logger.js」「pages.js」「package.json」「package-lock.json」をherokにコミット・プッシュする</p>
+        <p>herokuのアプリにブラウザからアクセス。herokuのアドオン「papertrail」を参照してログが出力されたことを確認</p>
+<pre>
+<code>
+Mar 14 22:40:15 toriisan-nodejs-001 app/web.1 2026-03-14 13:40:15 [INFO] アクセス: GET / from ::ffff:10.1.81.63
+</code>
+</pre>
+        </details>
 
       <div id="log"></div>
     </main>
